@@ -1,0 +1,7 @@
+<Alloy>
+	<Window id="win" backgroundColor="#ecfaff">
+		<ImageView id="image" image="/images/Mindsmesh_logo_highres.png" top="25"/>
+		<Button id="signup" title="Sign Up" height="30dp" width="200" bottom="70dp">
+		<Button id="login" title="Login" height="30dp" width="200" bottom="30dp">
+	</Window>
+</Alloy>
