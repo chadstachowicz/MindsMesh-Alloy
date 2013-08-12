@@ -1,7 +1,25 @@
 <Alloy>
-	<Window id="win" backgroundColor="#ecfaff">
-		<ImageView id="image" image="/images/Mindsmesh_logo_highres.png" top="25"/>
-		<Button id="signup" title="Sign Up" height="30dp" width="200" bottom="70dp">
-		<Button id="login" title="Login" height="30dp" width="200" bottom="30dp">
+	<Window id="indexWindow" class="container">
+		
+		
+       <View layout="vertical" id="mainView" class="mainView">   
+       	
+			<Button id="btnLogin" onClick="goLogin" class="buttoncls">Login</Button>
+			<Button id="btnFeed" onClick="goFeed" class="buttoncls">Feed</Button>	       	
+			<Button id="btnSideMenu" onClick="goSideMenu" class="buttoncls">SideMenu</Button>	 
+			<Button id="btnSideView" onClick="goSideView" class="buttoncls">SideView</Button>	 
+			   		       	
+			   		       	
+			   		       	
+			   		       	
+			   		       	
+			<ImageView id="image" class="imageView" image="/images/Mindsmesh_logo_highres.png"/>
+			
+        </View>
+        
+        
+
+		<Label class="welcomeMessage">Welcome to EDU Mesh</Label>
+        <Button id="btnNext" onClick="goFeed" class="nextButton">Next</Button>				
 	</Window>
 </Alloy>

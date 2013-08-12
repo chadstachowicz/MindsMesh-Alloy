@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ti:app xmlns:ti="http://ti.appcelerator.org">
+<?xml version="1.0" encoding="UTF-8"?><ti:app xmlns:ti="http://ti.appcelerator.org">
     <property name="acs-oauth-secret-production" type="string">fKuHoTpuxkpZxPtYCcrByAwVsdOni6Ki</property>
     <property name="acs-oauth-key-production" type="string">idlPBxkfil9uDQDpzWLuQCtIsZhZCRe2</property>
     <property name="acs-api-key-production" type="string">3U7neP2cYgwSUa36jQGjAkAkSARtDwpQ</property>
@@ -14,7 +13,7 @@
         <target device="android">true</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>3.1.0.GA</sdk-version>
+    <sdk-version>3.2.0.v20130801162445</sdk-version>
     <id>com.edumesh.mobile</id>
     <name>EduMesh</name>
     <version>1.0</version>
@@ -61,8 +60,10 @@
         <module platform="android">facebook</module>
         <module platform="iphone">facebook</module>
         <module platform="android">ti.physicalsizecategory</module>
+        <module platform="android">ti.map</module>
     </modules>
     <plugins>
         <plugin version="1.0">ti.alloy</plugin>
     </plugins>
+    <property name="ti.deploytype">development</property>
 </ti:app>

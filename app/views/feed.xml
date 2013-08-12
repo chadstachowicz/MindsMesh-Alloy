@@ -1,0 +1,61 @@
+<Alloy>
+    <Window id="feedWindow" class="container" formFactor="handheld">
+        <ListView id="list" class="list" defaultItemTemplate="template1" onItemclick="ItemClick">
+            <Templates>
+                <!-- main template for displaying the list items -->
+                <ItemTemplate  id="template1" name="template1"  class="template1">
+                	
+                	
+                	
+               
+                	<View layout="horizontal" id="templateView" class="horizontalView" onClick="itemClickBtnClicked">
+        			    <ImageView id="pic"  bindId="pic" class="imageThumb"/>	
+                       	<View layout="vertical" id="commentView" class="commentView">
+        					<Label id="textLabel" layout="vertical" bindId="textLabel" class="title"/>
+        	
+	                    	<View layout="horizontal" id="horizontalView" class="horizontalView">
+		                    	<Label id="nameLabel" bindId="nameLabel" class="name"/>  
+		                    	<ImageView id="attachmentImage"  bindId="attachmentImage" class="attachment"/>
+		                    	<Button id="itemClickBtn" onClick="itemClickBtnClicked" class="itemButton">open</Button>			                    		
+	                    	</View>           	
+        	
+        	
+        					<Label id="idLabel"  bindId="idLabel" class="id"/> 
+        				</View> 	
+                	</View>
+                	
+                	
+
+                	<!-- 
+                	<View id="templateView" onClick="itemClickBtnClicked" >  
+		                <ImageView id="pic"  bindId="pic" class="imageThumb"/>	
+	         			<View layout="vertical" id="commentView" class="commentView">     
+		                    <Label id="textLabel" layout="vertical" bindId="textLabel" class="title"/>
+		                    <View layout="horizontal" id="horizontalView" class="horizontalView"> 
+		                    	<Label id="nameLabel" bindId="nameLabel" class="name"/>  
+		                    	<Button id="itemClickBtn" onClick="itemClickBtnClicked" class="itemButton">open</Button>		                    	                     
+							</View>
+							<Label id="idLabel"  bindId="idLabel" class="id"/> 
+						</View>
+		                <ImageView id="attachmentImage"  bindId="attachmentImage" class="attachment"/>
+					</View>
+					 -->
+					
+					
+					
+					
+		
+					
+					
+                </ItemTemplate>
+            </Templates>
+            <!-- we only have one section and the items are contstucted using template1 -->
+            <ListSection id="section">
+                <ListItem template="template1" />
+            </ListSection>
+        </ListView>
+        
+        <Button id="backBtn" onClick="backBtnClicked">back</Button>        
+        <Button id="loadMoreBtn" onClick="loadMoreBtnClicked">Load More</Button>
+    </Window>
+</Alloy>

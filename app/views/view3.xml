@@ -1,5 +1,10 @@
 <Alloy>
 	<View id="view3">
+		<!-- 
+		
+		
 		<View ns="Ti.Map" id="timap" />
+		-->
+		
 	</View>
 </Alloy>

@@ -1,3 +1,6 @@
+
+
+
 var leftData = [];
 var rightData = [];
 
@@ -124,9 +127,16 @@ Ti.App.addEventListener("sliderToggled", function(e) {
 	}
 });
 
+
+
+
+
 if (Ti.Platform.osname === 'iphone')
 	$.win.open({
 		transition : Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
 	});
 else
 	$.win.open();
+	
+	
+

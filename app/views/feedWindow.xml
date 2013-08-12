@@ -1,0 +1,30 @@
+<Alloy>
+    <Window class="container" formFactor="handheld">
+        <ListView id="list" defaultItemTemplate="template1">
+            <Templates>
+                <ItemTemplate name="buttonItem" height="Ti.UI.SIZE">
+                    <!-- will use this in the next blog post -->
+
+                </ItemTemplate>
+                <!-- main template for displaying the list items -->
+                <ItemTemplate  id="template1" name="template1"  class="template1">
+                    <ImageView id="pic"  bindId="pic" class="imageThumb"/>
+                    <View id="textContainer">
+                        <Label id="textLabel" bindId="textLabel" class="title"/>
+                    </View>
+                </ItemTemplate>
+            </Templates>
+            <!-- we only have one section and the items are contstucted using template1 -->
+            <ListSection id="section" >
+                <ListItem template="template1" />
+            </ListSection>
+        </ListView>
+    </Window>
+</Alloy>
+
+
+<!-- 
+<Alloy>
+    <TableViewRow id="rowView2"/>
+</Alloy>
+-->

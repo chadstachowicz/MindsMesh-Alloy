@@ -1,14 +1,17 @@
 function WPATH(s) {
     var index = s.lastIndexOf("/");
     var path = -1 === index ? "ds.slideMenu/" + s : s.substring(0, index) + "/ds.slideMenu/" + s.substring(index + 1);
-    return path;
+    return true && 0 !== path.indexOf("/") ? "/" + path : path;
 }
 
 function Controller() {
     new (require("alloy/widget"))("ds.slideMenu");
+    this.__widgetId = "ds.slideMenu";
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
+    this.__controllerPath = "widget";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
+    arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
     $.__views.containerview = Ti.UI.createView({

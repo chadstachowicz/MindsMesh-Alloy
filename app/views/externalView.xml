@@ -1,0 +1,11 @@
+<Alloy>
+	<Window class="container" id="externalViewWindow">
+        <Label id="headerLabel" class="headerLabel" onClick="doClick">Settings</Label>
+        <TableView id="tableView" class="tableView"></TableView>
+        
+        
+        
+        <Button id="backBtn" onClick="backBtnClicked">back</Button>     
+    </Window>
+
+</Alloy>

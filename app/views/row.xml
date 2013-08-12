@@ -1,0 +1,8 @@
+<Alloy>
+	<TableViewRow id="rowView" onClick="rowClicked">
+		<View  layout="horizontal">
+			<Label id="title" class="title"></Label>
+			<Label id="url" class="url"></Label>	
+		</View>
+	</TableViewRow>
+</Alloy>

@@ -1,0 +1,32 @@
+
+".container" : {
+  	width: Ti.UI.FILL,
+	height: Ti.UI.FILL
+},
+
+".headerLabel" : {
+	top:0,
+	backgroundColor: 'red',
+	font: { fontSize:25 },
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE
+},
+
+".tableView" : {
+	top:30,
+	backgroundColor: 'white',
+	width: Ti.UI.FILL
+},
+
+"#backBtn" : {
+left:0,
+bottom:0
+	//borderColor: "green",
+	//borderWidth: 2
+},
+".imageThumb" : {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE
+}
+
+
