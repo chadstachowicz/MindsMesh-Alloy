@@ -10,7 +10,6 @@ function Controller() {
         view1.getView().open();
     }
     function backBtnClicked() {
-        alert("back button clicked");
         openWindow("feed");
     }
     function doClick() {
@@ -62,6 +61,14 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var data = [];
+    data.push(Alloy.createController("row", {
+        title: "fight club",
+        url: "other data1"
+    }).getView());
+    data.push(Alloy.createController("row", {
+        title: "heat",
+        url: "other data2"
+    }).getView());
     data.push(Alloy.createController("row", {
         title: "fight club",
         url: "other data1"

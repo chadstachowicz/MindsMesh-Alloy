@@ -37,10 +37,11 @@ function LoginUser(email, password){
 
 	var postData = {'email': email, 'password': password};
 
-	xhr = postLogin("",postData)
+	xhr = postLogin("",postData);
 	xhr.onload = function(){
 		var response = this.responseText;
 		//alert(response);
+		Ti.API.info(response);
 		
 		var user = JSON.parse(response);
 		for (i=0;i<user.entity_users.length;i++){
@@ -71,10 +72,12 @@ function LoginUser(email, password){
 	};
 	xhr.onerror = function(e){
 		alert('Login failed, please check credentials and try again.');
-	}
+		var response = this.responseText;
+		alert(response);
+	};
 	
-	xhr.send(JSON.stringify(postData));
-	
+	//xhr.send(JSON.stringify(postData));
+	xhr.send(postData);
 
 }
 
@@ -83,13 +86,13 @@ function openFeed(){
 	var args = {
 		data: "test data",
 		value: "other data"
-	}
+	};
 	
 
 	$.loginWindow.close();
 	$.loginWindow = null;
 	
-	var feed = Alloy.createController("feed", args);
+	var feed = Alloy.createController("index2", args);
 	
 	feed.getView().open();
 	
@@ -103,4 +106,4 @@ $.password.value = "easy123";
 
 var args = arguments[0]||{};
 
-$.message.text = args.data + " " +args.value;
+$.message.text = args.data + " " + args.value;

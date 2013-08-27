@@ -12,6 +12,7 @@ function Controller() {
         xhr = postLogin("", postData);
         xhr.onload = function() {
             var response = this.responseText;
+            Ti.API.info(response);
             var user = JSON.parse(response);
             for (i = 0; user.entity_users.length > i; i++) if (null != user.entity_users[i].entity.moodle_url) {
                 moodle_entity_string = "moodle_entity_" + user.entity_users[i].entity.id;
@@ -32,8 +33,10 @@ function Controller() {
         };
         xhr.onerror = function() {
             alert("Login failed, please check credentials and try again.");
+            var response = this.responseText;
+            alert(response);
         };
-        xhr.send(JSON.stringify(postData));
+        xhr.send(postData);
     }
     function openFeed() {
         var args = {
@@ -42,7 +45,7 @@ function Controller() {
         };
         $.loginWindow.close();
         $.loginWindow = null;
-        var feed = Alloy.createController("feed", args);
+        var feed = Alloy.createController("index2", args);
         feed.getView().open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));

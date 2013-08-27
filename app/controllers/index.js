@@ -4,91 +4,37 @@ function doClick(e) {
 
 
 function goLogin(e){
-	
-	//var args = {
-	//	data: "test data",
-	//	value: "other data"
-	//}
-	
-	$.indexWindow.close();
-	$.indexWindow = null;
-	
-	
-
-
-	//var loginWindow = Alloy.createController("loginWindow", args);
-	//loginWindow.getView().open();
 
 	openWindow("loginWindow");
 }
+
+
+
 function goSideMenu(e){
-	
-	//var args = {
-	//	data: "test data",
-	//	value: "other data"
-	//}
-	
-	//$.indexWindow.close();
-	//$.indexWindow = null;
-	
-	
-
-
-	var external = Alloy.createController("externalView", args);
-	external.getView().open();
-
 	openWindow("externalView");
 }
 
 
+
+function goSideView2(e){
+	openWindow("index2");
+}
+
+
+
 function goFeed(e){
-	
-	//var args = {
-	//	data: "test data",
-	//	value: "other data"
-	//}
-	
-	//$.indexWindow.close();
-	//$.indexWindow = null;
-	
-	
 
 	if(Titanium.App.Properties.hasProperty('mmat')){
-		
-		//alert("logged as: " + Titanium.App.Properties.getString('mmat'))
-		
-		//var feed = Alloy.createController("feed", args);
-		//feed.getView().open();
-		
-		openWindow("feed");
+		openWindow("index2");
 	
 	}else{
-		//var loginWindow = Alloy.createController("loginWindow", args);
-		//loginWindow.getView().open();
-		
-		
 		openWindow("loginWindow");		
 	}
 	
 }
 
 function goSideView(e){
-	/*
-	var args = {
-		data: "test data",
-		value: "other data"
-	}
-	
-	$.indexWindow.close();
-	$.indexWindow = null;
-	
-	
-
-		var slideview = Alloy.createController("slideview", args);
-		slideview.getView().open();
-	*/
-openWindow("slideview");
-	
+	openWindow("slideview");
 }
 
 
@@ -97,7 +43,7 @@ function openWindow(windowName){
 	var args = {
 		data: "test data",
 		value: "other data"
-	}
+	};
 	
 	$.indexWindow.close();
 	$.indexWindow = null;
@@ -108,7 +54,7 @@ function openWindow(windowName){
 	view1.getView().open();
 		
 	
-	
+	Ti.API.info(windowName);
 	
 }
 
@@ -116,7 +62,7 @@ function openWindow(windowName){
 
 
 
-alert("index opened");
+//alert("index opened");
 
 
 $.indexWindow.open();

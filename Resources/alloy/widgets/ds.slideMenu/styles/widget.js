@@ -1,3 +1,9 @@
+function WPATH(s) {
+    var index = s.lastIndexOf("/");
+    var path = -1 === index ? "ds.slideMenu/" + s : s.substring(0, index) + "/ds.slideMenu/" + s.substring(index + 1);
+    return path;
+}
+
 module.exports = [ {
     isApi: true,
     priority: 1000.0001,

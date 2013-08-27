@@ -10,8 +10,8 @@ function Controller() {
         view1.getView().open();
     }
     function backBtnClicked() {
-        alert("back button clicked");
-        openWindow("externalView");
+        Ti.API.info("back button clicked");
+        openWindow("index2");
     }
     function loadMoreBtnClicked() {
         alert(postXML);
@@ -23,13 +23,7 @@ function Controller() {
         alert("called ItemClick");
         var section = $.list.sections[e.sectionIndex];
         var item = section.getItemAt(e.itemIndex);
-        var children = [];
-        children = item.childen;
-        var index = 0;
-        while (children.length > index) {
-            alert("item: " + index + " is " + children[index].id);
-            index++;
-        }
+        alert("item: " + item.idLabel.text);
     }
     function createListView(_data) {
         var items = [];
@@ -57,7 +51,7 @@ function Controller() {
                     image: _data[i].user.photo_url
                 },
                 idLabel: {
-                    image: _data[i].id
+                    text: _data[i].id
                 }
             });
         }
@@ -84,9 +78,7 @@ function Controller() {
     var __defers = {};
     if (!Alloy.isTablet) {
         $.__views.feedWindow = Ti.UI.createWindow({
-            backgroundColor: "white",
-            width: Ti.UI.FILL,
-            height: Ti.UI.FILL,
+            backgroundColor: "#FFF",
             id: "feedWindow"
         });
         $.__views.feedWindow && $.addTopLevelView($.__views.feedWindow);
@@ -100,10 +92,10 @@ function Controller() {
                     type: "Ti.UI.ImageView",
                     bindId: "pic",
                     properties: {
-                        width: Ti.UI.SIZE,
-                        height: Ti.UI.SIZE,
                         left: "0dp",
                         top: "0dp",
+                        width: Ti.UI.SIZE,
+                        height: Ti.UI.SIZE,
                         bindId: "pic"
                     }
                 };
@@ -116,11 +108,12 @@ function Controller() {
                             type: "Ti.UI.Label",
                             bindId: "textLabel",
                             properties: {
-                                width: Ti.UI.SIZE,
-                                height: Ti.UI.SIZE,
                                 color: "#000",
                                 textAlign: "left",
                                 top: "0dp",
+                                backgroundColor: "blue",
+                                width: Ti.UI.FILL,
+                                height: Ti.UI.SIZE,
                                 layout: "vertical",
                                 bindId: "textLabel"
                             }
@@ -134,10 +127,11 @@ function Controller() {
                                     type: "Ti.UI.Label",
                                     bindId: "nameLabel",
                                     properties: {
-                                        width: Ti.UI.SIZE,
-                                        height: Ti.UI.SIZE,
                                         color: "#000",
                                         textAlign: "left",
+                                        backgroundColor: "green",
+                                        width: Ti.UI.SIZE,
+                                        height: Ti.UI.SIZE,
                                         bindId: "nameLabel"
                                     }
                                 };
@@ -150,41 +144,36 @@ function Controller() {
                                     }
                                 };
                                 __alloyId10.push(__alloyId12);
-                                var __alloyId13 = {
-                                    type: "Ti.UI.Button",
-                                    properties: {
-                                        backgroundColor: "red",
-                                        right: 0,
-                                        bottom: 0,
-                                        title: "open"
-                                    },
-                                    events: {
-                                        click: itemClickBtnClicked
-                                    }
-                                };
-                                __alloyId10.push(__alloyId13);
                                 return __alloyId10;
                             }(),
                             properties: {
                                 backgroundColor: "red",
-                                layout: "horizontal"
+                                layout: "horizontal",
+                                textAlign: "left",
+                                width: Ti.UI.FILL,
+                                height: Ti.UI.FILL
                             }
                         };
                         __alloyId7.push(__alloyId9);
-                        var __alloyId14 = {
+                        var __alloyId13 = {
                             type: "Ti.UI.Label",
                             bindId: "idLabel",
                             properties: {
+                                color: "#000",
+                                textAlign: "left",
                                 width: Ti.UI.SIZE,
                                 height: Ti.UI.SIZE,
-                                color: "#000",
+                                backgroundColor: "blue",
                                 bindId: "idLabel"
                             }
                         };
-                        __alloyId7.push(__alloyId14);
+                        __alloyId7.push(__alloyId13);
                         return __alloyId7;
                     }(),
                     properties: {
+                        textAlign: "left",
+                        width: Ti.UI.SIZE,
+                        height: Ti.UI.SIZE,
                         layout: "vertical"
                     }
                 };
@@ -193,7 +182,10 @@ function Controller() {
             }(),
             properties: {
                 backgroundColor: "red",
-                layout: "horizontal"
+                layout: "horizontal",
+                textAlign: "left",
+                width: Ti.UI.FILL,
+                height: Ti.UI.FILL
             },
             events: {
                 click: itemClickBtnClicked
@@ -202,28 +194,29 @@ function Controller() {
         __alloyId2.push(__alloyId3);
         var __alloyId1 = {
             properties: {
+                width: Ti.UI.SIZE,
                 height: Ti.UI.SIZE,
                 name: "template1"
             },
             childTemplates: __alloyId2
         };
         __alloyId0["template1"] = __alloyId1;
-        var __alloyId15 = [];
-        var __alloyId17 = [];
-        $.__views.__alloyId18 = {
+        var __alloyId14 = [];
+        var __alloyId16 = [];
+        $.__views.__alloyId17 = {
             template: "template1",
             properties: {
-                id: "__alloyId18"
+                id: "__alloyId17"
             }
         };
-        __alloyId17.push($.__views.__alloyId18);
+        __alloyId16.push($.__views.__alloyId17);
         $.__views.section = Ti.UI.createListSection({
             id: "section"
         });
-        __alloyId15.push($.__views.section);
-        $.__views.section.items = __alloyId17;
+        __alloyId14.push($.__views.section);
+        $.__views.section.items = __alloyId16;
         $.__views.list = Ti.UI.createListView({
-            sections: __alloyId15,
+            sections: __alloyId14,
             templates: __alloyId0,
             id: "list",
             defaultItemTemplate: "template1"
@@ -251,7 +244,7 @@ function Controller() {
     _.extend($, $.__views);
     var postXML = "";
     GetFeedPosts();
-    alert("feed loaded");
+    Ti.API.info("feed loaded");
     __defers["$.__views.list!itemclick!ItemClick"] && $.__views.list.addEventListener("itemclick", ItemClick);
     __defers["$.__views.backBtn!click!backBtnClicked"] && $.__views.backBtn.addEventListener("click", backBtnClicked);
     __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] && $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked);

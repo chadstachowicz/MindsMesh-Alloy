@@ -40,13 +40,13 @@ $.movableview.addEventListener('touchend', function(e) {
 	}
 	else if ($.movableview.left <= -150 && touchLeftStarted) {
 		direction = "left";
-		$.rightButton.touchEnabled = false;
+		//$.rightButton.touchEnabled = false;
 		$.movableview.animate(animateLeft);
 		hasSlided = true;
 	} else {
 		direction = "reset";
 		$.leftButton.touchEnabled = true;
-		$.rightButton.touchEnabled = true;
+		//$.rightButton.touchEnabled = true;
 		$.movableview.animate(animateReset);
 		hasSlided = false;
 	}
@@ -104,12 +104,12 @@ $.leftButton.addEventListener('touchend', function(e) {
 	}
 });
 
-$.rightButton.addEventListener('touchend', function(e) {
-	if (!touchRightStarted && !touchLeftStarted) {
-		buttonPressed = true;
-		$.toggleRightSlider();
-	}
-});
+//$.rightButton.addEventListener('touchend', function(e) {
+//	if (!touchRightStarted && !touchLeftStarted) {
+//		buttonPressed = true;
+//		$.toggleRightSlider();
+//	}
+//});
 
 exports.toggleLeftSlider = function() {
 	if (!hasSlided) {
@@ -127,22 +127,22 @@ exports.toggleLeftSlider = function() {
 		hasSlided : hasSlided,
 		direction : direction
 	});
-}
+};
 
-exports.toggleRightSlider = function() {
-	if (!hasSlided) {
-		direction = "left";
-		$.rightButton.touchEnabled = false;
-		$.movableview.animate(animateLeft);
-		hasSlided = true;
-	} else {
-		direction = "reset";
-		$.rightButton.touchEnabled = true;
-		$.movableview.animate(animateReset);
-		hasSlided = false;
-	}
-	Ti.App.fireEvent("sliderToggled", {
-		hasSlided : hasSlided,
-		direction : direction
-    });
-}
+//exports.toggleRightSlider = function() {
+//	if (!hasSlided) {
+//		direction = "left";
+		//$.rightButton.touchEnabled = false;
+//		$.movableview.animate(animateLeft);
+//		hasSlided = true;
+//	} else {
+//		direction = "reset";
+		//$.rightButton.touchEnabled = true;
+//		$.movableview.animate(animateReset);
+//		hasSlided = false;
+//	}
+//	Ti.App.fireEvent("sliderToggled", {
+//		hasSlided : hasSlided,
+//		direction : direction
+ //   });
+//};

@@ -1,7 +1,7 @@
 function WPATH(s) {
     var index = s.lastIndexOf("/");
     var path = -1 === index ? "ds.slideMenu/" + s : s.substring(0, index) + "/ds.slideMenu/" + s.substring(index + 1);
-    return true && 0 !== path.indexOf("/") ? "/" + path : path;
+    return path;
 }
 
 function Controller() {
@@ -81,17 +81,6 @@ function Controller() {
         id: "leftButton"
     });
     $.__views.navview.add($.__views.leftButton);
-    $.__views.rightButton = Ti.UI.createButton({
-        backgroundImage: "none",
-        image: "/ds.slideMenu/ButtonMenu.png",
-        right: "0",
-        top: "0",
-        width: "60",
-        height: "44",
-        style: "none",
-        id: "rightButton"
-    });
-    $.__views.navview.add($.__views.rightButton);
     $.__views.contentview = Ti.UI.createView({
         left: "0dp",
         width: Ti.Platform.displayCaps.platformWidth,
@@ -139,13 +128,11 @@ function Controller() {
             hasSlided = true;
         } else if (-150 >= $.movableview.left && touchLeftStarted) {
             direction = "left";
-            $.rightButton.touchEnabled = false;
             $.movableview.animate(animateLeft);
             hasSlided = true;
         } else {
             direction = "reset";
             $.leftButton.touchEnabled = true;
-            $.rightButton.touchEnabled = true;
             $.movableview.animate(animateReset);
             hasSlided = false;
         }
@@ -183,12 +170,6 @@ function Controller() {
             $.toggleLeftSlider();
         }
     });
-    $.rightButton.addEventListener("touchend", function() {
-        if (!touchRightStarted && !touchLeftStarted) {
-            buttonPressed = true;
-            $.toggleRightSlider();
-        }
-    });
     exports.toggleLeftSlider = function() {
         if (hasSlided) {
             direction = "reset";
@@ -199,23 +180,6 @@ function Controller() {
             direction = "right";
             $.leftButton.touchEnabled = false;
             $.movableview.animate(animateRight);
-            hasSlided = true;
-        }
-        Ti.App.fireEvent("sliderToggled", {
-            hasSlided: hasSlided,
-            direction: direction
-        });
-    };
-    exports.toggleRightSlider = function() {
-        if (hasSlided) {
-            direction = "reset";
-            $.rightButton.touchEnabled = true;
-            $.movableview.animate(animateReset);
-            hasSlided = false;
-        } else {
-            direction = "left";
-            $.rightButton.touchEnabled = false;
-            $.movableview.animate(animateLeft);
             hasSlided = true;
         }
         Ti.App.fireEvent("sliderToggled", {

@@ -29,7 +29,7 @@ function Controller() {
             left: 10,
             right: 10,
             height: "auto",
-            text: "HEADER",
+            text: "Settings",
             font: {
                 fontSize: 12,
                 fontWeight: "bold"
@@ -38,14 +38,26 @@ function Controller() {
         });
         customView.add(customLabel);
         section.headerView = customView;
-        for (var j = 1; 4 > j; j++) {
-            var args = {
-                title: "Row " + j,
-                customView: "view" + j,
-                image: "images/ic_search.png"
-            };
-            section.add(Alloy.createController("menurow", args).getView());
-        }
+        section.add(Alloy.createController("menurow", {
+            title: "index",
+            customView: "index",
+            image: "images/ic_search.png"
+        }).getView());
+        section.add(Alloy.createController("menurow", {
+            title: "feed",
+            customView: "feed",
+            image: "images/ic_search.png"
+        }).getView());
+        section.add(Alloy.createController("menurow", {
+            title: "slideview",
+            customView: "slideview",
+            image: "images/ic_search.png"
+        }).getView());
+        section.add(Alloy.createController("menurow", {
+            title: "view2",
+            customView: "view2",
+            image: "images/ic_search.png"
+        }).getView());
         return section;
     }
     function rowSelect(e) {
@@ -75,13 +87,8 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var leftData = [];
-    var rightData = [];
-    for (var i = 0; 4 > i; i++) {
-        leftData[i] = createSection();
-        rightData[i] = createSection();
-    }
+    leftData[0] = createSection();
     $.ds.leftTableView.data = leftData;
-    $.ds.rightTableView.data = rightData;
     var currentView = Alloy.createController("view1").getView();
     $.ds.contentview.add(currentView);
     $.ds.leftTableView.addEventListener("click", function(e) {
@@ -123,7 +130,9 @@ function Controller() {
             $.ds.rightMenu.zIndex = 2;
         }
     });
-    $.win.open();
+    "iphone" === Ti.Platform.osname ? $.win.open({
+        transition: Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
+    }) : $.win.open();
     _.extend($, exports);
 }
 

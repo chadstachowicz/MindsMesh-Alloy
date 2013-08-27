@@ -10,7 +10,7 @@
 			<View id="shadowview">
 				<View id="navview">
 					<Button id="leftButton" />
-					<Button id="rightButton" />
+					<!--<Button id="rightButton" />-->
 				</View>
 				<View id="contentview" />
 			</View>

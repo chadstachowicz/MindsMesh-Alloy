@@ -9,7 +9,7 @@
 			<Button id="btnSideMenu" onClick="goSideMenu" class="buttoncls">SideMenu</Button>	 
 			<Button id="btnSideView" onClick="goSideView" class="buttoncls">SideView</Button>	 
 			   		       	
-			   		       	
+			<Button id="btnSideView2" onClick="goSideView2" class="buttoncls">Settings</Button>   		       	
 			   		       	
 			   		       	
 			   		       	

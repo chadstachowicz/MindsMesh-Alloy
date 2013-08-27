@@ -16,7 +16,7 @@
 	                    	<View layout="horizontal" id="horizontalView" class="horizontalView">
 		                    	<Label id="nameLabel" bindId="nameLabel" class="name"/>  
 		                    	<ImageView id="attachmentImage"  bindId="attachmentImage" class="attachment"/>
-		                    	<Button id="itemClickBtn" onClick="itemClickBtnClicked" class="itemButton">open</Button>			                    		
+	                    		
 	                    	</View>           	
         	
         	
@@ -24,27 +24,7 @@
         				</View> 	
                 	</View>
                 	
-                	
 
-                	<!-- 
-                	<View id="templateView" onClick="itemClickBtnClicked" >  
-		                <ImageView id="pic"  bindId="pic" class="imageThumb"/>	
-	         			<View layout="vertical" id="commentView" class="commentView">     
-		                    <Label id="textLabel" layout="vertical" bindId="textLabel" class="title"/>
-		                    <View layout="horizontal" id="horizontalView" class="horizontalView"> 
-		                    	<Label id="nameLabel" bindId="nameLabel" class="name"/>  
-		                    	<Button id="itemClickBtn" onClick="itemClickBtnClicked" class="itemButton">open</Button>		                    	                     
-							</View>
-							<Label id="idLabel"  bindId="idLabel" class="id"/> 
-						</View>
-		                <ImageView id="attachmentImage"  bindId="attachmentImage" class="attachment"/>
-					</View>
-					 -->
-					
-					
-					
-					
-		
 					
 					
                 </ItemTemplate>

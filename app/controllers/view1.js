@@ -14,8 +14,7 @@ function openWindow(windowName){
 		
 }
 function backBtnClicked(_event) {
-    //alert("back button clicked");
-	Ti.API.info("back button clicked");
+
 	openWindow("index2");
     
 }
@@ -26,8 +25,7 @@ function loadMoreBtnClicked(_event) {
 
 
 function itemClickBtnClicked(_event) {
-    //alert($.list.idLabel.text);
-    
+
     alert("button clicked");
 }
 
@@ -42,20 +40,16 @@ function ItemClick(e) {
 	var item = section.getItemAt(e.itemIndex);
 
 
-	//var children = [];
-	
-	
-	
-	
-	//children = item.childen;
+	var children = [];
+	children = item.childen;
 
-	//var index = 0;
+	var index = 0;
 	
-	//while (index<children.length){
-		alert('item: ' + item.idLabel.text);
+	while (index<children.length){
+		alert('item: ' + index + " is " + children[index].id);
 		
-	//	index++;
-	//} 
+		index++;
+	} 
 }
 
 
@@ -105,7 +99,7 @@ function createListView(_data) {
                 image : _data[i].user.photo_url    // assign the values from the data
             },
             idLabel : {
-                text : _data[i].id    // assign the values from the data
+                image : _data[i].id    // assign the values from the data
             }  
              
         });
@@ -117,21 +111,15 @@ function createListView(_data) {
 }
  
 function GetFeedPosts() {
-	
-	//alert(Titanium.App.Properties.getString('mmat'));
-	
+
 	xhr = getPostsWithFamily(Titanium.App.Properties.getString('mmat'));
 
     xhr.onload = function(){
-    	//should be createListView() with data
-    	//alert();
-    	
+
     	postXML = this.responseText;
     	
     	createListView(JSON.parse(postXML));
     	
-    	
-    	//onLoad();
     };
     
     xhr.onerror = function(e){
@@ -144,25 +132,7 @@ function GetFeedPosts() {
 	
 	
 var postXML = "";
- 
-// Start process by loggin in
-
-
-
-/*
-var d = [{
-	name: "test data",
-	pic_square: "other data"
-},{
-	name: "test data",
-	pic_square: "other data"
-}];
-*/
-//createListView(d);
-//alert('listview loaded');
-
 
 GetFeedPosts();
 
-//alert();
-Ti.API.info('feed loaded');
+Ti.API.info("view1 loaded");

@@ -1,8 +1,1 @@
-module.exports = [ {
-    isApi: true,
-    priority: 1000.0001,
-    key: "Window",
-    style: {
-        backgroundColor: "#FFF"
-    }
-} ];
+module.exports = [{"isApi":true,"priority":1000.0001,"key":"Window","style":{backgroundColor:"#FFF",}},{"isApi":true,"priority":1000.0059,"key":"Label","style":{width:Ti.UI.SIZE,height:Ti.UI.SIZE,color:"#000",}},{"isClass":true,"priority":10000.0058,"key":"container","style":{backgroundColor:"white",width:Ti.UI.FILL,height:Ti.UI.FILL,}},{"isClass":true,"priority":10000.006,"key":"imageThumb","style":{left:"0dp",top:"0dp",width:Ti.UI.SIZE,height:Ti.UI.SIZE,}},{"isClass":true,"priority":10000.0061,"key":"title","style":{color:"#000",textAlign:"left",top:"0dp",width:Ti.UI.SIZE,height:Ti.UI.SIZE,}},{"isClass":true,"priority":10000.0062,"key":"name","style":{color:"#000",textAlign:"left",width:Ti.UI.SIZE,height:Ti.UI.SIZE,}},{"isClass":true,"priority":10000.0063,"key":"date","style":{color:"#000",textAlign:"left",width:Ti.UI.SIZE,height:Ti.UI.SIZE,}},{"isClass":true,"priority":10000.0064,"key":"commentView","style":{width:Ti.UI.SIZE,height:Ti.UI.SIZE,}},{"isClass":true,"priority":10000.0065,"key":"horizontalView","style":{layout:"horizontal",width:Ti.UI.FILL,height:Ti.UI.FILL,}},{"isClass":true,"priority":10000.0066,"key":"list","style":{width:Ti.UI.FILL,height:Ti.UI.FILL,}},{"isClass":true,"priority":10101.0068,"key":"template1","style":{height:"56dp",}},{"isId":true,"priority":100000.0067,"key":"backBtn","style":{left:0,bottom:0,width:Ti.UI.SIZE,height:Ti.UI.SIZE,}},{"isId":true,"priority":100000.007,"key":"loadMoreBtn","style":{right:0,bottom:0,width:Ti.UI.SIZE,height:Ti.UI.SIZE,}}];

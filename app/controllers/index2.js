@@ -2,7 +2,7 @@
 
 
 var leftData = [];
-var rightData = [];
+
 
 function createSection() {
 	var section = Ti.UI.createTableViewSection();
@@ -36,7 +36,7 @@ function createSection() {
 		left : 10,
 		right : 10,
 		height : 'auto',
-		text : 'HEADER',
+		text : 'Settings',
 		font : {
 			fontSize : 12,
 			fontWeight : 'bold'
@@ -47,15 +47,13 @@ function createSection() {
 	customView.add(customLabel);
 
 	section.headerView = customView;
-	for (var j = 1; j < 4; j++) {
-		var args = {
-			title : 'Row ' + j,
-			customView : 'view' + j,
-			image : "images/ic_search.png"
-		};
-		section.add(Alloy.createController('menurow', args).getView());
-	}
-
+	
+	section.add(Alloy.createController('menurow', {title : 'index',customView : 'index',image : "images/ic_search.png"}).getView());
+	section.add(Alloy.createController('menurow', {title : 'feed',customView : 'feed',image : "images/ic_search.png"}).getView());
+	section.add(Alloy.createController('menurow', {title : 'slideview',customView : 'slideview',image : "images/ic_search.png"}).getView());
+	section.add(Alloy.createController('menurow', {title : 'view2',customView : 'view2',image : "images/ic_search.png"}).getView());
+	
+	
 	return section;
 }
 
@@ -67,17 +65,26 @@ function rowSelect(e) {
 	}
 }
 
-for (var i = 0; i < 4; i++) {
-	leftData[i] = createSection();
-	rightData[i] = createSection();
-}
 
-// Pass data to widget leftTableView and rightTableView
+	leftData[0] = createSection();
+
 $.ds.leftTableView.data = leftData;
-$.ds.rightTableView.data = rightData;
+
+
 
 var currentView = Alloy.createController("view1").getView();
+
+
+
 $.ds.contentview.add(currentView);
+
+
+
+
+
+
+
+
 
 // Swap views on menu item click
 $.ds.leftTableView.addEventListener('click', function selectRow(e) {
