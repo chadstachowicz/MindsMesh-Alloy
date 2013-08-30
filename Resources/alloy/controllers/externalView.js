@@ -25,18 +25,15 @@ function Controller() {
     var __defers = {};
     $.__views.externalViewWindow = Ti.UI.createWindow({
         backgroundColor: "#FFF",
-        width: Ti.UI.FILL,
-        height: Ti.UI.FILL,
         id: "externalViewWindow"
     });
     $.__views.externalViewWindow && $.addTopLevelView($.__views.externalViewWindow);
     $.__views.headerLabel = Ti.UI.createLabel({
         top: 0,
-        backgroundColor: "red",
         font: {
             fontSize: 25
         },
-        width: Ti.UI.FILL,
+        width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
         text: "Settings",
         id: "headerLabel"
@@ -44,9 +41,7 @@ function Controller() {
     $.__views.externalViewWindow.add($.__views.headerLabel);
     doClick ? $.__views.headerLabel.addEventListener("click", doClick) : __defers["$.__views.headerLabel!click!doClick"] = true;
     $.__views.tableView = Ti.UI.createTableView({
-        top: 30,
-        backgroundColor: "white",
-        width: Ti.UI.FILL,
+        width: Ti.UI.SIZE,
         id: "tableView"
     });
     $.__views.externalViewWindow.add($.__views.tableView);
@@ -70,14 +65,15 @@ function Controller() {
         url: "other data2"
     }).getView());
     data.push(Alloy.createController("row", {
-        title: "fight club",
+        title: "fight club2",
         url: "other data1"
     }).getView());
     data.push(Alloy.createController("row", {
-        title: "heat",
+        title: "heat2",
         url: "other data2"
     }).getView());
     $.tableView.setData(data);
+    $.externalViewWindow.open();
     __defers["$.__views.headerLabel!click!doClick"] && $.__views.headerLabel.addEventListener("click", doClick);
     __defers["$.__views.backBtn!click!backBtnClicked"] && $.__views.backBtn.addEventListener("click", backBtnClicked);
     _.extend($, exports);

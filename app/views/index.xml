@@ -4,14 +4,14 @@
 		
        <View layout="vertical" id="mainView" class="mainView">   
        	
-			<Button id="btnLogin" onClick="goLogin" class="buttoncls">Login</Button>
-			<Button id="btnFeed" onClick="goFeed" class="buttoncls">Feed</Button>	       	
-			<Button id="btnSideMenu" onClick="goSideMenu" class="buttoncls">SideMenu</Button>	 
-			<Button id="btnSideView" onClick="goSideView" class="buttoncls">SideView</Button>	 
+			<Button  onClick="goLogin" class="buttoncls">Login</Button>
+			<Button  onClick="goFeed" class="buttoncls">Feed</Button>	       	
+			<Button  onClick="goExternalView" class="buttoncls">ExternalView</Button>	 
+			<Button onClick="goSideView" class="buttoncls">SideView</Button>	 
 			   		       	
-			<Button id="btnSideView2" onClick="goSideView2" class="buttoncls">Settings</Button>   		       	
+			<Button onClick="goSideView2" class="buttoncls">Settings</Button>   		       	
 			   		       	
-			   		       	
+			   		   			<Button onClick="goTableView" class="buttoncls">tableview</Button>   	    	
 			   		       	
 			<ImageView id="image" class="imageView" image="/images/Mindsmesh_logo_highres.png"/>
 			

@@ -6,21 +6,21 @@
 
 ".headerLabel" : {
 	top:0,
-	backgroundColor: 'red',
+	//backgroundColor: 'red',
 	font: { fontSize:25 },
-	width: Ti.UI.FILL,
+	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE
 },
 
 ".tableView" : {
-	top:30,
-	backgroundColor: 'white',
-	width: Ti.UI.FILL
+	//top:30,
+	//backgroundColor: 'white',
+	width: Ti.UI.SIZE
 },
 
 "#backBtn" : {
-left:0,
-bottom:0
+	left:0,
+	bottom:0
 	//borderColor: "green",
 	//borderWidth: 2
 },

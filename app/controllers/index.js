@@ -10,10 +10,13 @@ function goLogin(e){
 
 
 
-function goSideMenu(e){
+function goExternalView(e){
 	openWindow("externalView");
 }
 
+function goTableView(e){
+	openWindow("feedTableview");
+}
 
 
 function goSideView2(e){

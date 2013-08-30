@@ -2,8 +2,11 @@ function Controller() {
     function goLogin() {
         openWindow("loginWindow");
     }
-    function goSideMenu() {
+    function goExternalView() {
         openWindow("externalView");
+    }
+    function goTableView() {
+        openWindow("feedTableview");
     }
     function goSideView2() {
         openWindow("index2");
@@ -48,62 +51,70 @@ function Controller() {
         id: "mainView"
     });
     $.__views.indexWindow.add($.__views.mainView);
-    $.__views.btnLogin = Ti.UI.createButton({
+    $.__views.__alloyId32 = Ti.UI.createButton({
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
         title: "Login",
-        id: "btnLogin"
+        id: "__alloyId32"
     });
-    $.__views.mainView.add($.__views.btnLogin);
-    goLogin ? $.__views.btnLogin.addEventListener("click", goLogin) : __defers["$.__views.btnLogin!click!goLogin"] = true;
-    $.__views.btnFeed = Ti.UI.createButton({
+    $.__views.mainView.add($.__views.__alloyId32);
+    goLogin ? $.__views.__alloyId32.addEventListener("click", goLogin) : __defers["$.__views.__alloyId32!click!goLogin"] = true;
+    $.__views.__alloyId33 = Ti.UI.createButton({
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
         title: "Feed",
-        id: "btnFeed"
+        id: "__alloyId33"
     });
-    $.__views.mainView.add($.__views.btnFeed);
-    goFeed ? $.__views.btnFeed.addEventListener("click", goFeed) : __defers["$.__views.btnFeed!click!goFeed"] = true;
-    $.__views.btnSideMenu = Ti.UI.createButton({
+    $.__views.mainView.add($.__views.__alloyId33);
+    goFeed ? $.__views.__alloyId33.addEventListener("click", goFeed) : __defers["$.__views.__alloyId33!click!goFeed"] = true;
+    $.__views.__alloyId34 = Ti.UI.createButton({
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
-        title: "SideMenu",
-        id: "btnSideMenu"
+        title: "ExternalView",
+        id: "__alloyId34"
     });
-    $.__views.mainView.add($.__views.btnSideMenu);
-    goSideMenu ? $.__views.btnSideMenu.addEventListener("click", goSideMenu) : __defers["$.__views.btnSideMenu!click!goSideMenu"] = true;
-    $.__views.btnSideView = Ti.UI.createButton({
+    $.__views.mainView.add($.__views.__alloyId34);
+    goExternalView ? $.__views.__alloyId34.addEventListener("click", goExternalView) : __defers["$.__views.__alloyId34!click!goExternalView"] = true;
+    $.__views.__alloyId35 = Ti.UI.createButton({
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
         title: "SideView",
-        id: "btnSideView"
+        id: "__alloyId35"
     });
-    $.__views.mainView.add($.__views.btnSideView);
-    goSideView ? $.__views.btnSideView.addEventListener("click", goSideView) : __defers["$.__views.btnSideView!click!goSideView"] = true;
-    $.__views.btnSideView2 = Ti.UI.createButton({
+    $.__views.mainView.add($.__views.__alloyId35);
+    goSideView ? $.__views.__alloyId35.addEventListener("click", goSideView) : __defers["$.__views.__alloyId35!click!goSideView"] = true;
+    $.__views.__alloyId36 = Ti.UI.createButton({
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
         title: "Settings",
-        id: "btnSideView2"
+        id: "__alloyId36"
     });
-    $.__views.mainView.add($.__views.btnSideView2);
-    goSideView2 ? $.__views.btnSideView2.addEventListener("click", goSideView2) : __defers["$.__views.btnSideView2!click!goSideView2"] = true;
+    $.__views.mainView.add($.__views.__alloyId36);
+    goSideView2 ? $.__views.__alloyId36.addEventListener("click", goSideView2) : __defers["$.__views.__alloyId36!click!goSideView2"] = true;
+    $.__views.__alloyId37 = Ti.UI.createButton({
+        width: Ti.UI.FILL,
+        height: Ti.UI.SIZE,
+        title: "tableview",
+        id: "__alloyId37"
+    });
+    $.__views.mainView.add($.__views.__alloyId37);
+    goTableView ? $.__views.__alloyId37.addEventListener("click", goTableView) : __defers["$.__views.__alloyId37!click!goTableView"] = true;
     $.__views.image = Ti.UI.createImageView({
         top: "0dp",
         id: "image",
         image: "/images/Mindsmesh_logo_highres.png"
     });
     $.__views.mainView.add($.__views.image);
-    $.__views.__alloyId31 = Ti.UI.createLabel({
+    $.__views.__alloyId38 = Ti.UI.createLabel({
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
         backgroundColor: "red",
         textAlign: "center",
         bottom: "0dp",
         text: "Welcome to EDU Mesh",
-        id: "__alloyId31"
+        id: "__alloyId38"
     });
-    $.__views.indexWindow.add($.__views.__alloyId31);
+    $.__views.indexWindow.add($.__views.__alloyId38);
     $.__views.btnNext = Ti.UI.createButton({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -118,11 +129,12 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.indexWindow.open();
-    __defers["$.__views.btnLogin!click!goLogin"] && $.__views.btnLogin.addEventListener("click", goLogin);
-    __defers["$.__views.btnFeed!click!goFeed"] && $.__views.btnFeed.addEventListener("click", goFeed);
-    __defers["$.__views.btnSideMenu!click!goSideMenu"] && $.__views.btnSideMenu.addEventListener("click", goSideMenu);
-    __defers["$.__views.btnSideView!click!goSideView"] && $.__views.btnSideView.addEventListener("click", goSideView);
-    __defers["$.__views.btnSideView2!click!goSideView2"] && $.__views.btnSideView2.addEventListener("click", goSideView2);
+    __defers["$.__views.__alloyId32!click!goLogin"] && $.__views.__alloyId32.addEventListener("click", goLogin);
+    __defers["$.__views.__alloyId33!click!goFeed"] && $.__views.__alloyId33.addEventListener("click", goFeed);
+    __defers["$.__views.__alloyId34!click!goExternalView"] && $.__views.__alloyId34.addEventListener("click", goExternalView);
+    __defers["$.__views.__alloyId35!click!goSideView"] && $.__views.__alloyId35.addEventListener("click", goSideView);
+    __defers["$.__views.__alloyId36!click!goSideView2"] && $.__views.__alloyId36.addEventListener("click", goSideView2);
+    __defers["$.__views.__alloyId37!click!goTableView"] && $.__views.__alloyId37.addEventListener("click", goTableView);
     __defers["$.__views.btnNext!click!goFeed"] && $.__views.btnNext.addEventListener("click", goFeed);
     _.extend($, exports);
 }

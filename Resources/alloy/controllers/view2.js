@@ -14,50 +14,50 @@ function Controller() {
         id: "sectionFruit",
         headerTitle: "Fruit"
     });
-    var __alloyId53 = [];
-    __alloyId53.push($.__views.sectionFruit);
-    $.__views.__alloyId54 = Ti.UI.createTableViewRow({
+    var __alloyId63 = [];
+    __alloyId63.push($.__views.sectionFruit);
+    $.__views.__alloyId64 = Ti.UI.createTableViewRow({
         title: "Apple",
-        id: "__alloyId54"
+        id: "__alloyId64"
     });
-    $.__views.sectionFruit.add($.__views.__alloyId54);
-    $.__views.__alloyId55 = Ti.UI.createTableViewRow({
+    $.__views.sectionFruit.add($.__views.__alloyId64);
+    $.__views.__alloyId65 = Ti.UI.createTableViewRow({
         title: "Bananas",
-        id: "__alloyId55"
+        id: "__alloyId65"
     });
-    $.__views.sectionFruit.add($.__views.__alloyId55);
+    $.__views.sectionFruit.add($.__views.__alloyId65);
     $.__views.sectionVeg = Ti.UI.createTableViewSection({
         id: "sectionVeg",
         headerTitle: "Vegetables"
     });
-    __alloyId53.push($.__views.sectionVeg);
-    $.__views.__alloyId56 = Ti.UI.createTableViewRow({
+    __alloyId63.push($.__views.sectionVeg);
+    $.__views.__alloyId66 = Ti.UI.createTableViewRow({
         title: "Carrots",
-        id: "__alloyId56"
+        id: "__alloyId66"
     });
-    $.__views.sectionVeg.add($.__views.__alloyId56);
-    $.__views.__alloyId57 = Ti.UI.createTableViewRow({
+    $.__views.sectionVeg.add($.__views.__alloyId66);
+    $.__views.__alloyId67 = Ti.UI.createTableViewRow({
         title: "Potatoes",
-        id: "__alloyId57"
+        id: "__alloyId67"
     });
-    $.__views.sectionVeg.add($.__views.__alloyId57);
+    $.__views.sectionVeg.add($.__views.__alloyId67);
     $.__views.sectionFish = Ti.UI.createTableViewSection({
         id: "sectionFish",
         headerTitle: "Fish"
     });
-    __alloyId53.push($.__views.sectionFish);
-    $.__views.__alloyId58 = Ti.UI.createTableViewRow({
+    __alloyId63.push($.__views.sectionFish);
+    $.__views.__alloyId68 = Ti.UI.createTableViewRow({
         title: "Cod",
-        id: "__alloyId58"
+        id: "__alloyId68"
     });
-    $.__views.sectionFish.add($.__views.__alloyId58);
-    $.__views.__alloyId59 = Ti.UI.createTableViewRow({
+    $.__views.sectionFish.add($.__views.__alloyId68);
+    $.__views.__alloyId69 = Ti.UI.createTableViewRow({
         title: "Haddock",
-        id: "__alloyId59"
+        id: "__alloyId69"
     });
-    $.__views.sectionFish.add($.__views.__alloyId59);
+    $.__views.sectionFish.add($.__views.__alloyId69);
     $.__views.table = Ti.UI.createTableView({
-        data: __alloyId53,
+        data: __alloyId63,
         id: "table"
     });
     $.__views.view2.add($.__views.table);

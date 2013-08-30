@@ -1,5 +1,5 @@
 <Alloy>
-	<Window class="container" id="externalViewWindow">
+	<Window id="externalViewWindow">
         <Label id="headerLabel" class="headerLabel" onClick="doClick">Settings</Label>
         <TableView id="tableView" class="tableView"></TableView>
         

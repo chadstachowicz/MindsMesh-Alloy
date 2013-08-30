@@ -1,0 +1,70 @@
+
+".rowView" : {
+  height: Ti.UI.SIZE,
+    backgroundColor : "#ffffff"
+},
+".rowHeaderView" : {
+  height: Ti.UI.SIZE,
+
+},
+".dateLabel" : {
+  height: Ti.UI.SIZE,
+  width: Ti.UI.FILL,
+  textAlign:"left",
+  left: 10
+}
+,
+".nameLabel" : {
+  height: Ti.UI.SIZE,
+  width: Ti.UI.FILL,
+  textAlign:"left",
+    left: 10
+}
+
+,
+".textLabel" : {
+  height: Ti.UI.SIZE,
+  width: Ti.UI.FILL,
+  textAlign:"left",
+    left: 10
+}
+
+,
+".thumbImage" : {
+  height: 40,
+  width: 40
+},
+
+"#postAttachmentImage" : {
+  height: 120,
+  width: 160
+},
+
+
+
+
+//footer
+"#rowFooterView" : {
+  height: Ti.UI.SIZE,
+  width: Ti.UI.FILL,
+  backgroundColor : "#eeeeee",
+
+},
+
+"#paperclipImage" : {
+  height: Ti.UI.SIZE,
+  width: Ti.UI.SIZE,
+  left: 20
+},
+
+".commentCountLabel" : {
+  height: Ti.UI.SIZE,
+  width: Ti.UI.SIZE,
+  left:200
+},
+
+"#commentImage" : {
+  height: Ti.UI.SIZE,
+  width: Ti.UI.SIZE,
+  left: 10
+}

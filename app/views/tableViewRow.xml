@@ -1,0 +1,40 @@
+<Alloy>
+
+    
+    
+    <TableViewRow id="row">
+
+		<View layout="vertical" top="20" class="rowView">
+		<!-- main comment block-->
+
+			<View layout="horizontal" class="rowHeaderView">
+				<!-- header block-->
+				<ImageView id="thumbImage" class="thumbImage"></ImageView>
+		
+		
+				<View layout="vertical" class="rowView">
+					<Label id="nameLabel" class="nameLabel"></Label>
+					<Label id="dateLabel"  class="dateLabel"></Label>
+				</View>
+		
+			</View>
+
+
+
+			<Label id="textLabel" class="textLabel"></Label>
+			<ImageView id="postAttachmentImage"></ImageView>
+			<View layout="horizontal" id="rowFooterView">
+				<ImageView image="/images/paperclip_black_24.png" id="paperclipImage"></ImageView>
+				<Label id="commentCountLabel" class="commentCountLabel"></Label>
+				<ImageView image="/images/comment_32.png" id="commentImage"></ImageView>
+			</View>
+		</View>
+		
+		
+		
+		
+	</TableViewRow>
+</Alloy>
+
+
+             

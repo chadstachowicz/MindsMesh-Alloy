@@ -30,10 +30,11 @@ function doClick(e) {
 var data = [];
 data.push(Alloy.createController('row', {title: "fight club",url: "other data1"}).getView());
 data.push(Alloy.createController('row', {title: "heat",url: "other data2"}).getView());  
-data.push(Alloy.createController('row', {title: "fight club",url: "other data1"}).getView());
-data.push(Alloy.createController('row', {title: "heat",url: "other data2"}).getView());  
+data.push(Alloy.createController('row', {title: "fight club2",url: "other data1"}).getView());
+data.push(Alloy.createController('row', {title: "heat2",url: "other data2"}).getView());  
 
 
     
 $.tableView.setData(data);
 
+$.externalViewWindow.open();

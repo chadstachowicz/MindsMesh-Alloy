@@ -1,0 +1,5 @@
+<Alloy>
+    <Window>
+        <TableView id="table" backgroundColor="green" onClick="handleClick" onScrollend="handleScrollEnd" />
+    </Window>
+</Alloy>

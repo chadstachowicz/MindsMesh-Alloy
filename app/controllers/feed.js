@@ -52,7 +52,7 @@ function ItemClick(e) {
 	//var index = 0;
 	
 	//while (index<children.length){
-		alert('item: ' + item.idLabel.text);
+		alert('item: ' + item.idLabel);
 		
 	//	index++;
 	//} 

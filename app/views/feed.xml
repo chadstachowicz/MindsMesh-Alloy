@@ -13,7 +13,7 @@
                        	<View layout="vertical" id="commentView" class="commentView">
         					<Label id="textLabel" layout="vertical" bindId="textLabel" class="title"/>
         	
-	                    	<View layout="horizontal" id="horizontalView" class="horizontalView">
+	                    	<View layout="horizontal" class="horizontalView">
 		                    	<Label id="nameLabel" bindId="nameLabel" class="name"/>  
 		                    	<ImageView id="attachmentImage"  bindId="attachmentImage" class="attachment"/>
 	                    		

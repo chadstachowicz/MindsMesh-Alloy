@@ -23,7 +23,7 @@ function Controller() {
         alert("called ItemClick");
         var section = $.list.sections[e.sectionIndex];
         var item = section.getItemAt(e.itemIndex);
-        alert("item: " + item.idLabel.text);
+        alert("item: " + item.idLabel);
     }
     function createListView(_data) {
         var items = [];
@@ -119,11 +119,11 @@ function Controller() {
                             }
                         };
                         __alloyId7.push(__alloyId8);
-                        var __alloyId9 = {
+                        var __alloyId10 = {
                             type: "Ti.UI.View",
                             childTemplates: function() {
-                                var __alloyId10 = [];
-                                var __alloyId11 = {
+                                var __alloyId11 = [];
+                                var __alloyId12 = {
                                     type: "Ti.UI.Label",
                                     bindId: "nameLabel",
                                     properties: {
@@ -135,16 +135,16 @@ function Controller() {
                                         bindId: "nameLabel"
                                     }
                                 };
-                                __alloyId10.push(__alloyId11);
-                                var __alloyId12 = {
+                                __alloyId11.push(__alloyId12);
+                                var __alloyId13 = {
                                     type: "Ti.UI.ImageView",
                                     bindId: "attachmentImage",
                                     properties: {
                                         bindId: "attachmentImage"
                                     }
                                 };
-                                __alloyId10.push(__alloyId12);
-                                return __alloyId10;
+                                __alloyId11.push(__alloyId13);
+                                return __alloyId11;
                             }(),
                             properties: {
                                 backgroundColor: "red",
@@ -154,8 +154,8 @@ function Controller() {
                                 height: Ti.UI.FILL
                             }
                         };
-                        __alloyId7.push(__alloyId9);
-                        var __alloyId13 = {
+                        __alloyId7.push(__alloyId10);
+                        var __alloyId14 = {
                             type: "Ti.UI.Label",
                             bindId: "idLabel",
                             properties: {
@@ -167,7 +167,7 @@ function Controller() {
                                 bindId: "idLabel"
                             }
                         };
-                        __alloyId7.push(__alloyId13);
+                        __alloyId7.push(__alloyId14);
                         return __alloyId7;
                     }(),
                     properties: {
@@ -201,22 +201,22 @@ function Controller() {
             childTemplates: __alloyId2
         };
         __alloyId0["template1"] = __alloyId1;
-        var __alloyId14 = [];
-        var __alloyId16 = [];
-        $.__views.__alloyId17 = {
+        var __alloyId15 = [];
+        var __alloyId17 = [];
+        $.__views.__alloyId18 = {
             template: "template1",
             properties: {
-                id: "__alloyId17"
+                id: "__alloyId18"
             }
         };
-        __alloyId16.push($.__views.__alloyId17);
+        __alloyId17.push($.__views.__alloyId18);
         $.__views.section = Ti.UI.createListSection({
             id: "section"
         });
-        __alloyId14.push($.__views.section);
-        $.__views.section.items = __alloyId16;
+        __alloyId15.push($.__views.section);
+        $.__views.section.items = __alloyId17;
         $.__views.list = Ti.UI.createListView({
-            sections: __alloyId14,
+            sections: __alloyId15,
             templates: __alloyId0,
             id: "list",
             defaultItemTemplate: "template1"
