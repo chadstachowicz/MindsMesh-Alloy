@@ -80,7 +80,6 @@ function Controller() {
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
         backgroundColor: "#eeeeee",
-        layout: "horizontal",
         id: "rowFooterView"
     });
     $.__views.__alloyId68.add($.__views.rowFooterView);
@@ -93,23 +92,24 @@ function Controller() {
     $.__views.rowFooterView.add($.__views.paperClipImage);
     $.__views.extAttachmentImage = Ti.UI.createImageView({
         id: "extAttachmentImage",
-        left: "5",
+        left: "45",
         visible: "false"
     });
     $.__views.rowFooterView.add($.__views.extAttachmentImage);
     $.__views.commentCountLabel = Ti.UI.createLabel({
         height: Ti.UI.SIZE,
         width: Ti.UI.SIZE,
-        left: 200,
+        right: "45",
         id: "commentCountLabel"
     });
     $.__views.rowFooterView.add($.__views.commentCountLabel);
     $.__views.commentImage = Ti.UI.createImageView({
         height: Ti.UI.SIZE,
         width: Ti.UI.SIZE,
-        left: 10,
+        left: 5,
         image: "/images/comment_32.png",
-        id: "commentImage"
+        id: "commentImage",
+        right: "5"
     });
     $.__views.rowFooterView.add($.__views.commentImage);
     exports.destroy = function() {};

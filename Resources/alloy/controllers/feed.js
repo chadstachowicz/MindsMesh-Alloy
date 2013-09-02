@@ -252,7 +252,7 @@ function Controller() {
                             bindId: "extAttachmentImage",
                             properties: {
                                 bindId: "extAttachmentImage",
-                                left: "5"
+                                left: "45"
                             }
                         };
                         __alloyId24.push(__alloyId27);
@@ -261,7 +261,7 @@ function Controller() {
                             bindId: "commentCountLabel",
                             properties: {
                                 bindId: "commentCountLabel",
-                                right: "10"
+                                right: "45"
                             }
                         };
                         __alloyId24.push(__alloyId28);
@@ -269,14 +269,13 @@ function Controller() {
                             type: "Ti.UI.ImageView",
                             properties: {
                                 image: "/images/comment_32.png",
-                                left: "150"
+                                right: "5"
                             }
                         };
                         __alloyId24.push(__alloyId30);
                         return __alloyId24;
                     }(),
                     properties: {
-                        layout: "horizontal",
                         backgroundColor: "#eeeeee",
                         width: Ti.UI.FILL
                     }
