@@ -12,16 +12,16 @@ function Controller() {
             id: "feedWindow"
         });
         $.__views.feedWindow && $.addTopLevelView($.__views.feedWindow);
-        var __alloyId19 = {};
-        var __alloyId21 = {
+        var __alloyId47 = {};
+        var __alloyId49 = {
             properties: {
                 name: "buttonItem",
                 height: Ti.UI.SIZE
             }
         };
-        __alloyId19["buttonItem"] = __alloyId21;
-        var __alloyId23 = [];
-        var __alloyId24 = {
+        __alloyId47["buttonItem"] = __alloyId49;
+        var __alloyId51 = [];
+        var __alloyId52 = {
             type: "Ti.UI.ImageView",
             bindId: "pic",
             properties: {
@@ -31,12 +31,12 @@ function Controller() {
                 bindId: "pic"
             }
         };
-        __alloyId23.push(__alloyId24);
-        var __alloyId25 = {
+        __alloyId51.push(__alloyId52);
+        var __alloyId53 = {
             type: "Ti.UI.View",
             childTemplates: function() {
-                var __alloyId26 = [];
-                var __alloyId27 = {
+                var __alloyId54 = [];
+                var __alloyId55 = {
                     type: "Ti.UI.Label",
                     bindId: "textLabel",
                     properties: {
@@ -49,37 +49,37 @@ function Controller() {
                         bindId: "textLabel"
                     }
                 };
-                __alloyId26.push(__alloyId27);
-                return __alloyId26;
+                __alloyId54.push(__alloyId55);
+                return __alloyId54;
             }(),
             properties: {}
         };
-        __alloyId23.push(__alloyId25);
-        var __alloyId22 = {
+        __alloyId51.push(__alloyId53);
+        var __alloyId50 = {
             properties: {
-                height: "56dp",
+                height: Ti.UI.SIZE,
                 name: "template1"
             },
-            childTemplates: __alloyId23
+            childTemplates: __alloyId51
         };
-        __alloyId19["template1"] = __alloyId22;
-        var __alloyId28 = [];
-        var __alloyId30 = [];
-        $.__views.__alloyId31 = {
+        __alloyId47["template1"] = __alloyId50;
+        var __alloyId56 = [];
+        var __alloyId58 = [];
+        $.__views.__alloyId59 = {
             template: "template1",
             properties: {
-                id: "__alloyId31"
+                id: "__alloyId59"
             }
         };
-        __alloyId30.push($.__views.__alloyId31);
+        __alloyId58.push($.__views.__alloyId59);
         $.__views.section = Ti.UI.createListSection({
             id: "section"
         });
-        __alloyId28.push($.__views.section);
-        $.__views.section.items = __alloyId30;
+        __alloyId56.push($.__views.section);
+        $.__views.section.items = __alloyId58;
         $.__views.list = Ti.UI.createListView({
-            sections: __alloyId28,
-            templates: __alloyId19,
+            sections: __alloyId56,
+            templates: __alloyId47,
             id: "list",
             defaultItemTemplate: "template1"
         });

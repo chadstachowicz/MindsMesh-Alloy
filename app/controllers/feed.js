@@ -8,7 +8,6 @@ function openWindow(windowName){
 	$.feedWindow = null;
 	
 	
-
 	var view1 = Alloy.createController(windowName, args);
 	view1.getView().open();
 		
@@ -16,8 +15,7 @@ function openWindow(windowName){
 function backBtnClicked(_event) {
     //alert("back button clicked");
 	Ti.API.info("back button clicked");
-	openWindow("index2");
-    
+	openWindow("settings");
 }
 
 function loadMoreBtnClicked(_event) {
@@ -25,42 +23,48 @@ function loadMoreBtnClicked(_event) {
 }
 
 
-function itemClickBtnClicked(_event) {
-    //alert($.list.idLabel.text);
-    
-    alert("button clicked");
-}
-
-
-function ItemClick(e) {
+function ListViewRowClick(e) {
 	//row clicked
-	alert("called ItemClick");
+	alert("called ItemClick: " + e.sectionIndex);
 	
 	// get the clicked section
-	var section = $.list.sections[e.sectionIndex];
+	//var section = $.list.sections[e.sectionIndex];
 	// get the clicked item from that section
-	var item = section.getItemAt(e.itemIndex);
+	//var item = section.getItemAt(e.itemIndex);
+	//alert('item: ' + item.idLabel.text);
 
-
-	//var children = [];
-	
-	
-	
-	
-	//children = item.childen;
-
-	//var index = 0;
-	
-	//while (index<children.length){
-		alert('item: ' + item.idLabel);
-		
-	//	index++;
-	//} 
 }
+function ItemClick(e) {
+	
+	
+		alert('itemclick: ');
+	
+	
+	
+	// get the clicked section
+	//var section = $.list.sections[e.sectionIndex];
+
+	// get the clicked item from that section
+	//var item = section.getItemAt(e.itemIndex);
+
+	// print the item's title
+	//alert('itemclick: ');// + item.properties.nameLabel);
+}
+/*
+function onItemClick(e) {
+	//row clicked
+	alert("called ItemClick: " + e.sectionIndex);
+	
+	// get the clicked section
+	//var section = $.list.sections[e.sectionIndex];
+	// get the clicked item from that section
+	//var item = section.getItemAt(e.itemIndex);
 
 
+	//alert('item: ' + item.idLabel.text);
 
-
+}
+*/
 
 
 
@@ -79,7 +83,7 @@ function createListView(_data) {
        		
        	}
         
-        
+      
         
         items.push({
             template : "template1", 
@@ -93,7 +97,7 @@ function createListView(_data) {
             	text :  "[" + _data[i].user.name + "]"
             },           
             dateLabel : {
-            	text :  "date" //_data[i].created_at
+            	text :  formatDate(_data[i].created_at)
             },               
             pic : {
                 image : _data[i].user.photo_url    // assign the values from the data
@@ -117,52 +121,23 @@ function createListView(_data) {
 }
  
 function GetFeedPosts() {
-	
-	//alert(Titanium.App.Properties.getString('mmat'));
-	
 	xhr = getPostsWithFamily(Titanium.App.Properties.getString('mmat'));
-
     xhr.onload = function(){
-    	//should be createListView() with data
-    	//alert();
-    	
     	postXML = this.responseText;
-    	
     	createListView(JSON.parse(postXML));
-    	
-    	
-    	//onLoad();
     };
     
     xhr.onerror = function(e){
     	alert(e.message);
-    	
     };
 	xhr.send();
-	
 }
 	
 	
 var postXML = "";
  
-// Start process by loggin in
-
-
-
-/*
-var d = [{
-	name: "test data",
-	pic_square: "other data"
-},{
-	name: "test data",
-	pic_square: "other data"
-}];
-*/
-//createListView(d);
-//alert('listview loaded');
-
 
 GetFeedPosts();
 
-//alert();
+
 Ti.API.info('feed loaded');

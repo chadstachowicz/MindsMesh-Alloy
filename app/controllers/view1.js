@@ -15,7 +15,7 @@ function openWindow(windowName){
 }
 function backBtnClicked(_event) {
 
-	openWindow("index2");
+	openWindow("settings");
     
 }
 

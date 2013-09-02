@@ -1,39 +1,42 @@
 <Alloy>
     <Window id="feedWindow" class="container" formFactor="handheld">
+    	
+    	
+    	
         <ListView id="list" class="list" defaultItemTemplate="template1" onItemclick="ItemClick">
             <Templates>
-                <!-- main template for displaying the list items -->
                 <ItemTemplate  id="template1" name="template1"  class="template1">
-                	
-                	
-                	
-               
-                	<View layout="horizontal" id="templateView" class="horizontalView" onClick="itemClickBtnClicked">
-        			    <ImageView id="pic"  bindId="pic" class="imageThumb"/>	
-                       	<View layout="vertical" id="commentView" class="commentView">
-        					<Label id="textLabel" layout="vertical" bindId="textLabel" class="title"/>
-        	
-	                    	<View layout="horizontal" class="horizontalView">
-		                    	<Label id="nameLabel" bindId="nameLabel" class="name"/>  
-		                    	<ImageView id="attachmentImage"  bindId="attachmentImage" class="attachment"/>
-	                    		
-	                    	</View>           	
-        	
-        	
-        					<Label id="idLabel"  bindId="idLabel" class="id"/> 
-        				</View> 	
-                	</View>
-                	
-
-					
-					
+	               	<View layout="vertical">   
+	                	<View class="spacerView"><Label class="spacer" /></View>
+	                    <View layout="horizontal" height="40">  
+	
+	 	 					<ImageView id="pic"  bindId="pic" class="imageThumb"/>	  
+	
+	                		<View class="verticalView" >  
+	      						<Label id="nameLabel" bindId="nameLabel" class="name" />	  
+	      						<Label id="dateLabel" bindId="dateLabel" class="date" />	  
+							</View>
+	               
+						</View>
+	    				<Label id="textLabel"  bindId="textLabel" class="comment"/> 
+	
+	    				<View layout="horizontal" backgroundColor="#eeeeee">  
+	      					<Label id="idLabel"  bindId="idLabel" class="id"/>   
+	      					<Label text="0" left="100"/>  
+	      					<Label text="comments" left="10"/>  
+						</View>
+	
+	                </View>
                 </ItemTemplate>
             </Templates>
-            <!-- we only have one section and the items are contstucted using template1 -->
+
             <ListSection id="section">
                 <ListItem template="template1" />
             </ListSection>
         </ListView>
+        
+        
+        
         
         <Button id="backBtn" onClick="backBtnClicked">back</Button>        
         <Button id="loadMoreBtn" onClick="loadMoreBtnClicked">Load More</Button>

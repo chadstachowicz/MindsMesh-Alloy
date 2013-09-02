@@ -7,11 +7,7 @@ function handleClick(e) {
 
  
  function handleScrollEnd(e) {
- 	
  	//var evt = e;
- 	
- 	
- 	
     //alert("do refresh here");  
 }
  
@@ -25,7 +21,7 @@ function handleClick(e) {
  
  
 //creates tableview items
-function createListView(_data) {
+function createTableView(_data) {
     // this is pretty straight forward, assigning the values to the specific
     // properties in the template we defined above
     var items = [];
@@ -73,7 +69,11 @@ function GetTableViewFeedPosts() {
 
     xhr.onload = function(){
     	postXML = this.responseText;
-    	createListView(JSON.parse(postXML));
+    	
+    	
+    	eval("createTableView(JSON.parse(postXML));");
+    	
+    	//createListView(JSON.parse(postXML));
     };
     
     xhr.onerror = function(e){
@@ -87,6 +87,9 @@ function GetTableViewFeedPosts() {
 
 
 GetTableViewFeedPosts();
+
+
+$.platformLabel.text = Ti.Platform.name;
 
 Ti.API.info('tableview feed loaded');
  

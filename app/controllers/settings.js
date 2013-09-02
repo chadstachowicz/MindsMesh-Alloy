@@ -1,6 +1,34 @@
 
 
 
+function goExternalView(e){
+	openWindow("externalView");
+}
+
+function goTableView(e){
+	openWindow("feedTableview");
+}
+
+function goFeed(e){
+	if(Titanium.App.Properties.hasProperty('mmat')){
+		openWindow("settings");
+	
+	}else{
+		openWindow("loginWindow");		
+	}
+	
+}
+
+function goSideView(e){
+	openWindow("slideview");
+}
+
+
+
+
+
+
+
 var leftData = [];
 
 
@@ -49,11 +77,15 @@ function createSection() {
 	section.headerView = customView;
 	
 	section.add(Alloy.createController('menurow', {title : 'index',customView : 'index',image : "images/ic_search.png"}).getView());
-	section.add(Alloy.createController('menurow', {title : 'feed',customView : 'feed',image : "images/ic_search.png"}).getView());
-	section.add(Alloy.createController('menurow', {title : 'slideview',customView : 'slideview',image : "images/ic_search.png"}).getView());
-	section.add(Alloy.createController('menurow', {title : 'view2',customView : 'view2',image : "images/ic_search.png"}).getView());
+	section.add(Alloy.createController('menurow', {title : 'feed listview (noclick)',customView : 'feed',image : "images/ic_search.png"}).getView());
+			section.add(Alloy.createController('menurow', {title : 'feed2 listview (click)',customView : 'feed2',image : "images/ic_search.png"}).getView());
+	section.add(Alloy.createController('menurow', {title : 'feed tableview',customView : 'feedTableview',image : "images/ic_search.png"}).getView());
 	
+		//section.add(Alloy.createController('menurow', {title : 'external view',customView : 'externalView',image : "images/ic_search.png"}).getView());
+	//section.add(Alloy.createController('menurow', {title : 'slideview',customView : 'slideview',image : "images/ic_search.png"}).getView());
+	//section.add(Alloy.createController('menurow', {title : 'view2',customView : 'view2',image : "images/ic_search.png"}).getView());
 	
+
 	return section;
 }
 
@@ -72,7 +104,7 @@ $.ds.leftTableView.data = leftData;
 
 
 
-var currentView = Alloy.createController("view1").getView();
+var currentView = Alloy.createController("feedTableView").getView();
 
 
 

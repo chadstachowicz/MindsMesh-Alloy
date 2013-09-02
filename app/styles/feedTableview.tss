@@ -1,4 +1,8 @@
 
 ".container" : {
   
+},
+"#platformLabel" : {
+  bottom : 5,
+  right : 5
 }

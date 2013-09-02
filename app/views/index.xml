@@ -5,13 +5,28 @@
        <View layout="vertical" id="mainView" class="mainView">   
        	
 			<Button  onClick="goLogin" class="buttoncls">Login</Button>
-			<Button  onClick="goFeed" class="buttoncls">Feed</Button>	       	
+			<Button onClick="goSettings" class="buttoncls">Settings</Button>   	
+			
+
+			
+			
+			  
+			<!-- 
+			    			<Button  onClick="goFeed" class="buttoncls">Feed</Button>	
+			
+					<Button  onClick="goFeed2" class="buttoncls">Feed2</Button>		 	
 			<Button  onClick="goExternalView" class="buttoncls">ExternalView</Button>	 
 			<Button onClick="goSideView" class="buttoncls">SideView</Button>	 
 			   		       	
-			<Button onClick="goSideView2" class="buttoncls">Settings</Button>   		       	
+	       	
 			   		       	
-			   		   			<Button onClick="goTableView" class="buttoncls">tableview</Button>   	    	
+			<Button onClick="goTableView" class="buttoncls">TableView</Button>   	    	
+			   		       	
+			   		       	
+			   	-->	       	
+			   		       	
+			   		       	
+			   		       	
 			   		       	
 			<ImageView id="image" class="imageView" image="/images/Mindsmesh_logo_highres.png"/>
 			
@@ -20,6 +35,6 @@
         
 
 		<Label class="welcomeMessage">Welcome to EDU Mesh</Label>
-        <Button id="btnNext" onClick="goFeed" class="nextButton">Next</Button>				
+        <Button id="btnNext" onClick="goSettings" class="nextButton">Next</Button>				
 	</Window>
 </Alloy>

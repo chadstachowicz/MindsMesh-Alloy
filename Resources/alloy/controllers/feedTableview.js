@@ -4,7 +4,7 @@ function Controller() {
         alert(e.row.data);
     }
     function handleScrollEnd() {}
-    function createListView(_data) {
+    function createTableView(_data) {
         var items = [];
         for (var i in _data) items.push(Alloy.createController("tableViewRow", _data[i]).getView());
         $.table.setData(items);
@@ -13,7 +13,7 @@ function Controller() {
         xhr = getPostsWithFamily(Titanium.App.Properties.getString("mmat"));
         xhr.onload = function() {
             postXML = this.responseText;
-            createListView(JSON.parse(postXML));
+            eval("createTableView(JSON.parse(postXML));");
         };
         xhr.onerror = function(e) {
             alert(e.message);
@@ -22,9 +22,9 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "feedTableview";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    var __parentSymbol = arguments[0] ? arguments[0]["__parentSymbol"] : null;
+    var $model = arguments[0] ? arguments[0]["$model"] : null;
+    var __itemTemplate = arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -40,9 +40,16 @@ function Controller() {
     $.__views.feedTableview.add($.__views.table);
     handleClick ? $.__views.table.addEventListener("click", handleClick) : __defers["$.__views.table!click!handleClick"] = true;
     handleScrollEnd ? $.__views.table.addEventListener("scrollend", handleScrollEnd) : __defers["$.__views.table!scrollend!handleScrollEnd"] = true;
+    $.__views.platformLabel = Ti.UI.createLabel({
+        bottom: 5,
+        right: 5,
+        id: "platformLabel"
+    });
+    $.__views.feedTableview.add($.__views.platformLabel);
     exports.destroy = function() {};
     _.extend($, $.__views);
     GetTableViewFeedPosts();
+    $.platformLabel.text = "android";
     Ti.API.info("tableview feed loaded");
     __defers["$.__views.table!click!handleClick"] && $.__views.table.addEventListener("click", handleClick);
     __defers["$.__views.table!scrollend!handleScrollEnd"] && $.__views.table.addEventListener("scrollend", handleScrollEnd);

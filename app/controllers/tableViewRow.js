@@ -24,7 +24,7 @@
 
 //args.post_attachments.count
 //args.post_attachments[0].ext_path
-$.textLabel.text = args.text  + "this is the end of long text";
+$.textLabel.text = args.text;
 $.nameLabel.text = args.user.name;
 $.dateLabel.text = formatDate(args.created_at);
 $.thumbImage.image = args.user.photo_url;
@@ -36,15 +36,23 @@ $.row.data = args;
 
 if(args.post_attachments.length>0){
 	
-	var filetype = GetAttachmentExtention(args.post_attachments[0].name);
+	var filetype = "" + GetAttachmentExtention(args.post_attachments[0].name);
+	
+	$.extLabel.text = filetype + ": " + (filetype=="png");
 	if(filetype=="png"){
 		$.postAttachmentImage.image = args.post_attachments[0].url;    // assign the values from the data
+		
+	}else if(filetype=="mov"){
+		
+		var url = args.post_attachments[0].url;
+		var pieces = url.substring(0, url.length - 8);	
+		
+		$.postAttachmentImage.image = pieces + "frame_0000.png";
 		
 	}else{
 		
 		$.postAttachmentImage.image = args.post_attachments[0].ext_path;
 	}
-	
 	
 	
 	
@@ -54,7 +62,7 @@ if(args.post_attachments.length>0){
 	
 }else{
 	$.postAttachmentImage.width = 0;
-		$.postAttachmentImage.height = 0;
+	$.postAttachmentImage.height = 0;
 	$.postAttachmentImage.visible = false;
 }
 

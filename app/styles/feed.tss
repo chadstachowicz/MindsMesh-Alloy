@@ -1,169 +1,83 @@
 
 ".imageThumb": {
-
-	left: '0dp',
-	top: '0dp',	
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE
-},
-"#backBtn": {
-	left:0,
-	bottom:0
-	//borderColor: "green",
-	//borderWidth: 2
+	left: 5,
+	//top: 0,	
+	width: 40,
+	height: 40
 },
 
-"#loadMoreBtn": {
-	right: 0,
-	bottom:0
+".mainView": {
+    width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	layout: "vertical"
+},
+
+".verticalView": {
+    width: Ti.UI.FILL,
+	height: Ti.UI.SIZE,
+	layout: "vertical"
 },
 ".horizontalView": {
-    backgroundColor: 'red',
-    layout: 'horizontal',
-    	textAlign: 'left',
     width: Ti.UI.FILL,
-	height: Ti.UI.FILL
-},
-".commentView": {
-    //backgroundColor: 'red',
-    ///layout: 'horizontal',
-    
-    	textAlign: 'left',
-    width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE
-},
-".template1": {
-
-    width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE
-},
-".title": {
-	color: '#000',
-	//left: '45dp',
-	textAlign: 'left',
-	top: '0dp',
-	backgroundColor: 'blue',
-	width: Ti.UI.FILL,
-	height: Ti.UI.SIZE
-},
-".name": {
-	color: '#000',
-	//left: '45dp',
-	textAlign: 'left',
-	backgroundColor: 'green',
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE//,
-	//borderColor: "blue",
-	//borderWidth: 2
-},
-".id": {
-	color: '#000',
-	//left: '45dp',
-	textAlign: 'left',
-	//backgroundColor: 'green',
-	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
-	backgroundColor: "blue"
-	//borderWidth: 2
-}
-
-
-/*".container": {
-    backgroundColor: "white",
-    width: Ti.UI.FILL,
-	height: Ti.UI.FILL
-    
-    
+	layout: "horizontal"
 },
-"Label": {
-	width: Ti.UI.SIZE,
+".footerView": {
+	layout: "horizontal",
+	backgroundColor:"#eeeeee"
+},
+
+
+".userView": {
+    width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
-	color: "#000"
-},
-
-".imageThumb": {
-
-	left: '0dp',
-	top: '0dp',	
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE
-},
-
-".title": {
-	color: '#000',
-	//left: '45dp',
-	textAlign: 'left',
-	top: '0dp',
-	//backgroundColor: 'blue',
-	//width: Ti.UI.SIZE,
-	//height: Ti.UI.SIZE
-},
-".name": {
-	color: '#000',
-	//left: '45dp',
-	textAlign: 'left',
-	//backgroundColor: 'red',
-	//width: Ti.UI.SIZE,
-	//height: Ti.UI.SIZE//,
-	//borderColor: "blue",
-	//borderWidth: 2
-},
-
-".date": {
-	color: '#000',
-	//left: '45dp',
-	textAlign: 'left',
-	//backgroundColor: 'red',
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE
-},
-
-".commentView": {
-	//borderColor: "red",
-	//borderWidth: 2
-},
-
-
-".horizontalView": {
-    //backgroundColor: 'red',
-    layout: 'horizontal',
-    //width: Ti.UI.FILL,
-	height: Ti.UI.FILL
-},
-
-
-
-".list": {
-
-	//borderColor: "green",
-	//borderWidth: 2
-},
-
-"#backBtn": {
-	left:0,
-	bottom:0
-	//borderColor: "green",
-	//borderWidth: 2
+	layout: "horizontal"
 },
 
 ".template1[platform=ios]": {
-	height: '56dp'
+	height: 46
 },
 ".template1[platform=android]": {
 	height: Ti.UI.SIZE
 },
-".itemButton": {
-	//backgroundColor: 'red',
-	right: 0,
+".comment": {
+	color: '#000',
+	textAlign: 'left',
+	backgroundColor: 'white',
+	width: Ti.UI.FILL,
+	height: Ti.UI.SIZE
+},
+
+".spacerView": {
+    backgroundColor: 'green',
+    width: Ti.UI.FILL,
+	height: 25
+},
+".id": {
+	color: '#000',
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE
+},
+".name": {
+	color: '#000',
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	left: 5
+},
+
+".date": {
+	color: '#000',
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	left: 5
+},
+
+"#backBtn": {
+	left:0,
 	bottom:0
 },
+
 "#loadMoreBtn": {
 	right: 0,
 	bottom:0
 }
-*/
-
-
-
-
-

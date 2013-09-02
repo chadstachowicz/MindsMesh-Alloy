@@ -8,39 +8,16 @@ function goLogin(e){
 	openWindow("loginWindow");
 }
 
-
-
-function goExternalView(e){
-	openWindow("externalView");
+function goSettings(e){
+	openWindow("settings");
 }
-
-function goTableView(e){
-	openWindow("feedTableview");
-}
-
-
-function goSideView2(e){
-	openWindow("index2");
-}
-
-
-
 function goFeed(e){
-
-	if(Titanium.App.Properties.hasProperty('mmat')){
-		openWindow("index2");
-	
-	}else{
-		openWindow("loginWindow");		
-	}
-	
+	openWindow("feed");
 }
 
-function goSideView(e){
-	openWindow("slideview");
+function goFeed2(e){
+	openWindow("feed2");
 }
-
-
 
 function openWindow(windowName){
 	var args = {

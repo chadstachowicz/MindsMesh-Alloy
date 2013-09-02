@@ -10,7 +10,7 @@ function Controller() {
         view1.getView().open();
     }
     function backBtnClicked() {
-        openWindow("index2");
+        openWindow("settings");
     }
     function loadMoreBtnClicked() {
         alert(postXML);
@@ -85,30 +85,30 @@ function Controller() {
         id: "view1"
     });
     $.__views.view1 && $.addTopLevelView($.__views.view1);
-    var __alloyId45 = {};
-    var __alloyId47 = [];
-    var __alloyId48 = {
+    var __alloyId69 = {};
+    var __alloyId71 = [];
+    var __alloyId72 = {
         type: "Ti.UI.View",
         childTemplates: function() {
-            var __alloyId49 = [];
-            var __alloyId50 = {
+            var __alloyId73 = [];
+            var __alloyId74 = {
                 type: "Ti.UI.ImageView",
                 bindId: "pic",
                 properties: {
                     left: "0dp",
                     top: "0dp",
-                    width: Ti.UI.SIZE,
-                    height: Ti.UI.SIZE,
+                    width: 40,
+                    height: 40,
                     bindId: "pic",
                     style: ""
                 }
             };
-            __alloyId49.push(__alloyId50);
-            var __alloyId51 = {
+            __alloyId73.push(__alloyId74);
+            var __alloyId75 = {
                 type: "Ti.UI.View",
                 childTemplates: function() {
-                    var __alloyId52 = [];
-                    var __alloyId53 = {
+                    var __alloyId76 = [];
+                    var __alloyId77 = {
                         type: "Ti.UI.Label",
                         bindId: "textLabel",
                         properties: {
@@ -121,12 +121,12 @@ function Controller() {
                             bindId: "textLabel"
                         }
                     };
-                    __alloyId52.push(__alloyId53);
-                    var __alloyId54 = {
+                    __alloyId76.push(__alloyId77);
+                    var __alloyId78 = {
                         type: "Ti.UI.View",
                         childTemplates: function() {
-                            var __alloyId55 = [];
-                            var __alloyId56 = {
+                            var __alloyId79 = [];
+                            var __alloyId80 = {
                                 type: "Ti.UI.Label",
                                 bindId: "nameLabel",
                                 properties: {
@@ -137,16 +137,16 @@ function Controller() {
                                     bindId: "nameLabel"
                                 }
                             };
-                            __alloyId55.push(__alloyId56);
-                            var __alloyId57 = {
+                            __alloyId79.push(__alloyId80);
+                            var __alloyId81 = {
                                 type: "Ti.UI.ImageView",
                                 bindId: "attachmentImage",
                                 properties: {
                                     bindId: "attachmentImage"
                                 }
                             };
-                            __alloyId55.push(__alloyId57);
-                            return __alloyId55;
+                            __alloyId79.push(__alloyId81);
+                            return __alloyId79;
                         }(),
                         properties: {
                             layout: "horizontal",
@@ -154,8 +154,8 @@ function Controller() {
                             height: Ti.UI.FILL
                         }
                     };
-                    __alloyId52.push(__alloyId54);
-                    var __alloyId58 = {
+                    __alloyId76.push(__alloyId78);
+                    var __alloyId82 = {
                         type: "Ti.UI.Label",
                         bindId: "idLabel",
                         properties: {
@@ -165,8 +165,8 @@ function Controller() {
                             bindId: "idLabel"
                         }
                     };
-                    __alloyId52.push(__alloyId58);
-                    return __alloyId52;
+                    __alloyId76.push(__alloyId82);
+                    return __alloyId76;
                 }(),
                 properties: {
                     width: Ti.UI.SIZE,
@@ -174,8 +174,8 @@ function Controller() {
                     layout: "vertical"
                 }
             };
-            __alloyId49.push(__alloyId51);
-            return __alloyId49;
+            __alloyId73.push(__alloyId75);
+            return __alloyId73;
         }(),
         properties: {
             layout: "horizontal",
@@ -186,34 +186,34 @@ function Controller() {
             click: itemClickBtnClicked
         }
     };
-    __alloyId47.push(__alloyId48);
-    var __alloyId46 = {
+    __alloyId71.push(__alloyId72);
+    var __alloyId70 = {
         properties: {
-            height: "56dp",
+            height: Ti.UI.SIZE,
             name: "template1"
         },
-        childTemplates: __alloyId47
+        childTemplates: __alloyId71
     };
-    __alloyId45["template1"] = __alloyId46;
-    var __alloyId59 = [];
-    var __alloyId61 = [];
-    $.__views.__alloyId62 = {
+    __alloyId69["template1"] = __alloyId70;
+    var __alloyId83 = [];
+    var __alloyId85 = [];
+    $.__views.__alloyId86 = {
         template: "template1",
         properties: {
-            id: "__alloyId62"
+            id: "__alloyId86"
         }
     };
-    __alloyId61.push($.__views.__alloyId62);
+    __alloyId85.push($.__views.__alloyId86);
     $.__views.section = Ti.UI.createListSection({
         id: "section"
     });
-    __alloyId59.push($.__views.section);
-    $.__views.section.items = __alloyId61;
+    __alloyId83.push($.__views.section);
+    $.__views.section.items = __alloyId85;
     $.__views.list = Ti.UI.createListView({
         width: Ti.UI.FILL,
         height: Ti.UI.FILL,
-        sections: __alloyId59,
-        templates: __alloyId45,
+        sections: __alloyId83,
+        templates: __alloyId69,
         id: "list",
         defaultItemTemplate: "template1"
     });

@@ -44,18 +44,18 @@ function Controller() {
             image: "images/ic_search.png"
         }).getView());
         section.add(Alloy.createController("menurow", {
-            title: "feed",
+            title: "feed listview (noclick)",
             customView: "feed",
             image: "images/ic_search.png"
         }).getView());
         section.add(Alloy.createController("menurow", {
-            title: "slideview",
-            customView: "slideview",
+            title: "feed2 listview (click)",
+            customView: "feed2",
             image: "images/ic_search.png"
         }).getView());
         section.add(Alloy.createController("menurow", {
-            title: "view2",
-            customView: "view2",
+            title: "feed tableview",
+            customView: "feedTableview",
             image: "images/ic_search.png"
         }).getView());
         return section;
@@ -68,7 +68,7 @@ function Controller() {
         }
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
-    this.__controllerPath = "index2";
+    this.__controllerPath = "settings";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
@@ -89,7 +89,7 @@ function Controller() {
     var leftData = [];
     leftData[0] = createSection();
     $.ds.leftTableView.data = leftData;
-    var currentView = Alloy.createController("view1").getView();
+    var currentView = Alloy.createController("feedTableView").getView();
     $.ds.contentview.add(currentView);
     $.ds.leftTableView.addEventListener("click", function(e) {
         rowSelect(e);
@@ -130,9 +130,7 @@ function Controller() {
             $.ds.rightMenu.zIndex = 2;
         }
     });
-    "iphone" === Ti.Platform.osname ? $.win.open({
-        transition: Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
-    }) : $.win.open();
+    $.win.open();
     _.extend($, exports);
 }
 
