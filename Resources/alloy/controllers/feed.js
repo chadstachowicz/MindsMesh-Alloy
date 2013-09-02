@@ -16,8 +16,10 @@ function Controller() {
     function loadMoreBtnClicked() {
         alert(postXML);
     }
-    function ItemClick() {
-        alert("itemclick: ");
+    function ItemClick(e) {
+        var section = $.list.sections[e.sectionIndex];
+        section.getItemAt(e.itemIndex);
+        alert("itemclick: " + e.itemIndex);
     }
     function createListView(_data) {
         var items = [];
@@ -224,6 +226,9 @@ function Controller() {
                 height: Ti.UI.SIZE,
                 name: "template1"
             },
+            events: {
+                click: ItemClick
+            },
             childTemplates: __alloyId2
         };
         __alloyId0["template1"] = __alloyId1;
@@ -248,7 +253,6 @@ function Controller() {
             defaultItemTemplate: "template1"
         });
         $.__views.feedWindow.add($.__views.list);
-        ItemClick ? $.__views.list.addEventListener("itemclick", ItemClick) : __defers["$.__views.list!itemclick!ItemClick"] = true;
         $.__views.backBtn = Ti.UI.createButton({
             left: 0,
             bottom: 0,
@@ -271,7 +275,6 @@ function Controller() {
     var postXML = "";
     GetFeedPosts();
     Ti.API.info("feed loaded");
-    __defers["$.__views.list!itemclick!ItemClick"] && $.__views.list.addEventListener("itemclick", ItemClick);
     __defers["$.__views.backBtn!click!backBtnClicked"] && $.__views.backBtn.addEventListener("click", backBtnClicked);
     __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] && $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked);
     _.extend($, exports);

@@ -36,8 +36,11 @@ function ListViewRowClick(e) {
 }
 function ItemClick(e) {
 	
-	
-		alert('itemclick: ');
+		var section = $.list.sections[e.sectionIndex];
+
+	// get the clicked item from that section
+	var item = section.getItemAt(e.itemIndex);
+		alert('itemclick: ' + e.itemIndex);
 	
 	
 	

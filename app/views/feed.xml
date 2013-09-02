@@ -3,9 +3,9 @@
     	
     	
     	
-        <ListView id="list" class="list" defaultItemTemplate="template1" onItemclick="ItemClick">
+        <ListView id="list" class="list" defaultItemTemplate="template1">
             <Templates>
-                <ItemTemplate  id="template1" name="template1"  class="template1">
+                <ItemTemplate  id="template1" name="template1"  class="template1" onClick="ItemClick">
 	               	<View layout="vertical">   
 	                	<View class="spacerView"><Label class="spacer" /></View>
 	                    <View layout="horizontal" height="40">  
