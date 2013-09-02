@@ -34,7 +34,7 @@ function createHttpClient(mode,url,data,header)
 		Titanium.API.info('*******************');
 	Titanium.API.info("in createHttpClient");
 
-	
+	Titanium.API.info(JSON.stringify(data));
 	
 	var xhr = Titanium.Network.createHTTPClient({timeout:3000});
 	xhr.retries = 0;
