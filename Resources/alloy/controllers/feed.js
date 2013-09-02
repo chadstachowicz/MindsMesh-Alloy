@@ -30,18 +30,38 @@ function Controller() {
     function ItemClick(e) {
         var section = $.list.sections[e.sectionIndex];
         var item = section.getItemAt(e.itemIndex);
-        Ti.API.info("ItemClick: " + item.dataLabel.text);
-    }
-    function ItemClick2(e) {
-        var section = $.list.sections[e.sectionIndex];
-        var item = section.getItemAt(e.itemIndex);
-        Ti.API.info("ItemClick2: " + item.dataLabel.text);
+        alert("ItemClick: " + item.dataLabel.text);
+        var view1 = Alloy.createController(windowName, item.dataLabel.text);
+        view1.getView().open();
     }
     function createListView(_data) {
         var items = [];
         for (var i in _data) {
             var imagepath = "";
-            _data[i].post_attachments.count > 0 && (imagepath = _data[i].post_attachments[0].ext_path);
+            var extAttachmentPath = "";
+            var hasExtAttachment = false;
+            var hasMainAttachment = false;
+            if (_data[i].post_attachments.length > 0) {
+                var filetype = "" + GetExtention(_data[i].post_attachments[0].name);
+                if ("png" == filetype || "jpg" == filetype) {
+                    imagepath = _data[i].post_attachments[0].url;
+                    hasMainAttachment = true;
+                } else if ("mov" == filetype) {
+                    var url = _data[i].post_attachments[0].url;
+                    var pieces = url.substring(0, url.length - 8);
+                    imagepath = pieces + "frame_0000.png";
+                    hasMainAttachment = true;
+                } else {
+                    extAttachmentPath = _data[i].post_attachments[0].ext_path;
+                    hasExtAttachment = true;
+                }
+            }
+            var mainImageWidth = 0;
+            var mainImageHeight = 0;
+            if (hasMainAttachment) {
+                mainImageWidth = 100;
+                mainImageHeight = 100;
+            }
             items.push({
                 template: "template1",
                 textLabel: {
@@ -56,8 +76,11 @@ function Controller() {
                 pic: {
                     image: _data[i].user.photo_url
                 },
-                attachmentImage: {
-                    image: imagepath
+                postAttachmentImage: {
+                    image: imagepath,
+                    visible: hasMainAttachment,
+                    width: mainImageWidth,
+                    heigth: mainImageHeight
                 },
                 pic: {
                     image: _data[i].user.photo_url
@@ -70,30 +93,26 @@ function Controller() {
                 },
                 commentCountLabel: {
                     text: _data[i].replies_count
+                },
+                extAttachmentImage: {
+                    image: extAttachmentPath,
+                    visible: hasExtAttachment
+                },
+                paperClipImage: {
+                    visible: hasExtAttachment
                 }
             });
         }
         $.section.setItems(items);
-    }
-    function createTableView(_data) {
-        var items = [];
-        for (var i in _data) items.push(Alloy.createController("tableViewRow", _data[i]).getView());
-        $.table.setData(items);
     }
     function handleClick(e) {
         alert(e.row.post_id);
         alert(e.row.data);
     }
     function ShowJSONData(postJSON) {
-        if ("iphone" === Ti.Platform.osname) {
-            createTableView(postJSON);
-            $.table.visible = true;
-            Ti.API.info("showing tableview, because of IOS");
-        } else {
-            createListView(postJSON);
-            $.list.visible = true;
-            Ti.API.info("showing listview, because of android");
-        }
+        createListView(postJSON);
+        $.list.visible = true;
+        Ti.API.info("showing listview, because of android");
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "feed";
@@ -206,55 +225,64 @@ function Controller() {
                     }
                 };
                 __alloyId5.push(__alloyId20);
-                var __alloyId22 = {
+                var __alloyId21 = {
+                    type: "Ti.UI.ImageView",
+                    bindId: "postAttachmentImage",
+                    properties: {
+                        bindId: "postAttachmentImage"
+                    }
+                };
+                __alloyId5.push(__alloyId21);
+                var __alloyId23 = {
                     type: "Ti.UI.View",
                     childTemplates: function() {
-                        var __alloyId23 = [];
-                        var __alloyId25 = {
+                        var __alloyId24 = [];
+                        var __alloyId26 = {
                             type: "Ti.UI.ImageView",
+                            bindId: "paperClipImage",
                             properties: {
                                 image: "/images/paperclip_black_24.png",
+                                bindId: "paperClipImage",
                                 left: "5"
                             }
                         };
-                        __alloyId23.push(__alloyId25);
-                        var __alloyId26 = {
-                            type: "Ti.UI.Label",
-                            bindId: "idLabel",
+                        __alloyId24.push(__alloyId26);
+                        var __alloyId27 = {
+                            type: "Ti.UI.ImageView",
+                            bindId: "extAttachmentImage",
                             properties: {
-                                color: "#000",
-                                width: Ti.UI.SIZE,
-                                height: Ti.UI.SIZE,
-                                bindId: "idLabel"
+                                bindId: "extAttachmentImage",
+                                left: "5"
                             }
                         };
-                        __alloyId23.push(__alloyId26);
-                        var __alloyId27 = {
+                        __alloyId24.push(__alloyId27);
+                        var __alloyId28 = {
                             type: "Ti.UI.Label",
                             bindId: "commentCountLabel",
                             properties: {
                                 bindId: "commentCountLabel",
-                                left: "200"
+                                right: "10"
                             }
                         };
-                        __alloyId23.push(__alloyId27);
-                        var __alloyId29 = {
+                        __alloyId24.push(__alloyId28);
+                        var __alloyId30 = {
                             type: "Ti.UI.ImageView",
                             properties: {
                                 image: "/images/comment_32.png",
-                                left: "10"
+                                left: "150"
                             }
                         };
-                        __alloyId23.push(__alloyId29);
-                        return __alloyId23;
+                        __alloyId24.push(__alloyId30);
+                        return __alloyId24;
                     }(),
                     properties: {
                         layout: "horizontal",
-                        backgroundColor: "#eeeeee"
+                        backgroundColor: "#eeeeee",
+                        width: Ti.UI.FILL
                     }
                 };
-                __alloyId5.push(__alloyId22);
-                var __alloyId30 = {
+                __alloyId5.push(__alloyId23);
+                var __alloyId31 = {
                     type: "Ti.UI.Label",
                     bindId: "dataLabel",
                     properties: {
@@ -264,14 +292,7 @@ function Controller() {
                         height: "0"
                     }
                 };
-                __alloyId5.push(__alloyId30);
-                var __alloyId32 = {
-                    type: "Ti.UI.Label",
-                    properties: {
-                        text: "listview"
-                    }
-                };
-                __alloyId5.push(__alloyId32);
+                __alloyId5.push(__alloyId31);
                 return __alloyId5;
             }(),
             properties: {
@@ -281,7 +302,7 @@ function Controller() {
         __alloyId2.push(__alloyId4);
         var __alloyId1 = {
             properties: {
-                height: 46,
+                height: Ti.UI.SIZE,
                 name: "template1"
             },
             events: {
@@ -290,29 +311,28 @@ function Controller() {
             childTemplates: __alloyId2
         };
         __alloyId0["template1"] = __alloyId1;
-        var __alloyId33 = [];
-        var __alloyId35 = [];
-        $.__views.__alloyId36 = {
+        var __alloyId32 = [];
+        var __alloyId34 = [];
+        $.__views.__alloyId35 = {
             template: "template1",
             properties: {
-                id: "__alloyId36"
+                id: "__alloyId35"
             }
         };
-        __alloyId35.push($.__views.__alloyId36);
+        __alloyId34.push($.__views.__alloyId35);
         $.__views.section = Ti.UI.createListSection({
             id: "section"
         });
-        __alloyId33.push($.__views.section);
-        $.__views.section.items = __alloyId35;
+        __alloyId32.push($.__views.section);
+        $.__views.section.items = __alloyId34;
         $.__views.list = Ti.UI.createListView({
-            sections: __alloyId33,
+            sections: __alloyId32,
             templates: __alloyId0,
             id: "list",
             defaultItemTemplate: "template1",
             visible: "false"
         });
         $.__views.feedWindow.add($.__views.list);
-        ItemClick2 ? $.__views.list.addEventListener("itemclick", ItemClick2) : __defers["$.__views.list!itemclick!ItemClick2"] = true;
         $.__views.table = Ti.UI.createTableView({
             id: "table",
             backgroundColor: "green",
@@ -345,9 +365,8 @@ function Controller() {
     _.extend($, $.__views);
     var postXML = "";
     GetFeedPosts();
-    $.platformLabel.text = "iPhone OS";
+    $.platformLabel.text = "android";
     Ti.API.info("feed loaded");
-    __defers["$.__views.list!itemclick!ItemClick2"] && $.__views.list.addEventListener("itemclick", ItemClick2);
     __defers["$.__views.table!click!handleClick"] && $.__views.table.addEventListener("click", handleClick);
     __defers["$.__views.backBtn!click!backBtnClicked"] && $.__views.backBtn.addEventListener("click", backBtnClicked);
     __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] && $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked);

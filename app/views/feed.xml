@@ -2,10 +2,12 @@
     <Window id="feedWindow" class="container" formFactor="handheld">
     	
     	
+
     	<!--shows for android devices -->
-        <ListView id="list" class="list" defaultItemTemplate="template1" onItemclick="ItemClick2" visible="false">
+        <ListView id="list" class="list" defaultItemTemplate="template1" visible="false">
             <Templates>
                 <ItemTemplate  id="template1" name="template1" class="template1" onClick="ItemClick">
+
 	               	<View layout="vertical">   
 	                	<View class="spacerView"><Label class="spacer" /></View>
 	                    <View layout="horizontal" height="40">  
@@ -19,18 +21,17 @@
 	               
 						</View>
 	    				<Label id="textLabel"  bindId="textLabel" class="comment"/> 
-	
-	    				<View layout="horizontal" backgroundColor="#eeeeee">  
-	    					
-
-							<ImageView image="/images/paperclip_black_24.png" left="5"></ImageView>
-							
-			      			<Label id="idLabel"  bindId="idLabel" class="id"/>   					
-							<Label id="commentCountLabel"  bindId="commentCountLabel"   left="200"></Label>
-							<ImageView image="/images/comment_32.png" left="10"></ImageView>
+						<ImageView id="postAttachmentImage" bindId="postAttachmentImage"></ImageView>
+						
+						
+	    				<View layout="horizontal" backgroundColor="#eeeeee" width="Ti.UI.FILL">  
+							<ImageView image="/images/paperclip_black_24.png" bindId="paperClipImage" left="5"></ImageView>
+							<ImageView id="extAttachmentImage" bindId="extAttachmentImage" left="5"></ImageView>
+			      			<!-- <Label id="idLabel"  bindId="idLabel" class="id"/>   	-->				
+							<Label id="commentCountLabel"  bindId="commentCountLabel"   right="10"></Label>
+							<ImageView image="/images/comment_32.png" left="150"></ImageView>
 						</View>
 						<Label id="dataLabel"  bindId="dataLabel" visible="false" width="0" height="0" /> 
-						<Label text="listview" /> 
 	                </View>
                 </ItemTemplate> 
             </Templates>

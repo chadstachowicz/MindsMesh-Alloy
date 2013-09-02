@@ -1,0 +1,12 @@
+<Alloy>
+	<View class="container" layout="vertical">
+		<Label id="commentLabel"></Label>
+		<ImageView id="mainAttachmentImage"></ImageView>
+		
+		<ImageView id="userImage"></ImageView>
+		
+		<Label id="dateLabel"></Label>
+		
+		<TableView id="replyTable" onClick="handleClick" visible="false" />
+	</View>
+</Alloy>

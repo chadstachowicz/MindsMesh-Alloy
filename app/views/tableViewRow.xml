@@ -22,17 +22,15 @@
 
 			<Label id="textLabel" class="textLabel"></Label>
 			<Label id="extLabel" class="textLabel"></Label>
-			<ImageView id="postAttachmentImage"></ImageView>
+			<ImageView id="postAttachmentImage" visible="false"></ImageView>
 			<View layout="horizontal" id="rowFooterView">
-				<ImageView image="/images/paperclip_black_24.png" id="paperclipImage"></ImageView>
+				<ImageView image="/images/paperclip_black_24.png" id="paperClipImage" visible="false" left="5"></ImageView>
+				<ImageView id="extAttachmentImage" left="5" visible="false"></ImageView>
 				<Label id="commentCountLabel" class="commentCountLabel"></Label>
 				<ImageView image="/images/comment_32.png" id="commentImage"></ImageView>
 			</View>
 		</View>
-		
-		
-		
-		
+
 	</TableViewRow>
 </Alloy>
 

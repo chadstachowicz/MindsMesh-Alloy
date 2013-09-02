@@ -13,9 +13,6 @@ function GetFeedPosts() {
 	xhr.send();
 }
 
-
-
-
 function openWindow(windowName){
 	var args = {
 		data: "test data",
@@ -32,9 +29,6 @@ function openWindow(windowName){
 }
 
 
-
-
-
 function backBtnClicked(_event) {
     //alert("back button clicked");
 	Ti.API.info("back button clicked");
@@ -46,6 +40,10 @@ function loadMoreBtnClicked(_event) {
 }
 
 
+
+
+
+//called on android
 function ItemClick(e) {
 	// get the clicked section
 	var section = $.list.sections[e.sectionIndex];
@@ -54,21 +52,11 @@ function ItemClick(e) {
 	var item = section.getItemAt(e.itemIndex);
 
 	// print the item's title
-	Ti.API.info('ItemClick: ' + item.dataLabel.text);
+	alert('ItemClick: ' + item.dataLabel.text);
+
+	var view1 = Alloy.createController(windowName, item.dataLabel.text);
+	view1.getView().open();
 }
-function ItemClick2(e) {
-	// get the clicked section
-	var section = $.list.sections[e.sectionIndex];
-
-	// get the clicked item from that section
-	var item = section.getItemAt(e.itemIndex);
-
-	Ti.API.info('ItemClick2: ' + item.dataLabel.text);
-	// print the item's title
-
-}
-
-
 
 
 
@@ -81,11 +69,49 @@ function createListView(_data) {
         //alert("load item");
         // add items to an array
         var imagepath = "";
-        if(_data[i].post_attachments.count>0){
-        	imagepath =  _data[i].post_attachments[0].ext_path;    // assign the values from the data
+        var extAttachmentPath = "";
+        var hasExtAttachment = false;
+        var hasMainAttachment = false;
+        
+        if(_data[i].post_attachments.length>0){
+        	//imagepath =  _data[i].post_attachments[0].url;    // assign the values from the data
+		    var filetype = "" + GetExtention(_data[i].post_attachments[0].name);
+			
+			if(filetype=="png"||filetype=="jpg"){
+				imagepath = _data[i].post_attachments[0].url;    // assign the values from the data
+				hasMainAttachment = true;
+			}else if(filetype=="mov"){
+				var url = _data[i].post_attachments[0].url;
+				var pieces = url.substring(0, url.length - 8);	
+				imagepath = pieces + "frame_0000.png";
+				hasMainAttachment = true;
+			}else{
+				extAttachmentPath = _data[i].post_attachments[0].ext_path;
+				hasExtAttachment = true;
+			}
        	}else{
-       		
+       		//imagepath = _data[i].user.photo_url;
        	}
+        
+        
+ 
+        
+        
+        var mainImageWidth = 0;
+        var mainImageHeight = 0;
+        
+        if(hasMainAttachment){
+        	mainImageWidth = 100;
+        	mainImageHeight = 100;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
         
       
         
@@ -104,8 +130,11 @@ function createListView(_data) {
             pic : {
                 image : _data[i].user.photo_url    // assign the values from the data
             },
-            attachmentImage : {
-                image : imagepath    // assign the values from the data
+            postAttachmentImage : {
+                image :  imagepath,      // assign the values from the data
+                visible : hasMainAttachment,
+                width : mainImageWidth,
+                heigth : mainImageHeight
             },               
             pic : {
                 image : _data[i].user.photo_url    // assign the values from the data
@@ -118,8 +147,14 @@ function createListView(_data) {
             },
             commentCountLabel : {
             	text : _data[i].replies_count
-            	
-            }  
+            },
+            extAttachmentImage : {
+            	image : extAttachmentPath,
+            	visible : hasExtAttachment
+            },
+            paperClipImage : {
+            	visible : hasExtAttachment
+            }   
         });
     }
     
@@ -156,7 +191,7 @@ function handleClick(e) {
  
 function ShowJSONData(postJSON){
 	//display json data, listing the feeds of a single user
-    if (Ti.Platform.osname === 'iphone'){
+    if (Ti.Platform.osname == 'iphone'){
     	//iphone shows tableview because it is fast and the height works
 		createTableView(postJSON);
 		$.table.visible = true;

@@ -16,6 +16,14 @@ function formatDate(d) {
     return datestr;
 }
 
+function GetExtention(filename) {
+    var filesplit = [];
+    var f = "" + filename;
+    filesplit = f.split(".");
+    if (2 == filesplit.length) return filesplit[1];
+    return "";
+}
+
 var Alloy = require("alloy"), _ = Alloy._, Backbone = Alloy.Backbone;
 
 Ti.include("api/api.js");

@@ -73,3 +73,16 @@ function formatDate(d)
 	}
 	return datestr;
 }
+
+ function GetExtention(filename){
+ 	var filesplit = [];
+ 	
+ 	var f = "" + filename;
+ 	
+ 	filesplit = f.split("."); 
+ 	if(filesplit.length==2){
+ 		return(filesplit[1]);
+ 	}
+ 	return("");
+ 	
+ }
