@@ -17,20 +17,25 @@
 			-->
 			
 			
-			<ListView id="list" onItemclick="onItemClick">
-				<ListSection>
-					<ListItem title="row 1"/>
-					<ListItem title="row 2"/>
-					<ListItem title="row 3"/>
-					<ListItem title="row 4"/>
-					<ListItem title="row 5"/>
-					<ListItem title="row 6"/>
-					<ListItem title="row 7"/>
-					<ListItem title="row 8"/>
-					<ListItem title="row 9"/>
-					<ListItem title="row 10"/>
-				</ListSection>
-			</ListView>
+			<ListView id="list">
+	            <Templates>
+	
+	                <ItemTemplate  id="template1" name="template1"  class="template1" onClick="onItemClick">
+	                	
+						<ImageView id="pic"  bindId="pic" class="imageThumb"/>	
+						<Label id="textLabel" layout="vertical" bindId="textLabel" class="title"/>
+						<Label id="nameLabel" bindId="nameLabel" class="name"/>  
+						<ImageView id="attachmentImage"  bindId="attachmentImage" class="attachment"/>
+						<Label id="idLabel"  bindId="idLabel" class="id"/> 
+	
+	                </ItemTemplate>
+	            </Templates>
+	
+	            <ListSection id="section">
+	                <ListItem template="template1" />
+	            </ListSection>
+	        </ListView>
+
 			<!--  
 			        <ListView id="list" class="list" defaultItemTemplate="template1" onItemclick="ItemClick">
             <Templates>

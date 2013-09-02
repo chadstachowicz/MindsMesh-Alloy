@@ -2,10 +2,10 @@
     <Window id="feedWindow" class="container" formFactor="handheld">
     	
     	
-    	
-        <ListView id="list" class="list" defaultItemTemplate="template1" onItemclick="ItemClick">
+    	<!--shows for android devices -->
+        <ListView id="list" class="list" defaultItemTemplate="template1" onItemclick="ItemClick2" visible="false">
             <Templates>
-                <ItemTemplate  id="template1" name="template1"  class="template1">
+                <ItemTemplate  id="template1" name="template1" class="template1" onClick="ItemClick">
 	               	<View layout="vertical">   
 	                	<View class="spacerView"><Label class="spacer" /></View>
 	                    <View layout="horizontal" height="40">  
@@ -21,13 +21,18 @@
 	    				<Label id="textLabel"  bindId="textLabel" class="comment"/> 
 	
 	    				<View layout="horizontal" backgroundColor="#eeeeee">  
-	      					<Label id="idLabel"  bindId="idLabel" class="id"/>   
-	      					<Label text="0" left="100"/>  
-	      					<Label text="comments" left="10"/>  
+	    					
+
+							<ImageView image="/images/paperclip_black_24.png" left="5"></ImageView>
+							
+			      			<Label id="idLabel"  bindId="idLabel" class="id"/>   					
+							<Label id="commentCountLabel"  bindId="commentCountLabel"   left="200"></Label>
+							<ImageView image="/images/comment_32.png" left="10"></ImageView>
 						</View>
-	
+						<Label id="dataLabel"  bindId="dataLabel" visible="false" width="0" height="0" /> 
+						<Label text="listview" /> 
 	                </View>
-                </ItemTemplate>
+                </ItemTemplate> 
             </Templates>
 
             <ListSection id="section">
@@ -36,9 +41,14 @@
         </ListView>
         
         
+        <!--shows for iphone -->
+        <TableView id="table" backgroundColor="green" onClick="handleClick" visible="false" />
         
         
         <Button id="backBtn" onClick="backBtnClicked">back</Button>        
         <Button id="loadMoreBtn" onClick="loadMoreBtnClicked">Load More</Button>
+        
+        <Label id="platformLabel"></Label>
+        
     </Window>
 </Alloy>

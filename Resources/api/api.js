@@ -22,8 +22,10 @@ function createHttpClient(mode, url, data, header) {
     xhr.retries = 0;
     if ("FILE" == header) xhr.setRequestHeader("Content-Type", "multipart/form-data"); else if ("NONE" != header) {
         xhr.setRequestHeader("Content-Type", "application/json");
-        var androidUserAgent = "Mozilla/5.0 (Linux; U; android " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
-        xhr.setRequestHeader("User-Agent", androidUserAgent);
+        if ("android" == Titanium.Platform.osname) {
+            var androidUserAgent = "Mozilla/5.0 (Linux; U; iPhone OS " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
+            xhr.setRequestHeader("User-Agent", androidUserAgent);
+        }
     }
     xhr.onerror = function(e) {
         errorHTTPClient(xhr, mode, url, data, e, L("Comms Error Message"));
@@ -39,8 +41,10 @@ function createHttpClientNoError(mode, url, data, header) {
     xhr.retries = 0;
     if ("FILE" == header) xhr.setRequestHeader("Content-Type", "multipart/form-data"); else if ("NONE" != header) {
         xhr.setRequestHeader("Content-Type", "application/json");
-        var androidUserAgent = "Mozilla/5.0 (Linux; U; android " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
-        xhr.setRequestHeader("User-Agent", androidUserAgent);
+        if ("android" == Titanium.Platform.osname) {
+            var androidUserAgent = "Mozilla/5.0 (Linux; U; iPhone OS " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
+            xhr.setRequestHeader("User-Agent", androidUserAgent);
+        }
     }
     xhr.onerror = function() {
         Titanium.API.info("*******************");

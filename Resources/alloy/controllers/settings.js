@@ -43,19 +43,13 @@ function Controller() {
             customView: "index",
             image: "images/ic_search.png"
         }).getView());
-        section.add(Alloy.createController("menurow", {
-            title: "feed listview (noclick)",
-            customView: "feed",
-            image: "images/ic_search.png"
-        }).getView());
-        section.add(Alloy.createController("menurow", {
-            title: "feed2 listview (click)",
-            customView: "feed2",
-            image: "images/ic_search.png"
-        }).getView());
-        section.add(Alloy.createController("menurow", {
-            title: "feed tableview",
+        "iphone" === Ti.Platform.osname ? section.add(Alloy.createController("menurow", {
+            title: "feed tableview(ios)",
             customView: "feedTableview",
+            image: "images/ic_search.png"
+        }).getView()) : section.add(Alloy.createController("menurow", {
+            title: "feed listview(and)",
+            customView: "feed",
             image: "images/ic_search.png"
         }).getView());
         return section;
@@ -89,7 +83,7 @@ function Controller() {
     var leftData = [];
     leftData[0] = createSection();
     $.ds.leftTableView.data = leftData;
-    var currentView = Alloy.createController("feedTableView").getView();
+    var currentView = Alloy.createController("feed").getView();
     $.ds.contentview.add(currentView);
     $.ds.leftTableView.addEventListener("click", function(e) {
         rowSelect(e);
@@ -130,7 +124,9 @@ function Controller() {
             $.ds.rightMenu.zIndex = 2;
         }
     });
-    $.win.open();
+    "iphone" === Ti.Platform.osname ? $.win.open({
+        transition: Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
+    }) : $.win.open();
     _.extend($, exports);
 }
 

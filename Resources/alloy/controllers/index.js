@@ -39,38 +39,38 @@ function Controller() {
         id: "mainView"
     });
     $.__views.indexWindow.add($.__views.mainView);
-    $.__views.__alloyId60 = Ti.UI.createButton({
+    $.__views.__alloyId63 = Ti.UI.createButton({
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
         title: "Login",
-        id: "__alloyId60"
+        id: "__alloyId63"
     });
-    $.__views.mainView.add($.__views.__alloyId60);
-    goLogin ? $.__views.__alloyId60.addEventListener("click", goLogin) : __defers["$.__views.__alloyId60!click!goLogin"] = true;
-    $.__views.__alloyId61 = Ti.UI.createButton({
+    $.__views.mainView.add($.__views.__alloyId63);
+    goLogin ? $.__views.__alloyId63.addEventListener("click", goLogin) : __defers["$.__views.__alloyId63!click!goLogin"] = true;
+    $.__views.__alloyId64 = Ti.UI.createButton({
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
         title: "Settings",
-        id: "__alloyId61"
+        id: "__alloyId64"
     });
-    $.__views.mainView.add($.__views.__alloyId61);
-    goSettings ? $.__views.__alloyId61.addEventListener("click", goSettings) : __defers["$.__views.__alloyId61!click!goSettings"] = true;
+    $.__views.mainView.add($.__views.__alloyId64);
+    goSettings ? $.__views.__alloyId64.addEventListener("click", goSettings) : __defers["$.__views.__alloyId64!click!goSettings"] = true;
     $.__views.image = Ti.UI.createImageView({
         top: "0dp",
         id: "image",
         image: "/images/Mindsmesh_logo_highres.png"
     });
     $.__views.mainView.add($.__views.image);
-    $.__views.__alloyId62 = Ti.UI.createLabel({
+    $.__views.__alloyId65 = Ti.UI.createLabel({
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
         backgroundColor: "red",
         textAlign: "center",
         bottom: "0dp",
         text: "Welcome to EDU Mesh",
-        id: "__alloyId62"
+        id: "__alloyId65"
     });
-    $.__views.indexWindow.add($.__views.__alloyId62);
+    $.__views.indexWindow.add($.__views.__alloyId65);
     $.__views.btnNext = Ti.UI.createButton({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -85,8 +85,8 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.indexWindow.open();
-    __defers["$.__views.__alloyId60!click!goLogin"] && $.__views.__alloyId60.addEventListener("click", goLogin);
-    __defers["$.__views.__alloyId61!click!goSettings"] && $.__views.__alloyId61.addEventListener("click", goSettings);
+    __defers["$.__views.__alloyId63!click!goLogin"] && $.__views.__alloyId63.addEventListener("click", goLogin);
+    __defers["$.__views.__alloyId64!click!goSettings"] && $.__views.__alloyId64.addEventListener("click", goSettings);
     __defers["$.__views.btnNext!click!goSettings"] && $.__views.btnNext.addEventListener("click", goSettings);
     _.extend($, exports);
 }

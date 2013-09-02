@@ -54,102 +54,90 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    var __defers = {};
     $.__views.feed2 = Ti.UI.createWindow({
         backgroundColor: "#FFF",
         title: "basic",
         id: "feed2"
     });
     $.__views.feed2 && $.addTopLevelView($.__views.feed2);
-    var __alloyId33 = [];
-    var __alloyId36 = [];
-    $.__views.__alloyId37 = {
+    var __alloyId37 = {};
+    var __alloyId39 = [];
+    var __alloyId40 = {
+        type: "Ti.UI.ImageView",
+        bindId: "pic",
         properties: {
-            title: "row 1",
-            id: "__alloyId37"
+            bindId: "pic"
         }
     };
-    __alloyId36.push($.__views.__alloyId37);
-    $.__views.__alloyId38 = {
+    __alloyId39.push(__alloyId40);
+    var __alloyId41 = {
+        type: "Ti.UI.Label",
+        bindId: "textLabel",
         properties: {
-            title: "row 2",
-            id: "__alloyId38"
+            layout: "vertical",
+            bindId: "textLabel"
         }
     };
-    __alloyId36.push($.__views.__alloyId38);
-    $.__views.__alloyId39 = {
+    __alloyId39.push(__alloyId41);
+    var __alloyId42 = {
+        type: "Ti.UI.Label",
+        bindId: "nameLabel",
         properties: {
-            title: "row 3",
-            id: "__alloyId39"
+            bindId: "nameLabel"
         }
     };
-    __alloyId36.push($.__views.__alloyId39);
-    $.__views.__alloyId40 = {
+    __alloyId39.push(__alloyId42);
+    var __alloyId43 = {
+        type: "Ti.UI.ImageView",
+        bindId: "attachmentImage",
         properties: {
-            title: "row 4",
-            id: "__alloyId40"
+            bindId: "attachmentImage"
         }
     };
-    __alloyId36.push($.__views.__alloyId40);
-    $.__views.__alloyId41 = {
+    __alloyId39.push(__alloyId43);
+    var __alloyId44 = {
+        type: "Ti.UI.Label",
+        bindId: "idLabel",
         properties: {
-            title: "row 5",
-            id: "__alloyId41"
+            bindId: "idLabel"
         }
     };
-    __alloyId36.push($.__views.__alloyId41);
-    $.__views.__alloyId42 = {
+    __alloyId39.push(__alloyId44);
+    var __alloyId38 = {
         properties: {
-            title: "row 6",
-            id: "__alloyId42"
+            name: "template1"
+        },
+        events: {
+            click: onItemClick
+        },
+        childTemplates: __alloyId39
+    };
+    __alloyId37["template1"] = __alloyId38;
+    var __alloyId45 = [];
+    var __alloyId47 = [];
+    $.__views.__alloyId48 = {
+        template: "template1",
+        properties: {
+            id: "__alloyId48"
         }
     };
-    __alloyId36.push($.__views.__alloyId42);
-    $.__views.__alloyId43 = {
-        properties: {
-            title: "row 7",
-            id: "__alloyId43"
-        }
-    };
-    __alloyId36.push($.__views.__alloyId43);
-    $.__views.__alloyId44 = {
-        properties: {
-            title: "row 8",
-            id: "__alloyId44"
-        }
-    };
-    __alloyId36.push($.__views.__alloyId44);
-    $.__views.__alloyId45 = {
-        properties: {
-            title: "row 9",
-            id: "__alloyId45"
-        }
-    };
-    __alloyId36.push($.__views.__alloyId45);
-    $.__views.__alloyId46 = {
-        properties: {
-            title: "row 10",
-            id: "__alloyId46"
-        }
-    };
-    __alloyId36.push($.__views.__alloyId46);
-    $.__views.__alloyId34 = Ti.UI.createListSection({
-        id: "__alloyId34"
+    __alloyId47.push($.__views.__alloyId48);
+    $.__views.section = Ti.UI.createListSection({
+        id: "section"
     });
-    __alloyId33.push($.__views.__alloyId34);
-    $.__views.__alloyId34.items = __alloyId36;
+    __alloyId45.push($.__views.section);
+    $.__views.section.items = __alloyId47;
     $.__views.list = Ti.UI.createListView({
-        sections: __alloyId33,
+        sections: __alloyId45,
+        templates: __alloyId37,
         id: "list"
     });
     $.__views.feed2.add($.__views.list);
-    onItemClick ? $.__views.list.addEventListener("itemclick", onItemClick) : __defers["$.__views.list!itemclick!onItemClick"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var postXML = "";
     GetFeedPosts();
     Ti.API.info("feed loaded");
-    __defers["$.__views.list!itemclick!onItemClick"] && $.__views.list.addEventListener("itemclick", onItemClick);
     _.extend($, exports);
 }
 

@@ -77,9 +77,19 @@ function createSection() {
 	section.headerView = customView;
 	
 	section.add(Alloy.createController('menurow', {title : 'index',customView : 'index',image : "images/ic_search.png"}).getView());
-	section.add(Alloy.createController('menurow', {title : 'feed listview (noclick)',customView : 'feed',image : "images/ic_search.png"}).getView());
-			section.add(Alloy.createController('menurow', {title : 'feed2 listview (click)',customView : 'feed2',image : "images/ic_search.png"}).getView());
-	section.add(Alloy.createController('menurow', {title : 'feed tableview',customView : 'feedTableview',image : "images/ic_search.png"}).getView());
+	
+	if (Ti.Platform.osname === 'iphone'){
+		section.add(Alloy.createController('menurow', {title : 'feed tableview(ios)',customView : 'feedTableview',image : "images/ic_search.png"}).getView());
+	}else{
+		
+		section.add(Alloy.createController('menurow', {title : 'feed listview(and)',customView : 'feed',image : "images/ic_search.png"}).getView());
+		
+	}
+
+	
+
+	//section.add(Alloy.createController('menurow', {title : 'feed2 listview (click)',customView : 'feed2',image : "images/ic_search.png"}).getView());
+
 	
 		//section.add(Alloy.createController('menurow', {title : 'external view',customView : 'externalView',image : "images/ic_search.png"}).getView());
 	//section.add(Alloy.createController('menurow', {title : 'slideview',customView : 'slideview',image : "images/ic_search.png"}).getView());
@@ -104,7 +114,7 @@ $.ds.leftTableView.data = leftData;
 
 
 
-var currentView = Alloy.createController("feedTableView").getView();
+var currentView = Alloy.createController("feed").getView();
 
 
 

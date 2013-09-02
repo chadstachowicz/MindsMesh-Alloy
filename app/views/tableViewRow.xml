@@ -20,7 +20,7 @@
 			</View>
 
 
-<Label id="textLabel" class="textLabel"></Label>
+			<Label id="textLabel" class="textLabel"></Label>
 			<Label id="extLabel" class="textLabel"></Label>
 			<ImageView id="postAttachmentImage"></ImageView>
 			<View layout="horizontal" id="rowFooterView">
