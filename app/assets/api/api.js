@@ -31,10 +31,23 @@ function createHttpClient(mode,url,data,header)
 	//alert("createHttpClient");
 	//alert(data.toString());
 	
-		Titanium.API.info('*******************');
+	
+	/*
+    if (Ti.Platform.osname == 'android'){
+
+		//android needs stringify
+		data = JSON.stringify(data);
+		Titanium.API.info('android stringify data');
+		Titanium.API.info(data);
+	}
+	*/
+
+	
+	
+	Titanium.API.info('*******************');
 	Titanium.API.info("in createHttpClient");
 
-	Titanium.API.info(JSON.stringify(data));
+
 	
 	var xhr = Titanium.Network.createHTTPClient({timeout:3000});
 	xhr.retries = 0;
@@ -49,6 +62,9 @@ function createHttpClient(mode,url,data,header)
 	}
 	xhr.onerror = function(e) 
 	{
+		
+		
+		
 		errorHTTPClient(xhr, mode, url, data, e, L("Comms Error Message"));
 	};
 	

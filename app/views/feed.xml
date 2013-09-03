@@ -1,12 +1,12 @@
 <Alloy>
-    <Window id="feedWindow" class="container" formFactor="handheld">
+    <Window id="feed" class="container" formFactor="handheld">
     	
     	
 
     	<!--shows for android devices -->
         <ListView id="list" class="list" defaultItemTemplate="template1" visible="false">
             <Templates>
-                <ItemTemplate  id="template1" name="template1" class="template1" onClick="ItemClick">
+                <ItemTemplate  id="template1" name="template1" class="template1" onClick="listViewItemClick">
 
 	               	<View layout="vertical" >   
 	                	<View class="spacerView"><Label class="spacer" /></View>
@@ -26,9 +26,9 @@
 						
 	    				<View backgroundColor="#eeeeee" width="Ti.UI.FILL">  
 							<ImageView image="/images/paperclip_black_24.png" bindId="paperClipImage" left="5"></ImageView>
-							<ImageView id="extAttachmentImage" bindId="extAttachmentImage" left="45"></ImageView>
+							<ImageView id="extAttachmentImage" bindId="extAttachmentImage" left="35"></ImageView>
 			      			<!-- <Label id="idLabel"  bindId="idLabel" class="id"/>   	-->				
-							<Label id="commentCountLabel"  bindId="commentCountLabel" right="45"></Label>
+							<Label id="commentCountLabel"  bindId="commentCountLabel" right="40"></Label>
 							<ImageView image="/images/comment_32.png" right="5"></ImageView>
 						</View>
 						<Label id="dataLabel"  bindId="dataLabel" visible="false" width="0" height="0" /> 
@@ -43,7 +43,7 @@
         
         
         <!--shows for iphone -->
-        <TableView id="table" backgroundColor="green" onClick="handleClick" visible="false" />
+        <TableView id="table" backgroundColor="green" onClick="tableViewHandleClick" visible="false" />
         
         
         <Button id="backBtn" onClick="backBtnClicked">back</Button>        

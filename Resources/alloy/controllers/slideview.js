@@ -11,24 +11,24 @@ function Controller() {
         id: "win"
     });
     $.__views.win && $.addTopLevelView($.__views.win);
-    var __alloyId67 = [];
+    var __alloyId69 = [];
     $.__views.view1 = Ti.UI.createView({
         id: "view1",
         backgroundColor: "#123"
     });
-    __alloyId67.push($.__views.view1);
+    __alloyId69.push($.__views.view1);
     $.__views.view2 = Ti.UI.createView({
         id: "view2",
         backgroundColor: "#246"
     });
-    __alloyId67.push($.__views.view2);
+    __alloyId69.push($.__views.view2);
     $.__views.view3 = Ti.UI.createView({
         id: "view3",
         backgroundColor: "#48b"
     });
-    __alloyId67.push($.__views.view3);
+    __alloyId69.push($.__views.view3);
     $.__views.scrollableView = Ti.UI.createScrollableView({
-        views: __alloyId67,
+        views: __alloyId69,
         id: "scrollableView",
         showPagingControl: "true"
     });

@@ -1,7 +1,25 @@
 function handleClick(e) {
-    alert(e.row.post_id); 
+    alert("feedTableview:handleclick()");
     
-    alert(e.row.data);   
+    alert(e.row.post_id); 
+    alert(e.row.data);  
+    
+    
+
+    
+    
+    var currentView = Alloy.createController("showpost",e.row.data).getView();
+	$.ds.contentview.add(currentView);
+	
+	
+
+	 /*    
+    $.feedTableview.close();
+	$.feedTableview = null;
+	
+	var view1 = Alloy.createController("showpost", e.row.data);
+	view1.getView().open();
+	*/
 }
  
 
@@ -12,7 +30,21 @@ function handleClick(e) {
 }
  
 
- 
+function openWindow(windowName){
+	var args = {
+		data: "test data",
+		value: "other data"
+	};
+	
+	$.feedTableview.close();
+	$.feedTableview = null;
+	
+	
+	var view1 = Alloy.createController(windowName, args);
+	view1.getView().open();
+		
+}
+
  
  
  

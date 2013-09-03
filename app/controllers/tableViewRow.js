@@ -27,27 +27,6 @@ $.commentCountLabel.text = args.replies_count;
 $.row.data = args;
 
 if(args.post_attachments.length>0){
-	/*
-	var filetype = "" + GetExtention(args.post_attachments[0].name);
-	
-	$.extLabel.text = filetype + ": " + (filetype=="png");
-	
-	if(filetype=="png"){
-		$.postAttachmentImage.image = args.post_attachments[0].url;    // assign the values from the data
-		
-	}else if(filetype=="mov"){
-		
-		var url = args.post_attachments[0].url;
-		var pieces = url.substring(0, url.length - 8);	
-		
-		$.postAttachmentImage.image = pieces + "frame_0000.png";
-		
-	}else{
-		
-		$.postAttachmentImage.image = args.post_attachments[0].ext_path;
-	}
-	*/
-	
 
 	    var filetype = "" + GetExtention(args.post_attachments[0].name);
 		
@@ -90,15 +69,4 @@ if(args.post_attachments.length>0){
 	$.postAttachmentImage.height = 0;
 }
 
-
-
-
-/*
-
-$.textLabel.text = args.textLabel;          
-$.nameLabel.text = args.nameLabel;  
-$.dateLabel.text = args.dateLabel;         
-$.row.post_id = args.idLabel;
-$.thumbImage.image = args.photo_url;replies_count	0	
-
-*/
+ 

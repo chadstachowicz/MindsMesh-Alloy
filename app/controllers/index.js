@@ -28,7 +28,7 @@ function openWindow(windowName){
 	$.indexWindow.close();
 	$.indexWindow = null;
 	
-	
+	//alert(args);
 
 	var view1 = Alloy.createController(windowName, args);
 	view1.getView().open();

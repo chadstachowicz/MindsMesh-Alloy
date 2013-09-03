@@ -141,27 +141,13 @@ $.ds.rightTableView.addEventListener('click', function selectRow(e) {
 // Set row title highlight colour (left table view)
 var storedRowTitle = null;
 $.ds.leftTableView.addEventListener('touchstart', function(e) {
-	storedRowTitle = e.row.customTitle;
+	//storedRowTitle = e.row.customTitle;
 	storedRowTitle.color = "#FFF";
 });
 $.ds.leftTableView.addEventListener('touchend', function(e) {
 	storedRowTitle.color = "#666";
 });
 $.ds.leftTableView.addEventListener('scroll', function(e) {
-	if (storedRowTitle != null)
-		storedRowTitle.color = "#666";
-});
-
-// Set row title highlight colour (right table view)
-var storedRowTitle = null;
-$.ds.rightTableView.addEventListener('touchstart', function(e) {
-	storedRowTitle = e.row.customTitle;
-	storedRowTitle.color = "#FFF";
-});
-$.ds.rightTableView.addEventListener('touchend', function(e) {
-	storedRowTitle.color = "#666";
-});
-$.ds.rightTableView.addEventListener('scroll', function(e) {
 	if (storedRowTitle != null)
 		storedRowTitle.color = "#666";
 });

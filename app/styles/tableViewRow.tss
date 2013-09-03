@@ -54,17 +54,14 @@
 "#paperclipImage" : {
   height: Ti.UI.SIZE,
   width: Ti.UI.SIZE,
-  left: 5
 },
 
 ".commentCountLabel" : {
   height: Ti.UI.SIZE,
   width: Ti.UI.SIZE,
-  right:45
 },
 
 "#commentImage" : {
   height: Ti.UI.SIZE,
   width: Ti.UI.SIZE,
-  left: 5
 }

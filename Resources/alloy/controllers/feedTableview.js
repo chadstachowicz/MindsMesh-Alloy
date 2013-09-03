@@ -1,9 +1,22 @@
 function Controller() {
     function handleClick(e) {
+        alert("feedTableview:handleclick()");
         alert(e.row.post_id);
         alert(e.row.data);
+        var currentView = Alloy.createController("showpost", e.row.data).getView();
+        $.ds.contentview.add(currentView);
     }
     function handleScrollEnd() {}
+    function openWindow(windowName) {
+        var args = {
+            data: "test data",
+            value: "other data"
+        };
+        $.feedTableview.close();
+        $.feedTableview = null;
+        var view1 = Alloy.createController(windowName, args);
+        view1.getView().open();
+    }
     function createTableView(_data) {
         var items = [];
         for (var i in _data) items.push(Alloy.createController("tableViewRow", _data[i]).getView());

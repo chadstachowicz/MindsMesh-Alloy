@@ -1,12 +1,33 @@
 <Alloy>
-	<View class="container" layout="vertical">
-		<Label id="commentLabel"></Label>
-		<ImageView id="mainAttachmentImage"></ImageView>
+	<Window>
+		<View class="container" layout="vertical">
+			<View backgroundColor="#eeeeee" height="Ti.UI.SIZE">
+				<ImageView id="userImage" left="0" top="0" width="70" height="70"></ImageView>				
+				<Label left="90" top="0"  id="nameLabel"></Label>
+				<Label left="90" top="20" id="dateLabel"></Label>		
+			</View>
+			
+			
+
+	
+			<Label id="commentLabel" left="5"></Label>
+			<Label id="attachmentCountLabel"></Label>
+			<Label id="replyCountLabel"></Label>
+			<ImageView id="mainAttachmentImage" onClick="MainImageClick"></ImageView>
+			<ImageView id="extAttachmentImage"></ImageView>
+			
+			<!-- 
+
+
+-->
+			
+			<TableView id="replyTable" onClick="handleClick" visible="false" />
+			
+			
+			
+			
+		</View>
 		
-		<ImageView id="userImage"></ImageView>
-		
-		<Label id="dateLabel"></Label>
-		
-		<TableView id="replyTable" onClick="handleClick" visible="false" />
-	</View>
+		        <Button id="backBtn" onClick="backBtnClicked">back</Button>  
+	</Window>
 </Alloy>

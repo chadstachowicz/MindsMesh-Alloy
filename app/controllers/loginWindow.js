@@ -37,7 +37,19 @@ function LoginUser(email, password){
 
 	var postData = {'email': email, 'password': password};
 
-	xhr = postLogin("",postData);
+
+    //if (Ti.Platform.osname == 'iphone'){
+    	//iphone needs no stringify 
+		xhr = postLogin("",postData);
+	//}else{
+		//android needs stringify
+	//	xhr = postLogin("",JSON.stringify(postData));
+	//}
+
+
+	
+	
+	
 	xhr.onload = function(){
 		var response = this.responseText;
 		//alert(response);
@@ -76,8 +88,14 @@ function LoginUser(email, password){
 		alert(response);
 	};
 	
-	//xhr.send(JSON.stringify(postData));
-	xhr.send(postData);
+	
+	if (Ti.Platform.osname == 'android')
+	{
+		xhr.send(JSON.stringify(postData));
+	}else{
+		xhr.send(postData);
+	}
+	
 
 }
 
@@ -92,7 +110,7 @@ function openFeed(){
 	$.loginWindow.close();
 	$.loginWindow = null;
 	
-	var feed = Alloy.createController("index2", args);
+	var feed = Alloy.createController("settings", args);
 	
 	feed.getView().open();
 	

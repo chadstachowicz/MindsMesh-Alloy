@@ -6,33 +6,14 @@
 	height: 40
 },
 
-".mainView": {
-    width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE,
-	layout: "vertical"
-},
+
 
 ".verticalView": {
     width: Ti.UI.FILL,
 	height: Ti.UI.SIZE,
 	layout: "vertical"
 },
-".horizontalView": {
-    width: Ti.UI.FILL,
-	height: Ti.UI.SIZE,
-	layout: "horizontal"
-},
-".footerView": {
-	layout: "horizontal",
-	backgroundColor:"#eeeeee"
-},
 
-
-".userView": {
-    width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE,
-	layout: "horizontal"
-},
 
 ".template1[platform=ios]": {
 	height: 46

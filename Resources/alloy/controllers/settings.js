@@ -90,25 +90,13 @@ function Controller() {
         $.ds.toggleRightSlider();
     });
     var storedRowTitle = null;
-    $.ds.leftTableView.addEventListener("touchstart", function(e) {
-        storedRowTitle = e.row.customTitle;
+    $.ds.leftTableView.addEventListener("touchstart", function() {
         storedRowTitle.color = "#FFF";
     });
     $.ds.leftTableView.addEventListener("touchend", function() {
         storedRowTitle.color = "#666";
     });
     $.ds.leftTableView.addEventListener("scroll", function() {
-        null != storedRowTitle && (storedRowTitle.color = "#666");
-    });
-    var storedRowTitle = null;
-    $.ds.rightTableView.addEventListener("touchstart", function(e) {
-        storedRowTitle = e.row.customTitle;
-        storedRowTitle.color = "#FFF";
-    });
-    $.ds.rightTableView.addEventListener("touchend", function() {
-        storedRowTitle.color = "#666";
-    });
-    $.ds.rightTableView.addEventListener("scroll", function() {
         null != storedRowTitle && (storedRowTitle.color = "#666");
     });
     Ti.App.addEventListener("sliderToggled", function(e) {

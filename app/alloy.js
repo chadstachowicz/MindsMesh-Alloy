@@ -74,7 +74,7 @@ function formatDate(d)
 	return datestr;
 }
 
- function GetExtention(filename){
+function GetExtention(filename){
  	var filesplit = [];
  	
  	var f = "" + filename;

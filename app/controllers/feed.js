@@ -19,8 +19,8 @@ function openWindow(windowName){
 		value: "other data"
 	};
 	
-	$.feedWindow.close();
-	$.feedWindow = null;
+	//$.feed.close();
+	//$.feed = null;
 	
 	
 	var view1 = Alloy.createController(windowName, args);
@@ -43,20 +43,6 @@ function loadMoreBtnClicked(_event) {
 
 
 
-//called on android
-function ItemClick(e) {
-	// get the clicked section
-	var section = $.list.sections[e.sectionIndex];
-
-	// get the clicked item from that section
-	var item = section.getItemAt(e.itemIndex);
-
-	// print the item's title
-	alert('ItemClick: ' + item.dataLabel.text);
-
-	var view1 = Alloy.createController(windowName, item.dataLabel.text);
-	view1.getView().open();
-}
 
 
 
@@ -181,11 +167,33 @@ function createTableView(_data) {
 	$.table.setData(items);
 }
  
- 
-function handleClick(e) {
-    alert(e.row.post_id); 
+ //called on android
+function listViewItemClick(e) {
+	// get the clicked section
+	var section = $.list.sections[e.sectionIndex];
+
+	// get the clicked item from that section
+	var item = section.getItemAt(e.itemIndex);
+
+	// print the item's title
+	//alert('ItemClick: ' + item.dataLabel.text);
+
+	var view1 = Alloy.createController("showpost", JSON.parse(item.dataLabel.text) );
+	view1.getView().open();
+}
+
+function tableViewHandleClick(e) {
+    //alert(e.row.post_id); 
     
-    alert(e.row.data);   
+    //alert(e.row.data);   
+
+  
+    //$.feed.close();
+	//$.feed = null;
+	
+	var view1 = Alloy.createController("showpost", e.row.data).getView();
+	view1.open();
+
 }
  
  

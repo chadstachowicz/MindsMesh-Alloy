@@ -36,7 +36,7 @@ function Controller() {
             var response = this.responseText;
             alert(response);
         };
-        xhr.send(postData);
+        xhr.send(JSON.stringify(postData));
     }
     function openFeed() {
         var args = {
@@ -45,7 +45,7 @@ function Controller() {
         };
         $.loginWindow.close();
         $.loginWindow = null;
-        var feed = Alloy.createController("index2", args);
+        var feed = Alloy.createController("settings", args);
         feed.getView().open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
