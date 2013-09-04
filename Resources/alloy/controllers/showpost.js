@@ -10,14 +10,14 @@ function Controller() {
         Ti.API.info("back button clicked");
         goBackToFeed();
     }
-    function MainImageClick(_event) {
+    function MainImageClick() {
         Ti.API.info("main image clicked");
-        var i = $.mainAttachmentImage.image;
-        var args = {
-            data: "test data",
-            value: i
-        };
-        var view1 = Alloy.createController("showimage", args);
+        var view1;
+        view1 = "mov" == filetype ? Alloy.createController("showvideo", {
+            value: attachmentURL
+        }) : Alloy.createController("showimage", {
+            value: $.mainAttachmentImage.image
+        });
         view1.getView().open();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -77,6 +77,10 @@ function Controller() {
         id: "replyCountLabel"
     });
     $.__views.__alloyId67.add($.__views.replyCountLabel);
+    $.__views.attachmentExtLabel = Ti.UI.createLabel({
+        id: "attachmentExtLabel"
+    });
+    $.__views.__alloyId67.add($.__views.attachmentExtLabel);
     $.__views.mainAttachmentImage = Ti.UI.createImageView({
         id: "mainAttachmentImage"
     });
@@ -103,35 +107,40 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
+    var imagepath = "";
+    var extAttachmentPath = "";
+    var hasExtAttachment = false;
+    var hasMainAttachment = false;
+    var filetype = "";
+    var attachmentURL = "";
     $.userImage.image = args.user.photo_url;
     $.nameLabel.text = args.user.name;
     $.dateLabel.text = args.updated_at;
     $.commentLabel.text = args.text;
     $.replyCountLabel.text = args.replies_count;
     $.attachmentCountLabel.text = args.post_attachments.length;
-    var imagepath = "";
-    var extAttachmentPath = "";
-    var hasExtAttachment = false;
-    var hasMainAttachment = false;
     if (args.post_attachments.length > 0) {
-        var filetype = "" + GetExtention(args.post_attachments[0].name);
+        filetype = "" + GetExtention(args.post_attachments[0].name);
         if ("png" == filetype || "jpg" == filetype) {
             imagepath = args.post_attachments[0].url;
+            attachmentURL = args.post_attachments[0].url;
             hasMainAttachment = true;
         } else if ("mov" == filetype) {
-            var url = args.post_attachments[0].url;
-            var pieces = url.substring(0, url.length - 8);
+            attachmentURL = args.post_attachments[0].url;
+            var pieces = attachmentURL.substring(0, attachmentURL.length - 8);
             imagepath = pieces + "frame_0000.png";
             hasMainAttachment = true;
         } else {
+            attachmentURL = args.post_attachments[0].url;
             extAttachmentPath = args.post_attachments[0].ext_path;
             hasExtAttachment = true;
         }
     }
+    $.attachmentExtLabel.text = filetype;
     $.mainAttachmentImage.visible = hasMainAttachment;
     $.extAttachmentImage.visible = hasExtAttachment;
     hasMainAttachment && ($.mainAttachmentImage.image = imagepath);
-    hasMainAttachment && ($.extAttachmentImage.image = extAttachmentPath);
+    hasExtAttachment && ($.extAttachmentImage.image = extAttachmentPath);
     __defers["$.__views.mainAttachmentImage!click!MainImageClick"] && $.__views.mainAttachmentImage.addEventListener("click", MainImageClick);
     __defers["$.__views.replyTable!click!handleClick"] && $.__views.replyTable.addEventListener("click", handleClick);
     __defers["$.__views.backBtn!click!backBtnClicked"] && $.__views.backBtn.addEventListener("click", backBtnClicked);

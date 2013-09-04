@@ -1,4 +1,67 @@
- function handleClick(e) {
+
+var args = arguments[0]||{};
+
+//alert(args);
+
+//JSON.parse(args)
+
+var imagepath = "";
+var extAttachmentPath = "";
+var hasExtAttachment = false;
+var hasMainAttachment = false;
+var attachmentType = "";
+var filetype = "";
+var attachmentURL = "";
+
+$.userImage.image	 = args.user.photo_url;
+$.nameLabel.text = args.user.name;
+$.dateLabel.text	 = args.updated_at;
+$.commentLabel.text = args.text;
+$.replyCountLabel.text = args.replies_count;
+$.attachmentCountLabel.text = args.post_attachments.length;
+
+if(args.post_attachments.length>0){
+	//imagepath =  _data[i].post_attachments[0].url;    // assign the values from the data
+    filetype = "" + GetExtention(args.post_attachments[0].name);
+	
+	if(filetype=="png"||filetype=="jpg"){
+		imagepath = args.post_attachments[0].url;    // assign the values from the data
+		attachmentURL = args.post_attachments[0].url;
+		hasMainAttachment = true;
+	}else if(filetype=="mov"){
+		attachmentURL = args.post_attachments[0].url;
+		//this is wrong, should split on "/" and then "."
+		var pieces = attachmentURL.substring(0, attachmentURL.length - 8);	
+		imagepath = pieces + "frame_0000.png";
+		hasMainAttachment = true;
+	}else{
+		attachmentURL = args.post_attachments[0].url;
+		extAttachmentPath = args.post_attachments[0].ext_path;
+		hasExtAttachment = true;
+	}
+}else{
+	//imagepath = _data[i].user.photo_url;
+}
+    
+    $.attachmentExtLabel.text =  filetype;  	
+$.mainAttachmentImage.visible  =  hasMainAttachment;
+$.extAttachmentImage.visible  =  hasExtAttachment;
+    
+if(hasMainAttachment){
+  	$.mainAttachmentImage.image = imagepath;
+}
+if(hasExtAttachment){
+  	$.extAttachmentImage.image = extAttachmentPath;
+}
+
+
+
+
+
+
+
+
+function handleClick(e) {
     
     alert("handleClick");
     
@@ -21,7 +84,7 @@
 		
 }
 
- function goBackToFeed(){
+function goBackToFeed(){
 
 	$.showpost.close();
 	$.showpost = null;
@@ -38,22 +101,15 @@ function backBtnClicked(_event) {
 function MainImageClick(_event) {
     //alert("back button clicked");
 	Ti.API.info("main image clicked");
-	//openWindow("showimage");
-	var e = _event;
 	
-	
-	var i = $.mainAttachmentImage.image;
-	
-	var args = {
-		data: "test data",
-		value: i
-	};
-	
-	//$.showpost.close();
-	//$.showpost = null;
-	
-	
-	var view1 = Alloy.createController("showimage", args);
+	var view1;
+	if(filetype=="mov"){
+				view1 = Alloy.createController("showvideo", {value: attachmentURL});	
+
+	}else{
+		view1 = Alloy.createController("showimage", {value: $.mainAttachmentImage.image});	
+	}
+
 	view1.getView().open();
 }
 
@@ -78,64 +134,6 @@ function createTableView(_data) {
 	$.replyTable.setData(items);
 }
  
-
-
-var args = arguments[0]||{};
-
-//alert(args);
-
-//JSON.parse(args)
-
-
-
-
-
-$.userImage.image	 = args.user.photo_url;
-$.nameLabel.text = args.user.name;
-$.dateLabel.text	 = args.updated_at;
-$.commentLabel.text = args.text;
-
-
-
-$.replyCountLabel.text = args.replies_count;
-$.attachmentCountLabel.text = args.post_attachments.length;
-
-
-
-       var imagepath = "";
-        var extAttachmentPath = "";
-        var hasExtAttachment = false;
-        var hasMainAttachment = false;
-        
-        if(args.post_attachments.length>0){
-        	//imagepath =  _data[i].post_attachments[0].url;    // assign the values from the data
-		    var filetype = "" + GetExtention(args.post_attachments[0].name);
-			
-			if(filetype=="png"||filetype=="jpg"){
-				imagepath = args.post_attachments[0].url;    // assign the values from the data
-				hasMainAttachment = true;
-			}else if(filetype=="mov"){
-				var url = args.post_attachments[0].url;
-				var pieces = url.substring(0, url.length - 8);	
-				imagepath = pieces + "frame_0000.png";
-				hasMainAttachment = true;
-			}else{
-				extAttachmentPath = args.post_attachments[0].ext_path;
-				hasExtAttachment = true;
-			}
-       	}else{
-       		//imagepath = _data[i].user.photo_url;
-       	}
-       	
-  $.mainAttachmentImage.visible  =  hasMainAttachment;
-    $.extAttachmentImage.visible  =  hasExtAttachment;
-    
-  if(hasMainAttachment){
-  	$.mainAttachmentImage.image = imagepath;
-  }
-  if(hasMainAttachment){
-  	$.extAttachmentImage.image = extAttachmentPath;
-  }
 
 
 

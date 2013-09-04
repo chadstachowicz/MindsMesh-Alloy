@@ -16,6 +16,7 @@ function errorHTTPClient(request, mode, url, data, errObj) {
 function createHttpClient(mode, url, data, header) {
     Titanium.API.info("*******************");
     Titanium.API.info("in createHttpClient");
+    Titanium.API.info(data);
     var xhr = Titanium.Network.createHTTPClient({
         timeout: 3e3
     });

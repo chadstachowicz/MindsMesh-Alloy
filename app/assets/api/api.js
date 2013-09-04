@@ -38,7 +38,7 @@ function createHttpClient(mode,url,data,header)
 		//android needs stringify
 		data = JSON.stringify(data);
 		Titanium.API.info('android stringify data');
-		Titanium.API.info(data);
+
 	}
 	*/
 
@@ -47,7 +47,7 @@ function createHttpClient(mode,url,data,header)
 	Titanium.API.info('*******************');
 	Titanium.API.info("in createHttpClient");
 
-
+	Titanium.API.info(data);
 	
 	var xhr = Titanium.Network.createHTTPClient({timeout:3000});
 	xhr.retries = 0;

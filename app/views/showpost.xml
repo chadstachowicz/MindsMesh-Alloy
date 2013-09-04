@@ -13,6 +13,8 @@
 			<Label id="commentLabel" left="5"></Label>
 			<Label id="attachmentCountLabel"></Label>
 			<Label id="replyCountLabel"></Label>
+			<Label id="attachmentExtLabel"></Label>
+			
 			<ImageView id="mainAttachmentImage" onClick="MainImageClick"></ImageView>
 			<ImageView id="extAttachmentImage"></ImageView>
 			

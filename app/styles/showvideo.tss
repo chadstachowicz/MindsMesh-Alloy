@@ -6,11 +6,4 @@
         Ti.UI.PORTRAIT,
         Ti.UI.UPSIDE_PORTRAIT
     ] 
-},
-"#mainImage": {
-
-
- 
 }
-
-
