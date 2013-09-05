@@ -96,6 +96,11 @@ function Controller() {
         }
         $.section.setItems(items);
     }
+    function createTableView(_data) {
+        var items = [];
+        for (var i in _data) items.push(Alloy.createController("tableViewRow", _data[i]).getView());
+        $.table.setData(items);
+    }
     function listViewItemClick(e) {
         var section = $.list.sections[e.sectionIndex];
         var item = section.getItemAt(e.itemIndex);
@@ -107,9 +112,15 @@ function Controller() {
         view1.open();
     }
     function ShowJSONData(postJSON) {
-        createListView(postJSON);
-        $.list.visible = true;
-        Ti.API.info("showing listview, because of android");
+        if ("iphone" == Ti.Platform.osname) {
+            createTableView(postJSON);
+            $.table.visible = true;
+            Ti.API.info("showing tableview, because of IOS");
+        } else {
+            createListView(postJSON);
+            $.list.visible = true;
+            Ti.API.info("showing listview, because of android");
+        }
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "feed";
@@ -298,7 +309,7 @@ function Controller() {
         __alloyId2.push(__alloyId4);
         var __alloyId1 = {
             properties: {
-                height: Ti.UI.SIZE,
+                height: 46,
                 name: "template1"
             },
             events: {
@@ -361,7 +372,7 @@ function Controller() {
     _.extend($, $.__views);
     var postXML = "";
     GetFeedPosts();
-    $.platformLabel.text = "android";
+    $.platformLabel.text = "iPhone OS";
     Ti.API.info("feed loaded");
     __defers["$.__views.table!click!tableViewHandleClick"] && $.__views.table.addEventListener("click", tableViewHandleClick);
     __defers["$.__views.backBtn!click!backBtnClicked"] && $.__views.backBtn.addEventListener("click", backBtnClicked);

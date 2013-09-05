@@ -12,6 +12,7 @@ var hasMainAttachment = false;
 var attachmentType = "";
 var filetype = "";
 var attachmentURL = "";
+var filename = "";
 
 $.userImage.image	 = args.user.photo_url;
 $.nameLabel.text = args.user.name;
@@ -23,6 +24,8 @@ $.attachmentCountLabel.text = args.post_attachments.length;
 if(args.post_attachments.length>0){
 	//imagepath =  _data[i].post_attachments[0].url;    // assign the values from the data
     filetype = "" + GetExtention(args.post_attachments[0].name);
+    filename = "" + GetFilenameFromPath(args.post_attachments[0].url);
+    
 	
 	if(filetype=="png"||filetype=="jpg"){
 		imagepath = args.post_attachments[0].url;    // assign the values from the data
@@ -42,8 +45,9 @@ if(args.post_attachments.length>0){
 }else{
 	//imagepath = _data[i].user.photo_url;
 }
-    
-    $.attachmentExtLabel.text =  filetype;  	
+
+$.extAttachmentFileNameLabel.text =  filename;
+$.attachmentExtLabel.text =  filetype;  	
 $.mainAttachmentImage.visible  =  hasMainAttachment;
 $.extAttachmentImage.visible  =  hasExtAttachment;
     
@@ -58,7 +62,13 @@ if(hasExtAttachment){
 
 
 
-
+function ExternalFileClick(e) {
+    
+    alert("handleClick");
+    
+    //alert(e.row.post_id); 
+    //alert(e.row.data);   
+}
 
 
 function handleClick(e) {
@@ -138,9 +148,73 @@ function createTableView(_data) {
 
 
 
+//*************************************************
+//UNTESTED
+function AndroidDownloadFile(URL){
+	var loadView = Ti.UI.createWindow({
+    	backgroundColor: 'black',
+    	opacity: .90,
+    	height: Ti.Platform.displayCaps.platformHeight,
+    	width: Ti.Platform.displayCaps.platformWidth
+	});
+ 
+	var loadIndicator = Ti.UI.createActivityIndicator({
+    	style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG,
+    	message: 'Downloading File...',
+    	font : 'Arial',
+    	color: '#FFF'
+	});
+	loadView.add(loadIndicator);
+	loadView.open();
+	loadIndicator.show();
+	
+	//needs file data here
+   	//var url = e.section.getItemAt(e.itemIndex).fileName.FileUrl;
+   	//var name = e.section.getItemAt(e.itemIndex).fileName.FileName;		
+	var name = GetCleanFilenameFromPath(URL);
 
 
 
+	var xhr = Titanium.Network.createHTTPClient({enableKeepAlive:false, timeout:6000});
+	xhr.retries = 0;
+	xhr.open('GET',url);
+	xhr.onload = MoveAndOpenFile(name);
+	xhr.send();	
+}
+
+
+
+function MoveAndOpenFile(filename, loadView){
+	loadView.close();
+	try{
+		//not needed?
+		//var ending = filename.split(".");
+		if (this.responseData.type == 1)
+		{
+			var f = Ti.Filesystem.getFile(this.responseData.nativePath);
+			var dest = Ti.Filesystem.getFile(Ti.Filesystem.getExternalStorageDirectory(),filename);
+	  		if (dest.exists){
+				dest.deleteFile();
+			}
+			f.copy(dest.nativePath);
+		}
+		else
+		{
+			 var f = Ti.Filesystem.getFile(Ti.Filesystem.getExternalStorageDirectory(),filename);
+			 f.write(this.responseData);
+		}
+		var mimeType = this.responseData.mimeType;
+		var intent = Ti.Android.createIntent({action: Ti.Android.ACTION_VIEW,type: mimeType,data: f.getNativePath()});	
+		
+		Ti.Android.currentActivity.startActivity(intent);
+	} catch (err) {
+		alert("We we unable to open " + filename + " automatically.  You can find the file on your storage device under com.mindsmesh.mobile.");
+	}
+}
+
+
+
+//************************************************
 
 //args.post_attachments.count
 //args.post_attachments[0].ext_path

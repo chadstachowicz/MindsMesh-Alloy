@@ -24,6 +24,14 @@ function GetExtention(filename) {
     return "";
 }
 
+function GetFilenameFromPath(path) {
+    var pathsplit = [];
+    var p = "" + path;
+    pathsplit = p.split("/");
+    if (pathsplit.length > 0) return pathsplit[pathsplit.length - 1];
+    return "";
+}
+
 var Alloy = require("alloy"), _ = Alloy._, Backbone = Alloy.Backbone;
 
 Ti.include("api/api.js");

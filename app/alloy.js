@@ -76,13 +76,43 @@ function formatDate(d)
 
 function GetExtention(filename){
  	var filesplit = [];
- 	
  	var f = "" + filename;
- 	
  	filesplit = f.split("."); 
  	if(filesplit.length==2){
  		return(filesplit[1]);
  	}
  	return("");
- 	
  }
+ 
+
+function GetFilenameFromPath(path){
+ 	var pathsplit = [];
+ 	var p = "" + path;
+ 	pathsplit = p.split("/"); 
+ 	if(pathsplit.length>0){
+ 		return(pathsplit[pathsplit.length - 1]);//gets the last item in the list
+ 	}
+ 	return("");
+ }
+ 
+ function GetCleanFilenameFromPath(path){
+ 	var pathsplit = [];
+ 	var p = "" + path;
+ 	pathsplit = p.split("/"); 
+ 	if(pathsplit.length>0){
+ 		return(CleanFilename(pathsplit[pathsplit.length - 1]));//gets the last item in the list
+ 	}
+ 	return("");
+ }
+ 
+ function CleanFilename(fileAndQueryString){
+ 	var pathsplit = [];
+ 	var f = "" + fileAndQueryString;
+ 	querstringsplit = f.split("?"); 
+ 	if(querstringsplit.length>0){
+ 		return(pathsplit[0]);//gets the last item in the list
+ 	}
+ 	return(f);
+ }
+ 
+

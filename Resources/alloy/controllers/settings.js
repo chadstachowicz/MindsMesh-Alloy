@@ -43,7 +43,11 @@ function Controller() {
             customView: "index",
             image: "images/ic_search.png"
         }).getView());
-        section.add(Alloy.createController("menurow", {
+        "iphone" === Ti.Platform.osname ? section.add(Alloy.createController("menurow", {
+            title: "feed tableview(ios)",
+            customView: "feedTableview",
+            image: "images/ic_search.png"
+        }).getView()) : section.add(Alloy.createController("menurow", {
             title: "feed listview(and)",
             customView: "feed",
             image: "images/ic_search.png"
@@ -108,7 +112,9 @@ function Controller() {
             $.ds.rightMenu.zIndex = 2;
         }
     });
-    $.win.open();
+    "iphone" === Ti.Platform.osname ? $.win.open({
+        transition: Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
+    }) : $.win.open();
     _.extend($, exports);
 }
 

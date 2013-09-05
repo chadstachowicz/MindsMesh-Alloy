@@ -36,7 +36,7 @@ function Controller() {
             var response = this.responseText;
             alert(response);
         };
-        xhr.send(JSON.stringify(postData));
+        "android" == Ti.Platform.osname ? xhr.send(JSON.stringify(postData)) : xhr.send(postData);
     }
     function openFeed() {
         var args = {

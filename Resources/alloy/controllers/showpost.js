@@ -69,6 +69,29 @@ function Controller() {
         left: "5"
     });
     $.__views.__alloyId67.add($.__views.commentLabel);
+    $.__views.mainAttachmentImage = Ti.UI.createImageView({
+        id: "mainAttachmentImage"
+    });
+    $.__views.__alloyId67.add($.__views.mainAttachmentImage);
+    MainImageClick ? $.__views.mainAttachmentImage.addEventListener("click", MainImageClick) : __defers["$.__views.mainAttachmentImage!click!MainImageClick"] = true;
+    $.__views.__alloyId69 = Ti.UI.createView({
+        backgroundColor: "#eeeeee",
+        height: Ti.UI.SIZE,
+        id: "__alloyId69"
+    });
+    $.__views.__alloyId67.add($.__views.__alloyId69);
+    $.__views.extAttachmentImage = Ti.UI.createImageView({
+        id: "extAttachmentImage",
+        top: "0",
+        left: "0"
+    });
+    $.__views.__alloyId69.add($.__views.extAttachmentImage);
+    $.__views.extAttachmentFileNameLabel = Ti.UI.createLabel({
+        id: "extAttachmentFileNameLabel",
+        top: "0",
+        left: "40"
+    });
+    $.__views.__alloyId69.add($.__views.extAttachmentFileNameLabel);
     $.__views.attachmentCountLabel = Ti.UI.createLabel({
         id: "attachmentCountLabel"
     });
@@ -81,15 +104,6 @@ function Controller() {
         id: "attachmentExtLabel"
     });
     $.__views.__alloyId67.add($.__views.attachmentExtLabel);
-    $.__views.mainAttachmentImage = Ti.UI.createImageView({
-        id: "mainAttachmentImage"
-    });
-    $.__views.__alloyId67.add($.__views.mainAttachmentImage);
-    MainImageClick ? $.__views.mainAttachmentImage.addEventListener("click", MainImageClick) : __defers["$.__views.mainAttachmentImage!click!MainImageClick"] = true;
-    $.__views.extAttachmentImage = Ti.UI.createImageView({
-        id: "extAttachmentImage"
-    });
-    $.__views.__alloyId67.add($.__views.extAttachmentImage);
     $.__views.replyTable = Ti.UI.createTableView({
         id: "replyTable",
         visible: "false"
@@ -113,6 +127,7 @@ function Controller() {
     var hasMainAttachment = false;
     var filetype = "";
     var attachmentURL = "";
+    var filename = "";
     $.userImage.image = args.user.photo_url;
     $.nameLabel.text = args.user.name;
     $.dateLabel.text = args.updated_at;
@@ -121,6 +136,7 @@ function Controller() {
     $.attachmentCountLabel.text = args.post_attachments.length;
     if (args.post_attachments.length > 0) {
         filetype = "" + GetExtention(args.post_attachments[0].name);
+        filename = "" + GetFilenameFromPath(args.post_attachments[0].url);
         if ("png" == filetype || "jpg" == filetype) {
             imagepath = args.post_attachments[0].url;
             attachmentURL = args.post_attachments[0].url;
@@ -136,6 +152,7 @@ function Controller() {
             hasExtAttachment = true;
         }
     }
+    $.extAttachmentFileNameLabel.text = filename;
     $.attachmentExtLabel.text = filetype;
     $.mainAttachmentImage.visible = hasMainAttachment;
     $.extAttachmentImage.visible = hasExtAttachment;
