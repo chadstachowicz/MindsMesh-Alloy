@@ -93,16 +93,9 @@ function Controller() {
         rowSelect(e);
         $.ds.toggleRightSlider();
     });
-    var storedRowTitle = null;
-    $.ds.leftTableView.addEventListener("touchstart", function() {
-        storedRowTitle.color = "#FFF";
-    });
-    $.ds.leftTableView.addEventListener("touchend", function() {
-        storedRowTitle.color = "#666";
-    });
-    $.ds.leftTableView.addEventListener("scroll", function() {
-        null != storedRowTitle && (storedRowTitle.color = "#666");
-    });
+    $.ds.leftTableView.addEventListener("touchstart", function() {});
+    $.ds.leftTableView.addEventListener("touchend", function() {});
+    $.ds.leftTableView.addEventListener("scroll", function() {});
     Ti.App.addEventListener("sliderToggled", function(e) {
         if ("right" == e.direction) {
             $.ds.leftMenu.zIndex = 2;

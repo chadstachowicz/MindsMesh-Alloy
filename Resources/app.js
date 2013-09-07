@@ -32,6 +32,22 @@ function GetFilenameFromPath(path) {
     return "";
 }
 
+function GetCleanFilenameFromPath(path) {
+    var pathsplit = [];
+    var p = "" + path;
+    pathsplit = p.split("/");
+    if (pathsplit.length > 0) return CleanFilename(pathsplit[pathsplit.length - 1]);
+    return "";
+}
+
+function CleanFilename(fileAndQueryString) {
+    var querstringsplit = [];
+    var f = "" + fileAndQueryString;
+    querstringsplit = f.split("?");
+    if (querstringsplit.length > 0) return querstringsplit[0];
+    return f;
+}
+
 var Alloy = require("alloy"), _ = Alloy._, Backbone = Alloy.Backbone;
 
 Ti.include("api/api.js");

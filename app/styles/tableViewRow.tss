@@ -5,6 +5,7 @@
 },
 ".rowHeaderView" : {
   height: Ti.UI.SIZE,
+   backgroundColor: "#eeeeee"
 
 },
 ".dateLabel" : {

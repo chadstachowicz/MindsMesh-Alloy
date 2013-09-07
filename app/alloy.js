@@ -106,11 +106,11 @@ function GetFilenameFromPath(path){
  }
  
  function CleanFilename(fileAndQueryString){
- 	var pathsplit = [];
+ 	var querstringsplit = [];
  	var f = "" + fileAndQueryString;
  	querstringsplit = f.split("?"); 
  	if(querstringsplit.length>0){
- 		return(pathsplit[0]);//gets the last item in the list
+ 		return(querstringsplit[0]);//gets the last item in the list
  	}
  	return(f);
  }

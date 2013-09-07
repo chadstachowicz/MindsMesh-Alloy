@@ -92,11 +92,22 @@ module.exports = [ {
 }, {
     isId: true,
     priority: 100000.0011,
-    key: "rightButton",
+    key: "refreshButton",
     style: {
         backgroundImage: "none",
-        image: "/ds.slideMenu/ButtonMenu.png",
         right: "0",
+        top: "0",
+        width: "60",
+        height: "44",
+        style: "none"
+    }
+}, {
+    isId: true,
+    priority: 100000.0012,
+    key: "bellButton",
+    style: {
+        backgroundImage: "none",
+        image: "/ds.slideMenu/bell.png",
         top: "0",
         width: "60",
         height: "44",

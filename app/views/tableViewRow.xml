@@ -4,7 +4,7 @@
     
     <TableViewRow id="row">
 
-		<View layout="vertical" top="20" class="rowView">
+		<View layout="vertical" top="20" class="rowView" left="10" right="10">
 		<!-- main comment block-->
 
 			<View layout="horizontal" class="rowHeaderView">

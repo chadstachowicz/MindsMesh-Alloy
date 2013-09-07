@@ -24,7 +24,7 @@ $.attachmentCountLabel.text = args.post_attachments.length;
 if(args.post_attachments.length>0){
 	//imagepath =  _data[i].post_attachments[0].url;    // assign the values from the data
     filetype = "" + GetExtention(args.post_attachments[0].name);
-    filename = "" + GetFilenameFromPath(args.post_attachments[0].url);
+    filename = "" + GetCleanFilenameFromPath(args.post_attachments[0].url);
     
 	
 	if(filetype=="png"||filetype=="jpg"){
@@ -64,8 +64,42 @@ if(hasExtAttachment){
 
 function ExternalFileClick(e) {
     
-    alert("handleClick");
-    
+    //alert("ExternalFileClick");
+        //alert("back button clicked");
+	Ti.API.info("ExternalFileClick clicked");
+	
+
+	if(filetype=="pdf"){
+		
+			//display json data, listing the feeds of a single user
+	    if (Ti.Platform.osname == 'android'){
+	    	//iphone shows tableview because it is fast and the height works
+			Ti.API.info("android, open external file");
+			AndroidDownloadFile(attachmentURL);
+		}else{
+			var view1;
+			//android needs a listview for speed
+			view1 = Alloy.createController("showfile", {value: attachmentURL});	
+			Ti.API.info("IOS, use showfile");		
+			view1.getView().open();
+		}
+		
+		
+
+
+
+	}else{
+		
+		
+		var view1;
+		view1 = Alloy.createController("showimage", {value: $.mainAttachmentImage.image});	
+			view1.getView().open();
+		
+		
+	}
+
+
+
     //alert(e.row.post_id); 
     //alert(e.row.data);   
 }
@@ -114,7 +148,7 @@ function MainImageClick(_event) {
 	
 	var view1;
 	if(filetype=="mov"){
-				view1 = Alloy.createController("showvideo", {value: attachmentURL});	
+		view1 = Alloy.createController("showvideo", {value: attachmentURL});	
 
 	}else{
 		view1 = Alloy.createController("showimage", {value: $.mainAttachmentImage.image});	
@@ -150,8 +184,9 @@ function createTableView(_data) {
 
 //*************************************************
 //UNTESTED
+var loadView ;
 function AndroidDownloadFile(URL){
-	var loadView = Ti.UI.createWindow({
+	loadView = Ti.UI.createWindow({
     	backgroundColor: 'black',
     	opacity: .90,
     	height: Ti.Platform.displayCaps.platformHeight,
@@ -184,19 +219,21 @@ function AndroidDownloadFile(URL){
 
 
 
-function MoveAndOpenFile(filename, loadView){
+function MoveAndOpenFile(filename){
 	loadView.close();
 	try{
 		//not needed?
 		//var ending = filename.split(".");
 		if (this.responseData.type == 1)
 		{
+			
 			var f = Ti.Filesystem.getFile(this.responseData.nativePath);
 			var dest = Ti.Filesystem.getFile(Ti.Filesystem.getExternalStorageDirectory(),filename);
 	  		if (dest.exists){
 				dest.deleteFile();
 			}
 			f.copy(dest.nativePath);
+			alert("seems like it works");
 		}
 		else
 		{
@@ -208,10 +245,33 @@ function MoveAndOpenFile(filename, loadView){
 		
 		Ti.Android.currentActivity.startActivity(intent);
 	} catch (err) {
-		alert("We we unable to open " + filename + " automatically.  You can find the file on your storage device under com.mindsmesh.mobile.");
+		alert("We we unable to open " + filename + " automatically.  You can find the file on your storage device under " + Ti.Filesystem.getExternalStorageDirectory());
 	}
 }
+function DownloadURL(url){
+	
+	
+	var xhr = Titanium.Network.createHTTPClient({enableKeepAlive:false, timeout:6000});
+	xhr.retries = 0;
+	xhr.open('GET',url);
+	xhr.onload = SaveLocal(name,xhr);
+	xhr.send();	
+}
 
+function SaveLocal(filename,xhr){
+	
+	
+	Ti.API.info('Status  is ::',xhr.status);
+	//var ResponseData = xhrDocument.getResponseXML().getElementsByTagName('GetDocResult').item(0).text;  
+	var ResponseData =  xhr.responseText;
+	var file = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory,filename);
+	if(xhr.status == 200){ 
+	    var file = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, 'filename2.pdf');                   
+	    file.write(ResponseData);
+		Titanium.API.info('file write');
+		Titanium.API.info(file.size);
+	}
+}
 
 
 //************************************************

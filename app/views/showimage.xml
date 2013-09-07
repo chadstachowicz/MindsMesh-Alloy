@@ -1,7 +1,7 @@
 <Alloy>
 	<Window class="container">
 			<ImageView id="mainImage" width="Ti.UI.FILL" height="Ti.UI.SIZE" backgroundColor="#dddddd"></ImageView>
-			<Label id="mainImageLabel" ></Label>
+			<Label id="mainImageLabel"  visible="false"></Label>
 			<Button id="backBtn" onClick="goBackToPost" left="0" bottom="0">back</Button>  
 	</Window>
 </Alloy>

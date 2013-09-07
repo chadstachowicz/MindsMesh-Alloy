@@ -1,7 +1,7 @@
 <Alloy>
     <Window id="feed" class="container" formFactor="handheld">
     	
-    	
+
 
     	<!--shows for android devices -->
         <ListView id="list" class="list" defaultItemTemplate="template1" visible="false">
@@ -49,7 +49,7 @@
         <Button id="backBtn" onClick="backBtnClicked">back</Button>        
         <Button id="loadMoreBtn" onClick="loadMoreBtnClicked">Load More</Button>
         
-        <Label id="platformLabel"></Label>
-        
+        <Label id="platformLabel" visible="false"></Label>
+            
     </Window>
 </Alloy>

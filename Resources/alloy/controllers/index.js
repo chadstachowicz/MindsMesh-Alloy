@@ -50,7 +50,7 @@ function Controller() {
     $.__views.__alloyId63 = Ti.UI.createButton({
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
-        title: "Settings",
+        title: "Feed",
         id: "__alloyId63"
     });
     $.__views.mainView.add($.__views.__alloyId63);

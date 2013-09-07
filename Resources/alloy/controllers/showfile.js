@@ -1,47 +1,46 @@
 function Controller() {
     function goBackToPost() {
-        $.showimage.close();
-        $.showimage = null;
+        $.showfile.close();
+        $.showfile = null;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
-    this.__controllerPath = "showimage";
+    this.__controllerPath = "showfile";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.showimage = Ti.UI.createWindow({
+    $.__views.showfile = Ti.UI.createWindow({
         backgroundColor: "#FFF",
-        orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ],
-        id: "showimage"
+        id: "showfile"
     });
-    $.__views.showimage && $.addTopLevelView($.__views.showimage);
-    $.__views.mainImage = Ti.UI.createImageView({
-        id: "mainImage",
+    $.__views.showfile && $.addTopLevelView($.__views.showfile);
+    $.__views.mainWebView = Ti.UI.createWebView({
+        id: "mainWebView",
         width: Ti.UI.FILL,
-        height: Ti.UI.SIZE,
+        height: Ti.UI.FILL,
         backgroundColor: "#dddddd"
     });
-    $.__views.showimage.add($.__views.mainImage);
-    $.__views.mainImageLabel = Ti.UI.createLabel({
-        id: "mainImageLabel",
+    $.__views.showfile.add($.__views.mainWebView);
+    $.__views.mainFileLabel = Ti.UI.createLabel({
+        id: "mainFileLabel",
         visible: "false"
     });
-    $.__views.showimage.add($.__views.mainImageLabel);
+    $.__views.showfile.add($.__views.mainFileLabel);
     $.__views.backBtn = Ti.UI.createButton({
         title: "back",
         id: "backBtn",
         left: "0",
         bottom: "0"
     });
-    $.__views.showimage.add($.__views.backBtn);
+    $.__views.showfile.add($.__views.backBtn);
     goBackToPost ? $.__views.backBtn.addEventListener("click", goBackToPost) : __defers["$.__views.backBtn!click!goBackToPost"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
-    $.mainImageLabel.text = args.value;
-    $.mainImage.image = args.value;
+    $.mainWebView.url = args.value;
+    $.mainFileLabel.text = args.value;
     __defers["$.__views.backBtn!click!goBackToPost"] && $.__views.backBtn.addEventListener("click", goBackToPost);
     _.extend($, exports);
 }

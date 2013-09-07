@@ -81,6 +81,27 @@ function Controller() {
         id: "leftButton"
     });
     $.__views.navview.add($.__views.leftButton);
+    $.__views.bellButton = Ti.UI.createButton({
+        backgroundImage: "none",
+        image: "/ds.slideMenu/bell.png",
+        top: "0",
+        width: "60",
+        height: "44",
+        style: "none",
+        id: "bellButton"
+    });
+    $.__views.navview.add($.__views.bellButton);
+    $.__views.refreshButton = Ti.UI.createButton({
+        backgroundImage: "none",
+        right: "0",
+        top: "0",
+        width: "60",
+        height: "44",
+        style: "none",
+        title: "refresh",
+        id: "refreshButton"
+    });
+    $.__views.navview.add($.__views.refreshButton);
     $.__views.contentview = Ti.UI.createView({
         left: "0dp",
         width: Ti.Platform.displayCaps.platformWidth,

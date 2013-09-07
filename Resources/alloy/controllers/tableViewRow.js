@@ -15,11 +15,14 @@ function Controller() {
         backgroundColor: "#ffffff",
         layout: "vertical",
         top: "20",
+        left: "10",
+        right: "10",
         id: "__alloyId71"
     });
     $.__views.row.add($.__views.__alloyId71);
     $.__views.__alloyId72 = Ti.UI.createView({
         height: Ti.UI.SIZE,
+        backgroundColor: "#eeeeee",
         layout: "horizontal",
         id: "__alloyId72"
     });

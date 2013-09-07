@@ -5,7 +5,7 @@
        <View layout="vertical" id="mainView" class="mainView">   
        	
 			<Button  onClick="goLogin" class="buttoncls">Login</Button>
-			<Button onClick="goSettings" class="buttoncls">Settings</Button>   	
+			<Button onClick="goSettings" class="buttoncls">Feed</Button>   	
 			
 
 			

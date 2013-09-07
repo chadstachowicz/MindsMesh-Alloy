@@ -1,0 +1,7 @@
+<Alloy>
+	<Window class="container">
+		<WebView id="mainWebView" width="Ti.UI.FILL" height="Ti.UI.FILL" backgroundColor="#dddddd"></WebView>
+		<Label id="mainFileLabel" visible="false"></Label>
+		<Button id="backBtn" onClick="goBackToPost" left="0" bottom="0">back</Button>  
+	</Window>
+</Alloy>

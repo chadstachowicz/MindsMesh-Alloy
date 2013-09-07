@@ -364,7 +364,8 @@ function Controller() {
         $.__views.feed.add($.__views.loadMoreBtn);
         loadMoreBtnClicked ? $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked) : __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] = true;
         $.__views.platformLabel = Ti.UI.createLabel({
-            id: "platformLabel"
+            id: "platformLabel",
+            visible: "false"
         });
         $.__views.feed.add($.__views.platformLabel);
     }
