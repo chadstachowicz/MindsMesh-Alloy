@@ -3,8 +3,8 @@
 		<View class="container" layout="vertical">
 			<View backgroundColor="#dddddd" height="Ti.UI.SIZE">
 				<ImageView id="userImage" left="0" top="0" width="70" height="70"></ImageView>				
-				<Label left="90" top="0"  id="nameLabel"></Label>
-				<Label left="90" top="20" id="dateLabel"></Label>		
+				<Label left="75" top="0"  id="nameLabel"></Label>
+				<Label left="75" top="20" id="dateLabel"></Label>		
 			</View>
 			
 			<Label id="commentLabel" left="5"></Label>
@@ -13,7 +13,7 @@
 			
 			<View backgroundColor="#eeeeee" height="Ti.UI.SIZE" onClick="ExternalFileClick">
 				<ImageView id="extAttachmentImage" top="0" left="0"></ImageView>
-				<Label id="extAttachmentFileNameLabel" top="0" left="40"></Label>
+				<Label id="extAttachmentFileNameLabel" top="0" left="40" ></Label>
 			</View>
 			
 			

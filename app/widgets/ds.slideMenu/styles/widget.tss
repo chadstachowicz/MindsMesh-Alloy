@@ -51,18 +51,16 @@
 },
 "#refreshButton": {
 	backgroundImage : 'none',
-	right : "0",
+	right : "10",
 	top : "0",
 	width : "60",
 	height : "44",
-	style : "none"
+	style : "color:white"
 },
 "#bellButton": {
-	backgroundImage : 'none',
-	image : "/ds.slideMenu/bell.png",
+	backgroundImage : "/ds.slideMenu/bell.png",
 
 	top : "0",
-	width : "60",
-	height : "44",
-	style : "none"
+	width : 40,
+	height : 40,
 }

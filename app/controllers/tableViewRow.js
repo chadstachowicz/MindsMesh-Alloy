@@ -49,7 +49,7 @@ if(args.post_attachments.length>0){
         $.postAttachmentImage.visible = hasMainAttachment;
         $.extAttachmentImage.visible = hasExtAttachment;
         
-        $.paperClipImage.visible = hasExtAttachment;
+        //$.paperClipImage.visible = hasExtAttachment;
         
         
         var mainImageWidth = 0;

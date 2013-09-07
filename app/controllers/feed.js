@@ -137,10 +137,10 @@ function createListView(_data) {
             extAttachmentImage : {
             	image : extAttachmentPath,
             	visible : hasExtAttachment
-            },
-            paperClipImage : {
-            	visible : hasExtAttachment
-            }   
+            }//,
+            //paperClipImage : {
+            //	visible : hasExtAttachment
+            //}   
         });
     }
     

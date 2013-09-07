@@ -32,7 +32,7 @@
 ".spacerView": {
     backgroundColor: 'green',
     width: Ti.UI.FILL,
-	height: 25
+	height: 15
 },
 ".id": {
 	color: '#000',
@@ -50,7 +50,10 @@
 	color: '#000',
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
-	left: 5
+	left: 5,
+	font: {
+        fontSize: 10   
+    }
 },
 
 "#backBtn": {

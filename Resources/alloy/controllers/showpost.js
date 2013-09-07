@@ -1,16 +1,10 @@
 function Controller() {
     function ExternalFileClick() {
         Ti.API.info("ExternalFileClick clicked");
-        if ("pdf" == filetype) if ("android" == Ti.Platform.osname) {
+        if ("pdf" == filetype) {
+            var view1;
             Ti.API.info("android, open external file");
             AndroidDownloadFile(attachmentURL);
-        } else {
-            var view1;
-            view1 = Alloy.createController("showfile", {
-                value: attachmentURL
-            });
-            Ti.API.info("IOS, use showfile");
-            view1.getView().open();
         } else {
             var view1;
             view1 = Alloy.createController("showimage", {
@@ -103,17 +97,17 @@ function Controller() {
         id: "showpost"
     });
     $.__views.showpost && $.addTopLevelView($.__views.showpost);
-    $.__views.__alloyId67 = Ti.UI.createView({
+    $.__views.__alloyId53 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId67"
+        id: "__alloyId53"
     });
-    $.__views.showpost.add($.__views.__alloyId67);
-    $.__views.__alloyId68 = Ti.UI.createView({
+    $.__views.showpost.add($.__views.__alloyId53);
+    $.__views.__alloyId54 = Ti.UI.createView({
         backgroundColor: "#dddddd",
         height: Ti.UI.SIZE,
-        id: "__alloyId68"
+        id: "__alloyId54"
     });
-    $.__views.__alloyId67.add($.__views.__alloyId68);
+    $.__views.__alloyId53.add($.__views.__alloyId54);
     $.__views.userImage = Ti.UI.createImageView({
         id: "userImage",
         left: "0",
@@ -121,65 +115,65 @@ function Controller() {
         width: "70",
         height: "70"
     });
-    $.__views.__alloyId68.add($.__views.userImage);
+    $.__views.__alloyId54.add($.__views.userImage);
     $.__views.nameLabel = Ti.UI.createLabel({
-        left: "90",
+        left: "75",
         top: "0",
         id: "nameLabel"
     });
-    $.__views.__alloyId68.add($.__views.nameLabel);
+    $.__views.__alloyId54.add($.__views.nameLabel);
     $.__views.dateLabel = Ti.UI.createLabel({
-        left: "90",
+        left: "75",
         top: "20",
         id: "dateLabel"
     });
-    $.__views.__alloyId68.add($.__views.dateLabel);
+    $.__views.__alloyId54.add($.__views.dateLabel);
     $.__views.commentLabel = Ti.UI.createLabel({
         id: "commentLabel",
         left: "5"
     });
-    $.__views.__alloyId67.add($.__views.commentLabel);
+    $.__views.__alloyId53.add($.__views.commentLabel);
     $.__views.mainAttachmentImage = Ti.UI.createImageView({
         id: "mainAttachmentImage"
     });
-    $.__views.__alloyId67.add($.__views.mainAttachmentImage);
+    $.__views.__alloyId53.add($.__views.mainAttachmentImage);
     MainImageClick ? $.__views.mainAttachmentImage.addEventListener("click", MainImageClick) : __defers["$.__views.mainAttachmentImage!click!MainImageClick"] = true;
-    $.__views.__alloyId69 = Ti.UI.createView({
+    $.__views.__alloyId55 = Ti.UI.createView({
         backgroundColor: "#eeeeee",
         height: Ti.UI.SIZE,
-        id: "__alloyId69"
+        id: "__alloyId55"
     });
-    $.__views.__alloyId67.add($.__views.__alloyId69);
-    ExternalFileClick ? $.__views.__alloyId69.addEventListener("click", ExternalFileClick) : __defers["$.__views.__alloyId69!click!ExternalFileClick"] = true;
+    $.__views.__alloyId53.add($.__views.__alloyId55);
+    ExternalFileClick ? $.__views.__alloyId55.addEventListener("click", ExternalFileClick) : __defers["$.__views.__alloyId55!click!ExternalFileClick"] = true;
     $.__views.extAttachmentImage = Ti.UI.createImageView({
         id: "extAttachmentImage",
         top: "0",
         left: "0"
     });
-    $.__views.__alloyId69.add($.__views.extAttachmentImage);
+    $.__views.__alloyId55.add($.__views.extAttachmentImage);
     $.__views.extAttachmentFileNameLabel = Ti.UI.createLabel({
         id: "extAttachmentFileNameLabel",
         top: "0",
         left: "40"
     });
-    $.__views.__alloyId69.add($.__views.extAttachmentFileNameLabel);
+    $.__views.__alloyId55.add($.__views.extAttachmentFileNameLabel);
     $.__views.attachmentCountLabel = Ti.UI.createLabel({
         id: "attachmentCountLabel"
     });
-    $.__views.__alloyId67.add($.__views.attachmentCountLabel);
+    $.__views.__alloyId53.add($.__views.attachmentCountLabel);
     $.__views.replyCountLabel = Ti.UI.createLabel({
         id: "replyCountLabel"
     });
-    $.__views.__alloyId67.add($.__views.replyCountLabel);
+    $.__views.__alloyId53.add($.__views.replyCountLabel);
     $.__views.attachmentExtLabel = Ti.UI.createLabel({
         id: "attachmentExtLabel"
     });
-    $.__views.__alloyId67.add($.__views.attachmentExtLabel);
+    $.__views.__alloyId53.add($.__views.attachmentExtLabel);
     $.__views.replyTable = Ti.UI.createTableView({
         id: "replyTable",
         visible: "false"
     });
-    $.__views.__alloyId67.add($.__views.replyTable);
+    $.__views.__alloyId53.add($.__views.replyTable);
     handleClick ? $.__views.replyTable.addEventListener("click", handleClick) : __defers["$.__views.replyTable!click!handleClick"] = true;
     $.__views.backBtn = Ti.UI.createButton({
         left: 0,
@@ -201,7 +195,7 @@ function Controller() {
     var filename = "";
     $.userImage.image = args.user.photo_url;
     $.nameLabel.text = args.user.name;
-    $.dateLabel.text = args.updated_at;
+    $.dateLabel.text = formatDate(args.updated_at);
     $.commentLabel.text = args.text;
     $.replyCountLabel.text = args.replies_count;
     $.attachmentCountLabel.text = args.post_attachments.length;
@@ -231,7 +225,7 @@ function Controller() {
     hasExtAttachment && ($.extAttachmentImage.image = extAttachmentPath);
     var loadView;
     __defers["$.__views.mainAttachmentImage!click!MainImageClick"] && $.__views.mainAttachmentImage.addEventListener("click", MainImageClick);
-    __defers["$.__views.__alloyId69!click!ExternalFileClick"] && $.__views.__alloyId69.addEventListener("click", ExternalFileClick);
+    __defers["$.__views.__alloyId55!click!ExternalFileClick"] && $.__views.__alloyId55.addEventListener("click", ExternalFileClick);
     __defers["$.__views.replyTable!click!handleClick"] && $.__views.replyTable.addEventListener("click", handleClick);
     __defers["$.__views.backBtn!click!backBtnClicked"] && $.__views.backBtn.addEventListener("click", backBtnClicked);
     _.extend($, exports);

@@ -25,6 +25,8 @@ var direction = "reset";
 
 $.movableview.addEventListener('touchstart', function(e) {
 	touchStartX = e.x;
+	
+	
 });
 
 $.movableview.addEventListener('touchend', function(e) {
@@ -63,7 +65,13 @@ $.movableview.addEventListener('touchmove', function(e) {
 		x : e.x,
 		y : e.y
 	}, $.containerview);
-	var newLeft = coords.x - touchStartX;
+	
+	
+	
+	//var newLeft = coords.x - touchStartX;
+	var newLeft = 0;
+	Ti.API.info("touchStartX:" + touchStartX);
+	
 	if ((touchRightStarted && newLeft <= 250 && newLeft >= 0) || 
 		(touchLeftStarted && newLeft <= 0 && newLeft >= -250)) {
 		$.movableview.left = newLeft;
@@ -128,6 +136,14 @@ exports.toggleLeftSlider = function() {
 		direction : direction
 	});
 };
+
+
+function RefreshFeed(){
+	alert("refresh clicked");
+	
+	
+}
+
 
 //exports.toggleRightSlider = function() {
 //	if (!hasSlided) {

@@ -15,11 +15,11 @@ function Controller() {
     });
     $.__views.rowView && $.addTopLevelView($.__views.rowView);
     rowClicked ? $.__views.rowView.addEventListener("click", rowClicked) : __defers["$.__views.rowView!click!rowClicked"] = true;
-    $.__views.__alloyId66 = Ti.UI.createView({
+    $.__views.__alloyId52 = Ti.UI.createView({
         layout: "horizontal",
-        id: "__alloyId66"
+        id: "__alloyId52"
     });
-    $.__views.rowView.add($.__views.__alloyId66);
+    $.__views.rowView.add($.__views.__alloyId52);
     $.__views.title = Ti.UI.createLabel({
         left: 0,
         font: {
@@ -30,7 +30,7 @@ function Controller() {
         height: Ti.UI.SIZE,
         id: "title"
     });
-    $.__views.__alloyId66.add($.__views.title);
+    $.__views.__alloyId52.add($.__views.title);
     $.__views.url = Ti.UI.createLabel({
         left: 5,
         font: {
@@ -40,7 +40,7 @@ function Controller() {
         height: 30,
         id: "url"
     });
-    $.__views.__alloyId66.add($.__views.url);
+    $.__views.__alloyId52.add($.__views.url);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};

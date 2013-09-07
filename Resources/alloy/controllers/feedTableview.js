@@ -59,16 +59,16 @@ function Controller() {
         id: "platformLabel"
     });
     $.__views.feedTableview.add($.__views.platformLabel);
-    $.__views.__alloyId48 = Ti.UI.createLabel({
+    $.__views.__alloyId34 = Ti.UI.createLabel({
         text: "tableview for ios",
         left: "50",
-        id: "__alloyId48"
+        id: "__alloyId34"
     });
-    $.__views.feedTableview.add($.__views.__alloyId48);
+    $.__views.feedTableview.add($.__views.__alloyId34);
     exports.destroy = function() {};
     _.extend($, $.__views);
     GetTableViewFeedPosts();
-    $.platformLabel.text = "iPhone OS";
+    $.platformLabel.text = "android";
     Ti.API.info("tableview feed loaded");
     __defers["$.__views.table!click!handleClick"] && $.__views.table.addEventListener("click", handleClick);
     __defers["$.__views.table!scrollend!handleScrollEnd"] && $.__views.table.addEventListener("scrollend", handleScrollEnd);

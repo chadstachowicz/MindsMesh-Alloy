@@ -1,7 +1,7 @@
 function WPATH(s) {
     var index = s.lastIndexOf("/");
     var path = -1 === index ? "ds.slideMenu/" + s : s.substring(0, index) + "/ds.slideMenu/" + s.substring(index + 1);
-    return path;
+    return true && 0 !== path.indexOf("/") ? "/" + path : path;
 }
 
 module.exports = [ {
@@ -95,22 +95,20 @@ module.exports = [ {
     key: "refreshButton",
     style: {
         backgroundImage: "none",
-        right: "0",
+        right: "10",
         top: "0",
         width: "60",
         height: "44",
-        style: "none"
+        style: "color:white"
     }
 }, {
     isId: true,
     priority: 100000.0012,
     key: "bellButton",
     style: {
-        backgroundImage: "none",
-        image: "/ds.slideMenu/bell.png",
+        backgroundImage: "/ds.slideMenu/bell.png",
         top: "0",
-        width: "60",
-        height: "44",
-        style: "none"
+        width: 40,
+        height: 40
     }
 } ];

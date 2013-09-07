@@ -1,10 +1,13 @@
 function WPATH(s) {
     var index = s.lastIndexOf("/");
     var path = -1 === index ? "ds.slideMenu/" + s : s.substring(0, index) + "/ds.slideMenu/" + s.substring(index + 1);
-    return path;
+    return true && 0 !== path.indexOf("/") ? "/" + path : path;
 }
 
 function Controller() {
+    function RefreshFeed() {
+        alert("refresh clicked");
+    }
     new (require("alloy/widget"))("ds.slideMenu");
     this.__widgetId = "ds.slideMenu";
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -14,6 +17,7 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
+    var __defers = {};
     $.__views.containerview = Ti.UI.createView({
         id: "containerview"
     });
@@ -82,26 +86,25 @@ function Controller() {
     });
     $.__views.navview.add($.__views.leftButton);
     $.__views.bellButton = Ti.UI.createButton({
-        backgroundImage: "none",
-        image: "/ds.slideMenu/bell.png",
+        backgroundImage: "/ds.slideMenu/bell.png",
         top: "0",
-        width: "60",
-        height: "44",
-        style: "none",
+        width: 40,
+        height: 40,
         id: "bellButton"
     });
     $.__views.navview.add($.__views.bellButton);
     $.__views.refreshButton = Ti.UI.createButton({
         backgroundImage: "none",
-        right: "0",
+        right: "10",
         top: "0",
         width: "60",
         height: "44",
-        style: "none",
+        style: "color:white",
         title: "refresh",
         id: "refreshButton"
     });
     $.__views.navview.add($.__views.refreshButton);
+    RefreshFeed ? $.__views.refreshButton.addEventListener("click", RefreshFeed) : __defers["$.__views.refreshButton!click!RefreshFeed"] = true;
     $.__views.contentview = Ti.UI.createView({
         left: "0dp",
         width: Ti.Platform.displayCaps.platformWidth,
@@ -165,11 +168,12 @@ function Controller() {
         touchLeftStarted = false;
     });
     $.movableview.addEventListener("touchmove", function(e) {
-        var coords = $.movableview.convertPointToView({
+        $.movableview.convertPointToView({
             x: e.x,
             y: e.y
         }, $.containerview);
-        var newLeft = coords.x - touchStartX;
+        var newLeft = 0;
+        Ti.API.info("touchStartX:" + touchStartX);
         touchRightStarted && 250 >= newLeft && newLeft >= 0 || touchLeftStarted && 0 >= newLeft && newLeft >= -250 ? $.movableview.left = newLeft : touchRightStarted && 0 > newLeft || touchLeftStarted && newLeft > 0 ? $.movableview.left = 0 : touchRightStarted && newLeft > 250 ? $.movableview.left = 250 : touchLeftStarted && -250 > newLeft && ($.movableview.left = -250);
         if (newLeft > 5 && !touchLeftStarted && !touchRightStarted) {
             touchRightStarted = true;
@@ -208,6 +212,7 @@ function Controller() {
             direction: direction
         });
     };
+    __defers["$.__views.refreshButton!click!RefreshFeed"] && $.__views.refreshButton.addEventListener("click", RefreshFeed);
     _.extend($, exports);
 }
 

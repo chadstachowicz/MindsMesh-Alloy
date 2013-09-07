@@ -16,7 +16,7 @@ var filename = "";
 
 $.userImage.image	 = args.user.photo_url;
 $.nameLabel.text = args.user.name;
-$.dateLabel.text	 = args.updated_at;
+$.dateLabel.text = formatDate(args.updated_at);
 $.commentLabel.text = args.text;
 $.replyCountLabel.text = args.replies_count;
 $.attachmentCountLabel.text = args.post_attachments.length;

@@ -24,8 +24,8 @@
 			<Label id="extLabel" class="textLabel"></Label>
 			<ImageView id="postAttachmentImage" visible="false"></ImageView>
 			<View id="rowFooterView">
-				<ImageView image="/images/paperclip_black_24.png" id="paperClipImage" visible="false" left="5"></ImageView>
-				<ImageView id="extAttachmentImage" left="35" visible="false"></ImageView>
+				<!-- <ImageView image="/images/paperclip_black_24.png" id="paperClipImage" visible="false" left="5"></ImageView>-->
+				<ImageView id="extAttachmentImage" left="0" visible="false"></ImageView>
 				<Label id="commentCountLabel" class="commentCountLabel" right="40"></Label>
 				<ImageView image="/images/comment_32.png" id="commentImage" right="5"></ImageView>
 			</View>
