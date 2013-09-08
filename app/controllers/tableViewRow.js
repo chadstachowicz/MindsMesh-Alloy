@@ -56,8 +56,10 @@ if(args.post_attachments.length>0){
         var mainImageHeight = 0;
         
         if(hasMainAttachment){
-        	mainImageWidth = 100;
-        	mainImageHeight = 100;
+         	mainImageHeight = 150;       	
+        	
+        	mainImageWidth = Ti.UI.SIZE;
+
         }
         
         $.postAttachmentImage.height = mainImageHeight;

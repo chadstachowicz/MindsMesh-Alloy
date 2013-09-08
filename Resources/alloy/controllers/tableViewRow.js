@@ -10,36 +10,36 @@ function Controller() {
         id: "row"
     });
     $.__views.row && $.addTopLevelView($.__views.row);
-    $.__views.__alloyId57 = Ti.UI.createView({
+    $.__views.__alloyId60 = Ti.UI.createView({
         height: Ti.UI.SIZE,
-        backgroundColor: "#ffffff",
+        backgroundColor: "white",
         layout: "vertical",
-        top: "20",
+        bottom: "10",
         left: "10",
         right: "10",
-        id: "__alloyId57"
+        id: "__alloyId60"
     });
-    $.__views.row.add($.__views.__alloyId57);
-    $.__views.__alloyId58 = Ti.UI.createView({
+    $.__views.row.add($.__views.__alloyId60);
+    $.__views.__alloyId61 = Ti.UI.createView({
         height: Ti.UI.SIZE,
         backgroundColor: "#eeeeee",
         layout: "horizontal",
-        id: "__alloyId58"
+        id: "__alloyId61"
     });
-    $.__views.__alloyId57.add($.__views.__alloyId58);
+    $.__views.__alloyId60.add($.__views.__alloyId61);
     $.__views.thumbImage = Ti.UI.createImageView({
         height: 40,
         width: 40,
         id: "thumbImage"
     });
-    $.__views.__alloyId58.add($.__views.thumbImage);
-    $.__views.__alloyId59 = Ti.UI.createView({
+    $.__views.__alloyId61.add($.__views.thumbImage);
+    $.__views.__alloyId62 = Ti.UI.createView({
         height: Ti.UI.SIZE,
-        backgroundColor: "#ffffff",
+        backgroundColor: "#eeeeee",
         layout: "vertical",
-        id: "__alloyId59"
+        id: "__alloyId62"
     });
-    $.__views.__alloyId58.add($.__views.__alloyId59);
+    $.__views.__alloyId61.add($.__views.__alloyId62);
     $.__views.nameLabel = Ti.UI.createLabel({
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
@@ -47,7 +47,7 @@ function Controller() {
         left: 10,
         id: "nameLabel"
     });
-    $.__views.__alloyId59.add($.__views.nameLabel);
+    $.__views.__alloyId62.add($.__views.nameLabel);
     $.__views.dateLabel = Ti.UI.createLabel({
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
@@ -55,7 +55,7 @@ function Controller() {
         left: 10,
         id: "dateLabel"
     });
-    $.__views.__alloyId59.add($.__views.dateLabel);
+    $.__views.__alloyId62.add($.__views.dateLabel);
     $.__views.textLabel = Ti.UI.createLabel({
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
@@ -63,7 +63,7 @@ function Controller() {
         left: 10,
         id: "textLabel"
     });
-    $.__views.__alloyId57.add($.__views.textLabel);
+    $.__views.__alloyId60.add($.__views.textLabel);
     $.__views.extLabel = Ti.UI.createLabel({
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
@@ -71,21 +71,18 @@ function Controller() {
         left: 10,
         id: "extLabel"
     });
-    $.__views.__alloyId57.add($.__views.extLabel);
+    $.__views.__alloyId60.add($.__views.extLabel);
     $.__views.postAttachmentImage = Ti.UI.createImageView({
-        height: 120,
-        width: 160,
-        id: "postAttachmentImage",
-        visible: "false"
+        id: "postAttachmentImage"
     });
-    $.__views.__alloyId57.add($.__views.postAttachmentImage);
+    $.__views.__alloyId60.add($.__views.postAttachmentImage);
     $.__views.rowFooterView = Ti.UI.createView({
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
         backgroundColor: "#eeeeee",
         id: "rowFooterView"
     });
-    $.__views.__alloyId57.add($.__views.rowFooterView);
+    $.__views.__alloyId60.add($.__views.rowFooterView);
     $.__views.extAttachmentImage = Ti.UI.createImageView({
         id: "extAttachmentImage",
         left: "0",
@@ -142,8 +139,8 @@ function Controller() {
         var mainImageWidth = 0;
         var mainImageHeight = 0;
         if (hasMainAttachment) {
-            mainImageWidth = 100;
-            mainImageHeight = 100;
+            mainImageHeight = 150;
+            mainImageWidth = Ti.UI.SIZE;
         }
         $.postAttachmentImage.height = mainImageHeight;
         $.postAttachmentImage.width = mainImageWidth;

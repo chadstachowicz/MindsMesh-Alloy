@@ -1,10 +1,42 @@
 function Controller() {
+    function LoadImages() {
+        if (args.post_attachments.length > 0) {
+            filetype = "" + GetExtention(args.post_attachments[0].name);
+            filename = "" + GetCleanFilenameFromPath(args.post_attachments[0].url);
+            if ("png" == filetype || "jpg" == filetype) {
+                imagepath = args.post_attachments[0].url;
+                attachmentURL = args.post_attachments[0].url;
+                hasMainAttachment = true;
+            } else if ("mov" == filetype) {
+                attachmentURL = args.post_attachments[0].url;
+                var pieces = attachmentURL.substring(0, attachmentURL.length - 8);
+                imagepath = pieces + "frame_0000.png";
+                hasMainAttachment = true;
+            } else {
+                attachmentURL = args.post_attachments[0].url;
+                extAttachmentPath = args.post_attachments[0].ext_path;
+                hasExtAttachment = true;
+            }
+        }
+        $.extAttachmentFileNameLabel.text = filename;
+        $.attachmentExtLabel.text = filetype;
+        $.mainAttachmentImage.visible = hasMainAttachment;
+        $.extAttachmentImage.visible = hasExtAttachment;
+        hasMainAttachment && ($.mainAttachmentImage.image = imagepath);
+        hasExtAttachment && ($.extAttachmentImage.image = extAttachmentPath);
+    }
     function ExternalFileClick() {
         Ti.API.info("ExternalFileClick clicked");
-        if ("pdf" == filetype) {
-            var view1;
+        if ("pdf" == filetype) if ("android" == Ti.Platform.osname) {
             Ti.API.info("android, open external file");
             AndroidDownloadFile(attachmentURL);
+        } else {
+            var view1;
+            view1 = Alloy.createController("showfile", {
+                value: attachmentURL
+            });
+            Ti.API.info("IOS, use showfile");
+            view1.getView().open();
         } else {
             var view1;
             view1 = Alloy.createController("showimage", {
@@ -16,6 +48,10 @@ function Controller() {
     function handleClick() {
         alert("handleClick");
     }
+    function ShowReplies() {
+        Ti.API.info(JSON.stringify($.replies));
+        createRepliesTableView($.replies);
+    }
     function goBackToFeed() {
         $.showpost.close();
         $.showpost = null;
@@ -23,6 +59,28 @@ function Controller() {
     function backBtnClicked() {
         Ti.API.info("back button clicked");
         goBackToFeed();
+    }
+    function textFieldReturn() {
+        Ti.API.info("text Field Return");
+        $.textField.bottom = 50;
+    }
+    function textAreaClick() {
+        Ti.API.info("textAreaClick");
+        $.textField.bottom = 220;
+    }
+    function shareBtnClicked() {
+        Ti.API.info("share button clicked");
+        if (false == $.textField.visible) {
+            $.textField.visible = true;
+            $.shareBtn.title = "share";
+        } else shareComment($.textField.text);
+    }
+    function shareComment() {
+        alert("send comment here");
+        alert("refresh comments");
+        $.textField.height = 0;
+        $.textField.visible = false;
+        $.shareBtn.title = "comment";
     }
     function MainImageClick() {
         Ti.API.info("main image clicked");
@@ -33,6 +91,15 @@ function Controller() {
             value: $.mainAttachmentImage.image
         });
         view1.getView().open();
+    }
+    function createRepliesTableView(_data) {
+        Ti.API.info("called: createRepliesTableView");
+        var items = [];
+        for (var i in _data) items.push(Alloy.createController("replyTableViewRow", _data[i]).getView());
+        if (items.length > 0) {
+            $.replyTable.setData(items);
+            $.replyTable.visible = true;
+        }
     }
     function AndroidDownloadFile(URL) {
         loadView = Ti.UI.createWindow({
@@ -97,17 +164,19 @@ function Controller() {
         id: "showpost"
     });
     $.__views.showpost && $.addTopLevelView($.__views.showpost);
-    $.__views.__alloyId53 = Ti.UI.createView({
+    $.__views.__alloyId56 = Ti.UI.createView({
         layout: "vertical",
-        id: "__alloyId53"
+        backgroundColor: "#eeeeee",
+        id: "__alloyId56"
     });
-    $.__views.showpost.add($.__views.__alloyId53);
-    $.__views.__alloyId54 = Ti.UI.createView({
+    $.__views.showpost.add($.__views.__alloyId56);
+    $.__views.__alloyId57 = Ti.UI.createView({
         backgroundColor: "#dddddd",
         height: Ti.UI.SIZE,
-        id: "__alloyId54"
+        width: Ti.UI.FILL,
+        id: "__alloyId57"
     });
-    $.__views.__alloyId53.add($.__views.__alloyId54);
+    $.__views.__alloyId56.add($.__views.__alloyId57);
     $.__views.userImage = Ti.UI.createImageView({
         id: "userImage",
         left: "0",
@@ -115,66 +184,87 @@ function Controller() {
         width: "70",
         height: "70"
     });
-    $.__views.__alloyId54.add($.__views.userImage);
+    $.__views.__alloyId57.add($.__views.userImage);
     $.__views.nameLabel = Ti.UI.createLabel({
         left: "75",
         top: "0",
         id: "nameLabel"
     });
-    $.__views.__alloyId54.add($.__views.nameLabel);
+    $.__views.__alloyId57.add($.__views.nameLabel);
     $.__views.dateLabel = Ti.UI.createLabel({
         left: "75",
         top: "20",
         id: "dateLabel"
     });
-    $.__views.__alloyId54.add($.__views.dateLabel);
+    $.__views.__alloyId57.add($.__views.dateLabel);
     $.__views.commentLabel = Ti.UI.createLabel({
         id: "commentLabel",
         left: "5"
     });
-    $.__views.__alloyId53.add($.__views.commentLabel);
+    $.__views.__alloyId56.add($.__views.commentLabel);
     $.__views.mainAttachmentImage = Ti.UI.createImageView({
         id: "mainAttachmentImage"
     });
-    $.__views.__alloyId53.add($.__views.mainAttachmentImage);
+    $.__views.__alloyId56.add($.__views.mainAttachmentImage);
     MainImageClick ? $.__views.mainAttachmentImage.addEventListener("click", MainImageClick) : __defers["$.__views.mainAttachmentImage!click!MainImageClick"] = true;
-    $.__views.__alloyId55 = Ti.UI.createView({
+    $.__views.__alloyId58 = Ti.UI.createView({
         backgroundColor: "#eeeeee",
         height: Ti.UI.SIZE,
-        id: "__alloyId55"
+        id: "__alloyId58"
     });
-    $.__views.__alloyId53.add($.__views.__alloyId55);
-    ExternalFileClick ? $.__views.__alloyId55.addEventListener("click", ExternalFileClick) : __defers["$.__views.__alloyId55!click!ExternalFileClick"] = true;
+    $.__views.__alloyId56.add($.__views.__alloyId58);
+    ExternalFileClick ? $.__views.__alloyId58.addEventListener("click", ExternalFileClick) : __defers["$.__views.__alloyId58!click!ExternalFileClick"] = true;
     $.__views.extAttachmentImage = Ti.UI.createImageView({
         id: "extAttachmentImage",
         top: "0",
         left: "0"
     });
-    $.__views.__alloyId55.add($.__views.extAttachmentImage);
+    $.__views.__alloyId58.add($.__views.extAttachmentImage);
     $.__views.extAttachmentFileNameLabel = Ti.UI.createLabel({
+        font: {
+            fontSize: 10
+        },
         id: "extAttachmentFileNameLabel",
         top: "0",
-        left: "40"
+        left: "30"
     });
-    $.__views.__alloyId55.add($.__views.extAttachmentFileNameLabel);
+    $.__views.__alloyId58.add($.__views.extAttachmentFileNameLabel);
     $.__views.attachmentCountLabel = Ti.UI.createLabel({
-        id: "attachmentCountLabel"
-    });
-    $.__views.__alloyId53.add($.__views.attachmentCountLabel);
-    $.__views.replyCountLabel = Ti.UI.createLabel({
-        id: "replyCountLabel"
-    });
-    $.__views.__alloyId53.add($.__views.replyCountLabel);
-    $.__views.attachmentExtLabel = Ti.UI.createLabel({
-        id: "attachmentExtLabel"
-    });
-    $.__views.__alloyId53.add($.__views.attachmentExtLabel);
-    $.__views.replyTable = Ti.UI.createTableView({
-        id: "replyTable",
+        id: "attachmentCountLabel",
         visible: "false"
     });
-    $.__views.__alloyId53.add($.__views.replyTable);
+    $.__views.__alloyId56.add($.__views.attachmentCountLabel);
+    $.__views.replyCountLabel = Ti.UI.createLabel({
+        id: "replyCountLabel",
+        visible: "false"
+    });
+    $.__views.__alloyId56.add($.__views.replyCountLabel);
+    $.__views.attachmentExtLabel = Ti.UI.createLabel({
+        id: "attachmentExtLabel",
+        visible: "false"
+    });
+    $.__views.__alloyId56.add($.__views.attachmentExtLabel);
+    $.__views.replyTable = Ti.UI.createTableView({
+        id: "replyTable",
+        top: "0",
+        visible: "false"
+    });
+    $.__views.__alloyId56.add($.__views.replyTable);
     handleClick ? $.__views.replyTable.addEventListener("click", handleClick) : __defers["$.__views.replyTable!click!handleClick"] = true;
+    $.__views.textField = Ti.UI.createTextArea({
+        font: {
+            fontSize: 30
+        },
+        id: "textField",
+        visible: "false",
+        bottom: "50",
+        width: Ti.UI.FILL,
+        height: "100"
+    });
+    $.__views.showpost.add($.__views.textField);
+    alert ? $.__views.textField.addEventListener("click", alert) : __defers["$.__views.textField!click!alert"] = true;
+    textAreaClick ? $.__views.textField.addEventListener("focus", textAreaClick) : __defers["$.__views.textField!focus!textAreaClick"] = true;
+    textFieldReturn ? $.__views.textField.addEventListener("return", textFieldReturn) : __defers["$.__views.textField!return!textFieldReturn"] = true;
     $.__views.backBtn = Ti.UI.createButton({
         left: 0,
         bottom: 0,
@@ -183,6 +273,14 @@ function Controller() {
     });
     $.__views.showpost.add($.__views.backBtn);
     backBtnClicked ? $.__views.backBtn.addEventListener("click", backBtnClicked) : __defers["$.__views.backBtn!click!backBtnClicked"] = true;
+    $.__views.shareBtn = Ti.UI.createButton({
+        title: "comment",
+        id: "shareBtn",
+        right: "0",
+        bottom: "0"
+    });
+    $.__views.showpost.add($.__views.shareBtn);
+    shareBtnClicked ? $.__views.shareBtn.addEventListener("click", shareBtnClicked) : __defers["$.__views.shareBtn!click!shareBtnClicked"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
@@ -193,41 +291,25 @@ function Controller() {
     var filetype = "";
     var attachmentURL = "";
     var filename = "";
+    $.replies = args.replies;
     $.userImage.image = args.user.photo_url;
     $.nameLabel.text = args.user.name;
     $.dateLabel.text = formatDate(args.updated_at);
     $.commentLabel.text = args.text;
     $.replyCountLabel.text = args.replies_count;
     $.attachmentCountLabel.text = args.post_attachments.length;
-    if (args.post_attachments.length > 0) {
-        filetype = "" + GetExtention(args.post_attachments[0].name);
-        filename = "" + GetCleanFilenameFromPath(args.post_attachments[0].url);
-        if ("png" == filetype || "jpg" == filetype) {
-            imagepath = args.post_attachments[0].url;
-            attachmentURL = args.post_attachments[0].url;
-            hasMainAttachment = true;
-        } else if ("mov" == filetype) {
-            attachmentURL = args.post_attachments[0].url;
-            var pieces = attachmentURL.substring(0, attachmentURL.length - 8);
-            imagepath = pieces + "frame_0000.png";
-            hasMainAttachment = true;
-        } else {
-            attachmentURL = args.post_attachments[0].url;
-            extAttachmentPath = args.post_attachments[0].ext_path;
-            hasExtAttachment = true;
-        }
-    }
-    $.extAttachmentFileNameLabel.text = filename;
-    $.attachmentExtLabel.text = filetype;
-    $.mainAttachmentImage.visible = hasMainAttachment;
-    $.extAttachmentImage.visible = hasExtAttachment;
-    hasMainAttachment && ($.mainAttachmentImage.image = imagepath);
-    hasExtAttachment && ($.extAttachmentImage.image = extAttachmentPath);
+    LoadImages();
+    ShowReplies();
+    $.textField.visible = false;
     var loadView;
     __defers["$.__views.mainAttachmentImage!click!MainImageClick"] && $.__views.mainAttachmentImage.addEventListener("click", MainImageClick);
-    __defers["$.__views.__alloyId55!click!ExternalFileClick"] && $.__views.__alloyId55.addEventListener("click", ExternalFileClick);
+    __defers["$.__views.__alloyId58!click!ExternalFileClick"] && $.__views.__alloyId58.addEventListener("click", ExternalFileClick);
     __defers["$.__views.replyTable!click!handleClick"] && $.__views.replyTable.addEventListener("click", handleClick);
+    __defers["$.__views.textField!click!alert"] && $.__views.textField.addEventListener("click", alert);
+    __defers["$.__views.textField!focus!textAreaClick"] && $.__views.textField.addEventListener("focus", textAreaClick);
+    __defers["$.__views.textField!return!textFieldReturn"] && $.__views.textField.addEventListener("return", textFieldReturn);
     __defers["$.__views.backBtn!click!backBtnClicked"] && $.__views.backBtn.addEventListener("click", backBtnClicked);
+    __defers["$.__views.shareBtn!click!shareBtnClicked"] && $.__views.shareBtn.addEventListener("click", shareBtnClicked);
     _.extend($, exports);
 }
 

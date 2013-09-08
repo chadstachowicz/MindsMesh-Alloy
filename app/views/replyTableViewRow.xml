@@ -1,0 +1,30 @@
+<Alloy>
+
+	
+	<TableViewRow id="replyRow">
+
+		<View layout="vertical" top="20" class="rowView" left="10" right="10" backgroundColor="white">
+		<!-- main comment block-->
+
+			<View layout="horizontal" class="rowHeaderView">
+				<!-- header block-->
+				<ImageView id="thumbImage" class="thumbImage" width="40" height="40"></ImageView>
+		
+		
+				<View layout="vertical" class="rowView">
+					<Label id="nameLabel" class="nameLabel"></Label>
+					<Label id="dateLabel"  class="dateLabel"></Label>
+				</View>
+		
+			</View>
+
+
+			<Label id="textLabel" class="textLabel"></Label>
+
+
+			
+	
+		</View>
+
+	</TableViewRow>
+</Alloy>

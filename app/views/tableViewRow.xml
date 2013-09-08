@@ -4,7 +4,7 @@
     
     <TableViewRow id="row">
 
-		<View layout="vertical" top="20" class="rowView" left="10" right="10">
+		<View layout="vertical" bottom="10" class="rowView" left="10" right="10" backgroundColor="white">
 		<!-- main comment block-->
 
 			<View layout="horizontal" class="rowHeaderView">
@@ -22,7 +22,11 @@
 
 			<Label id="textLabel" class="textLabel"></Label>
 			<Label id="extLabel" class="textLabel"></Label>
-			<ImageView id="postAttachmentImage" visible="false"></ImageView>
+			<ImageView id="postAttachmentImage"></ImageView>
+			
+			
+			
+			
 			<View id="rowFooterView">
 				<!-- <ImageView image="/images/paperclip_black_24.png" id="paperClipImage" visible="false" left="5"></ImageView>-->
 				<ImageView id="extAttachmentImage" left="0" visible="false"></ImageView>

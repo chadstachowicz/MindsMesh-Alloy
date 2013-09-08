@@ -1,9 +1,6 @@
 
 var args = arguments[0]||{};
 
-//alert(args);
-
-//JSON.parse(args)
 
 var imagepath = "";
 var extAttachmentPath = "";
@@ -14,6 +11,8 @@ var filetype = "";
 var attachmentURL = "";
 var filename = "";
 
+
+$.replies = args.replies;
 $.userImage.image	 = args.user.photo_url;
 $.nameLabel.text = args.user.name;
 $.dateLabel.text = formatDate(args.updated_at);
@@ -21,44 +20,57 @@ $.commentLabel.text = args.text;
 $.replyCountLabel.text = args.replies_count;
 $.attachmentCountLabel.text = args.post_attachments.length;
 
-if(args.post_attachments.length>0){
-	//imagepath =  _data[i].post_attachments[0].url;    // assign the values from the data
-    filetype = "" + GetExtention(args.post_attachments[0].name);
-    filename = "" + GetCleanFilenameFromPath(args.post_attachments[0].url);
-    
-	
-	if(filetype=="png"||filetype=="jpg"){
-		imagepath = args.post_attachments[0].url;    // assign the values from the data
-		attachmentURL = args.post_attachments[0].url;
-		hasMainAttachment = true;
-	}else if(filetype=="mov"){
-		attachmentURL = args.post_attachments[0].url;
-		//this is wrong, should split on "/" and then "."
-		var pieces = attachmentURL.substring(0, attachmentURL.length - 8);	
-		imagepath = pieces + "frame_0000.png";
-		hasMainAttachment = true;
+
+
+
+LoadImages();
+ShowReplies();
+
+
+$.textField.visible = false;
+
+
+
+function LoadImages(){
+	if(args.post_attachments.length>0){
+		//imagepath =  _data[i].post_attachments[0].url;    // assign the values from the data
+	    filetype = "" + GetExtention(args.post_attachments[0].name);
+	    filename = "" + GetCleanFilenameFromPath(args.post_attachments[0].url);
+	    
+		
+		if(filetype=="png"||filetype=="jpg"){
+			imagepath = args.post_attachments[0].url;    // assign the values from the data
+			attachmentURL = args.post_attachments[0].url;
+			hasMainAttachment = true;
+		}else if(filetype=="mov"){
+			attachmentURL = args.post_attachments[0].url;
+			//this is wrong, should split on "/" and then "."
+			var pieces = attachmentURL.substring(0, attachmentURL.length - 8);	
+			imagepath = pieces + "frame_0000.png";
+			hasMainAttachment = true;
+		}else{
+			attachmentURL = args.post_attachments[0].url;
+			extAttachmentPath = args.post_attachments[0].ext_path;
+			hasExtAttachment = true;
+		}
 	}else{
-		attachmentURL = args.post_attachments[0].url;
-		extAttachmentPath = args.post_attachments[0].ext_path;
-		hasExtAttachment = true;
+		//imagepath = _data[i].user.photo_url;
 	}
-}else{
-	//imagepath = _data[i].user.photo_url;
-}
+	
+	$.extAttachmentFileNameLabel.text =  filename;
+	$.attachmentExtLabel.text =  filetype;  	
+	$.mainAttachmentImage.visible  =  hasMainAttachment;
+	$.extAttachmentImage.visible  =  hasExtAttachment;
+	    
+	if(hasMainAttachment){
+	  	$.mainAttachmentImage.image = imagepath;
+	}
+	if(hasExtAttachment){
+	  	$.extAttachmentImage.image = extAttachmentPath;
+	}
 
-$.extAttachmentFileNameLabel.text =  filename;
-$.attachmentExtLabel.text =  filetype;  	
-$.mainAttachmentImage.visible  =  hasMainAttachment;
-$.extAttachmentImage.visible  =  hasExtAttachment;
-    
-if(hasMainAttachment){
-  	$.mainAttachmentImage.image = imagepath;
+	
 }
-if(hasExtAttachment){
-  	$.extAttachmentImage.image = extAttachmentPath;
-}
-
-
 
 
 
@@ -112,17 +124,27 @@ function handleClick(e) {
     //alert(e.row.post_id); 
     //alert(e.row.data);   
 }
+
+function ShowReplies(e) {
+    
+    //alert($.replies); 
+    //alert("ShowReplies");
+    
+    //alert(e.row.post_id); 
+    //alert(e.row.data);   
+    
+    Ti.API.info(JSON.stringify($.replies));
+    
+    createRepliesTableView($.replies);
+    
+    
+}
+
+
+
+
  
- function openWindow(windowName){
-	var args = {
-		data: "test data",
-		value: "other data"
-	};
-	
-	//$.showpost.close();
-	//$.showpost = null;
-	
-	
+function openWindow(windowName,args){
 	var view1 = Alloy.createController(windowName, args);
 	view1.getView().open();
 		
@@ -141,6 +163,62 @@ function backBtnClicked(_event) {
 	Ti.API.info("back button clicked");
 	goBackToFeed();
 }
+
+
+function textFieldClick(_event) {
+    //alert("back button clicked");
+	Ti.API.info("text Field Click");
+	$.textField.bottom = 220;
+}
+
+
+function textFieldReturn(_event) {
+    //alert("back button clicked");
+	Ti.API.info("text Field Return");
+	//$.textField.visible = false;
+	
+	$.textField.bottom = 50;
+}
+
+function textAreaClick(){
+	//alert("textAreaClick");
+	Ti.API.info("textAreaClick");
+	$.textField.bottom = 220;
+	
+	
+}
+
+function shareBtnClicked(_event) {
+    //alert("shareBtnClicked");
+	Ti.API.info("share button clicked");
+	
+	
+	
+	
+	
+	
+	if($.textField.visible==false){
+
+		$.textField.visible = true;
+		$.shareBtn.title = "share";
+
+	}else{
+		shareComment($.textField.text);
+
+	}
+	
+	
+
+}
+
+function shareComment(comment){
+	alert("send comment here");
+	alert("refresh comments");
+	$.textField.height = 0;
+	$.textField.visible = false;
+	$.shareBtn.title = "comment";
+}
+
 
 function MainImageClick(_event) {
     //alert("back button clicked");
@@ -162,7 +240,9 @@ function MainImageClick(_event) {
 
 
  //creates tableview items
-function createTableView(_data) {
+function createRepliesTableView(_data) {
+	
+	Ti.API.info("called: createRepliesTableView");
     // this is pretty straight forward, assigning the values to the specific
     // properties in the template we defined above
     var items = [];
@@ -172,10 +252,15 @@ function createTableView(_data) {
     //for each item in the data
     for (var i in _data) {
     	//replyTableViewRow NEEDS TO BE CREATED
-	    //items.push(Alloy.createController('replyTableViewRow', _data[i]).getView());
+	    items.push(Alloy.createController('replyTableViewRow', _data[i]).getView());
 	}
 	
-	$.replyTable.setData(items);
+	
+	if(items.length>0){
+		$.replyTable.setData(items);
+		$.replyTable.visible = true;	
+	}
+
 }
  
 
