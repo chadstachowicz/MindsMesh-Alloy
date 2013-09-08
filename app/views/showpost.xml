@@ -1,7 +1,7 @@
 <Alloy>
 	<Window>
-		<View class="container" layout="vertical">
-			<View backgroundColor="#dddddd" height="Ti.UI.SIZE">
+		<View class="container" layout="vertical" backgroundColor="#eeeeee">
+			<View backgroundColor="#dddddd" height="Ti.UI.SIZE" width="Ti.UI.FILL">
 				<ImageView id="userImage" left="0" top="0" width="70" height="70"></ImageView>				
 				<Label left="75" top="0"  id="nameLabel"></Label>
 				<Label left="75" top="20" id="dateLabel"></Label>		
@@ -10,28 +10,27 @@
 			<Label id="commentLabel" left="5"></Label>
 			<ImageView id="mainAttachmentImage" onClick="MainImageClick"></ImageView>
 			
-			
 			<View backgroundColor="#eeeeee" height="Ti.UI.SIZE" onClick="ExternalFileClick">
 				<ImageView id="extAttachmentImage" top="0" left="0"></ImageView>
-				<Label id="extAttachmentFileNameLabel" top="0" left="40" ></Label>
+				<Label id="extAttachmentFileNameLabel" top="0" left="30" ></Label>
 			</View>
 			
+			<Label id="attachmentCountLabel" visible="false"></Label>
+			<Label id="replyCountLabel" visible="false"></Label>
+			<Label id="attachmentExtLabel" visible="false"></Label>
 			
+			
+			<TableView id="replyTable" top="0" onClick="handleClick" visible="false"/>
 			
 
-	
-
-			<Label id="attachmentCountLabel"></Label>
-			<Label id="replyCountLabel"></Label>
-			<Label id="attachmentExtLabel"></Label>
-			
-			<TableView id="replyTable" onClick="handleClick" visible="false" />
-			
-			
-			
 			
 		</View>
 		
+		
+		<TextArea id="textField" onClick="textAreaClick" onFocus="textAreaClick" onReturn="textFieldReturn" onClick="alert" visible="false" bottom="50" width="Ti.UI.FILL" height="100" />	
 		<Button id="backBtn" onClick="backBtnClicked">back</Button>  
+		
+		<Button id="shareBtn" right="0" bottom="0" onClick="shareBtnClicked">comment</Button>  
+		
 	</Window>
 </Alloy>

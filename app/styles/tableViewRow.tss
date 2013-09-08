@@ -1,7 +1,7 @@
 
 ".rowView" : {
   height: Ti.UI.SIZE,
-    backgroundColor : "#ffffff"
+    backgroundColor : "#eeeeee"
 },
 ".rowHeaderView" : {
   height: Ti.UI.SIZE,
@@ -37,8 +37,9 @@
 },
 
 "#postAttachmentImage" : {
-  height: 120,
-  width: 160
+  //height: Ti.UI.FILL,
+  //width: 400,
+   // backgroundColor : "red",
 },
 
 

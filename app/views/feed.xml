@@ -1,6 +1,11 @@
 <Alloy>
     <Window id="feed" class="container" formFactor="handheld">
     	
+        <!--shows for iphone -->
+        <TableView id="table" backgroundColor="green" onClick="tableViewHandleClick" visible="false" />
+        <!-- individual rows are found at tableViewRow.xml -->
+
+
 
 
     	<!--shows for android devices -->
@@ -43,14 +48,15 @@
         </ListView>
         
         
-        <!--shows for iphone -->
-        <TableView id="table" backgroundColor="green" onClick="tableViewHandleClick" visible="false" />
+
         
         <!--
-        <Button id="backBtn" onClick="backBtnClicked">back</Button>        
+        <Button id="backBtn" onClick="backBtnClicked">back</Button>    
+        
+           -->  
         <Button id="loadMoreBtn" onClick="loadMoreBtnClicked">Load More</Button>
-        -->
+       
         <Label id="platformLabel" visible="false"></Label>
-            
+           
     </Window>
 </Alloy>

@@ -52,7 +52,7 @@
 	height: Ti.UI.SIZE,
 	left: 5,
 	font: {
-        fontSize: 10   
+        fontSize: 12   
     }
 },
 
