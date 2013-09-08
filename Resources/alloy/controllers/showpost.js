@@ -73,14 +73,14 @@ function Controller() {
         if (false == $.textField.visible) {
             $.textField.visible = true;
             $.shareBtn.title = "share";
-        } else shareComment($.textField.text);
+        } else shareComment($.textField.value);
     }
-    function shareComment() {
-        alert("send comment here");
+    function shareComment(commentText) {
+        alert("send comment here: " + commentText);
         alert("refresh comments");
-        $.textField.height = 0;
         $.textField.visible = false;
         $.shareBtn.title = "comment";
+        $.textField.setValue("");
     }
     function MainImageClick() {
         Ti.API.info("main image clicked");

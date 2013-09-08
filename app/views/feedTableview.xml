@@ -2,7 +2,7 @@
     <Window>
 
     	
-        <TableView id="table" backgroundColor="green" onClick="handleClick" onScrollend="handleScrollEnd" />
+        <TableView id="table" backgroundColor="#46a346" onClick="handleClick" onScrollend="handleScrollEnd" />
         
         
         <Label id="platformLabel"></Label>

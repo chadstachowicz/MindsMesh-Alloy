@@ -123,7 +123,7 @@ function Controller() {
         $.__views.feed && $.addTopLevelView($.__views.feed);
         $.__views.table = Ti.UI.createTableView({
             id: "table",
-            backgroundColor: "green",
+            backgroundColor: "#46a346",
             visible: "false"
         });
         $.__views.feed.add($.__views.table);
@@ -280,7 +280,7 @@ function Controller() {
                         return __alloyId27;
                     }(),
                     properties: {
-                        backgroundColor: "green",
+                        backgroundColor: "#46a346",
                         width: Ti.UI.FILL,
                         height: 15
                     }
@@ -300,7 +300,7 @@ function Controller() {
             properties: {
                 height: 46,
                 name: "template1",
-                backgroundColor: "green"
+                backgroundColor: "#46a346"
             },
             events: {
                 click: listViewItemClick

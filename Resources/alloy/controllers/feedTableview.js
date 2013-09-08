@@ -48,7 +48,7 @@ function Controller() {
     $.__views.feedTableview && $.addTopLevelView($.__views.feedTableview);
     $.__views.table = Ti.UI.createTableView({
         id: "table",
-        backgroundColor: "green"
+        backgroundColor: "#46a346"
     });
     $.__views.feedTableview.add($.__views.table);
     handleClick ? $.__views.table.addEventListener("click", handleClick) : __defers["$.__views.table!click!handleClick"] = true;

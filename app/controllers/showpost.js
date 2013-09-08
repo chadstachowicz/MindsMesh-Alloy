@@ -203,7 +203,7 @@ function shareBtnClicked(_event) {
 		$.shareBtn.title = "share";
 
 	}else{
-		shareComment($.textField.text);
+		shareComment($.textField.value);
 
 	}
 	
@@ -211,12 +211,21 @@ function shareBtnClicked(_event) {
 
 }
 
-function shareComment(comment){
-	alert("send comment here");
+function shareComment(commentText){
+	alert("send comment here: " + commentText);
 	alert("refresh comments");
-	$.textField.height = 0;
+	//$.textField.height = 0;
+	
+
+	
 	$.textField.visible = false;
 	$.shareBtn.title = "comment";
+	
+	//$.textField.text = "";
+	$.textField.setValue("");
+	
+	//alert($.textField.text);
+
 }
 
 

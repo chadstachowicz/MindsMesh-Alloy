@@ -30,7 +30,7 @@
 },
 
 ".spacerView": {
-    backgroundColor: 'green',
+    backgroundColor: '#46a346',
     width: Ti.UI.FILL,
 	height: 15
 },

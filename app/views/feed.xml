@@ -2,7 +2,7 @@
     <Window id="feed" class="container" formFactor="handheld">
     	
         <!--shows for iphone -->
-        <TableView id="table" backgroundColor="green" onClick="tableViewHandleClick" visible="false" />
+        <TableView id="table" backgroundColor="#46a346" onClick="tableViewHandleClick" visible="false" />
         <!-- individual rows are found at tableViewRow.xml -->
 
 
@@ -11,7 +11,7 @@
     	<!--shows for android devices -->
         <ListView id="list" class="list" defaultItemTemplate="template1" visible="false">
             <Templates>
-                <ItemTemplate  id="template1" name="template1" class="template1" onClick="listViewItemClick" backgroundColor="green">
+                <ItemTemplate  id="template1" name="template1" class="template1" onClick="listViewItemClick" backgroundColor="#46a346">
 
 	               	<View layout="vertical" left="10" right="10" backgroundColor="white">   
 	                	
