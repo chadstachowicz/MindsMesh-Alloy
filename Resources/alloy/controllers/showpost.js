@@ -63,6 +63,7 @@ function Controller() {
     function textFieldReturn() {
         Ti.API.info("text Field Return");
         $.textField.bottom = 50;
+        $.textField.blur();
     }
     function textAreaClick() {
         Ti.API.info("textAreaClick");
@@ -103,6 +104,7 @@ function Controller() {
         }
     }
     function AndroidDownloadFile(URL) {
+        Ti.API.info("AndroidDownloadFile: " + URL);
         loadView = Ti.UI.createWindow({
             backgroundColor: "black",
             opacity: .9,
@@ -129,6 +131,7 @@ function Controller() {
         xhr.send();
     }
     function MoveAndOpenFile(filename) {
+        Ti.API.info("MoveAndOpenFile: " + filename);
         loadView.close();
         try {
             if (1 == this.responseData.type) {
@@ -168,11 +171,13 @@ function Controller() {
     $.__views.__alloyId56 = Ti.UI.createView({
         layout: "vertical",
         backgroundColor: "#eeeeee",
+        backgroundColor: "#99e099",
         id: "__alloyId56"
     });
     $.__views.showpost.add($.__views.__alloyId56);
     $.__views.__alloyId57 = Ti.UI.createView({
         backgroundColor: "#dddddd",
+        backgroundColor: "#1c731c",
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
         id: "__alloyId57"
@@ -201,6 +206,8 @@ function Controller() {
     $.__views.commentLabel = Ti.UI.createLabel({
         id: "commentLabel",
         left: "5"
+        width: Ti.UI.FILL,
+        backgroundColor: "white"
     });
     $.__views.__alloyId56.add($.__views.commentLabel);
     $.__views.mainAttachmentImage = Ti.UI.createImageView({
