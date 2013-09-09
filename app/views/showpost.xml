@@ -1,26 +1,30 @@
 <Alloy>
 	<Window>
-		<View class="container" layout="vertical" backgroundColor="#eeeeee">
-			<View backgroundColor="#dddddd" height="Ti.UI.SIZE" width="Ti.UI.FILL">
+		<View class="container" layout="vertical" backgroundColor="#99e099">
+			<View backgroundColor="#1c731c" height="Ti.UI.SIZE" width="Ti.UI.FILL">
 				<ImageView id="userImage" left="0" top="0" width="70" height="70"></ImageView>				
 				<Label left="75" top="0"  id="nameLabel"></Label>
 				<Label left="75" top="20" id="dateLabel"></Label>		
 			</View>
 			
-			<Label id="commentLabel" left="5"></Label>
+			<Label id="commentLabel" width="Ti.UI.FILL" backgroundColor="white"></Label>
 			<ImageView id="mainAttachmentImage" onClick="MainImageClick"></ImageView>
 			
-			<View backgroundColor="#eeeeee" height="Ti.UI.SIZE" onClick="ExternalFileClick">
+			<View backgroundColor="#eeeeee" height="Ti.UI.SIZE" onClick="ExternalFileClick" borderColor="black">
 				<ImageView id="extAttachmentImage" top="0" left="0"></ImageView>
 				<Label id="extAttachmentFileNameLabel" top="0" left="30" ></Label>
 			</View>
+			<TableView id="replyTable" top="0" onClick="handleClick" visible="false" backgroundColor="#99e099" />	
+			
+			
+			
 			
 			<Label id="attachmentCountLabel" visible="false"></Label>
 			<Label id="replyCountLabel" visible="false"></Label>
 			<Label id="attachmentExtLabel" visible="false"></Label>
 			
 			
-			<TableView id="replyTable" top="0" onClick="handleClick" visible="false"/>
+
 			
 
 			
