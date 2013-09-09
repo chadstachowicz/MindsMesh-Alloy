@@ -48,6 +48,11 @@ function Controller() {
             customView: "feed",
             image: "images/ic_search.png"
         }).getView());
+        section.add(Alloy.createController("menurow", {
+            title: "compass ",
+            customView: "compass",
+            image: "images/compass.png"
+        }).getView());
         return section;
     }
     function rowSelect(e) {

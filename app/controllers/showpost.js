@@ -12,6 +12,10 @@ var attachmentURL = "";
 var filename = "";
 
 
+
+
+$.postidLabel.text = args.postid;
+
 $.replies = args.replies;
 $.userImage.image	 = args.user.photo_url;
 $.nameLabel.text = args.user.name;
@@ -169,13 +173,7 @@ function textFieldClick(_event) {
     //alert("back button clicked");
 	Ti.API.info("text Field Click");
 	
-	
-	
 	$.textField.bottom = 220;
-	
-	
-	
-	
 }
 
 
@@ -232,23 +230,44 @@ function shareBtnClicked(_event) {
 }
 
 function shareComment(commentText){
+	
+	
+	
 	alert("send comment here: " + commentText);
+	
+	
+	MakeComment();
+	
+	
 	alert("refresh comments");
-	//$.textField.height = 0;
-	
 
-	
 	$.textField.visible = false;
 	$.shareBtn.title = "comment";
-	
-	//$.textField.text = "";
 	$.textField.setValue("");
-	
-	//alert($.textField.text);
-
 }
-
-
+ 
+ 
+ function MakeComment(e){
+	if($.textField.value.length < 1)
+	{
+		alert("Your post must be at least 1 character");
+	} else {
+		var postData = {'reply': {'text' :$.textField.value} };
+		xhr = postReplyCreate(Titanium.App.Properties.getString("mmat"),$.postidLabel.text,postData);
+		xhr.onload = function(){
+			var response = this.responseText;
+			alert(response);
+			//var test = JSON.parse(response);
+			//win.navGroup.close(win);
+		};
+		xhr.send(JSON.stringify(postData));
+		
+	}
+ }
+ 
+ 
+ 
+ 
 function MainImageClick(_event) {
     //alert("back button clicked");
 	Ti.API.info("main image clicked");

@@ -88,7 +88,7 @@ function createSection() {
 	}
 	*/
 		section.add(Alloy.createController('menurow', {title : 'feed ',customView : 'feed',image : "images/ic_search.png"}).getView());
-	
+		section.add(Alloy.createController('menurow', {title : 'compass ',customView : 'compass',image : "images/compass.png"}).getView());
 
 	//section.add(Alloy.createController('menurow', {title : 'feed2 listview (click)',customView : 'feed2',image : "images/ic_search.png"}).getView());
 

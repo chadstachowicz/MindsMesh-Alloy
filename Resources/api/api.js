@@ -5,18 +5,21 @@ function errorHTTPClient(request, mode, url, data, errObj) {
         request.open(mode, url);
         request.setRequestHeader("Content-Type", "application/json");
         request.send(data);
+        Titanium.API.info(data);
         request.retries++;
     } else {
         var desc = errObj.error.substring(errObj.error.indexOf("Description=") + 12, errObj.error.lastIndexOf("}"));
         Titanium.API.info("*******************");
         Titanium.API.info("errorHTTPClient: " + desc);
+        Titanium.API.info("full description: " + errObj.error);
+        Titanium.API.info(errObj);
     }
 }
 
 function createHttpClient(mode, url, data, header) {
     Titanium.API.info("*******************");
     Titanium.API.info("in createHttpClient");
-    Titanium.API.info(data);
+    Titanium.API.info("data: " + data);
     var xhr = Titanium.Network.createHTTPClient({
         timeout: 3e3
     });

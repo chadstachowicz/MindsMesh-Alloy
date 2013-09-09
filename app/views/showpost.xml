@@ -10,7 +10,7 @@
 			<Label id="commentLabel" width="Ti.UI.FILL" backgroundColor="white"></Label>
 			<ImageView id="mainAttachmentImage" onClick="MainImageClick"></ImageView>
 			
-			<View backgroundColor="#eeeeee" height="Ti.UI.SIZE" onClick="ExternalFileClick" borderColor="black">
+			<View backgroundColor="#eeeeee" height="Ti.UI.SIZE" onClick="ExternalFileClick">
 				<ImageView id="extAttachmentImage" top="0" left="0"></ImageView>
 				<Label id="extAttachmentFileNameLabel" top="0" left="30" ></Label>
 			</View>
@@ -24,7 +24,7 @@
 			<Label id="attachmentExtLabel" visible="false"></Label>
 			
 			
-
+			<Label id="postidLabel"></Label>
 			
 
 			

@@ -78,10 +78,26 @@ function Controller() {
     }
     function shareComment(commentText) {
         alert("send comment here: " + commentText);
+        MakeComment();
         alert("refresh comments");
         $.textField.visible = false;
         $.shareBtn.title = "comment";
         $.textField.setValue("");
+    }
+    function MakeComment() {
+        if (1 > $.textField.value.length) alert("Your post must be at least 1 character"); else {
+            var postData = {
+                reply: {
+                    text: $.textField.value
+                }
+            };
+            xhr = postReplyCreate(Titanium.App.Properties.getString("mmat"), $.postidLabel.text, postData);
+            xhr.onload = function() {
+                var response = this.responseText;
+                alert(response);
+            };
+            xhr.send(JSON.stringify(postData));
+        }
     }
     function MainImageClick() {
         Ti.API.info("main image clicked");
@@ -214,7 +230,6 @@ function Controller() {
     $.__views.__alloyId58 = Ti.UI.createView({
         backgroundColor: "#eeeeee",
         height: Ti.UI.SIZE,
-        borderColor: "black",
         id: "__alloyId58"
     });
     $.__views.__alloyId56.add($.__views.__alloyId58);
@@ -257,6 +272,10 @@ function Controller() {
         visible: "false"
     });
     $.__views.__alloyId56.add($.__views.attachmentExtLabel);
+    $.__views.postidLabel = Ti.UI.createLabel({
+        id: "postidLabel"
+    });
+    $.__views.__alloyId56.add($.__views.postidLabel);
     $.__views.textField = Ti.UI.createTextArea({
         font: {
             fontSize: 30
@@ -297,6 +316,7 @@ function Controller() {
     var filetype = "";
     var attachmentURL = "";
     var filename = "";
+    $.postidLabel.text = args.postid;
     $.replies = args.replies;
     $.userImage.image = args.user.photo_url;
     $.nameLabel.text = args.user.name;
