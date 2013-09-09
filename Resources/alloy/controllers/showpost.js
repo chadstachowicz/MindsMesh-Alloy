@@ -67,7 +67,6 @@ function Controller() {
     }
     function textAreaClick() {
         Ti.API.info("textAreaClick");
-        $.textField.bottom = 220;
         $.textField.bottom = "android" == Ti.Platform.osname ? 10 : 220;
     }
     function shareBtnClicked() {
@@ -170,13 +169,11 @@ function Controller() {
     $.__views.showpost && $.addTopLevelView($.__views.showpost);
     $.__views.__alloyId56 = Ti.UI.createView({
         layout: "vertical",
-        backgroundColor: "#eeeeee",
         backgroundColor: "#99e099",
         id: "__alloyId56"
     });
     $.__views.showpost.add($.__views.__alloyId56);
     $.__views.__alloyId57 = Ti.UI.createView({
-        backgroundColor: "#dddddd",
         backgroundColor: "#1c731c",
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
@@ -205,7 +202,6 @@ function Controller() {
     $.__views.__alloyId57.add($.__views.dateLabel);
     $.__views.commentLabel = Ti.UI.createLabel({
         id: "commentLabel",
-        left: "5"
         width: Ti.UI.FILL,
         backgroundColor: "white"
     });
@@ -218,6 +214,7 @@ function Controller() {
     $.__views.__alloyId58 = Ti.UI.createView({
         backgroundColor: "#eeeeee",
         height: Ti.UI.SIZE,
+        borderColor: "black",
         id: "__alloyId58"
     });
     $.__views.__alloyId56.add($.__views.__alloyId58);
@@ -237,6 +234,14 @@ function Controller() {
         left: "30"
     });
     $.__views.__alloyId58.add($.__views.extAttachmentFileNameLabel);
+    $.__views.replyTable = Ti.UI.createTableView({
+        id: "replyTable",
+        top: "0",
+        visible: "false",
+        backgroundColor: "#99e099"
+    });
+    $.__views.__alloyId56.add($.__views.replyTable);
+    handleClick ? $.__views.replyTable.addEventListener("click", handleClick) : __defers["$.__views.replyTable!click!handleClick"] = true;
     $.__views.attachmentCountLabel = Ti.UI.createLabel({
         id: "attachmentCountLabel",
         visible: "false"
@@ -252,13 +257,6 @@ function Controller() {
         visible: "false"
     });
     $.__views.__alloyId56.add($.__views.attachmentExtLabel);
-    $.__views.replyTable = Ti.UI.createTableView({
-        id: "replyTable",
-        top: "0",
-        visible: "false"
-    });
-    $.__views.__alloyId56.add($.__views.replyTable);
-    handleClick ? $.__views.replyTable.addEventListener("click", handleClick) : __defers["$.__views.replyTable!click!handleClick"] = true;
     $.__views.textField = Ti.UI.createTextArea({
         font: {
             fontSize: 30
