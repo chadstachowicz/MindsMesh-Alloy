@@ -168,7 +168,14 @@ function backBtnClicked(_event) {
 function textFieldClick(_event) {
     //alert("back button clicked");
 	Ti.API.info("text Field Click");
+	
+	
+	
 	$.textField.bottom = 220;
+	
+	
+	
+	
 }
 
 
@@ -178,13 +185,26 @@ function textFieldReturn(_event) {
 	//$.textField.visible = false;
 	
 	$.textField.bottom = 50;
+	$.textField.blur();
 }
 
 function textAreaClick(){
 	//alert("textAreaClick");
 	Ti.API.info("textAreaClick");
-	$.textField.bottom = 220;
+
 	
+	
+	
+	
+
+    if (Ti.Platform.osname == 'android'){
+    	//iphone
+		$.textField.bottom = 10;
+		
+	}else{
+		//android 
+ 		$.textField.bottom = 220;
+	}
 	
 }
 
@@ -280,6 +300,11 @@ function createRepliesTableView(_data) {
 //UNTESTED
 var loadView ;
 function AndroidDownloadFile(URL){
+	
+	
+	Ti.API.info("AndroidDownloadFile: " + URL);
+		
+		
 	loadView = Ti.UI.createWindow({
     	backgroundColor: 'black',
     	opacity: .90,
@@ -314,6 +339,10 @@ function AndroidDownloadFile(URL){
 
 
 function MoveAndOpenFile(filename){
+	
+	Ti.API.info("MoveAndOpenFile: " + filename);
+	
+	
 	loadView.close();
 	try{
 		//not needed?

@@ -67,6 +67,7 @@ function Controller() {
     function textAreaClick() {
         Ti.API.info("textAreaClick");
         $.textField.bottom = 220;
+        $.textField.bottom = "android" == Ti.Platform.osname ? 10 : 220;
     }
     function shareBtnClicked() {
         Ti.API.info("share button clicked");
