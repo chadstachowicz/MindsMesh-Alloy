@@ -53,6 +53,16 @@ function Controller() {
             customView: "compass",
             image: "images/compass.png"
         }).getView());
+        section.add(Alloy.createController("menurow", {
+            title: "camera ",
+            customView: "camera",
+            image: "images/camera.jpg"
+        }).getView());
+        section.add(Alloy.createController("menurow", {
+            title: "gallery ",
+            customView: "gallery",
+            image: "images/camera.jpg"
+        }).getView());
         return section;
     }
     function rowSelect(e) {
@@ -106,9 +116,7 @@ function Controller() {
             $.ds.rightMenu.zIndex = 2;
         }
     });
-    "iphone" === Ti.Platform.osname ? $.win.open({
-        transition: Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
-    }) : $.win.open();
+    $.win.open();
     _.extend($, exports);
 }
 

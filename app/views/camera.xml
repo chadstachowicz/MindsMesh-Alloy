@@ -1,0 +1,6 @@
+<Alloy>
+	<Window>
+		<ImageView id="mainView" width="300" height="300"></ImageView>
+	</Window>
+	
+</Alloy>

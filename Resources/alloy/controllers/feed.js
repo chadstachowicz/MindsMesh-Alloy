@@ -81,11 +81,6 @@ function Controller() {
         }
         $.section.setItems(items);
     }
-    function createTableView(_data) {
-        var items = [];
-        for (var i in _data) items.push(Alloy.createController("tableViewRow", _data[i]).getView());
-        $.table.setData(items);
-    }
     function listViewItemClick(e) {
         var section = $.list.sections[e.sectionIndex];
         var item = section.getItemAt(e.itemIndex);
@@ -97,15 +92,9 @@ function Controller() {
         view1.open();
     }
     function ShowJSONData(postJSON) {
-        if ("iphone" == Ti.Platform.osname) {
-            createTableView(postJSON);
-            $.table.visible = true;
-            Ti.API.info("showing tableview, because of IOS");
-        } else {
-            createListView(postJSON);
-            $.list.visible = true;
-            Ti.API.info("showing listview, because of android");
-        }
+        createListView(postJSON);
+        $.list.visible = true;
+        Ti.API.info("showing listview, because of android");
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "feed";
@@ -298,7 +287,7 @@ function Controller() {
         __alloyId2.push(__alloyId4);
         var __alloyId1 = {
             properties: {
-                height: 46,
+                height: Ti.UI.SIZE,
                 name: "template1",
                 backgroundColor: "#46a346"
             },
@@ -331,13 +320,29 @@ function Controller() {
         });
         $.__views.feed.add($.__views.list);
         $.__views.loadMoreBtn = Ti.UI.createButton({
-            right: 0,
-            bottom: 0,
             title: "Load More",
-            id: "loadMoreBtn"
+            id: "loadMoreBtn",
+            left: "0",
+            bottom: "0"
         });
         $.__views.feed.add($.__views.loadMoreBtn);
         loadMoreBtnClicked ? $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked) : __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] = true;
+        $.__views.addImageBtn = Ti.UI.createButton({
+            title: "Add Pic",
+            id: "addImageBtn",
+            right: "80",
+            bottom: "0"
+        });
+        $.__views.feed.add($.__views.addImageBtn);
+        loadMoreBtnClicked ? $.__views.addImageBtn.addEventListener("click", loadMoreBtnClicked) : __defers["$.__views.addImageBtn!click!loadMoreBtnClicked"] = true;
+        $.__views.commentBtn = Ti.UI.createButton({
+            title: "Comment",
+            id: "commentBtn",
+            right: "0",
+            bottom: "0"
+        });
+        $.__views.feed.add($.__views.commentBtn);
+        loadMoreBtnClicked ? $.__views.commentBtn.addEventListener("click", loadMoreBtnClicked) : __defers["$.__views.commentBtn!click!loadMoreBtnClicked"] = true;
         $.__views.platformLabel = Ti.UI.createLabel({
             id: "platformLabel",
             visible: "false"
@@ -348,10 +353,12 @@ function Controller() {
     _.extend($, $.__views);
     var postXML = "";
     GetFeedPosts();
-    $.platformLabel.text = "iPhone OS";
+    $.platformLabel.text = "android";
     Ti.API.info("feed loaded");
     __defers["$.__views.table!click!tableViewHandleClick"] && $.__views.table.addEventListener("click", tableViewHandleClick);
     __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] && $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked);
+    __defers["$.__views.addImageBtn!click!loadMoreBtnClicked"] && $.__views.addImageBtn.addEventListener("click", loadMoreBtnClicked);
+    __defers["$.__views.commentBtn!click!loadMoreBtnClicked"] && $.__views.commentBtn.addEventListener("click", loadMoreBtnClicked);
     _.extend($, exports);
 }
 

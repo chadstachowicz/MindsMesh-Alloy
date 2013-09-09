@@ -1,0 +1,6 @@
+<Alloy>
+	<Window>
+		<ImageView id="mainView" width="Ti.UI.FILL" height="Ti.UI.SIZE"></ImageView>
+	</Window>
+	
+</Alloy>

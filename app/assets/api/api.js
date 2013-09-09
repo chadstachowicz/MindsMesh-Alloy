@@ -14,7 +14,7 @@ function errorHTTPClient(request, mode, url, data, errObj, errMsg)
         request.setRequestHeader("Content-Type","application/json");
         request.send(data);
         
-            	Titanium.API.info(data);
+            	Titanium.API.info("data: " + JSON.stringify(data));
         
         
         
@@ -31,7 +31,7 @@ function errorHTTPClient(request, mode, url, data, errObj, errMsg)
     	//alert("errorHTTPClient: " + desc);
     	Titanium.API.info('*******************');
     	Titanium.API.info("errorHTTPClient: " + desc);
-    	    	Titanium.API.info("full description: " + errObj.error);
+    	    	Titanium.API.info("full description: " + JSON.stringify(errObj));
     	Titanium.API.info(errObj);
     	
     	
@@ -59,7 +59,7 @@ function createHttpClient(mode,url,data,header)
 	Titanium.API.info('*******************');
 	Titanium.API.info("in createHttpClient");
 
-	Titanium.API.info("data: " + data);
+	Titanium.API.info("data: " + JSON.stringify(data));
 	
 	var xhr = Titanium.Network.createHTTPClient({timeout:3000});
 	xhr.retries = 0;

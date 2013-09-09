@@ -54,8 +54,9 @@
         <Button id="backBtn" onClick="backBtnClicked">back</Button>    
         
            -->  
-        <Button id="loadMoreBtn" onClick="loadMoreBtnClicked">Load More</Button>
-       
+        <Button id="loadMoreBtn" onClick="loadMoreBtnClicked" left="0" bottom="0">Load More</Button>
+       	<Button id="addImageBtn" onClick="loadMoreBtnClicked" right="80" bottom="0">Add Pic</Button>
+        <Button id="commentBtn" onClick="loadMoreBtnClicked" right="0" bottom="0">Comment</Button>
         <Label id="platformLabel" visible="false"></Label>
            
     </Window>

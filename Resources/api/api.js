@@ -5,13 +5,13 @@ function errorHTTPClient(request, mode, url, data, errObj) {
         request.open(mode, url);
         request.setRequestHeader("Content-Type", "application/json");
         request.send(data);
-        Titanium.API.info(data);
+        Titanium.API.info("data: " + JSON.stringify(data));
         request.retries++;
     } else {
         var desc = errObj.error.substring(errObj.error.indexOf("Description=") + 12, errObj.error.lastIndexOf("}"));
         Titanium.API.info("*******************");
         Titanium.API.info("errorHTTPClient: " + desc);
-        Titanium.API.info("full description: " + errObj.error);
+        Titanium.API.info("full description: " + JSON.stringify(errObj));
         Titanium.API.info(errObj);
     }
 }
@@ -19,17 +19,15 @@ function errorHTTPClient(request, mode, url, data, errObj) {
 function createHttpClient(mode, url, data, header) {
     Titanium.API.info("*******************");
     Titanium.API.info("in createHttpClient");
-    Titanium.API.info("data: " + data);
+    Titanium.API.info("data: " + JSON.stringify(data));
     var xhr = Titanium.Network.createHTTPClient({
         timeout: 3e3
     });
     xhr.retries = 0;
     if ("FILE" == header) xhr.setRequestHeader("Content-Type", "multipart/form-data"); else if ("NONE" != header) {
         xhr.setRequestHeader("Content-Type", "application/json");
-        if ("android" == Titanium.Platform.osname) {
-            var androidUserAgent = "Mozilla/5.0 (Linux; U; iPhone OS " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
-            xhr.setRequestHeader("User-Agent", androidUserAgent);
-        }
+        var androidUserAgent = "Mozilla/5.0 (Linux; U; android " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
+        xhr.setRequestHeader("User-Agent", androidUserAgent);
     }
     xhr.onerror = function(e) {
         errorHTTPClient(xhr, mode, url, data, e, L("Comms Error Message"));
@@ -45,10 +43,8 @@ function createHttpClientNoError(mode, url, data, header) {
     xhr.retries = 0;
     if ("FILE" == header) xhr.setRequestHeader("Content-Type", "multipart/form-data"); else if ("NONE" != header) {
         xhr.setRequestHeader("Content-Type", "application/json");
-        if ("android" == Titanium.Platform.osname) {
-            var androidUserAgent = "Mozilla/5.0 (Linux; U; iPhone OS " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
-            xhr.setRequestHeader("User-Agent", androidUserAgent);
-        }
+        var androidUserAgent = "Mozilla/5.0 (Linux; U; android " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
+        xhr.setRequestHeader("User-Agent", androidUserAgent);
     }
     xhr.onerror = function() {
         Titanium.API.info("*******************");
