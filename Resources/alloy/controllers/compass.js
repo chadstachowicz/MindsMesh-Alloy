@@ -12,6 +12,7 @@ function Controller() {
     $.__views.compass && $.addTopLevelView($.__views.compass);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    Titanium.Geolocation.hasCompass;
     if (Titanium.Geolocation.hasCompass) {
         Titanium.Geolocation.showCalibration = false;
         Titanium.Geolocation.headingFilter = 90;

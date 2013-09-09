@@ -28,13 +28,15 @@ function Controller() {
                 offset: "1.0"
             } ]
         },
-        id: "row"
+        id: "row",
+        height: Ti.UI.SIZE
     });
     $.__views.row && $.addTopLevelView($.__views.row);
     $.__views.icon = Ti.UI.createImageView({
-        width: "38dp",
+        width: "30",
         left: "5dp",
-        id: "icon"
+        id: "icon",
+        height: "30"
     });
     $.__views.row.add($.__views.icon);
     $.__views.__alloyId51 = Ti.UI.createView({

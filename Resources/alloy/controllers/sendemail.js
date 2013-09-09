@@ -6,12 +6,6 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.emailDialog = Ti.UI.createEmailDialog({
-        id: "emailDialog",
-        subject: "Hello from Titanium",
-        messageBody: "<b>Appcelerator Titanium Rocks!</b>"
-    });
-    $.__views.emailDialog && $.addTopLevelView($.__views.emailDialog);
     exports.destroy = function() {};
     _.extend($, $.__views);
     _.extend($, exports);
