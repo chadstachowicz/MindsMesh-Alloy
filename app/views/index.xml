@@ -8,18 +8,18 @@
 			<Button onClick="goSettings" class="buttoncls">Feed</Button>   	
 			
 
-			
+						    			
 			
 			  
 			<!-- 
-			    			<Button  onClick="goFeed" class="buttoncls">Feed</Button>	
-			
-					<Button  onClick="goFeed2" class="buttoncls">Feed2</Button>		 	
+				
+				
+				<Button  onClick="goCompass" class="buttoncls">Compass</Button>	
+				
+			<Button  onClick="goFeed" class="buttoncls">Feed</Button>	
+			<Button  onClick="goFeed2" class="buttoncls">Feed2</Button>		 	
 			<Button  onClick="goExternalView" class="buttoncls">ExternalView</Button>	 
-			<Button onClick="goSideView" class="buttoncls">SideView</Button>	 
-			   		       	
-	       	
-			   		       	
+			<Button onClick="goSideView" class="buttoncls">SideView</Button>	        	
 			<Button onClick="goTableView" class="buttoncls">TableView</Button>   	    	
 			   		       	
 			   		       	

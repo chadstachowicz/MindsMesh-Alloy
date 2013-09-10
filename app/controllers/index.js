@@ -19,6 +19,12 @@ function goFeed2(e){
 	openWindow("feed2");
 }
 
+function goCompass(e){
+	openWindow("compass");
+}
+
+
+
 function openWindow(windowName){
 	var args = {
 		data: "test data",

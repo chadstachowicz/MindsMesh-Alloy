@@ -1,4 +1,8 @@
 
 ".container" : {
   
+},
+
+"#headingTextField" : {
+  font : { fontSize: 24, color: "black" }
 }

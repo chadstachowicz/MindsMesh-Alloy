@@ -39,12 +39,12 @@ function Controller() {
         height: "30"
     });
     $.__views.row.add($.__views.icon);
-    $.__views.__alloyId51 = Ti.UI.createView({
+    $.__views.__alloyId52 = Ti.UI.createView({
         layout: "vertical",
         height: Ti.UI.SIZE,
-        id: "__alloyId51"
+        id: "__alloyId52"
     });
-    $.__views.row.add($.__views.__alloyId51);
+    $.__views.row.add($.__views.__alloyId52);
     $.__views.title = Ti.UI.createLabel({
         color: "#666",
         font: {
@@ -53,7 +53,7 @@ function Controller() {
         left: "48dp",
         id: "title"
     });
-    $.__views.__alloyId51.add($.__views.title);
+    $.__views.__alloyId52.add($.__views.title);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};

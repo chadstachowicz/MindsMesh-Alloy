@@ -1,4 +1,11 @@
 <Alloy>
-	<View class="container">
-	</View>
+	<Window>
+		
+				
+		<ImageView id="image" class="imageView" image="/images/map.png" width="1000" height="500"/>
+		
+		<Label top="0">compass page</Label>
+
+		<TextField id="headingTextField" bottom="0" width="Ti.UI.FILL" height="Ti.UI.SIZE">Load</TextField>
+	</Window>
 </Alloy>

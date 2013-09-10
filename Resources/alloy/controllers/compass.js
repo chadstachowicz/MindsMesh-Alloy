@@ -1,4 +1,28 @@
 function Controller() {
+    function AdustedHeading(heading) {
+        var angle = 0;
+        angle = 180 > heading ? -Math.round(heading) : Math.round(360 - heading);
+        return angle;
+    }
+    function DoHeadingUpdate(e) {
+        if (e.error) {
+            Titanium.API.info("error: " + e.error);
+            return;
+        }
+        e.heading.x;
+        e.heading.y;
+        e.heading.z;
+        e.heading.magneticHeading;
+        e.heading.accuracy;
+        var trueHeading = e.heading.trueHeading;
+        e.heading.timestamp;
+        var adjustedAngle = AdustedHeading(trueHeading);
+        Titanium.API.info("geo - heading updated: " + Math.round(trueHeading) + "," + adjustedAngle);
+        $.headingTextField.value = Math.round(trueHeading) + "," + adjustedAngle;
+        $.image.transform = Ti.UI.create2DMatrix({
+            rotate: adjustedAngle
+        });
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "compass";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -6,44 +30,43 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.compass = Ti.UI.createView({
+    $.__views.compass = Ti.UI.createWindow({
+        backgroundColor: "#FFF",
         id: "compass"
     });
     $.__views.compass && $.addTopLevelView($.__views.compass);
+    $.__views.image = Ti.UI.createImageView({
+        id: "image",
+        image: "/images/map.png",
+        width: "1000",
+        height: "500"
+    });
+    $.__views.compass.add($.__views.image);
+    $.__views.__alloyId0 = Ti.UI.createLabel({
+        text: "compass page",
+        top: "0",
+        id: "__alloyId0"
+    });
+    $.__views.compass.add($.__views.__alloyId0);
+    $.__views.headingTextField = Ti.UI.createTextField({
+        font: {
+            fontSize: 24,
+            color: "black"
+        },
+        id: "headingTextField",
+        bottom: "0",
+        width: Ti.UI.FILL,
+        height: Ti.UI.SIZE
+    });
+    $.__views.compass.add($.__views.headingTextField);
     exports.destroy = function() {};
     _.extend($, $.__views);
     Titanium.Geolocation.hasCompass;
     if (Titanium.Geolocation.hasCompass) {
         Titanium.Geolocation.showCalibration = false;
         Titanium.Geolocation.headingFilter = 90;
-        Ti.Geolocation.getCurrentHeading(function(e) {
-            if (e.error) {
-                currentHeading.text = "error: " + e.error;
-                return;
-            }
-            e.heading.x;
-            e.heading.y;
-            e.heading.z;
-            e.heading.magneticHeading;
-            e.heading.accuracy;
-            var trueHeading = e.heading.trueHeading;
-            e.heading.timestamp;
-            Titanium.API.info("geo - current heading: " + trueHeading);
-        });
-        Titanium.Geolocation.addEventListener("heading", function(e) {
-            if (e.error) {
-                Titanium.API.info("error: " + e.error);
-                return;
-            }
-            e.heading.x;
-            e.heading.y;
-            e.heading.z;
-            e.heading.magneticHeading;
-            e.heading.accuracy;
-            var trueHeading = e.heading.trueHeading;
-            e.heading.timestamp;
-            Titanium.API.info("geo - heading updated: " + trueHeading);
-        });
+        Ti.Geolocation.getCurrentHeading(DoHeadingUpdate);
+        Titanium.Geolocation.addEventListener("heading", DoHeadingUpdate);
     } else Titanium.API.info("No Compass on device");
     _.extend($, exports);
 }
