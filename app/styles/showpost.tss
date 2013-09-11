@@ -10,10 +10,19 @@
 	font : {
 		fontSize : 10
 	}
-}
+},
 
 "#textField": {
 	font : {
 		fontSize : 30
 	}
 }
+,"#nameLabel": {
+	color : "white",
+	font : { fontSize : 20 }
+}
+,"#commentLabel": {
+	color : "black",
+	font : { fontSize : 20 }
+}
+

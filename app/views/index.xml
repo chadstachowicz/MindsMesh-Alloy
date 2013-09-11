@@ -1,16 +1,9 @@
 <Alloy>
 	<Window id="indexWindow" class="container">
 		
-		
-       <View layout="vertical" id="mainView" class="mainView">   
-       	
-			<Button  onClick="goLogin" class="buttoncls">Login</Button>
-			<Button onClick="goSettings" class="buttoncls">Feed</Button>   	
-			
 
-						    			
-			
-			  
+        
+     			  
 			<!-- 
 				
 				
@@ -24,17 +17,16 @@
 			   		       	
 			   		       	
 			   	-->	       	
-			   		       	
-			   		       	
-			   		       	
-			   		       	
-			<ImageView id="image" class="imageView" image="/images/Mindsmesh_logo_highres.png"/>
-			
-        </View>
+			   		         
+        <ImageView id="image" class="imageView" top="0" width="Ti.UI.FILL" height="Ti.UI.SIZE" image="/images/Mindsmesh_logo_highres.png"/>
+        <Label class="welcomeMessage" top="130">Welcome to EDU Mesh</Label>
+        
+           <Button id="btnNext" onClick="goSettings"  bottom="90" right="0" width="Ti.UI.SIZE" height="Ti.UI.SIZE">Next</Button>		     
+		<Button  onClick="goLogin" class="buttoncls" bottom="45" width="Ti.UI.FILL" height="Ti.UI.SIZE">Login</Button>
+		<Button onClick="goSettings" class="buttoncls" bottom="0" width="Ti.UI.FILL" height="Ti.UI.SIZE">Feed</Button>   	
+	
         
         
-
-		<Label class="welcomeMessage">Welcome to EDU Mesh</Label>
-        <Button id="btnNext" onClick="goSettings" class="nextButton">Next</Button>				
+        	
 	</Window>
 </Alloy>

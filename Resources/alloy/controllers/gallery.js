@@ -1,4 +1,12 @@
 function Controller() {
+    function goBackToFeed() {
+        $.gallery.close();
+        $.gallery = null;
+    }
+    function backBtnClicked() {
+        Ti.API.info("back button clicked");
+        goBackToFeed();
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "gallery";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -6,6 +14,7 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
+    var __defers = {};
     $.__views.gallery = Ti.UI.createWindow({
         backgroundColor: "#FFF",
         id: "gallery"
@@ -17,6 +26,14 @@ function Controller() {
         height: Ti.UI.SIZE
     });
     $.__views.gallery.add($.__views.mainView);
+    $.__views.backBtn = Ti.UI.createButton({
+        title: "back",
+        id: "backBtn",
+        top: "0",
+        left: "0"
+    });
+    $.__views.gallery.add($.__views.backBtn);
+    backBtnClicked ? $.__views.backBtn.addEventListener("click", backBtnClicked) : __defers["$.__views.backBtn!click!backBtnClicked"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     Titanium.Media.openPhotoGallery({
@@ -29,6 +46,8 @@ function Controller() {
         },
         cancel: function() {
             alert("cancel");
+            $.gallery.close();
+            $.gallery = null;
         },
         error: function() {
             alert("error");
@@ -37,6 +56,7 @@ function Controller() {
         allowEditing: true,
         mediaTypes: [ Ti.Media.MEDIA_TYPE_VIDEO, Ti.Media.MEDIA_TYPE_PHOTO ]
     });
+    __defers["$.__views.backBtn!click!backBtnClicked"] && $.__views.backBtn.addEventListener("click", backBtnClicked);
     _.extend($, exports);
 }
 

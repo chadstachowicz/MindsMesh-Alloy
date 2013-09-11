@@ -1,6 +1,7 @@
 <Alloy>
 	<Window>
 		<ImageView id="mainView" width="300" height="300"></ImageView>
+		<Button id="backBtn" top="0" left="0" onClick="backBtnClicked">back</Button>  
 	</Window>
 	
 </Alloy>

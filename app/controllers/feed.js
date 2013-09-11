@@ -40,8 +40,17 @@ function loadMoreBtnClicked(_event) {
 }
 
 
+function cameraBtnClicked(_event) {
+    //alert("back button clicked");
+	Ti.API.info("camera button clicked");
+	openWindow("camera");
+}
 
-
+function galleryBtnClicked(_event) {
+    //alert("back button clicked");
+	Ti.API.info("gallery button clicked");
+	openWindow("gallery");
+}
 
 
 

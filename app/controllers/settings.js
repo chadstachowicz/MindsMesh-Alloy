@@ -87,16 +87,13 @@ function createSection() {
 		
 	}
 	*/
-	section.add(Alloy.createController('menurow', {title : 'feed ',customView : 'feed',image : "images/ic_search.png"}).getView());
-	section.add(Alloy.createController('menurow', {title : 'compass ',customView : 'compass',image : "images/compass.png"}).getView());
-	
-	section.add(Alloy.createController('menurow', {title : 'camera ',customView : 'camera',image : "images/camera.jpg"}).getView());
-	section.add(Alloy.createController('menurow', {title : 'gallery ',customView : 'gallery',image : "images/camera.jpg"}).getView());
+	section.add(Alloy.createController('menurow', {title : 'Main Feed',customView : 'feed',image : "/images/ic_search.png"}).getView());
+	section.add(Alloy.createController('menurow', {title : 'Compass',customView : 'compass',image : "/images/compass.png"}).getView());
+	section.add(Alloy.createController('menurow', {title : 'Camera',customView : 'camera',image : "/images/camera.jpg"}).getView());
+	section.add(Alloy.createController('menurow', {title : 'Gallery',customView : 'gallery',image : "/images/camera.jpg"}).getView());
 
 	//section.add(Alloy.createController('menurow', {title : 'feed2 listview (click)',customView : 'feed2',image : "images/ic_search.png"}).getView());
-
-	
-		//section.add(Alloy.createController('menurow', {title : 'external view',customView : 'externalView',image : "images/ic_search.png"}).getView());
+	//section.add(Alloy.createController('menurow', {title : 'external view',customView : 'externalView',image : "images/ic_search.png"}).getView());
 	//section.add(Alloy.createController('menurow', {title : 'slideview',customView : 'slideview',image : "images/ic_search.png"}).getView());
 	//section.add(Alloy.createController('menurow', {title : 'view2',customView : 'view2',image : "images/ic_search.png"}).getView());
 	

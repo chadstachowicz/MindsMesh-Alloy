@@ -7,7 +7,7 @@
 				<Label left="75" top="20" id="dateLabel"></Label>		
 			</View>
 			
-			<Label id="commentLabel" width="Ti.UI.FILL" backgroundColor="white"></Label>
+			<Label id="commentLabel" width="Ti.UI.FILL"  backgroundColor="white"></Label>
 			<ImageView id="mainAttachmentImage" onClick="MainImageClick"></ImageView>
 			
 			<View backgroundColor="#eeeeee" height="Ti.UI.SIZE" onClick="ExternalFileClick">

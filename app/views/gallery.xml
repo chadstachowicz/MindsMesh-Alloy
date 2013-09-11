@@ -1,6 +1,10 @@
 <Alloy>
 	<Window>
 		<ImageView id="mainView" width="Ti.UI.FILL" height="Ti.UI.SIZE"></ImageView>
+		
+		
+		<Button id="backBtn" top="0" left="0" onClick="backBtnClicked">back</Button>  
+		
 	</Window>
 	
 </Alloy>

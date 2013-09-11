@@ -1,7 +1,7 @@
 "Label": {
-  color: "#666",
+  color: "#000000",
   font: {
-    fontSize: "16"
+    fontSize: 20
   }
 },
 ".vgroup": {
@@ -37,5 +37,6 @@
   left: "5dp"
 },
 "#title": {
-  left: "48dp"
+  left: "55dp"
+  
 }

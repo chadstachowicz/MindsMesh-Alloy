@@ -33,10 +33,10 @@ function Controller() {
     });
     $.__views.row && $.addTopLevelView($.__views.row);
     $.__views.icon = Ti.UI.createImageView({
-        width: "30",
+        width: "40",
         left: "5dp",
         id: "icon",
-        height: "30"
+        height: "40"
     });
     $.__views.row.add($.__views.icon);
     $.__views.__alloyId52 = Ti.UI.createView({
@@ -46,11 +46,11 @@ function Controller() {
     });
     $.__views.row.add($.__views.__alloyId52);
     $.__views.title = Ti.UI.createLabel({
-        color: "#666",
+        color: "#000000",
         font: {
-            fontSize: "16"
+            fontSize: 20
         },
-        left: "48dp",
+        left: "55dp",
         id: "title"
     });
     $.__views.__alloyId52.add($.__views.title);

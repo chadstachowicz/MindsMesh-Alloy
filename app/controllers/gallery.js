@@ -14,6 +14,11 @@ Titanium.Media.openPhotoGallery({
 		
 		// called when user cancels taking a picture
 		alert("cancel");
+		//Titanium.UI.currentWindow.close();
+		
+		
+		$.gallery.close();
+		$.gallery = null;
 		
 	},
 	error:function(error) {
@@ -35,3 +40,18 @@ Titanium.Media.openPhotoGallery({
 	allowEditing:true,
 	mediaTypes:[Ti.Media.MEDIA_TYPE_VIDEO,Ti.Media.MEDIA_TYPE_PHOTO]
 });
+
+
+function goBackToFeed(){
+
+	$.gallery.close();
+	$.gallery = null;
+		
+}
+ 
+ 
+function backBtnClicked(_event) {
+    //alert("back button clicked");
+	Ti.API.info("back button clicked");
+	goBackToFeed();
+}

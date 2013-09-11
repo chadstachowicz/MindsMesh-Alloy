@@ -10,8 +10,24 @@ function Controller() {
         };
         xhr.send();
     }
+    function openWindow(windowName) {
+        var args = {
+            data: "test data",
+            value: "other data"
+        };
+        var view1 = Alloy.createController(windowName, args);
+        view1.getView().open();
+    }
     function loadMoreBtnClicked() {
         alert(postXML);
+    }
+    function cameraBtnClicked() {
+        Ti.API.info("camera button clicked");
+        openWindow("camera");
+    }
+    function galleryBtnClicked() {
+        Ti.API.info("gallery button clicked");
+        openWindow("gallery");
     }
     function createListView(_data) {
         var items = [];
@@ -124,6 +140,7 @@ function Controller() {
         $.__views.table = Ti.UI.createTableView({
             id: "table",
             backgroundColor: "#46a346",
+            separatorColor: "transparent",
             visible: "false"
         });
         $.__views.feed.add($.__views.table);
@@ -331,21 +348,29 @@ function Controller() {
         });
         $.__views.feed.add($.__views.list);
         $.__views.loadMoreBtn = Ti.UI.createButton({
-            title: "Load More",
+            title: "Data",
             id: "loadMoreBtn",
             left: "0",
             bottom: "0"
         });
         $.__views.feed.add($.__views.loadMoreBtn);
         loadMoreBtnClicked ? $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked) : __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] = true;
-        $.__views.addImageBtn = Ti.UI.createButton({
-            title: "Add Pic",
-            id: "addImageBtn",
-            right: "80",
+        $.__views.picBtn = Ti.UI.createButton({
+            title: "Camera",
+            id: "picBtn",
+            right: "171",
             bottom: "0"
         });
-        $.__views.feed.add($.__views.addImageBtn);
-        loadMoreBtnClicked ? $.__views.addImageBtn.addEventListener("click", loadMoreBtnClicked) : __defers["$.__views.addImageBtn!click!loadMoreBtnClicked"] = true;
+        $.__views.feed.add($.__views.picBtn);
+        cameraBtnClicked ? $.__views.picBtn.addEventListener("click", cameraBtnClicked) : __defers["$.__views.picBtn!click!cameraBtnClicked"] = true;
+        $.__views.galBtn = Ti.UI.createButton({
+            title: "Gallery",
+            id: "galBtn",
+            right: "95",
+            bottom: "0"
+        });
+        $.__views.feed.add($.__views.galBtn);
+        galleryBtnClicked ? $.__views.galBtn.addEventListener("click", galleryBtnClicked) : __defers["$.__views.galBtn!click!galleryBtnClicked"] = true;
         $.__views.commentBtn = Ti.UI.createButton({
             title: "Comment",
             id: "commentBtn",
@@ -368,7 +393,8 @@ function Controller() {
     Ti.API.info("feed loaded");
     __defers["$.__views.table!click!tableViewHandleClick"] && $.__views.table.addEventListener("click", tableViewHandleClick);
     __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] && $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked);
-    __defers["$.__views.addImageBtn!click!loadMoreBtnClicked"] && $.__views.addImageBtn.addEventListener("click", loadMoreBtnClicked);
+    __defers["$.__views.picBtn!click!cameraBtnClicked"] && $.__views.picBtn.addEventListener("click", cameraBtnClicked);
+    __defers["$.__views.galBtn!click!galleryBtnClicked"] && $.__views.galBtn.addEventListener("click", galleryBtnClicked);
     __defers["$.__views.commentBtn!click!loadMoreBtnClicked"] && $.__views.commentBtn.addEventListener("click", loadMoreBtnClicked);
     _.extend($, exports);
 }

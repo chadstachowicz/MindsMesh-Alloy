@@ -1,6 +1,6 @@
 <Alloy>
   <TableViewRow id="row" height="Ti.UI.SIZE">
-    <ImageView id="icon" width="30" height="30" />
+    <ImageView id="icon" width="40" height="40" />
     <View class="vgroup">
       <Label id="title"/>
     </View>

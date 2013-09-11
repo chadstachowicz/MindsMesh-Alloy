@@ -20,7 +20,7 @@ $.replies = args.replies;
 $.userImage.image	 = args.user.photo_url;
 $.nameLabel.text = args.user.name;
 $.dateLabel.text = formatDate(args.updated_at);
-$.commentLabel.text = args.text;
+$.commentLabel.text = "\r\n" + args.text + "\r\n\r\n";
 $.replyCountLabel.text = args.replies_count;
 $.attachmentCountLabel.text = args.post_attachments.length;
 

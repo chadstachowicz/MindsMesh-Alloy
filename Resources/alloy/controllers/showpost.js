@@ -205,6 +205,10 @@ function Controller() {
     });
     $.__views.__alloyId58.add($.__views.userImage);
     $.__views.nameLabel = Ti.UI.createLabel({
+        color: "white",
+        font: {
+            fontSize: 20
+        },
         left: "75",
         top: "0",
         id: "nameLabel"
@@ -217,6 +221,10 @@ function Controller() {
     });
     $.__views.__alloyId58.add($.__views.dateLabel);
     $.__views.commentLabel = Ti.UI.createLabel({
+        color: "black",
+        font: {
+            fontSize: 20
+        },
         id: "commentLabel",
         width: Ti.UI.FILL,
         backgroundColor: "white"
@@ -321,7 +329,7 @@ function Controller() {
     $.userImage.image = args.user.photo_url;
     $.nameLabel.text = args.user.name;
     $.dateLabel.text = formatDate(args.updated_at);
-    $.commentLabel.text = args.text;
+    $.commentLabel.text = "\r\n" + args.text + "\r\n\r\n";
     $.replyCountLabel.text = args.replies_count;
     $.attachmentCountLabel.text = args.post_attachments.length;
     LoadImages();

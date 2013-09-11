@@ -44,24 +44,24 @@ function Controller() {
             image: "images/ic_search.png"
         }).getView());
         section.add(Alloy.createController("menurow", {
-            title: "feed ",
+            title: "Main Feed",
             customView: "feed",
-            image: "images/ic_search.png"
+            image: "/images/ic_search.png"
         }).getView());
         section.add(Alloy.createController("menurow", {
-            title: "compass ",
+            title: "Compass",
             customView: "compass",
-            image: "images/compass.png"
+            image: "/images/compass.png"
         }).getView());
         section.add(Alloy.createController("menurow", {
-            title: "camera ",
+            title: "Camera",
             customView: "camera",
-            image: "images/camera.jpg"
+            image: "/images/camera.jpg"
         }).getView());
         section.add(Alloy.createController("menurow", {
-            title: "gallery ",
+            title: "Gallery",
             customView: "gallery",
-            image: "images/camera.jpg"
+            image: "/images/camera.jpg"
         }).getView());
         return section;
     }
