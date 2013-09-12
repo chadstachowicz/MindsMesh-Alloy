@@ -1,4 +1,4 @@
-
+//$.win.orientationModes = Titanium.UI.PORTRAIT;
 
 
 function goExternalView(e){

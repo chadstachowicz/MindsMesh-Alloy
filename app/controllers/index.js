@@ -1,3 +1,10 @@
+//$.indexWindow.orientationModes = Titanium.UI.PORTRAIT;
+
+
+
+
+
+
 function doClick(e) {
     alert($.headerLabel.text);
 }
@@ -7,6 +14,9 @@ function goLogin(e){
 
 	openWindow("loginWindow");
 }
+
+
+
 
 function goSettings(e){
 	openWindow("settings");

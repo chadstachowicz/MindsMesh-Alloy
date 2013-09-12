@@ -1,6 +1,7 @@
 
 var hasCompass = Titanium.Geolocation.hasCompass;
 
+//$.win.orientationModes = Titanium.UI.PORTRAIT;
 
 
 

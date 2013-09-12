@@ -1,8 +1,8 @@
 <Alloy>
-	<Window id="win">
+	<Window id="win" width="Ti.UI.FILL">
 		
 
-		<Require type="widget" src="ds.slideMenu" id="ds"/>
+		<Require type="widget" src="ds.slideMenu" width="Ti.UI.FILL" id="ds"/>
 
 		
 	</Window>

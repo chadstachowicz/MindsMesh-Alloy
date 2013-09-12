@@ -1,3 +1,6 @@
+//$.widget.orientationModes = Titanium.UI.PORTRAIT;
+
+
 var animateRight = Ti.UI.createAnimation({
 	left : 250,
 	curve : Ti.UI.ANIMATION_CURVE_EASE_OUT,
