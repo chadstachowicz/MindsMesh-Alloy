@@ -14,8 +14,8 @@ Titanium.Media.showCamera({
 	cancel:function() {
 		// called when user cancels taking a picture
 		alert("cancel");
-		$.camera.close();
-		$.camera = null;
+		//$.camera.close();
+		//$.camera = null;
 	},
 	error:function(error) {
 		// called when there's an error
@@ -36,8 +36,8 @@ Titanium.Media.showCamera({
 
 function goBackToFeed(){
 
-	$.camera.close();
-	$.camera = null;
+	//$.camera.close();
+	//$.camera = null;
 		
 }
  

@@ -5,6 +5,10 @@
 		
 		<Button id="backBtn" top="0" left="0" onClick="backBtnClicked">back</Button>  
 		
+		
+		
+		
+		
 	</Window>
 	
 </Alloy>

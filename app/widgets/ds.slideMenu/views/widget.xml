@@ -1,5 +1,5 @@
 <Alloy>
-	<View id="containerview">
+	<View id="containerview" width="Ti.UI.FILL">
 		<View id="leftMenu">
 			<TableView id="leftTableView" />
 		</View>

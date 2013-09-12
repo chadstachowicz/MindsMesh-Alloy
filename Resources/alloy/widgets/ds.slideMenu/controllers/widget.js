@@ -1,7 +1,7 @@
 function WPATH(s) {
     var index = s.lastIndexOf("/");
     var path = -1 === index ? "ds.slideMenu/" + s : s.substring(0, index) + "/ds.slideMenu/" + s.substring(index + 1);
-    return path;
+    return true && 0 !== path.indexOf("/") ? "/" + path : path;
 }
 
 function Controller() {
@@ -19,6 +19,8 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.containerview = Ti.UI.createView({
+        width: Ti.UI.FILL,
+        height: Ti.UI.FILL,
         id: "containerview"
     });
     $.__views.containerview && $.addTopLevelView($.__views.containerview);
@@ -51,7 +53,7 @@ function Controller() {
     $.__views.movableview = Ti.UI.createView({
         left: "0",
         zIndex: "3",
-        width: Ti.Platform.displayCaps.platformWidth,
+        width: Ti.UI.FILL,
         id: "movableview"
     });
     $.__views.containerview.add($.__views.movableview);

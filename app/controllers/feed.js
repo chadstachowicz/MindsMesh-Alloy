@@ -1,3 +1,8 @@
+//$.feed.orientationModes = [Titanium.UI.PORTRAIT];
+$.commentTextArea.visible=false;
+
+
+
 function GetFeedPosts() {
 	xhr = getPostsWithFamily(Titanium.App.Properties.getString('mmat'));
     xhr.onload = function(){
@@ -35,21 +40,250 @@ function backBtnClicked(_event) {
 	openWindow("settings");
 }
 
+//COMMENT STUFF******************************
 function loadMoreBtnClicked(_event) {
     alert(postXML);
 }
 
 
+
+
+function textAreaReturn(_event) {
+    //alert("back button clicked");
+	Ti.API.info("text Field Return");
+	//$.textField.visible = false;
+	
+	$.commentTextArea.bottom = 50;
+	$.commentTextArea.blur();
+}
+
+
+function textAreaClick(){
+	//alert("textAreaClick");
+	Ti.API.info("textAreaClick");
+
+    if (Ti.Platform.osname == 'android'){
+    	//iphone
+		$.commentTextArea.bottom = 10;
+		
+	}else{
+		//android 
+ 		$.commentTextArea.bottom = 220;
+	}
+	
+}
+
+function shareBtnClicked(_event) {
+    //alert("shareBtnClicked");
+	Ti.API.info("share button clicked");
+	
+	
+	
+	alert($.commentTextArea.visible);
+	
+	
+	if($.commentTextArea.visible==false){
+
+		$.commentTextArea.visible = true;
+		$.commentBtn.title = "share";
+
+	}else{
+		shareComment($.commentTextArea.value);
+
+	}
+	
+	
+
+}
+
+function shareComment(commentText){
+	
+	
+	
+	alert("send comment here: " + commentText);
+	MakeComment(commentText);
+	/*
+	if(commentText.length < 1)
+	{
+		alert("Your post must be at least 1 character");
+	} else {
+		var postData = {'reply': {'text' :commentText} };
+		xhr = postReplyCreate(Titanium.App.Properties.getString("mmat"),$.postidLabel.text,postData);
+		xhr.onload = function(){
+			var response = this.responseText;
+			alert(response);
+			//var test = JSON.parse(response);
+			//win.navGroup.close(win);
+		};
+		xhr.send(JSON.stringify(postData));
+		
+	}
+	*/
+	
+	alert("refresh comments");
+
+	$.commentTextArea.visible = false;
+	$.commentBtn.title = "comment";
+	$.commentTextArea.setValue("");
+}
+ 
+ 
+
+function MakeComment(comment,topic_id,group_id)
+{
+	comment =  "" + comment;
+
+	if(comment.length >= 5)
+	{				
+		if(topic_id != null)
+		{
+			var postData = {'topic_id': topic_id, 'text': comment};
+		} else if (group_id != null) {		
+			var postData = {'group_id': group_id, 'text': comment};
+		} else {					
+			var postData = {'text': comment};
+		}
+		
+		xhr = postPostCreate(Titanium.App.Properties.getString('mmat'),postData);
+		
+		xhr.onload = function(){
+			var response = this.responseText;
+			alert(response);
+		};
+		
+		xhr.send(postData);
+			
+		
+	} else {
+		alert("A reasonable post should have at least 5 chars.");
+	}
+ 
+}
+
+
+//COMMENT STUFF******************************
+
+
+
+
+
 function cameraBtnClicked(_event) {
     //alert("back button clicked");
 	Ti.API.info("camera button clicked");
-	openWindow("camera");
+	//openWindow("camera");
+	OpenCamera();
+	
+	
+	
 }
+
+
+function OpenCamera(){
+	Titanium.Media.showCamera({
+		success:function(event) {
+			// called when media returned from the camera
+			Ti.API.debug('Our type was: '+event.mediaType);
+			if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+				//$.mainView.image = event.media;
+				Ti.API.info("data from camera: " + event.media);
+				$.postImage.image = event.media;
+				$.postImage.visible = true;
+					
+				
+			} else {
+				alert("got the wrong type back: "+ event.media);
+			}
+		},
+		cancel:function() {
+			// called when user cancels taking a picture
+			alert("user cancelled");
+			//$.camera.close();
+			//$.camera = null;
+		},
+		error:function(error) {
+			// called when there's an error
+			var a = Titanium.UI.createAlertDialog({title:'Camera'});
+			if (error.code == Titanium.Media.NO_CAMERA) {
+				a.setMessage('Please run this test on device');
+			} else {
+				a.setMessage('Unexpected error: ' + error.code);
+			}
+			a.show();
+		},
+		saveToPhotoGallery:true,
+		allowEditing:true,
+		mediaTypes:[Ti.Media.MEDIA_TYPE_VIDEO,Ti.Media.MEDIA_TYPE_PHOTO]
+	});
+
+	
+	
+	
+}
+
+
+
+
+
+function OpenGallery(){
+	Titanium.Media.openPhotoGallery({
+		success:function(event) {
+			// called when media returned from the camera
+			Ti.API.debug('Our type was: '+event.mediaType);
+			if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+				//$.mainView.image = event.media;
+				Ti.API.info("data from gallery: " + event.media);
+				$.postImage.image = event.media;
+				$.postImage.visible = true;
+					
+					
+				Ti.API.debug('Our media was: '+event.media);
+			} else {
+				alert("got the wrong type back: " + event.mediaType);
+			}
+		},
+		cancel:function() {
+			
+			// called when user cancels taking a picture
+			alert("user cancelled");
+			//Titanium.UI.currentWindow.close();
+			
+			
+			//$.gallery.close();
+			//$.gallery = null;
+			
+		},
+		error:function(error) {
+			// called when there's an error
+			
+			alert("Unexpected error: " + error.code);
+			/*
+			var a = Titanium.UI.createAlertDialog({title:'Camera'});
+			if (error.code == Titanium.Media.NO_CAMERA) {
+				a.setMessage('Please run this test on device');
+			} else {
+				a.setMessage('Unexpected error: ' + error.code);
+			}
+			a.show();
+			*/
+			
+		},
+		saveToPhotoGallery:true,
+		allowEditing:true,
+		mediaTypes:[Ti.Media.MEDIA_TYPE_VIDEO,Ti.Media.MEDIA_TYPE_PHOTO]
+	});
+	
+	
+}
+
+
+
 
 function galleryBtnClicked(_event) {
     //alert("back button clicked");
 	Ti.API.info("gallery button clicked");
-	openWindow("gallery");
+	//openWindow("gallery");
+	
+	OpenGallery();
 }
 
 

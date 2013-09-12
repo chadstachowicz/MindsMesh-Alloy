@@ -1,8 +1,5 @@
 function Controller() {
-    function goBackToFeed() {
-        $.camera.close();
-        $.camera = null;
-    }
+    function goBackToFeed() {}
     function backBtnClicked() {
         Ti.API.info("back button clicked");
         goBackToFeed();
@@ -46,8 +43,6 @@ function Controller() {
         },
         cancel: function() {
             alert("cancel");
-            $.camera.close();
-            $.camera = null;
         },
         error: function(error) {
             var a = Titanium.UI.createAlertDialog({

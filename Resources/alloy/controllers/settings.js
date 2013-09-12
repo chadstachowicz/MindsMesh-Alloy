@@ -81,10 +81,13 @@ function Controller() {
     var exports = {};
     $.__views.win = Ti.UI.createWindow({
         backgroundColor: "#FFF",
-        id: "win"
+        orientationModes: [ Ti.UI.PORTRAIT ],
+        id: "win",
+        width: Ti.UI.FILL
     });
     $.__views.win && $.addTopLevelView($.__views.win);
     $.__views.ds = Alloy.createWidget("ds.slideMenu", "widget", {
+        width: Ti.UI.FILL,
         id: "ds",
         __parentSymbol: $.__views.win
     });
@@ -116,9 +119,7 @@ function Controller() {
             $.ds.rightMenu.zIndex = 2;
         }
     });
-    "iphone" === Ti.Platform.osname ? $.win.open({
-        transition: Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
-    }) : $.win.open();
+    $.win.open();
     _.extend($, exports);
 }
 

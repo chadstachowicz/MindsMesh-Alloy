@@ -1,7 +1,7 @@
 function WPATH(s) {
     var index = s.lastIndexOf("/");
     var path = -1 === index ? "ds.slideMenu/" + s : s.substring(0, index) + "/ds.slideMenu/" + s.substring(index + 1);
-    return path;
+    return true && 0 !== path.indexOf("/") ? "/" + path : path;
 }
 
 module.exports = [ {
@@ -51,11 +51,19 @@ module.exports = [ {
     style: {
         left: "0",
         zIndex: "3",
-        width: Ti.Platform.displayCaps.platformWidth
+        width: Ti.UI.FILL
     }
 }, {
     isId: true,
     priority: 100000.0008,
+    key: "containerview",
+    style: {
+        width: Ti.UI.FILL,
+        height: Ti.UI.FILL
+    }
+}, {
+    isId: true,
+    priority: 100000.0009,
     key: "contentview",
     style: {
         left: "0dp",
@@ -66,7 +74,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0009,
+    priority: 100000.001,
     key: "shadowview",
     style: {
         shadowColor: "black",
@@ -78,7 +86,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.001,
+    priority: 100000.0011,
     key: "leftButton",
     style: {
         backgroundImage: "none",
@@ -91,7 +99,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0011,
+    priority: 100000.0012,
     key: "refreshButton",
     style: {
         backgroundImage: "none",
@@ -103,7 +111,7 @@ module.exports = [ {
     }
 }, {
     isId: true,
-    priority: 100000.0012,
+    priority: 100000.0013,
     key: "bellButton",
     style: {
         backgroundImage: "/ds.slideMenu/bell.png",

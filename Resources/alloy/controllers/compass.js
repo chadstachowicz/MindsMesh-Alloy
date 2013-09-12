@@ -30,24 +30,26 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.compass = Ti.UI.createWindow({
+    $.__views.win = Ti.UI.createWindow({
         backgroundColor: "#FFF",
-        id: "compass"
+        orientationModes: [ Ti.UI.PORTRAIT ],
+        id: "win"
     });
-    $.__views.compass && $.addTopLevelView($.__views.compass);
+    $.__views.win && $.addTopLevelView($.__views.win);
     $.__views.image = Ti.UI.createImageView({
         id: "image",
-        image: "/images/map.png",
-        width: "1000",
-        height: "500"
+        keepScreenOn: "true",
+        image: "/images/mapmini.png",
+        width: "550",
+        height: "550"
     });
-    $.__views.compass.add($.__views.image);
+    $.__views.win.add($.__views.image);
     $.__views.__alloyId0 = Ti.UI.createLabel({
         text: "compass page",
         top: "0",
         id: "__alloyId0"
     });
-    $.__views.compass.add($.__views.__alloyId0);
+    $.__views.win.add($.__views.__alloyId0);
     $.__views.headingTextField = Ti.UI.createTextField({
         font: {
             fontSize: 24,
@@ -58,7 +60,7 @@ function Controller() {
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE
     });
-    $.__views.compass.add($.__views.headingTextField);
+    $.__views.win.add($.__views.headingTextField);
     exports.destroy = function() {};
     _.extend($, $.__views);
     Titanium.Geolocation.hasCompass;

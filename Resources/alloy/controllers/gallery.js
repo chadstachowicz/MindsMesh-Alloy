@@ -1,7 +1,6 @@
 function Controller() {
     function goBackToFeed() {
-        $.gallery.close();
-        $.gallery = null;
+        Ti.API.info("goBackToFeed");
     }
     function backBtnClicked() {
         Ti.API.info("back button clicked");
@@ -46,8 +45,6 @@ function Controller() {
         },
         cancel: function() {
             alert("cancel");
-            $.gallery.close();
-            $.gallery = null;
         },
         error: function() {
             alert("error");

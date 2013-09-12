@@ -1,17 +1,17 @@
 <Alloy>
-    <Window id="feed" class="container" formFactor="handheld">
+    <Window id="feed" class="container" formFactor="handheld" width="Ti.UI.FILL">
     	
         <!--shows for iphone -->
-        <TableView id="table" backgroundColor="#46a346" separatorColor="transparent" onClick="tableViewHandleClick" visible="false" />
+        <TableView id="table" backgroundColor="#46a346" separatorColor="transparent" onClick="tableViewHandleClick" visible="false" width="Ti.UI.FILL" />
         <!-- individual rows are found at tableViewRow.xml -->
 
 
 
 
     	<!--shows for android devices -->
-        <ListView id="list" class="list" defaultItemTemplate="template1" visible="false">
+        <ListView id="list" class="list"  backgroundColor="#46a346" separatorColor="transparent" width="Ti.UI.FILL" defaultItemTemplate="template1" visible="false">
             <Templates>
-                <ItemTemplate  id="template1" name="template1" class="template1" onClick="listViewItemClick" backgroundColor="#46a346">
+                <ItemTemplate  id="template1" name="template1" class="template1" onClick="listViewItemClick" backgroundColor="#46a346" width="Ti.UI.FILL">
 
 	               	<View layout="vertical" left="10" right="10" backgroundColor="white">   
 	                	
@@ -42,8 +42,8 @@
                 </ItemTemplate> 
             </Templates>
 
-            <ListSection id="section">
-                <ListItem template="template1" />
+            <ListSection id="section" width="Ti.UI.FILL">
+                <ListItem template="template1" width="Ti.UI.FILL" />
             </ListSection>
         </ListView>
         
@@ -53,14 +53,20 @@
         <!--
         <Button id="backBtn" onClick="backBtnClicked">back</Button>    
         
-           -->  
+          -->  
+          
+          
+          <ImageView id="postImage" visible="false" bottom="80" left="10" width="300" height="200"></ImageView>
+          <TextArea id="commentTextArea" onClick="textAreaClick" onFocus="textAreaClick" onReturn="textAreaReturn" onClick="alert" visible="false" bottom="50" width="Ti.UI.FILL" height="100" />	
+		
+          
         <Button id="loadMoreBtn" onClick="loadMoreBtnClicked" left="0" bottom="0">Data</Button>
        	<Button id="picBtn" onClick="cameraBtnClicked" right="171" bottom="0">Camera</Button>
        	
        	<Button id="galBtn" onClick="galleryBtnClicked" right="95" bottom="0">Gallery</Button>
        	
        	
-        <Button id="commentBtn" onClick="loadMoreBtnClicked" right="0" bottom="0">Comment</Button>
+        <Button id="commentBtn" onClick="shareBtnClicked" right="0" bottom="0">Comment</Button>
         <Label id="platformLabel" visible="false"></Label>
            
     </Window>

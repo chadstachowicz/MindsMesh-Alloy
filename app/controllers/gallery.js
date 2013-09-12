@@ -17,8 +17,8 @@ Titanium.Media.openPhotoGallery({
 		//Titanium.UI.currentWindow.close();
 		
 		
-		$.gallery.close();
-		$.gallery = null;
+		//$.gallery.close();
+		//$.gallery = null;
 		
 	},
 	error:function(error) {
@@ -43,9 +43,11 @@ Titanium.Media.openPhotoGallery({
 
 
 function goBackToFeed(){
-
-	$.gallery.close();
-	$.gallery = null;
+	Ti.API.info("goBackToFeed");
+	//Ti.UI.currentWindow.close();
+	//	Ti.API.info("currentWindow.close()");
+	//$.gallery.close();
+	//$.gallery = null;
 		
 }
  

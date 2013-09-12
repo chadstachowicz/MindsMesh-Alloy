@@ -68,7 +68,7 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     GetTableViewFeedPosts();
-    $.platformLabel.text = "iPhone OS";
+    $.platformLabel.text = "android";
     Ti.API.info("tableview feed loaded");
     __defers["$.__views.table!click!handleClick"] && $.__views.table.addEventListener("click", handleClick);
     __defers["$.__views.table!scrollend!handleScrollEnd"] && $.__views.table.addEventListener("scrollend", handleScrollEnd);

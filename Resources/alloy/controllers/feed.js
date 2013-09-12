@@ -10,24 +10,108 @@ function Controller() {
         };
         xhr.send();
     }
-    function openWindow(windowName) {
-        var args = {
-            data: "test data",
-            value: "other data"
-        };
-        var view1 = Alloy.createController(windowName, args);
-        view1.getView().open();
-    }
     function loadMoreBtnClicked() {
         alert(postXML);
     }
+    function textAreaReturn() {
+        Ti.API.info("text Field Return");
+        $.commentTextArea.bottom = 50;
+        $.commentTextArea.blur();
+    }
+    function textAreaClick() {
+        Ti.API.info("textAreaClick");
+        $.commentTextArea.bottom = 10;
+    }
+    function shareBtnClicked() {
+        Ti.API.info("share button clicked");
+        alert($.commentTextArea.visible);
+        if (false == $.commentTextArea.visible) {
+            $.commentTextArea.visible = true;
+            $.commentBtn.title = "share";
+        } else shareComment($.commentTextArea.value);
+    }
+    function shareComment(commentText) {
+        alert("send comment here: " + commentText);
+        MakeComment(commentText);
+        alert("refresh comments");
+        $.commentTextArea.visible = false;
+        $.commentBtn.title = "comment";
+        $.commentTextArea.setValue("");
+    }
+    function MakeComment(comment, topic_id, group_id) {
+        comment = "" + comment;
+        if (comment.length >= 5) {
+            if (null != topic_id) var postData = {
+                topic_id: topic_id,
+                text: comment
+            }; else if (null != group_id) var postData = {
+                group_id: group_id,
+                text: comment
+            }; else var postData = {
+                text: comment
+            };
+            xhr = postPostCreate(Titanium.App.Properties.getString("mmat"), postData);
+            xhr.onload = function() {
+                var response = this.responseText;
+                alert(response);
+            };
+            xhr.send(postData);
+        } else alert("A reasonable post should have at least 5 chars.");
+    }
     function cameraBtnClicked() {
         Ti.API.info("camera button clicked");
-        openWindow("camera");
+        OpenCamera();
+    }
+    function OpenCamera() {
+        Titanium.Media.showCamera({
+            success: function(event) {
+                Ti.API.debug("Our type was: " + event.mediaType);
+                if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+                    Ti.API.info("data from camera: " + event.media);
+                    $.postImage.image = event.media;
+                    $.postImage.visible = true;
+                } else alert("got the wrong type back: " + event.media);
+            },
+            cancel: function() {
+                alert("user cancelled");
+            },
+            error: function(error) {
+                var a = Titanium.UI.createAlertDialog({
+                    title: "Camera"
+                });
+                error.code == Titanium.Media.NO_CAMERA ? a.setMessage("Please run this test on device") : a.setMessage("Unexpected error: " + error.code);
+                a.show();
+            },
+            saveToPhotoGallery: true,
+            allowEditing: true,
+            mediaTypes: [ Ti.Media.MEDIA_TYPE_VIDEO, Ti.Media.MEDIA_TYPE_PHOTO ]
+        });
+    }
+    function OpenGallery() {
+        Titanium.Media.openPhotoGallery({
+            success: function(event) {
+                Ti.API.debug("Our type was: " + event.mediaType);
+                if (event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
+                    Ti.API.info("data from gallery: " + event.media);
+                    $.postImage.image = event.media;
+                    $.postImage.visible = true;
+                    Ti.API.debug("Our media was: " + event.media);
+                } else alert("got the wrong type back: " + event.mediaType);
+            },
+            cancel: function() {
+                alert("user cancelled");
+            },
+            error: function(error) {
+                alert("Unexpected error: " + error.code);
+            },
+            saveToPhotoGallery: true,
+            allowEditing: true,
+            mediaTypes: [ Ti.Media.MEDIA_TYPE_VIDEO, Ti.Media.MEDIA_TYPE_PHOTO ]
+        });
     }
     function galleryBtnClicked() {
         Ti.API.info("gallery button clicked");
-        openWindow("gallery");
+        OpenGallery();
     }
     function createListView(_data) {
         var items = [];
@@ -97,11 +181,6 @@ function Controller() {
         }
         $.section.setItems(items);
     }
-    function createTableView(_data) {
-        var items = [];
-        for (var i in _data) items.push(Alloy.createController("tableViewRow", _data[i]).getView());
-        $.table.setData(items);
-    }
     function listViewItemClick(e) {
         var section = $.list.sections[e.sectionIndex];
         var item = section.getItemAt(e.itemIndex);
@@ -113,15 +192,9 @@ function Controller() {
         view1.open();
     }
     function ShowJSONData(postJSON) {
-        if ("iphone" == Ti.Platform.osname) {
-            createTableView(postJSON);
-            $.table.visible = true;
-            Ti.API.info("showing tableview, because of IOS");
-        } else {
-            createListView(postJSON);
-            $.list.visible = true;
-            Ti.API.info("showing listview, because of android");
-        }
+        createListView(postJSON);
+        $.list.visible = true;
+        Ti.API.info("showing listview, because of android");
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "feed";
@@ -134,14 +207,16 @@ function Controller() {
     if (!Alloy.isTablet) {
         $.__views.feed = Ti.UI.createWindow({
             backgroundColor: "#FFF",
-            id: "feed"
+            id: "feed",
+            width: Ti.UI.FILL
         });
         $.__views.feed && $.addTopLevelView($.__views.feed);
         $.__views.table = Ti.UI.createTableView({
             id: "table",
             backgroundColor: "#46a346",
             separatorColor: "transparent",
-            visible: "false"
+            visible: "false",
+            width: Ti.UI.FILL
         });
         $.__views.feed.add($.__views.table);
         tableViewHandleClick ? $.__views.table.addEventListener("click", tableViewHandleClick) : __defers["$.__views.table!click!tableViewHandleClick"] = true;
@@ -160,8 +235,8 @@ function Controller() {
                             bindId: "pic",
                             properties: {
                                 left: 5,
-                                width: 40,
-                                height: 40,
+                                width: 50,
+                                height: 50,
                                 bindId: "pic"
                             }
                         };
@@ -315,9 +390,10 @@ function Controller() {
         __alloyId3.push(__alloyId5);
         var __alloyId2 = {
             properties: {
-                height: 46,
+                height: Ti.UI.SIZE,
                 name: "template1",
-                backgroundColor: "#46a346"
+                backgroundColor: "#46a346",
+                width: Ti.UI.FILL
             },
             events: {
                 click: listViewItemClick
@@ -330,12 +406,14 @@ function Controller() {
         $.__views.__alloyId34 = {
             template: "template1",
             properties: {
+                width: Ti.UI.FILL,
                 id: "__alloyId34"
             }
         };
         __alloyId33.push($.__views.__alloyId34);
         $.__views.section = Ti.UI.createListSection({
-            id: "section"
+            id: "section",
+            width: Ti.UI.FILL
         });
         __alloyId31.push($.__views.section);
         $.__views.section.items = __alloyId33;
@@ -343,10 +421,33 @@ function Controller() {
             sections: __alloyId31,
             templates: __alloyId1,
             id: "list",
+            backgroundColor: "#46a346",
+            separatorColor: "transparent",
+            width: Ti.UI.FILL,
             defaultItemTemplate: "template1",
             visible: "false"
         });
         $.__views.feed.add($.__views.list);
+        $.__views.postImage = Ti.UI.createImageView({
+            id: "postImage",
+            visible: "false",
+            bottom: "80",
+            left: "10",
+            width: "300",
+            height: "200"
+        });
+        $.__views.feed.add($.__views.postImage);
+        $.__views.commentTextArea = Ti.UI.createTextArea({
+            id: "commentTextArea",
+            visible: "false",
+            bottom: "50",
+            width: Ti.UI.FILL,
+            height: "100"
+        });
+        $.__views.feed.add($.__views.commentTextArea);
+        alert ? $.__views.commentTextArea.addEventListener("click", alert) : __defers["$.__views.commentTextArea!click!alert"] = true;
+        textAreaClick ? $.__views.commentTextArea.addEventListener("focus", textAreaClick) : __defers["$.__views.commentTextArea!focus!textAreaClick"] = true;
+        textAreaReturn ? $.__views.commentTextArea.addEventListener("return", textAreaReturn) : __defers["$.__views.commentTextArea!return!textAreaReturn"] = true;
         $.__views.loadMoreBtn = Ti.UI.createButton({
             title: "Data",
             id: "loadMoreBtn",
@@ -378,7 +479,7 @@ function Controller() {
             bottom: "0"
         });
         $.__views.feed.add($.__views.commentBtn);
-        loadMoreBtnClicked ? $.__views.commentBtn.addEventListener("click", loadMoreBtnClicked) : __defers["$.__views.commentBtn!click!loadMoreBtnClicked"] = true;
+        shareBtnClicked ? $.__views.commentBtn.addEventListener("click", shareBtnClicked) : __defers["$.__views.commentBtn!click!shareBtnClicked"] = true;
         $.__views.platformLabel = Ti.UI.createLabel({
             id: "platformLabel",
             visible: "false"
@@ -387,15 +488,19 @@ function Controller() {
     }
     exports.destroy = function() {};
     _.extend($, $.__views);
+    $.commentTextArea.visible = false;
     var postXML = "";
     GetFeedPosts();
-    $.platformLabel.text = "iPhone OS";
+    $.platformLabel.text = "android";
     Ti.API.info("feed loaded");
     __defers["$.__views.table!click!tableViewHandleClick"] && $.__views.table.addEventListener("click", tableViewHandleClick);
+    __defers["$.__views.commentTextArea!click!alert"] && $.__views.commentTextArea.addEventListener("click", alert);
+    __defers["$.__views.commentTextArea!focus!textAreaClick"] && $.__views.commentTextArea.addEventListener("focus", textAreaClick);
+    __defers["$.__views.commentTextArea!return!textAreaReturn"] && $.__views.commentTextArea.addEventListener("return", textAreaReturn);
     __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] && $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked);
     __defers["$.__views.picBtn!click!cameraBtnClicked"] && $.__views.picBtn.addEventListener("click", cameraBtnClicked);
     __defers["$.__views.galBtn!click!galleryBtnClicked"] && $.__views.galBtn.addEventListener("click", galleryBtnClicked);
-    __defers["$.__views.commentBtn!click!loadMoreBtnClicked"] && $.__views.commentBtn.addEventListener("click", loadMoreBtnClicked);
+    __defers["$.__views.commentBtn!click!shareBtnClicked"] && $.__views.commentBtn.addEventListener("click", shareBtnClicked);
     _.extend($, exports);
 }
 

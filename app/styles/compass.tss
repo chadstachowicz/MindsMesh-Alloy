@@ -1,6 +1,6 @@
 
-".container" : {
-  
+"#win" : {
+  orientationModes: [Ti.UI.PORTRAIT] 
 },
 
 "#headingTextField" : {
