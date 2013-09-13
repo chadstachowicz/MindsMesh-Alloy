@@ -31,11 +31,11 @@
 						
 	    				<View backgroundColor="#eeeeee" width="Ti.UI.FILL">  
 							<!-- <ImageView image="/images/paperclip_black_24.png" bindId="paperClipImage" left="5"></ImageView>-->	
-							<ImageView id="extAttachmentImage" bindId="extAttachmentImage" left="0"></ImageView>
+							<ImageView id="extAttachmentImage" bindId="extAttachmentImage" left="0" bottom="2"></ImageView>
 			      			<!-- <Label id="idLabel"  bindId="idLabel" class="id"/>   	-->				
 							
 							<ImageView image="/images/comment_32.png" right="5"></ImageView>
-							<Label id="commentCountLabel" color="white" bindId="commentCountLabel" right="10"></Label>
+							<Label id="commentCountLabel" color="white" bindId="commentCountLabel" right="15" bottom="10"></Label>
 							
 						</View>
 						<Label id="dataLabel"  bindId="dataLabel" visible="false" width="0" height="0" />

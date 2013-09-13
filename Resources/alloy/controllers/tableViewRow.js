@@ -86,16 +86,10 @@ function Controller() {
     $.__views.extAttachmentImage = Ti.UI.createImageView({
         id: "extAttachmentImage",
         left: "0",
-        visible: "false"
+        visible: "false",
+        bottom: "2"
     });
     $.__views.rowFooterView.add($.__views.extAttachmentImage);
-    $.__views.commentCountLabel = Ti.UI.createLabel({
-        height: Ti.UI.SIZE,
-        width: Ti.UI.SIZE,
-        id: "commentCountLabel",
-        right: "40"
-    });
-    $.__views.rowFooterView.add($.__views.commentCountLabel);
     $.__views.commentImage = Ti.UI.createImageView({
         height: Ti.UI.SIZE,
         width: Ti.UI.SIZE,
@@ -104,6 +98,15 @@ function Controller() {
         right: "5"
     });
     $.__views.rowFooterView.add($.__views.commentImage);
+    $.__views.commentCountLabel = Ti.UI.createLabel({
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE,
+        id: "commentCountLabel",
+        color: "white",
+        right: "15",
+        bottom: "10"
+    });
+    $.__views.rowFooterView.add($.__views.commentCountLabel);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var imagepath = "";

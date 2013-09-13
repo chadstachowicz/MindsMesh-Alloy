@@ -29,9 +29,15 @@
 			
 			<View id="rowFooterView">
 				<!-- <ImageView image="/images/paperclip_black_24.png" id="paperClipImage" visible="false" left="5"></ImageView>-->
-				<ImageView id="extAttachmentImage" left="0" visible="false"></ImageView>
-				<Label id="commentCountLabel" class="commentCountLabel" right="40"></Label>
+				<ImageView id="extAttachmentImage" left="0" visible="false" bottom="2"></ImageView>
+				
+				
+				
+
 				<ImageView image="/images/comment_32.png" id="commentImage" right="5"></ImageView>
+				<Label id="commentCountLabel" class="commentCountLabel" color="white" right="15" bottom="10"></Label>				
+				
+
 			</View>
 		</View>
 

@@ -320,7 +320,8 @@ function Controller() {
                             bindId: "extAttachmentImage",
                             properties: {
                                 bindId: "extAttachmentImage",
-                                left: "0"
+                                left: "0",
+                                bottom: "2"
                             }
                         };
                         __alloyId20.push(__alloyId21);
@@ -338,7 +339,8 @@ function Controller() {
                             properties: {
                                 color: "white",
                                 bindId: "commentCountLabel",
-                                right: "10"
+                                right: "15",
+                                bottom: "10"
                             }
                         };
                         __alloyId20.push(__alloyId24);
