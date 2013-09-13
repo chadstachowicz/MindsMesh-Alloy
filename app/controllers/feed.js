@@ -19,16 +19,7 @@ function GetFeedPosts() {
 }
 
 function openWindow(windowName){
-	var args = {
-		data: "test data",
-		value: "other data"
-	};
-	
-	//$.feed.close();
-	//$.feed = null;
-	
-	
-	var view1 = Alloy.createController(windowName, args);
+	var view1 = Alloy.createController(windowName, {});
 	view1.getView().open();
 		
 }
@@ -73,19 +64,44 @@ function textAreaClick(){
 	
 }
 
+
+function cancelBtnClicked(event){
+		Ti.API.info("cancel button clicked");
+	
+	
+	
+	//alert($.commentTextArea.visible);
+	
+	
+	if($.commentTextArea.visible==true){
+
+		$.commentTextArea.visible = false;
+		//$.commentBtn.title = "s";
+
+	}else{
+		shareComment($.commentTextArea.value);
+
+	}
+	
+	
+}
+
+
+
+
 function shareBtnClicked(_event) {
     //alert("shareBtnClicked");
 	Ti.API.info("share button clicked");
 	
 	
 	
-	alert($.commentTextArea.visible);
+	//alert($.commentTextArea.visible);
 	
 	
 	if($.commentTextArea.visible==false){
 
 		$.commentTextArea.visible = true;
-		$.commentBtn.title = "share";
+		//$.commentBtn.title = "share";
 
 	}else{
 		shareComment($.commentTextArea.value);

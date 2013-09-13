@@ -33,8 +33,10 @@
 							<!-- <ImageView image="/images/paperclip_black_24.png" bindId="paperClipImage" left="5"></ImageView>-->	
 							<ImageView id="extAttachmentImage" bindId="extAttachmentImage" left="0"></ImageView>
 			      			<!-- <Label id="idLabel"  bindId="idLabel" class="id"/>   	-->				
-							<Label id="commentCountLabel"  bindId="commentCountLabel" right="40"></Label>
+							
 							<ImageView image="/images/comment_32.png" right="5"></ImageView>
+							<Label id="commentCountLabel" color="white" bindId="commentCountLabel" right="10"></Label>
+							
 						</View>
 						<Label id="dataLabel"  bindId="dataLabel" visible="false" width="0" height="0" />
 						 <View class="spacerView"><Label class="spacer" /></View>
@@ -57,17 +59,19 @@
           
           
           <ImageView id="postImage" visible="false" bottom="80" left="10" width="300" height="200"></ImageView>
-          <TextArea id="commentTextArea" onClick="textAreaClick" onFocus="textAreaClick" onReturn="textAreaReturn" onClick="alert" visible="false" bottom="50" width="Ti.UI.FILL" height="100" />	
-		
+
           
-        <Button id="loadMoreBtn" onClick="loadMoreBtnClicked" left="0" bottom="0">Data</Button>
-       	<Button id="picBtn" onClick="cameraBtnClicked" right="171" bottom="0">Camera</Button>
+        <Button id="loadMoreBtn" onClick="loadMoreBtnClicked" left="0" bottom="45">Data</Button>
+       	<Button id="picBtn" onClick="cameraBtnClicked" left="0" bottom="0">Camera</Button>
        	
-       	<Button id="galBtn" onClick="galleryBtnClicked" right="95" bottom="0">Gallery</Button>
+       	<Button id="galBtn" onClick="galleryBtnClicked" left="82" bottom="0">Gallery</Button>
        	
-       	
-        <Button id="commentBtn" onClick="shareBtnClicked" right="0" bottom="0">Comment</Button>
+       	       	<Button id="cancelBtn" onClick="cancelBtnClicked" right="68" bottom="0">Cancel</Button>
+        <Button id="commentBtn" onClick="shareBtnClicked" right="0" bottom="0">Share</Button>
         <Label id="platformLabel" visible="false"></Label>
+             <TextArea id="commentTextArea" onClick="textAreaClick" onFocus="textAreaClick" onReturn="textAreaReturn" onClick="alert" visible="false" bottom="50" width="Ti.UI.FILL" height="100" />	
+		     
+        
            
     </Window>
 </Alloy>

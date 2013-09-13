@@ -22,13 +22,13 @@ function Controller() {
         Ti.API.info("textAreaClick");
         $.commentTextArea.bottom = 10;
     }
+    function cancelBtnClicked() {
+        Ti.API.info("cancel button clicked");
+        true == $.commentTextArea.visible ? $.commentTextArea.visible = false : shareComment($.commentTextArea.value);
+    }
     function shareBtnClicked() {
         Ti.API.info("share button clicked");
-        alert($.commentTextArea.visible);
-        if (false == $.commentTextArea.visible) {
-            $.commentTextArea.visible = true;
-            $.commentBtn.title = "share";
-        } else shareComment($.commentTextArea.value);
+        false == $.commentTextArea.visible ? $.commentTextArea.visible = true : shareComment($.commentTextArea.value);
     }
     function shareComment(commentText) {
         alert("send comment here: " + commentText);
@@ -324,20 +324,21 @@ function Controller() {
                             }
                         };
                         __alloyId20.push(__alloyId21);
-                        var __alloyId22 = {
-                            type: "Ti.UI.Label",
-                            bindId: "commentCountLabel",
-                            properties: {
-                                bindId: "commentCountLabel",
-                                right: "40"
-                            }
-                        };
-                        __alloyId20.push(__alloyId22);
-                        var __alloyId24 = {
+                        var __alloyId23 = {
                             type: "Ti.UI.ImageView",
                             properties: {
                                 image: "/images/comment_32.png",
                                 right: "5"
+                            }
+                        };
+                        __alloyId20.push(__alloyId23);
+                        var __alloyId24 = {
+                            type: "Ti.UI.Label",
+                            bindId: "commentCountLabel",
+                            properties: {
+                                color: "white",
+                                bindId: "commentCountLabel",
+                                right: "10"
                             }
                         };
                         __alloyId20.push(__alloyId24);
@@ -437,29 +438,18 @@ function Controller() {
             height: "200"
         });
         $.__views.feed.add($.__views.postImage);
-        $.__views.commentTextArea = Ti.UI.createTextArea({
-            id: "commentTextArea",
-            visible: "false",
-            bottom: "50",
-            width: Ti.UI.FILL,
-            height: "100"
-        });
-        $.__views.feed.add($.__views.commentTextArea);
-        alert ? $.__views.commentTextArea.addEventListener("click", alert) : __defers["$.__views.commentTextArea!click!alert"] = true;
-        textAreaClick ? $.__views.commentTextArea.addEventListener("focus", textAreaClick) : __defers["$.__views.commentTextArea!focus!textAreaClick"] = true;
-        textAreaReturn ? $.__views.commentTextArea.addEventListener("return", textAreaReturn) : __defers["$.__views.commentTextArea!return!textAreaReturn"] = true;
         $.__views.loadMoreBtn = Ti.UI.createButton({
             title: "Data",
             id: "loadMoreBtn",
             left: "0",
-            bottom: "0"
+            bottom: "45"
         });
         $.__views.feed.add($.__views.loadMoreBtn);
         loadMoreBtnClicked ? $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked) : __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] = true;
         $.__views.picBtn = Ti.UI.createButton({
             title: "Camera",
             id: "picBtn",
-            right: "171",
+            left: "0",
             bottom: "0"
         });
         $.__views.feed.add($.__views.picBtn);
@@ -467,13 +457,21 @@ function Controller() {
         $.__views.galBtn = Ti.UI.createButton({
             title: "Gallery",
             id: "galBtn",
-            right: "95",
+            left: "82",
             bottom: "0"
         });
         $.__views.feed.add($.__views.galBtn);
         galleryBtnClicked ? $.__views.galBtn.addEventListener("click", galleryBtnClicked) : __defers["$.__views.galBtn!click!galleryBtnClicked"] = true;
+        $.__views.cancelBtn = Ti.UI.createButton({
+            title: "Cancel",
+            id: "cancelBtn",
+            right: "68",
+            bottom: "0"
+        });
+        $.__views.feed.add($.__views.cancelBtn);
+        cancelBtnClicked ? $.__views.cancelBtn.addEventListener("click", cancelBtnClicked) : __defers["$.__views.cancelBtn!click!cancelBtnClicked"] = true;
         $.__views.commentBtn = Ti.UI.createButton({
-            title: "Comment",
+            title: "Share",
             id: "commentBtn",
             right: "0",
             bottom: "0"
@@ -485,6 +483,20 @@ function Controller() {
             visible: "false"
         });
         $.__views.feed.add($.__views.platformLabel);
+        $.__views.commentTextArea = Ti.UI.createTextArea({
+            font: {
+                fontSize: 30
+            },
+            id: "commentTextArea",
+            visible: "false",
+            bottom: "50",
+            width: Ti.UI.FILL,
+            height: "100"
+        });
+        $.__views.feed.add($.__views.commentTextArea);
+        alert ? $.__views.commentTextArea.addEventListener("click", alert) : __defers["$.__views.commentTextArea!click!alert"] = true;
+        textAreaClick ? $.__views.commentTextArea.addEventListener("focus", textAreaClick) : __defers["$.__views.commentTextArea!focus!textAreaClick"] = true;
+        textAreaReturn ? $.__views.commentTextArea.addEventListener("return", textAreaReturn) : __defers["$.__views.commentTextArea!return!textAreaReturn"] = true;
     }
     exports.destroy = function() {};
     _.extend($, $.__views);
@@ -494,13 +506,14 @@ function Controller() {
     $.platformLabel.text = "android";
     Ti.API.info("feed loaded");
     __defers["$.__views.table!click!tableViewHandleClick"] && $.__views.table.addEventListener("click", tableViewHandleClick);
-    __defers["$.__views.commentTextArea!click!alert"] && $.__views.commentTextArea.addEventListener("click", alert);
-    __defers["$.__views.commentTextArea!focus!textAreaClick"] && $.__views.commentTextArea.addEventListener("focus", textAreaClick);
-    __defers["$.__views.commentTextArea!return!textAreaReturn"] && $.__views.commentTextArea.addEventListener("return", textAreaReturn);
     __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] && $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked);
     __defers["$.__views.picBtn!click!cameraBtnClicked"] && $.__views.picBtn.addEventListener("click", cameraBtnClicked);
     __defers["$.__views.galBtn!click!galleryBtnClicked"] && $.__views.galBtn.addEventListener("click", galleryBtnClicked);
+    __defers["$.__views.cancelBtn!click!cancelBtnClicked"] && $.__views.cancelBtn.addEventListener("click", cancelBtnClicked);
     __defers["$.__views.commentBtn!click!shareBtnClicked"] && $.__views.commentBtn.addEventListener("click", shareBtnClicked);
+    __defers["$.__views.commentTextArea!click!alert"] && $.__views.commentTextArea.addEventListener("click", alert);
+    __defers["$.__views.commentTextArea!focus!textAreaClick"] && $.__views.commentTextArea.addEventListener("focus", textAreaClick);
+    __defers["$.__views.commentTextArea!return!textAreaReturn"] && $.__views.commentTextArea.addEventListener("return", textAreaReturn);
     _.extend($, exports);
 }
 

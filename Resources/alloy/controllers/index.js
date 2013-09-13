@@ -13,6 +13,7 @@ function Controller() {
         $.indexWindow.close();
         $.indexWindow = null;
         var view1 = Alloy.createController(windowName, args);
+        view1.orientationModes = [ Titanium.UI.PORTRAIT ];
         view1.getView().open();
         Ti.API.info(windowName);
     }

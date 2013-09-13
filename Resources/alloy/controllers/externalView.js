@@ -25,6 +25,7 @@ function Controller() {
     var __defers = {};
     $.__views.externalViewWindow = Ti.UI.createWindow({
         backgroundColor: "#FFF",
+        orientationModes: [ Titanium.UI.PORTRAIT ],
         id: "externalViewWindow"
     });
     $.__views.externalViewWindow && $.addTopLevelView($.__views.externalViewWindow);

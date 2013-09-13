@@ -33,6 +33,9 @@ function goCompass(e){
 	openWindow("compass");
 }
 
+function goExternalView(e){
+	openWindow("externalView");
+}
 
 
 function openWindow(windowName){
@@ -47,6 +50,7 @@ function openWindow(windowName){
 	//alert(args);
 
 	var view1 = Alloy.createController(windowName, args);
+	view1.orientationModes=[Titanium.UI.PORTRAIT];
 	view1.getView().open();
 		
 	

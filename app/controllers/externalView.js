@@ -1,3 +1,6 @@
+
+
+
 function openWindow(windowName){
 	var args = {
 		data: "test data",

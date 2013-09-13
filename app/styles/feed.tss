@@ -63,4 +63,11 @@
 
 "#loadMoreBtn": {
 
+},
+"#commentTextArea":{
+	font : {
+		fontSize : 30
+	}
+	
+	
 }

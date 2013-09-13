@@ -27,6 +27,9 @@
 ".imageThumb" : {
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE
+},
+"#externalViewWindow": {
+	orientationModes: [Titanium.UI.PORTRAIT]
 }
 
 

@@ -51,7 +51,8 @@ function Controller() {
         section.add(Alloy.createController("menurow", {
             title: "Compass",
             customView: "compass",
-            image: "/images/compass.png"
+            image: "/images/compass.png",
+            orientationModes: [ Titanium.UI.PORTRAIT ]
         }).getView());
         section.add(Alloy.createController("menurow", {
             title: "Camera",

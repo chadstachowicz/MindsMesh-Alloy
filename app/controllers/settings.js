@@ -1,4 +1,4 @@
-//$.win.orientationModes = Titanium.UI.PORTRAIT;
+
 
 
 function goExternalView(e){
@@ -88,7 +88,7 @@ function createSection() {
 	}
 	*/
 	section.add(Alloy.createController('menurow', {title : 'Main Feed',customView : 'feed',image : "/images/ic_search.png"}).getView());
-	section.add(Alloy.createController('menurow', {title : 'Compass',customView : 'compass',image : "/images/compass.png"}).getView());
+	section.add(Alloy.createController('menurow', {title : 'Compass',customView : 'compass',image : "/images/compass.png", orientationModes:[Titanium.UI.PORTRAIT]}).getView());
 	section.add(Alloy.createController('menurow', {title : 'Camera',customView : 'camera',image : "/images/camera.jpg"}).getView());
 	section.add(Alloy.createController('menurow', {title : 'Gallery',customView : 'gallery',image : "/images/camera.jpg"}).getView());
 
