@@ -11,9 +11,9 @@ var _OBJ = {
     log: function(_obj) {
         this.debug && Ti.API.info(_obj);
     },
-    SHA: require("modules/sha-aws").load(),
-    Utf8: require("modules/UTF8").load(),
-    Date: require("modules/date").load(),
+    SHA: require("sha-aws").load(),
+    Utf8: require("UTF8").load(),
+    Date: require("date").load(),
     http: Ti.Network.createHTTPClient({}),
     PUT: function(f) {
         f && (this.fileName = f);

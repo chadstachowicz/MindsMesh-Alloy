@@ -56,6 +56,16 @@
     }
 },
 
+
+
+"#commentLabel": {
+	font: {
+        fontSize: 25   
+    }
+},
+
+
+
 "#backBtn": {
 	left:0,
 	bottom:0

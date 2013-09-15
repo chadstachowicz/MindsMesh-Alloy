@@ -15,7 +15,9 @@ function goLogin(e){
 	openWindow("loginWindow");
 }
 
-
+function goUploadTester(e){
+	openWindow("upload");
+}
 
 
 function goSettings(e){

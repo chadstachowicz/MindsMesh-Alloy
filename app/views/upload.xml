@@ -1,0 +1,8 @@
+<Alloy>
+    <Window id="win" width="Ti.UI.FILL" height="Ti.UI.FILL">
+		<Button id="btnUpload" onClick="goUploadTester" visible="false" bottom="0" right="0" width="Ti.UI.SIZE" height="Ti.UI.SIZE">upload</Button>	
+		
+		       <ProgressBar id="pb" top="10" width="250" height="auto" min="0" max="1" value="0" color="#fff" message="uploading..." />
+		 <ImageView id="postImage" visible="false" width="Ti.UI.FILL" height="300"></ImageView>
+	</Window>
+</Alloy>

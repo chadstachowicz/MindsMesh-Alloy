@@ -58,20 +58,23 @@
           -->  
           
           
-          <ImageView id="postImage" visible="false" bottom="80" left="10" width="300" height="200"></ImageView>
+       	<ImageView id="postImage" visible="false" width="Ti.UI.FILL" height="300"></ImageView>
 
-          
         <Button id="loadMoreBtn" onClick="loadMoreBtnClicked" left="0" bottom="45">Data</Button>
        	<Button id="picBtn" onClick="cameraBtnClicked" left="0" bottom="0">Camera</Button>
-       	
        	<Button id="galBtn" onClick="galleryBtnClicked" left="82" bottom="0">Gallery</Button>
-       	
-       	       	<Button id="cancelBtn" onClick="cancelBtnClicked" right="68" bottom="0">Cancel</Button>
+       	<Button id="cancelBtn" onClick="cancelBtnClicked" right="68" bottom="0">Cancel</Button>
         <Button id="commentBtn" onClick="shareBtnClicked" right="0" bottom="0">Share</Button>
-        <Label id="platformLabel" visible="false"></Label>
-             <TextArea id="commentTextArea" onClick="textAreaClick" onFocus="textAreaClick" onReturn="textAreaReturn" onClick="alert" visible="false" bottom="50" width="Ti.UI.FILL" height="100" />	
-		     
         
+        <Label id="platformLabel" visible="false"></Label>
+        
+        <Label id="commentLabel" visible="true" color="white" onClick="commentLabelClick"  left="10" bottom="150">[ add comment ]</Label>
+        
+        
+        <TextArea id="commentTextArea" onClick="textAreaClick" onFocus="textAreaClick" onReturn="textAreaReturn" visible="false" bottom="50" 
+        	width="Ti.UI.FILL" height="100" />	 <!--onChange="UpdateCommentText"-->  
+		     
+        <ProgressBar id="pb" top="10" width="250" height="auto" min="0" max="10" value="0" color="#fff" message="uploading..." />
            
     </Window>
 </Alloy>
