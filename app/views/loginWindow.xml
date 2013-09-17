@@ -1,13 +1,13 @@
 <Alloy>
-	<Window>
+	<Window id="win">
 		<ImageView id="image" image="/images/Mindsmesh_logo_highres.png" top="25"/>		
 		
 		
 		<Label id="message" height="30dp" width="200dp" bottom="150dp"></Label>
 		
-		<TextField id="email" width="200dp" bottom="100dp"></TextField>
-		<TextField id="password" width="200dp" bottom="75dp"></TextField>
-		<Button id="btnLogin" width="200dp" onClick="clickLogin" bottom="25dp">Login</Button>
+		<TextField id="email" width="200" bottom="130"></TextField>
+		<TextField id="password" width="200" bottom="75"></TextField>
+		<Button id="btnLogin" width="200" onClick="clickLogin" bottom="25">Login</Button>
 		
 
 	</Window>

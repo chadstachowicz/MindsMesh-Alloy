@@ -35,12 +35,11 @@ function Controller() {
     }
     function shareComment(commentText) {
         if (commentText.length >= 5) {
-            alert("FAKE MakeCommentWithCallback: " + commentText);
-            SendImage(commentText, $.postImage.image);
+            false == $.postImage.visible ? MakeCommentWithCallback(commentText, "alert") : MakeComentWithImage(commentText, $.postImage.image);
             $.commentTextArea.visible = false;
             $.commentTextArea.setValue("");
-            Ti.API.info("refresh comments");
             $.postImage.visible = false;
+            Ti.API.info("refresh comments");
             GetFeedPostsWithCallback("ShowDataByPlatform");
         } else alert("A reasonable post should have at least 5 chars.");
     }
@@ -66,10 +65,8 @@ function Controller() {
             cancel: function() {
                 alert("user cancelled");
             },
-            error: function() {
-                Titanium.UI.createAlertDialog({
-                    title: "Camera"
-                });
+            error: function(error) {
+                alert("Unexpected error: " + error.code);
             },
             saveToPhotoGallery: true,
             allowEditing: true,
@@ -123,8 +120,8 @@ function Controller() {
             var mainImageWidth = 0;
             var mainImageHeight = 0;
             if (hasMainAttachment) {
-                mainImageWidth = 100;
-                mainImageHeight = 100;
+                mainImageWidth = 200;
+                mainImageHeight = Ti.UI.SIZE;
             }
             items.push({
                 template: "template1",
@@ -197,15 +194,15 @@ function Controller() {
         $.list.visible = true;
         Ti.API.info("showing listview, because of android");
     }
-    function MakeCommentWithCallback(comment, topic_id, group_id, callback) {
+    function MakeCommentWithCallback(message, callback) {
         if (null != topic_id) var postData = {
             topic_id: topic_id,
-            text: comment
+            text: message
         }; else if (null != group_id) var postData = {
             group_id: group_id,
-            text: comment
+            text: message
         }; else var postData = {
-            text: comment
+            text: message
         };
         xhr = postPostCreate(Titanium.App.Properties.getString("mmat"), postData);
         xhr.onload = function() {
@@ -215,7 +212,7 @@ function Controller() {
         };
         xhr.send(postData);
     }
-    function SendImage(message, currentFile) {
+    function MakeComentWithImage(message, currentFile) {
         Ti.API.info("SendPostImage");
         var filename = "post.png";
         var postData;
@@ -235,15 +232,13 @@ function Controller() {
             content_type: currentFile.mimeType
         };
         xhr = postPostCreate(Titanium.App.Properties.getString("mmat"), postData);
+        $.pb.visible = true;
         $.pb.show();
         xhr.onload = function() {
             var post_id = JSON.parse(this.responseText).id;
             f = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, filename);
             true == f.exists() && f.deleteFile();
             f.write(currentFile);
-            Ti.API.info(Ti.App.Properties.getString("production"));
-            var env = "development";
-            "true" == Ti.App.Properties.getString("production") && (env = "production");
             Ti.API.info(env);
             var serverFilePath = env + "/post_attachments/" + post_id + "/" + filename;
             UploadToAWS(serverFilePath, filename);
@@ -254,7 +249,6 @@ function Controller() {
     function SendPostMovie(message, currentFile) {
         var filename = "post.mov";
         var postData;
-        alert(null != topic_id);
         postData = null != topic_id ? {
             topic_id: topic_id,
             text: message,
@@ -271,14 +265,14 @@ function Controller() {
             content_type: currentFile.mimeType
         };
         xhr = postPostCreate(Titanium.App.Properties.getString("mmat"), postData);
+        $.pb.visible = true;
         $.pb.show();
         xhr.onload = function() {
-            JSON.parse(this.responseText).id;
+            var post_id = JSON.parse(this.responseText).id;
             f = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, filename);
             true == f.exists() && f.deleteFile();
             currentFile.copy(f.nativePath);
-            var env = "development";
-            "true" == Ti.App.Properties.getString("production") && (env = "production");
+            var serverFilePath = env + "/post_attachments/" + post_id + "/" + filename;
             UploadToAWS(serverFilePath, filename);
             f.deleteFile();
         };
@@ -287,6 +281,7 @@ function Controller() {
     function UploadToAWS(serverFilename, filename) {
         Ti.API.info("serverFilename: " + serverFilename);
         Ti.API.info("filename: " + filename);
+        $.pb.show();
         AWS.config({
             key: "AKIAIKFVJ3EMAIBXELBQ",
             secret: "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",
@@ -297,7 +292,7 @@ function Controller() {
             s3fileName: serverFilename,
             timeout: 24e4,
             onsendstream: function(e) {
-                pb.value = e.progress;
+                $.pb.value = e.progress;
             },
             error: function(e) {
                 alert(e);
@@ -310,17 +305,21 @@ function Controller() {
     function AWSPostSuccess(serverFilename, filename) {
         Ti.API.info("extention: " + GetExtention(filename));
         var ext = "" + GetExtention(filename);
-        alert("ext==mov: " + ("mov" == ext));
         if ("mov" == ext) {
             var postData = {
                 file: "http://s3.amazonaws.com/mindsmesh.com/" + serverFilename
             };
             xhr2 = postEncodeVideo(Titanium.App.Properties.getString("mmat"), postData);
             xhr2.onload = function() {
-                pb.hide();
+                $.pb.hide();
+                $.pb.visible = false;
             };
             xhr2.send(JSON.stringify(postData));
-        } else pb.hide();
+        } else {
+            $.pb.hide();
+            $.pb.visible = false;
+        }
+        alert("upload success");
         Ti.API.info("AWS upload complete");
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -426,6 +425,10 @@ function Controller() {
                         backgroundColor: "white",
                         width: Ti.UI.FILL,
                         height: Ti.UI.SIZE,
+                        left: 10,
+                        font: {
+                            fontSize: 20
+                        },
                         bindId: "textLabel"
                     }
                 };
@@ -616,10 +619,10 @@ function Controller() {
             },
             text: "[ add comment ]",
             id: "commentLabel",
-            visible: "true",
+            visible: "false",
             color: "white",
             left: "10",
-            bottom: "150"
+            bottom: "140"
         });
         $.__views.feed.add($.__views.commentLabel);
         commentLabelClick ? $.__views.commentLabel.addEventListener("click", commentLabelClick) : __defers["$.__views.commentLabel!click!commentLabelClick"] = true;
@@ -646,20 +649,22 @@ function Controller() {
             max: "10",
             value: "0",
             color: "#fff",
-            message: "uploading..."
+            visible: "false",
+            message: "Uploading..."
         });
         $.__views.feed.add($.__views.pb);
     }
     exports.destroy = function() {};
     _.extend($, $.__views);
     var win = Titanium.UI.currentWindow;
+    var env = "production";
     var postXML = "";
     var topic_id = null;
     var group_id = null;
     $.commentTextArea.visible = false;
-    $.platformLabel.text = "android";
     GetFeedPostsWithCallback("ShowDataByPlatform");
     Ti.API.info("feed loaded");
+    $.pb.hide();
     __defers["$.__views.table!click!tableViewHandleClick"] && $.__views.table.addEventListener("click", tableViewHandleClick);
     __defers["$.__views.loadMoreBtn!click!loadMoreBtnClicked"] && $.__views.loadMoreBtn.addEventListener("click", loadMoreBtnClicked);
     __defers["$.__views.picBtn!click!cameraBtnClicked"] && $.__views.picBtn.addEventListener("click", cameraBtnClicked);

@@ -47,8 +47,8 @@ function Controller() {
         createRepliesTableView($.replies);
     }
     function goBackToFeed() {
-        $.showpost.close();
-        $.showpost = null;
+        $.win.close();
+        $.win = null;
     }
     function backBtnClicked() {
         Ti.API.info("back button clicked");
@@ -172,17 +172,19 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.showpost = Ti.UI.createWindow({
+    $.__views.win = Ti.UI.createWindow({
         backgroundColor: "#FFF",
-        id: "showpost"
+        navBarHidden: "false",
+        orientationModes: [ Ti.UI.PORTRAIT ],
+        id: "win"
     });
-    $.__views.showpost && $.addTopLevelView($.__views.showpost);
+    $.__views.win && $.addTopLevelView($.__views.win);
     $.__views.__alloyId57 = Ti.UI.createView({
         layout: "vertical",
         backgroundColor: "#99e099",
         id: "__alloyId57"
     });
-    $.__views.showpost.add($.__views.__alloyId57);
+    $.__views.win.add($.__views.__alloyId57);
     $.__views.__alloyId58 = Ti.UI.createView({
         backgroundColor: "#1c731c",
         height: Ti.UI.SIZE,
@@ -288,7 +290,7 @@ function Controller() {
         width: Ti.UI.FILL,
         height: "100"
     });
-    $.__views.showpost.add($.__views.textField);
+    $.__views.win.add($.__views.textField);
     alert ? $.__views.textField.addEventListener("click", alert) : __defers["$.__views.textField!click!alert"] = true;
     textAreaClick ? $.__views.textField.addEventListener("focus", textAreaClick) : __defers["$.__views.textField!focus!textAreaClick"] = true;
     textFieldReturn ? $.__views.textField.addEventListener("return", textFieldReturn) : __defers["$.__views.textField!return!textFieldReturn"] = true;
@@ -298,7 +300,7 @@ function Controller() {
         title: "back",
         id: "backBtn"
     });
-    $.__views.showpost.add($.__views.backBtn);
+    $.__views.win.add($.__views.backBtn);
     backBtnClicked ? $.__views.backBtn.addEventListener("click", backBtnClicked) : __defers["$.__views.backBtn!click!backBtnClicked"] = true;
     $.__views.shareBtn = Ti.UI.createButton({
         title: "comment",
@@ -306,7 +308,7 @@ function Controller() {
         right: "0",
         bottom: "0"
     });
-    $.__views.showpost.add($.__views.shareBtn);
+    $.__views.win.add($.__views.shareBtn);
     shareBtnClicked ? $.__views.shareBtn.addEventListener("click", shareBtnClicked) : __defers["$.__views.shareBtn!click!shareBtnClicked"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);

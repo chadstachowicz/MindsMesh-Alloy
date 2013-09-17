@@ -1,5 +1,6 @@
-
-    
-"#win" : {
-  orientationModes: [Ti.UI.PORTRAIT] 
+"#win": {
+	backgroundColor : "#FFF",
+  	navBarHidden: "false",
+  	orientationModes: [Ti.UI.PORTRAIT] 
 }
+ 

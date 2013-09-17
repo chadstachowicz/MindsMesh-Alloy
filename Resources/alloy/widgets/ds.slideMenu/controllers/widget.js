@@ -99,11 +99,12 @@ function Controller() {
         backgroundImage: "none",
         right: "10",
         top: "0",
-        width: "60",
+        width: Ti.UI.SIZE,
         height: "44",
         style: "color:white",
         title: "refresh",
-        id: "refreshButton"
+        id: "refreshButton",
+        color: "white"
     });
     $.__views.navview.add($.__views.refreshButton);
     RefreshFeed ? $.__views.refreshButton.addEventListener("click", RefreshFeed) : __defers["$.__views.refreshButton!click!RefreshFeed"] = true;

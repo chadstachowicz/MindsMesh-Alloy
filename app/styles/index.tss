@@ -1,4 +1,8 @@
-
+"#indexWindow": {
+  backgroundColor: "#fff",
+  navBarHidden: "false",
+  orientationModes: [Ti.UI.PORTRAIT] 
+}
 
 
 

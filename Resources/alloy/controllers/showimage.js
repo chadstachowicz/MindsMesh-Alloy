@@ -1,7 +1,7 @@
 function Controller() {
     function goBackToPost() {
-        $.showimage.close();
-        $.showimage = null;
+        $.win.close();
+        $.win = null;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "showimage";
@@ -11,31 +11,32 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.showimage = Ti.UI.createWindow({
+    $.__views.win = Ti.UI.createWindow({
         backgroundColor: "#FFF",
-        orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ],
-        id: "showimage"
+        navBarHidden: "true",
+        orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT ],
+        id: "win"
     });
-    $.__views.showimage && $.addTopLevelView($.__views.showimage);
+    $.__views.win && $.addTopLevelView($.__views.win);
     $.__views.mainImage = Ti.UI.createImageView({
         id: "mainImage",
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
         backgroundColor: "#dddddd"
     });
-    $.__views.showimage.add($.__views.mainImage);
+    $.__views.win.add($.__views.mainImage);
     $.__views.mainImageLabel = Ti.UI.createLabel({
         id: "mainImageLabel",
         visible: "false"
     });
-    $.__views.showimage.add($.__views.mainImageLabel);
+    $.__views.win.add($.__views.mainImageLabel);
     $.__views.backBtn = Ti.UI.createButton({
         title: "back",
         id: "backBtn",
         left: "0",
         bottom: "0"
     });
-    $.__views.showimage.add($.__views.backBtn);
+    $.__views.win.add($.__views.backBtn);
     goBackToPost ? $.__views.backBtn.addEventListener("click", goBackToPost) : __defers["$.__views.backBtn!click!goBackToPost"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);

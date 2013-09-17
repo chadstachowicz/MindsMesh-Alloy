@@ -1,5 +1,5 @@
 <Alloy>
-	<Window>
+	<Window id="win">
 		<View class="container" layout="vertical" backgroundColor="#99e099">
 			<View backgroundColor="#1c731c" height="Ti.UI.SIZE" width="Ti.UI.FILL">
 				<ImageView id="userImage" left="0" top="0" width="70" height="70"></ImageView>				

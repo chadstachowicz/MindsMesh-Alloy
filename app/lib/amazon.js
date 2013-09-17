@@ -20,7 +20,7 @@ var _OBJ = {
 	s3fileName: false,
 	fileURL:false,
 	timeout: 99000,
-	debug:false,
+	debug:true,
 	
 	log: function(_obj) {
 		if (this.debug) {
@@ -59,6 +59,10 @@ var _OBJ = {
 
 		_OBJ.http.open('PUT', _OBJ.fileURL);
 		_OBJ.http.setTimeout([_OBJ.timeout]);
+		
+		//_OBJ.http.ondatastream = alert("datastream update");
+		
+		
 		var curDate = _OBJ.Date.formatDate(new Date(),'E, d MMM dd yyyy HH:mm:ss') + _OBJ.GSM;
 		var StringToSign = 'PUT\n\n'+fileContents.mimeType+'\n' + curDate + '\nx-amz-acl:public-read\n/'+_OBJ.AWSBucketName+'/' + _OBJ.s3fileName;
 		

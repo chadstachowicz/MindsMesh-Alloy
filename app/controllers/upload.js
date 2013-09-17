@@ -1,6 +1,18 @@
 
+
+
 $.pb.hide();
 OpenGallery("alert");
+
+/*
+var props = Ti.App.Properties.listProperties();
+
+for (var i=0, ilen=props.length; i<ilen; i++){
+    var value = Ti.App.Properties.getString(props[i]);
+    Ti.API.info(props[i] + ' = ' + value);
+}
+*/
+
 
 
 function OpenGallery(callback){
@@ -40,9 +52,9 @@ function OpenGallery(callback){
 
 function goUploadTester(){
 	
-	var currentFile = $.postImage.image;
-	var post_id = "356";
-	var filename = "post.png";
+		var currentFile = $.postImage.image;
+		var post_id = "356";
+		var filename = "post.png";
 	
 	
 	
@@ -109,15 +121,11 @@ function UploadToAWS(serverFilename,filename){
  
 function AWSPostSuccess(serverFilename,filename){
  	//called after upload to AWS
- 	
  	Ti.API.info("extention: " + GetExtention(filename));
  	var ext = "" + GetExtention(filename);
- 	
- 	alert("ext==mov: " + (ext=="mov"));
- 	
- 	
+
  	if(ext=="mov"){
- 		//encode video
+	 	//encode video
 		var postData = {'file': 'http://s3.amazonaws.com/mindsmesh.com/' + serverFilename};
 		xhr2 = postEncodeVideo(Titanium.App.Properties.getString('mmat'),postData);
 		xhr2.onload = function()
@@ -126,10 +134,11 @@ function AWSPostSuccess(serverFilename,filename){
 		};
 		xhr2.send(JSON.stringify(postData));
  		
- 	}else{
+ 	}else{	
  		//just hide progress bar
  		$.pb.hide();	
  	}
- 	Ti.API.info("AWS upload complete");	
  	
+ 	alert("upload success");
+ 	Ti.API.info("AWS upload complete");	
 }

@@ -144,7 +144,11 @@ exports.toggleLeftSlider = function() {
 function RefreshFeed(){
 	alert("refresh clicked");
 	
-	
+	//var currentView = Alloy.createController("feed").getView();
+
+
+
+	//$.ds.contentview.add(currentView);
 }
 
 

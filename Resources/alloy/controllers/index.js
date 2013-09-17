@@ -9,14 +9,9 @@ function Controller() {
         openWindow("settings");
     }
     function openWindow(windowName) {
-        var args = {
-            data: "test data",
-            value: "other data"
-        };
         $.indexWindow.close();
         $.indexWindow = null;
-        var view1 = Alloy.createController(windowName, args);
-        view1.orientationModes = [ Titanium.UI.PORTRAIT ];
+        var view1 = Alloy.createController(windowName, {});
         view1.getView().open();
         Ti.API.info(windowName);
     }
@@ -29,7 +24,9 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.indexWindow = Ti.UI.createWindow({
-        backgroundColor: "#FFF",
+        backgroundColor: "#fff",
+        navBarHidden: "false",
+        orientationModes: [ Ti.UI.PORTRAIT ],
         id: "indexWindow"
     });
     $.__views.indexWindow && $.addTopLevelView($.__views.indexWindow);
@@ -43,7 +40,8 @@ function Controller() {
     $.__views.indexWindow.add($.__views.image);
     $.__views.__alloyId49 = Ti.UI.createLabel({
         text: "Welcome to EDU Mesh",
-        top: "130",
+        top: "150",
+        color: "black",
         id: "__alloyId49"
     });
     $.__views.indexWindow.add($.__views.__alloyId49);

@@ -68,13 +68,15 @@
         
         <Label id="platformLabel" visible="false"></Label>
         
-        <Label id="commentLabel" visible="true" color="white" onClick="commentLabelClick"  left="10" bottom="150">[ add comment ]</Label>
+        <Label id="commentLabel" visible="false" color="white" onClick="commentLabelClick"  left="10" bottom="140">[ add comment ]</Label>
         
         
         <TextArea id="commentTextArea" onClick="textAreaClick" onFocus="textAreaClick" onReturn="textAreaReturn" visible="false" bottom="50" 
         	width="Ti.UI.FILL" height="100" />	 <!--onChange="UpdateCommentText"-->  
 		     
-        <ProgressBar id="pb" top="10" width="250" height="auto" min="0" max="10" value="0" color="#fff" message="uploading..." />
+        <ProgressBar id="pb" top="10" width="250" height="auto" min="0" max="10" value="0" color="#fff" visible="false" message="Uploading..." />
+        
+        
            
     </Window>
 </Alloy>

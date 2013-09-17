@@ -5,7 +5,7 @@ $.mainImage.image = args.value;
 
 function goBackToPost(){
 
-	$.showimage.close();
-	$.showimage = null;
+	$.win.close();
+	$.win = null;
 		
 }

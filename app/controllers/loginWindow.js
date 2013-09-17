@@ -2,6 +2,7 @@
 
 
 function clickLogin(){
+	//alert("test");
 	LoginUser($.email.value.toString(), $.password.value.toString());
 	
 	$.email.blur();
@@ -107,8 +108,8 @@ function openFeed(){
 	};
 	
 
-	$.loginWindow.close();
-	$.loginWindow = null;
+	$.win.close();
+	$.win = null;
 	
 	var feed = Alloy.createController("settings", args);
 	
@@ -122,6 +123,6 @@ function openFeed(){
 $.email.value ="james@uncc.edu";
 $.password.value = "easy123";
 
-var args = arguments[0]||{};
+//var args = arguments[0]||{};
 
-$.message.text = args.data + " " + args.value;
+//$.message.text = args.data + " " + args.value;

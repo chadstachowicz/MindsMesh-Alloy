@@ -62,7 +62,6 @@ function Controller() {
     function AWSPostSuccess(serverFilename, filename) {
         Ti.API.info("extention: " + GetExtention(filename));
         var ext = "" + GetExtention(filename);
-        alert("ext==mov: " + ("mov" == ext));
         if ("mov" == ext) {
             var postData = {
                 file: "http://s3.amazonaws.com/mindsmesh.com/" + serverFilename
@@ -73,6 +72,7 @@ function Controller() {
             };
             xhr2.send(JSON.stringify(postData));
         } else $.pb.hide();
+        alert("upload success");
         Ti.API.info("AWS upload complete");
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));

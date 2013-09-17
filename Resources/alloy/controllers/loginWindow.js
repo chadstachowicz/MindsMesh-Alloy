@@ -43,8 +43,8 @@ function Controller() {
             data: "test data",
             value: "other data"
         };
-        $.loginWindow.close();
-        $.loginWindow = null;
+        $.win.close();
+        $.win = null;
         var feed = Alloy.createController("settings", args);
         feed.getView().open();
     }
@@ -56,50 +56,50 @@ function Controller() {
     var $ = this;
     var exports = {};
     var __defers = {};
-    $.__views.loginWindow = Ti.UI.createWindow({
+    $.__views.win = Ti.UI.createWindow({
         backgroundColor: "#FFF",
-        id: "loginWindow"
+        navBarHidden: "false",
+        orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT ],
+        id: "win"
     });
-    $.__views.loginWindow && $.addTopLevelView($.__views.loginWindow);
+    $.__views.win && $.addTopLevelView($.__views.win);
     $.__views.image = Ti.UI.createImageView({
         id: "image",
         image: "/images/Mindsmesh_logo_highres.png",
         top: "25"
     });
-    $.__views.loginWindow.add($.__views.image);
+    $.__views.win.add($.__views.image);
     $.__views.message = Ti.UI.createLabel({
         id: "message",
         height: "30dp",
         width: "200dp",
         bottom: "150dp"
     });
-    $.__views.loginWindow.add($.__views.message);
+    $.__views.win.add($.__views.message);
     $.__views.email = Ti.UI.createTextField({
         id: "email",
-        width: "200dp",
-        bottom: "100dp"
+        width: "200",
+        bottom: "130"
     });
-    $.__views.loginWindow.add($.__views.email);
+    $.__views.win.add($.__views.email);
     $.__views.password = Ti.UI.createTextField({
         id: "password",
-        width: "200dp",
-        bottom: "75dp"
+        width: "200",
+        bottom: "75"
     });
-    $.__views.loginWindow.add($.__views.password);
+    $.__views.win.add($.__views.password);
     $.__views.btnLogin = Ti.UI.createButton({
         title: "Login",
         id: "btnLogin",
-        width: "200dp",
-        bottom: "25dp"
+        width: "200",
+        bottom: "25"
     });
-    $.__views.loginWindow.add($.__views.btnLogin);
+    $.__views.win.add($.__views.btnLogin);
     clickLogin ? $.__views.btnLogin.addEventListener("click", clickLogin) : __defers["$.__views.btnLogin!click!clickLogin"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.email.value = "james@uncc.edu";
     $.password.value = "easy123";
-    var args = arguments[0] || {};
-    $.message.text = args.data + " " + args.value;
     __defers["$.__views.btnLogin!click!clickLogin"] && $.__views.btnLogin.addEventListener("click", clickLogin);
     _.extend($, exports);
 }

@@ -15,7 +15,7 @@
 	
 					<Button id="bellButton" />
 					
-					<Button id="refreshButton" onClick="RefreshFeed">refresh</Button>
+					<Button id="refreshButton" onClick="RefreshFeed" color="white" width="Ti.UI.SIZE">refresh</Button>
 				</View>
 				<View id="contentview" />
 			</View>

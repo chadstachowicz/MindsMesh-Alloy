@@ -7,7 +7,7 @@ var _OBJ = {
     s3fileName: false,
     fileURL: false,
     timeout: 99e3,
-    debug: true,
+    debug: false,
     log: function(_obj) {
         this.debug && Ti.API.info(_obj);
     },

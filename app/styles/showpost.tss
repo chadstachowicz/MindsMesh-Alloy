@@ -1,7 +1,12 @@
 
-".container" : {
-  
+"#win": {
+	backgroundColor : "#FFF",
+  	navBarHidden: "false",
+  	orientationModes: [
+        Ti.UI.PORTRAIT
+    ] 
 },
+ 
 "#backBtn": {
 	left:0,
 	bottom:0

@@ -82,6 +82,7 @@ function Controller() {
     var exports = {};
     $.__views.win = Ti.UI.createWindow({
         backgroundColor: "#FFF",
+        navBarHidden: "false",
         orientationModes: [ Ti.UI.PORTRAIT ],
         id: "win",
         width: Ti.UI.FILL

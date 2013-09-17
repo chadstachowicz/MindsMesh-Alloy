@@ -156,8 +156,8 @@ function openWindow(windowName,args){
 
 function goBackToFeed(){
 
-	$.showpost.close();
-	$.showpost = null;
+	$.win.close();
+	$.win = null;
 		
 }
  

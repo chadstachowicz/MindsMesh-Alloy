@@ -1,5 +1,6 @@
 //LOADING ACTIONS
 var win = Titanium.UI.currentWindow;
+var env = 'production';
 var postXML = "";
 
 
@@ -9,7 +10,7 @@ var group_id = null;
 
 //$.feed.orientationModes = [Titanium.UI.PORTRAIT];
 $.commentTextArea.visible=false;
-$.platformLabel.text = Ti.Platform.name;
+
 
 	
 	
@@ -19,8 +20,8 @@ GetFeedPostsWithCallback("ShowDataByPlatform");
 Ti.API.info('feed loaded');
 
 
-
-
+$.pb.hide();
+//$.pb.visible = false;
 
 
 //BUTTON ACTIONS
@@ -115,37 +116,23 @@ function commentLabelClick(){
 
 
 function shareComment(commentText){
-
 	if(commentText.length >= 5)
 	{		
-		alert("FAKE MakeCommentWithCallback: " + commentText);
-		
-		//MakeCommentWithCallback(commentText,null,null,"alert");
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	SendImage(commentText,	$.postImage.image);
-	
-	
-	
-	
+		if($.postImage.visible==false){
+			//alert("MakeCommentWithCallback: " + commentText);		
+			MakeCommentWithCallback(commentText,"alert");	
+			
+		}else{
+			//alert("SendImage: " + commentText);	
+			MakeComentWithImage(commentText,	$.postImage.image);
+		}
 	
 		$.commentTextArea.visible = false;
-	
 		$.commentTextArea.setValue("");
-	
-		Ti.API.info("refresh comments");
-		
-		
 		$.postImage.visible = false;
-	
+		
+		
+		Ti.API.info("refresh comments");	
 		GetFeedPostsWithCallback("ShowDataByPlatform");
 	
 	} else {
@@ -165,10 +152,8 @@ function cameraBtnClicked(_event) {
 	Ti.API.info("camera button clicked");
 	//openWindow("camera");
 	OpenCamera();
-	
-	
-	
 }
+
 function galleryBtnClicked(_event) {
     //alert("back button clicked");
 	Ti.API.info("gallery button clicked");
@@ -178,16 +163,12 @@ function galleryBtnClicked(_event) {
 }
 
  
-
-
-
-
-
 function OpenCamera(){
+	//alert("open camera");
 	Titanium.Media.showCamera({
 		success:function(event) {
 			// called when media returned from the camera
-			Ti.API.debug('Our type was: '+event.mediaType);
+			Ti.API.debug('Our type was: ' + event.mediaType);
 			if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
 				//$.mainView.image = event.media;
 				Ti.API.info("data from camera: " + event.media);
@@ -205,17 +186,13 @@ function OpenCamera(){
 		},
 		error:function(error) {
 			// called when there's an error
-			var a = Titanium.UI.createAlertDialog({title:'Camera'});
-			//if (error.code == Titanium.Media.NO_CAMERA) {
+			alert("Unexpected error: " + error.code);
 		},
 		saveToPhotoGallery:true,
 		allowEditing:true,
 		mediaTypes:[Ti.Media.MEDIA_TYPE_VIDEO,Ti.Media.MEDIA_TYPE_PHOTO]
 	});
 
-	
-	
-	
 }
 
 
@@ -251,8 +228,6 @@ function OpenGallery(callback){
 		allowEditing:true,
 		mediaTypes:[Ti.Media.MEDIA_TYPE_VIDEO,Ti.Media.MEDIA_TYPE_PHOTO]
 	});
-	
-	
 }
 
 
@@ -298,8 +273,8 @@ function createListView(_data) {
         var mainImageHeight = 0;
         
         if(hasMainAttachment){
-        	mainImageWidth = 100;
-        	mainImageHeight = 100;
+        	mainImageWidth = 200;
+        	mainImageHeight =  Ti.UI.SIZE;
         }
 
         items.push({
@@ -344,7 +319,6 @@ function createListView(_data) {
     
     // add the array, items, to the section defined in the view.xml file
     $.section.setItems(items);
- 
 }
  
  
@@ -379,9 +353,6 @@ function tableViewHandleClick(e) {
 }
  
  
-
-
-
 function GetFeedPostsWithCallback(callback) {
 	Ti.API.info("GetFeedPostsWithCallback");
 	xhr = getPostsWithFamily(Titanium.App.Properties.getString('mmat'));
@@ -399,6 +370,7 @@ function GetFeedPostsWithCallback(callback) {
 	xhr.send();
 }
 
+
 function ShowDataByPlatform(postJSON){
 	//display json data, listing the feeds of a single user
     if (Ti.Platform.osname == 'iphone'){
@@ -415,15 +387,15 @@ function ShowDataByPlatform(postJSON){
 } 
 
 
-function MakeCommentWithCallback(comment,topic_id,group_id, callback)
+function MakeCommentWithCallback(message,callback)
 {//submits post alone
 	if(topic_id != null)
 	{
-		var postData = {'topic_id': topic_id, 'text': comment};
+		var postData = {'topic_id': topic_id, 'text': message};
 	} else if (group_id != null) {		
-		var postData = {'group_id': group_id, 'text': comment};
+		var postData = {'group_id': group_id, 'text': message};
 	} else {					
-		var postData = {'text': comment};
+		var postData = {'text': message};
 	}
 	
 	xhr = postPostCreate(Titanium.App.Properties.getString('mmat'), postData);
@@ -440,7 +412,7 @@ function MakeCommentWithCallback(comment,topic_id,group_id, callback)
 
 
 
-function SendImage(message,currentFile)
+function MakeComentWithImage(message,currentFile)
 {//submits post with image file
 	Ti.API.info("SendPostImage");
 	
@@ -459,6 +431,7 @@ function SendImage(message,currentFile)
 	
 	xhr = postPostCreate(Titanium.App.Properties.getString('mmat'),postData);
 
+	$.pb.visible = true;
 	$.pb.show();
 	xhr.onload = function()
 	{
@@ -472,16 +445,7 @@ function SendImage(message,currentFile)
 		if(f.exists() == true){f.deleteFile();}
 		f.write(currentFile);
 		
-		
-		Ti.API.info(Ti.App.Properties.getString('production'));
-		var env = 'development';
-		if(Ti.App.Properties.getString('production')=='true')
-		{
-			env = 'production';
-		}
-		
 		Ti.API.info(env);
-		
 		
 		var serverFilePath = env + '/post_attachments/' + post_id + '/' + filename;
 		
@@ -493,9 +457,6 @@ function SendImage(message,currentFile)
 
 	};
 	xhr.send(postData);
-	
-
-	//shareWhoModal.close();
 }
 
 
@@ -505,14 +466,9 @@ function SendImage(message,currentFile)
 	
 	
 function SendPostMovie(message, currentFile)
-{//submits post with moive file
+{//submits post with movie file
 	var filename = "post.mov";
 	var postData;
-
-
-
-
-alert(topic_id != null);
 
 	if(topic_id != null)
 	{
@@ -524,6 +480,8 @@ alert(topic_id != null);
 	}
 	
 	xhr = postPostCreate(Titanium.App.Properties.getString('mmat'),postData);
+		
+	$.pb.visible = true;
 	$.pb.show();
 	
 	xhr.onload = function()
@@ -537,13 +495,8 @@ alert(topic_id != null);
 		}
 		currentFile.copy(f.nativePath);
 		
-		var env = 'development';
-		if(Ti.App.Properties.getString('production')=='true'){env = 'production';}
-		
-		var filnam = env + '/post_attachments/' + post_id + '/' + filename;
 
-
-
+		var serverFilePath = env + '/post_attachments/' + post_id + '/' + filename;
 
 		//upload file
 		UploadToAWS(serverFilePath,filename);
@@ -556,16 +509,12 @@ alert(topic_id != null);
 }
 
 
-
-
-
-
 // AWS UPLOADS
 function UploadToAWS(serverFilename,filename){
 //unploads file to AWS
 	Ti.API.info("serverFilename: " + serverFilename);
 	Ti.API.info("filename: " + filename);
-	
+	$.pb.show();
 	AWS.config(
 	{
 		key: 'AKIAIKFVJ3EMAIBXELBQ',
@@ -576,7 +525,7 @@ function UploadToAWS(serverFilename,filename){
 		http: Titanium.Network.createHTTPClient(),
 		s3fileName: serverFilename,
 		timeout: (1000 * 60 * 4),
-		onsendstream: function(e) {pb.value = e.progress;},
+		onsendstream: function(e) {$.pb.value = e.progress;},
 		error: function(e) {alert(e);},
 		success: AWSPostSuccess(serverFilename,filename)
 	});
@@ -591,27 +540,26 @@ function UploadToAWS(serverFilename,filename){
  
 function AWSPostSuccess(serverFilename,filename){
  	//called after upload to AWS
- 	
  	Ti.API.info("extention: " + GetExtention(filename));
  	var ext = "" + GetExtention(filename);
- 	
- 	alert("ext==mov: " + (ext=="mov"));
- 	
- 	
+
  	if(ext=="mov"){
- 		//encode video
+	 	//encode video
 		var postData = {'file': 'http://s3.amazonaws.com/mindsmesh.com/' + serverFilename};
 		xhr2 = postEncodeVideo(Titanium.App.Properties.getString('mmat'),postData);
 		xhr2.onload = function()
 		{
-			pb.hide();	
+			$.pb.hide();	
+			$.pb.visible = false;
 		};
 		xhr2.send(JSON.stringify(postData));
  		
- 	}else{
+ 	}else{	
  		//just hide progress bar
- 		pb.hide();	
+ 		$.pb.hide();	
+ 		$.pb.visible = false;
  	}
- 	Ti.API.info("AWS upload complete");	
  	
+ 	alert("upload success");
+ 	Ti.API.info("AWS upload complete");	
 }

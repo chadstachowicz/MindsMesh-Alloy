@@ -1,11 +1,10 @@
 
 "#win": {
 	backgroundColor : "#FFF",
-  	navBarHidden: "true",
+  	navBarHidden: "false",
   	orientationModes: [
   		Ti.UI.LANDSCAPE_LEFT,
         Ti.UI.LANDSCAPE_RIGHT,
         Ti.UI.PORTRAIT
     ] 
 }
-

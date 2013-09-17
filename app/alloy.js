@@ -16,8 +16,9 @@ Ti.include("api/api.js");
 Ti.include("api/utility.js");
 
 
+var AWS = require('api/amazon').load();
 
- var AWS = require('amazon');
+
 
 
 
