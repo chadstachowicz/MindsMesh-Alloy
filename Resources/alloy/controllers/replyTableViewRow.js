@@ -10,36 +10,36 @@ function Controller() {
         id: "replyRow"
     });
     $.__views.replyRow && $.addTopLevelView($.__views.replyRow);
-    $.__views.__alloyId53 = Ti.UI.createView({
+    $.__views.__alloyId56 = Ti.UI.createView({
         height: Ti.UI.SIZE,
         backgroundColor: "white",
         layout: "vertical",
         top: "20",
         left: "10",
         right: "10",
-        id: "__alloyId53"
+        id: "__alloyId56"
     });
-    $.__views.replyRow.add($.__views.__alloyId53);
-    $.__views.__alloyId54 = Ti.UI.createView({
+    $.__views.replyRow.add($.__views.__alloyId56);
+    $.__views.__alloyId57 = Ti.UI.createView({
         height: Ti.UI.SIZE,
         backgroundColor: "#eeeeee",
         layout: "horizontal",
-        id: "__alloyId54"
+        id: "__alloyId57"
     });
-    $.__views.__alloyId53.add($.__views.__alloyId54);
+    $.__views.__alloyId56.add($.__views.__alloyId57);
     $.__views.thumbImage = Ti.UI.createImageView({
         height: "40",
         width: "40",
         id: "thumbImage"
     });
-    $.__views.__alloyId54.add($.__views.thumbImage);
-    $.__views.__alloyId55 = Ti.UI.createView({
+    $.__views.__alloyId57.add($.__views.thumbImage);
+    $.__views.__alloyId58 = Ti.UI.createView({
         height: Ti.UI.SIZE,
         backgroundColor: "#eeeeee",
         layout: "vertical",
-        id: "__alloyId55"
+        id: "__alloyId58"
     });
-    $.__views.__alloyId54.add($.__views.__alloyId55);
+    $.__views.__alloyId57.add($.__views.__alloyId58);
     $.__views.nameLabel = Ti.UI.createLabel({
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
@@ -47,7 +47,7 @@ function Controller() {
         left: 10,
         id: "nameLabel"
     });
-    $.__views.__alloyId55.add($.__views.nameLabel);
+    $.__views.__alloyId58.add($.__views.nameLabel);
     $.__views.dateLabel = Ti.UI.createLabel({
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
@@ -55,7 +55,7 @@ function Controller() {
         left: 10,
         id: "dateLabel"
     });
-    $.__views.__alloyId55.add($.__views.dateLabel);
+    $.__views.__alloyId58.add($.__views.dateLabel);
     $.__views.textLabel = Ti.UI.createLabel({
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
@@ -63,7 +63,7 @@ function Controller() {
         left: 10,
         id: "textLabel"
     });
-    $.__views.__alloyId53.add($.__views.textLabel);
+    $.__views.__alloyId56.add($.__views.textLabel);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};

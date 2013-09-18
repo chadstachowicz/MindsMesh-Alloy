@@ -33,6 +33,7 @@ var _OBJ = {
         AWSAccessKeyID.concat(AWSSignature);
         _OBJ.http.setRequestHeader("x-amz-acl", "public-read");
         _OBJ.http.setRequestHeader("Content-Type", fileContents.mimeType);
+        "android" != Ti.Platform.osname && _OBJ.http.setRequestHeader("Content-Length", uploadFile.size);
         _OBJ.http.setRequestHeader("Host", "s3.amazonaws.com");
         _OBJ.http.send(fileContents);
     },

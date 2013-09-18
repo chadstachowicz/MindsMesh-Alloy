@@ -121,7 +121,9 @@ function Controller() {
             $.ds.rightMenu.zIndex = 2;
         }
     });
-    $.win.open();
+    "iphone" === Ti.Platform.osname ? $.win.open({
+        transition: Titanium.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT
+    }) : $.win.open();
     _.extend($, exports);
 }
 

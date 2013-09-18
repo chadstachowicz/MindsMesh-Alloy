@@ -76,6 +76,18 @@ function cancelBtnClicked(event){
 	$.commentLabel.visible = false;
 }
 
+
+function refreshTableView(e){
+
+	GetFeedPostsWithCallback("ShowDataByPlatform");
+	
+	alert("updating");
+	e.hide();
+}
+
+
+
+
 /*
 function UpdateCommentText(_event) {
 	Ti.API.info("UpdateCommentText: " + $.commentTextArea.value);

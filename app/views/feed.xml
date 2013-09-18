@@ -2,7 +2,9 @@
     <Window id="feed" class="container" formFactor="handheld" width="Ti.UI.FILL">
     	
         <!--shows for iphone -->
-        <TableView id="table" backgroundColor="#46a346" separatorColor="transparent" onClick="tableViewHandleClick" visible="false" width="Ti.UI.FILL" />
+        <TableView id="table" backgroundColor="#46a346" separatorColor="transparent" onClick="tableViewHandleClick" visible="false" width="Ti.UI.FILL">
+        	<Widget id="ptr" src="nl.fokkezb.pullToRefresh" onRelease="refreshTableView" />
+        </TableView>
         <!-- individual rows are found at tableViewRow.xml -->
 
 

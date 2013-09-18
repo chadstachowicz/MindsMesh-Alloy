@@ -38,13 +38,13 @@ function Controller() {
         image: "/images/Mindsmesh_logo_highres.png"
     });
     $.__views.indexWindow.add($.__views.image);
-    $.__views.__alloyId49 = Ti.UI.createLabel({
+    $.__views.__alloyId52 = Ti.UI.createLabel({
         text: "Welcome to EDU Mesh",
         top: "150",
         color: "black",
-        id: "__alloyId49"
+        id: "__alloyId52"
     });
-    $.__views.indexWindow.add($.__views.__alloyId49);
+    $.__views.indexWindow.add($.__views.__alloyId52);
     $.__views.btnNext = Ti.UI.createButton({
         title: "upload",
         id: "btnNext",
@@ -55,30 +55,30 @@ function Controller() {
     });
     $.__views.indexWindow.add($.__views.btnNext);
     goUploadTester ? $.__views.btnNext.addEventListener("click", goUploadTester) : __defers["$.__views.btnNext!click!goUploadTester"] = true;
-    $.__views.__alloyId50 = Ti.UI.createButton({
+    $.__views.__alloyId53 = Ti.UI.createButton({
         title: "Login",
         bottom: "45",
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
-        id: "__alloyId50"
+        id: "__alloyId53"
     });
-    $.__views.indexWindow.add($.__views.__alloyId50);
-    goLogin ? $.__views.__alloyId50.addEventListener("click", goLogin) : __defers["$.__views.__alloyId50!click!goLogin"] = true;
-    $.__views.__alloyId51 = Ti.UI.createButton({
+    $.__views.indexWindow.add($.__views.__alloyId53);
+    goLogin ? $.__views.__alloyId53.addEventListener("click", goLogin) : __defers["$.__views.__alloyId53!click!goLogin"] = true;
+    $.__views.__alloyId54 = Ti.UI.createButton({
         title: "Feed",
         bottom: "0",
         width: Ti.UI.FILL,
         height: Ti.UI.SIZE,
-        id: "__alloyId51"
+        id: "__alloyId54"
     });
-    $.__views.indexWindow.add($.__views.__alloyId51);
-    goSettings ? $.__views.__alloyId51.addEventListener("click", goSettings) : __defers["$.__views.__alloyId51!click!goSettings"] = true;
+    $.__views.indexWindow.add($.__views.__alloyId54);
+    goSettings ? $.__views.__alloyId54.addEventListener("click", goSettings) : __defers["$.__views.__alloyId54!click!goSettings"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.indexWindow.open();
     __defers["$.__views.btnNext!click!goUploadTester"] && $.__views.btnNext.addEventListener("click", goUploadTester);
-    __defers["$.__views.__alloyId50!click!goLogin"] && $.__views.__alloyId50.addEventListener("click", goLogin);
-    __defers["$.__views.__alloyId51!click!goSettings"] && $.__views.__alloyId51.addEventListener("click", goSettings);
+    __defers["$.__views.__alloyId53!click!goLogin"] && $.__views.__alloyId53.addEventListener("click", goLogin);
+    __defers["$.__views.__alloyId54!click!goSettings"] && $.__views.__alloyId54.addEventListener("click", goSettings);
     _.extend($, exports);
 }
 
