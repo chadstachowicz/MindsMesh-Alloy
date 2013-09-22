@@ -12,14 +12,16 @@
   height: Ti.UI.SIZE,
   width: Ti.UI.FILL,
   textAlign:"left",
-  left: 10
+  left: 10,
+    font : { fontSize : 10 }
 }
 ,
 ".nameLabel" : {
   height: Ti.UI.SIZE,
   width: Ti.UI.FILL,
   textAlign:"left",
-    left: 10
+  left: 10,
+  font : { fontSize : 17 }
 }
 
 ,
@@ -27,8 +29,10 @@
   height: Ti.UI.SIZE,
   width: Ti.UI.FILL,
   textAlign:"left",
-    left: 10,
-  font : { fontSize : 15 }
+    left: 5,
+  font : { fontSize : 20 },
+  bottom:5,
+  top:5
 }
 
 ,

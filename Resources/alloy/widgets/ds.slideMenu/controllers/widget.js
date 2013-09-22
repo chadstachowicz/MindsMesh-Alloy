@@ -64,7 +64,8 @@ function Controller() {
             y: "0"
         },
         shadowRadius: "2.5",
-        id: "shadowview"
+        id: "shadowview",
+        backgroundColor: "#46a346"
     });
     $.__views.movableview.add($.__views.shadowview);
     $.__views.navview = Ti.UI.createView({

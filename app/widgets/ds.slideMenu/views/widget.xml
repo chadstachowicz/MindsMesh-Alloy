@@ -7,7 +7,7 @@
 			<TableView id="rightTableView" />
 		</View>
 		<View id="movableview">
-			<View id="shadowview">
+			<View id="shadowview" backgroundColor="#46a346">
 				<View id="navview">
 					<Button id="leftButton" />
 					

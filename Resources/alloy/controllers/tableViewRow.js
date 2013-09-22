@@ -45,6 +45,9 @@ function Controller() {
         width: Ti.UI.FILL,
         textAlign: "left",
         left: 10,
+        font: {
+            fontSize: 17
+        },
         id: "nameLabel"
     });
     $.__views.__alloyId66.add($.__views.nameLabel);
@@ -53,6 +56,9 @@ function Controller() {
         width: Ti.UI.FILL,
         textAlign: "left",
         left: 10,
+        font: {
+            fontSize: 10
+        },
         id: "dateLabel"
     });
     $.__views.__alloyId66.add($.__views.dateLabel);
@@ -60,10 +66,12 @@ function Controller() {
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
         textAlign: "left",
-        left: 10,
+        left: 5,
         font: {
-            fontSize: 15
+            fontSize: 20
         },
+        bottom: 5,
+        top: 5,
         id: "textLabel"
     });
     $.__views.__alloyId64.add($.__views.textLabel);
@@ -71,10 +79,12 @@ function Controller() {
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
         textAlign: "left",
-        left: 10,
+        left: 5,
         font: {
-            fontSize: 15
+            fontSize: 20
         },
+        bottom: 5,
+        top: 5,
         id: "extLabel"
     });
     $.__views.__alloyId64.add($.__views.extLabel);
@@ -148,8 +158,8 @@ function Controller() {
         var mainImageWidth = 0;
         var mainImageHeight = 0;
         if (hasMainAttachment) {
-            mainImageHeight = 200;
-            mainImageWidth = Ti.UI.SIZE;
+            mainImageWidth = 200;
+            mainImageHeight = Ti.UI.SIZE;
         }
         $.postAttachmentImage.height = mainImageHeight;
         $.postAttachmentImage.width = mainImageWidth;
