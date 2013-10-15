@@ -2,9 +2,6 @@ function Controller() {
     function goLogin() {
         openWindow("loginWindow");
     }
-    function goUploadTester() {
-        openWindow("upload");
-    }
     function goSettings() {
         openWindow("settings");
     }
@@ -45,16 +42,6 @@ function Controller() {
         id: "__alloyId52"
     });
     $.__views.indexWindow.add($.__views.__alloyId52);
-    $.__views.btnNext = Ti.UI.createButton({
-        title: "upload",
-        id: "btnNext",
-        bottom: "90",
-        right: "0",
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE
-    });
-    $.__views.indexWindow.add($.__views.btnNext);
-    goUploadTester ? $.__views.btnNext.addEventListener("click", goUploadTester) : __defers["$.__views.btnNext!click!goUploadTester"] = true;
     $.__views.__alloyId53 = Ti.UI.createButton({
         title: "Login",
         bottom: "45",
@@ -76,7 +63,6 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.indexWindow.open();
-    __defers["$.__views.btnNext!click!goUploadTester"] && $.__views.btnNext.addEventListener("click", goUploadTester);
     __defers["$.__views.__alloyId53!click!goLogin"] && $.__views.__alloyId53.addEventListener("click", goLogin);
     __defers["$.__views.__alloyId54!click!goSettings"] && $.__views.__alloyId54.addEventListener("click", goSettings);
     _.extend($, exports);

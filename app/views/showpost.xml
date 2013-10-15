@@ -1,6 +1,16 @@
 <Alloy>
 	<Window id="win">
-		<View class="container" layout="vertical" backgroundColor="#99e099">
+		
+		
+
+		<View class="container" layout="vertical" backgroundColor="#99e099" width="Ti.UI.FILL">
+			
+
+				
+				
+				
+			
+			
 			<View backgroundColor="#1c731c" height="Ti.UI.SIZE" width="Ti.UI.FILL">
 				<ImageView id="userImage" left="0" top="0" width="70" height="70"></ImageView>				
 				<Label left="75" top="0"  id="nameLabel"></Label>
@@ -8,6 +18,9 @@
 			</View>
 			
 			<Label id="commentLabel" width="Ti.UI.FILL"  backgroundColor="white"></Label>
+			
+	
+			
 			<ImageView id="mainAttachmentImage" onClick="MainImageClick"></ImageView>
 			
 			<View backgroundColor="#eeeeee" height="Ti.UI.SIZE" onClick="ExternalFileClick">
@@ -29,7 +42,7 @@
 
 			
 		</View>
-		
+
 		
 		<TextArea id="textField" onClick="textAreaClick" onFocus="textAreaClick" onReturn="textFieldReturn" onClick="alert" visible="false" bottom="50" width="Ti.UI.FILL" height="100" />	
 		<Button id="backBtn" onClick="backBtnClicked">back</Button>  

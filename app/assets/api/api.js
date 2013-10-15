@@ -7,37 +7,27 @@ function errorHTTPClient(request, mode, url, data, errObj, errMsg)
 	Titanium.API.info('*******************');
 	Titanium.API.info("in errorHTTPClient");
     //alert("in errorHTTPClient");
-	
-	
+
 	if (request.readyState == 4 && request.retries < 3)
     {   request.open(mode,url);
         request.setRequestHeader("Content-Type","application/json");
         request.send(data);
         
-            	Titanium.API.info("data: " + JSON.stringify(data));
-        
-        
-        
+        Titanium.API.info("data: " + JSON.stringify(data));
         request.retries++;
     }
     else
     {   
     	var desc = errObj.error.substring(errObj.error.indexOf("Description=")+12,errObj.error.lastIndexOf("}"));
     	
-    	
-    	
-    	
-    	
     	//alert("errorHTTPClient: " + desc);
     	Titanium.API.info('*******************');
     	Titanium.API.info("errorHTTPClient: " + desc);
-    	    	Titanium.API.info("full description: " + JSON.stringify(errObj));
+    	Titanium.API.info("full description: " + JSON.stringify(errObj));
     	Titanium.API.info(errObj);
-    	
-    	
-    	
     }
 };
+
 function createHttpClient(mode,url,data,header)
 {
 	//alert("createHttpClient");
@@ -53,9 +43,6 @@ function createHttpClient(mode,url,data,header)
 
 	}
 	*/
-
-	
-	
 	Titanium.API.info('*******************');
 	Titanium.API.info("in createHttpClient");
 
@@ -74,9 +61,6 @@ function createHttpClient(mode,url,data,header)
 	}
 	xhr.onerror = function(e) 
 	{
-		
-		
-		
 		errorHTTPClient(xhr, mode, url, data, e, L("Comms Error Message"));
 	};
 	
@@ -128,26 +112,30 @@ function postTopicCreate(accessToken,data)
 	return xhr;
 }
 function postEntityJoin(accessToken,data)
-{
+{//var postData = {'email':ta1.value};
 	url = 'https://www.mindsmesh.com/api/v1/home/entities?access_token=' + accessToken; 
 	xhr = createHttpClient('POST',url,data);
 	return xhr;
 }
 function postPostCreate(accessToken,data)
-{
+{//var postData = {'topic_id': win.topic_id, 'text': ta1.value};
+	//var postData = {'group_id': win.group_id, 'text': ta1.value};
+	//var postData = {'text': ta1.value};
 	url = 'https://www.mindsmesh.com/api/v1/posts?access_token=' + accessToken; 
 	xhr = createHttpClient('POST',url,data,'FILE');
 	return xhr;
 }
 function postEncodeVideo(accessToken,data)
-{
+{	//var filnam = env + '/post_attachments/' + post_id + '/post.mov';
+	//var postData = {'file': 'http://s3.amazonaws.com/mindsmesh.com/' + filnam};
+	
 	url = 'https://www.mindsmesh.com/api/v1/posts/encode_video?access_token=' + accessToken; 
 	xhr = createHttpClient('POST',url,data);
 	return xhr;
 }
 
 function postReplyCreate(accessToken,postId,data)
-{
+{	//var postData = {'reply': {'text' :ta1.value}};
 	url = 'https://www.mindsmesh.com/api/v1/posts/' + postId + '/replies?access_token=' + accessToken; 
 	xhr = createHttpClient('POST',url,data);
 	return xhr;
@@ -159,13 +147,13 @@ function postTopicJoin(accessToken,topicId)
 	return xhr;
 }
 function postTopicSearch(accessToken,data)
-{
+{//var postData = {'q': e.data};
 	url = 'https://www.mindsmesh.com/api/v1/home/search_topics?access_token=' + accessToken; 
 	xhr = createHttpClient('POST',url,data);
 	return xhr;
 }
 function postLogin(FBaccessToken,data)
-{
+{//var postData = {'email': email.value, 'password': password.value};
 	//alert("postLogin");
 	if (FBaccessToken == "")
 	{
@@ -177,7 +165,7 @@ function postLogin(FBaccessToken,data)
 	return xhr;
 }
 function postCreateUser(data)
-{
+{//var postData = {'name': name.value, 'email': email.value, 'password': password.value, 'password_confirmation': passwordconf.value};
 	url = 'https://www.mindsmesh.com/api/v1/users/create'; 
 	xhr = createHttpClientNoError('POST',url,data);
 	return xhr;
@@ -246,7 +234,7 @@ function getGroupPostsWithFamily(accessToken,groupId,before)
 	return xhr;
 }
 function postLoginToMoodle(url,data)
-{
+{//var postData = {username: Titanium.App.Properties.getString('moodle-user-' + win.entity_id), password: Titanium.App.Properties.getString('moodle-pass-' + win.entity_id)};	
 	xhr = createHttpClient('POST',url,data,'NONE');
 	return xhr;
 }
@@ -257,7 +245,7 @@ function getLoginToMoodle2(baseurl,username,password)
 	return xhr;
 }
 function getMoodle2SiteRetrieve(baseurl,wstoken)
-{
+{//wstoken comes from the moodle response user.token
 	url = baseurl + '/webservice/rest/server.php?wstoken=' + wstoken + '&wsfunction=moodle_webservice_get_siteinfo&moodlewsrestformat=json';
 	xhr = createHttpClient('GET',url);
 	return xhr;

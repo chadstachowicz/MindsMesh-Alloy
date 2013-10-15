@@ -4,25 +4,23 @@
 
         
      			  
-			<!-- 
-				
-				
-				<Button  onClick="goCompass" class="buttoncls">Compass</Button>	
-				
-			<Button  onClick="goFeed" class="buttoncls">Feed</Button>	
-			<Button  onClick="goFeed2" class="buttoncls">Feed2</Button>		 	
- 
-			<Button onClick="goSideView" class="buttoncls">SideView</Button>	        	
-			<Button onClick="goTableView" class="buttoncls">TableView</Button>   	    	
-			   		         			<Button  onClick="goExternalView" class="buttoncls">ExternalView</Button>	    	
-			   		       	
-			   	-->	       	
+		<!-- 
+
+		<Button  onClick="goCompass" class="buttoncls">Compass</Button>	
+		<Button  onClick="goFeed" class="buttoncls">Feed</Button>	
+		<Button  onClick="goFeed2" class="buttoncls">Feed2</Button>		 	
+		<Button onClick="goSideView" class="buttoncls">SideView</Button>	        	
+		<Button onClick="goTableView" class="buttoncls">TableView</Button>   	    	
+		<Button  onClick="goExternalView" class="buttoncls">ExternalView</Button>	    	
+		<Button id="btnNext" onClick="goUploadTester"  bottom="90" right="0" width="Ti.UI.SIZE" height="Ti.UI.SIZE">upload</Button>	       	
+		   	
+		-->	       	
 			   		         
         <ImageView id="image" class="imageView" top="0" width="Ti.UI.FILL" height="Ti.UI.SIZE" image="/images/Mindsmesh_logo_highres.png"/>
         <Label class="welcomeMessage" top="150" color="black">Welcome to EDU Mesh</Label>
         
         
-        <Button id="btnNext" onClick="goUploadTester"  bottom="90" right="0" width="Ti.UI.SIZE" height="Ti.UI.SIZE">upload</Button>	
+
         
         
            	     

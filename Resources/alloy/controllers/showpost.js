@@ -188,6 +188,7 @@ function Controller() {
     $.__views.__alloyId60 = Ti.UI.createView({
         layout: "vertical",
         backgroundColor: "#99e099",
+        width: Ti.UI.FILL,
         id: "__alloyId60"
     });
     $.__views.win.add($.__views.__alloyId60);
