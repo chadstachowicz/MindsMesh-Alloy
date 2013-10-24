@@ -11,7 +11,7 @@
 // Alloy.Globals.someGlobalFunction = function(){};
 
 
-
+Ti.include("api/EduMeshAPI.js");
 Ti.include("api/api.js");
 Ti.include("api/utility.js");
 

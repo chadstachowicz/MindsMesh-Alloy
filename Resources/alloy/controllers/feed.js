@@ -183,7 +183,7 @@ function Controller() {
     }
     function GetFeedPostsWithCallback(callback) {
         Ti.API.info("GetFeedPostsWithCallback");
-        xhr = getPostsWithFamily(Titanium.App.Properties.getString("mmat"));
+        xhr = new EduMeshAPI().getPostsWithFamily(Titanium.App.Properties.getString("mmat"));
         xhr.onload = function() {
             postXML = this.responseText;
             var c = "" + callback + "(JSON.parse(postXML))";

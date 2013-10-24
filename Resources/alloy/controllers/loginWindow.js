@@ -5,11 +5,7 @@ function Controller() {
         $.password.blur();
     }
     function LoginUser(email, password) {
-        var postData = {
-            email: email,
-            password: password
-        };
-        xhr = postLogin("", postData);
+        xhr = new EduMeshAPI().postLogin("", email, password);
         xhr.onload = function() {
             var response = this.responseText;
             Ti.API.info(response);

@@ -367,7 +367,12 @@ function tableViewHandleClick(e) {
  
 function GetFeedPostsWithCallback(callback) {
 	Ti.API.info("GetFeedPostsWithCallback");
-	xhr = getPostsWithFamily(Titanium.App.Properties.getString('mmat'));
+
+	xhr = new EduMeshAPI().getPostsWithFamily(Titanium.App.Properties.getString('mmat'));
+	
+	
+	
+	
     xhr.onload = function(){
     	postXML = this.responseText;
     	//ShowDataByPlatform(JSON.parse(postXML));
@@ -434,14 +439,13 @@ function MakeComentWithImage(message,currentFile)
 	//create postdata from topic, group and file
 	if(topic_id != null) 
 	{
-		postData = {'topic_id': topic_id, 'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
-	} else if (group_id != null) {		
-		postData = {'group_id': group_id, 'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
-	} else {					
-		postData = {'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+		xhr = new EduMeshAPI.postPostCreateTopicWithFile(Titanium.App.Properties.getString('mmat'),topic_id,message,filename,currentFile.mimeType);	
+	} else if (group_id != null) {	
+		xhr = new EduMeshAPI.postPostCreateGroupWithFile(Titanium.App.Properties.getString('mmat'),group_id,message,filename,currentFile.mimeType);
+	} else {				
+		xhr = new EduMeshAPI.postPostCreateWithFile(Titanium.App.Properties.getString('mmat'),message,filename,currentFile.mimeType);
 	}
 	
-	xhr = postPostCreate(Titanium.App.Properties.getString('mmat'),postData);
 
 	$.pb.visible = true;
 	$.pb.show();
@@ -482,16 +486,16 @@ function SendPostMovie(message, currentFile)
 	var filename = "post.mov";
 	var postData;
 
-	if(topic_id != null)
+	//create postdata from topic, group and file
+	if(topic_id != null) 
 	{
-		postData = {'topic_id': topic_id, 'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
-	} else if (win.group_id != null) {		
-		postData = {'group_id': group_id, 'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
-	} else {					
-		postData = {'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+		xhr = new EduMeshAPI.postPostCreateTopicWithFile(Titanium.App.Properties.getString('mmat'),topic_id,message,filename,currentFile.mimeType);	
+	} else if (group_id != null) {	
+		xhr = new EduMeshAPI.postPostCreateGroupWithFile(Titanium.App.Properties.getString('mmat'),group_id,message,filename,currentFile.mimeType);
+	} else {				
+		xhr = new EduMeshAPI.postPostCreateWithFile(Titanium.App.Properties.getString('mmat'),message,filename,currentFile.mimeType);
 	}
 	
-	xhr = postPostCreate(Titanium.App.Properties.getString('mmat'),postData);
 		
 	$.pb.visible = true;
 	$.pb.show();
@@ -558,6 +562,9 @@ function AWSPostSuccess(serverFilename,filename){
  	if(ext=="mov"){
 	 	//encode video
 		var postData = {'file': 'http://s3.amazonaws.com/mindsmesh.com/' + serverFilename};
+		
+		
+		//LAST HERE
 		xhr2 = postEncodeVideo(Titanium.App.Properties.getString('mmat'),postData);
 		xhr2.onload = function()
 		{

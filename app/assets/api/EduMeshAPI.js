@@ -8,22 +8,97 @@ function EduMeshAPI(){
 	var accessToken = Titanium.App.Properties.getString("mmat");
 	
 	
+	/*
+	{"access_token":"826dfa94aacee5011daecca9d38b8fd1",
+	"id":765,
+	"gender":null,
+	"name":"james",
+	"role":"master",
+	"posts_count":4,
+	"photo_url":"https://graph.facebook.com//picture?type=square",
+	"topic_users":[],
+	"entity_users":[
+		{
+			"created_at":"2013-07-15T23:58:52-03:00",
+			"entity_id":3,
+			"id":736,
+			"role_i":1,
+			"updated_at":"2013-07-15T23:59:01-03:00",
+			"user_id":765,
+			"entity":
+				{
+					"created_at":"2012-07-20T03:11:54-03:00",
+					"domains":"|dev.mindsmesh.com|",
+					"entity_users_count":4,
+					"groups_count":3,
+					"id":3,
+					"moodle_sso":null,
+					"moodle_url":"http://moodle.davidson.edu/moodle2",
+					"name":"Dev Team",
+					"self_joining":false,
+					"slug":"dev-team",
+					"state_name":"NC",
+					"token":"70bec89fe00d95e8be67650db8c05be7",
+					"topics_count":3,
+					"updated_at":"2013-10-14T01:14:56-03:00"
+				}
+		},
+		{
+			"created_at":"2013-07-15T23:59:28-03:00",
+			"entity_id":2,
+			"id":737,
+			"role_i":null,
+			"updated_at":"2013-07-15T23:59:28-03:00",
+			"user_id":765,
+			"entity":
+				{
+					"created_at":"2012-07-11T11:36:30-03:00",
+					"domains":"|uncc.edu|",
+					"entity_users_count":80,
+					"groups_count":2,
+					"id":2,
+					"moodle_sso":null,
+					"moodle_url":"https://moodle.uncc.edu/login/index.php",
+					"name":"University of North Carolina - Charlotte",
+					"self_joining":false,
+					"slug":"uncc",
+					"state_name":"NC",
+					"token":"9e9a6942d3b148d3d0fab106d944bc88",
+					"topics_count":14,
+					"updated_at":"2013-08-29T23:21:50-03:00"
+				}
+		}
+	],
+	"group_users":[]
+	}
+
+
+	
+	
+	
+	*/
+	
 	
 	//makes public
+		this.postLogin = postLogin;
+		this.getPostsWithFamily = getPostsWithFamily;
+		this.postPostCreate = postPostCreate;
+	
+	
 	this.getNotificationsGrouped = getNotificationsGrouped;
 	this.postRegisterDevice = postRegisterDevice;
 	this.postTopicCreate = postTopicCreate;
 	this.postEntityJoin = postEntityJoin;
-	this.postPostCreate = postPostCreate;
+
 	this.postEncodeVideo = postEncodeVideo;
 	this.postReplyCreate = postReplyCreate;
 	this.postTopicJoin = postTopicJoin;
 	this.postTopicSearch = postTopicSearch;
-	this.postLogin = postLogin;
+
 	this.postCreateUser = postCreateUser;
 	this.postTopicLeave = postTopicLeave;
 	this.postNotificationMarkAsRead = postNotificationMarkAsRead;
-	this.getPostsWithFamily = getPostsWithFamily;
+
 	this.getPostWithFamily = getPostWithFamily;
 	this.getNotification = getNotification;
 	this.getUserWithChildren = getUserWithChildren;
@@ -170,14 +245,63 @@ function EduMeshAPI(){
 		return xhr;
 	}
 	
-	function postPostCreate(accessToken,data)
+	function postPostTopicCreate(accessToken,topic,message)
+	{//var postData = {'topic_id': win.topic_id, 'text': ta1.value};
+	
+		url = 'https://www.mindsmesh.com/api/v1/posts?access_token=' + accessToken; 
+		xhr = createHttpClient('POST',url,{'topic_id': topic_id, 'text': message},'FILE');
+		return xhr;
+	}
+	
+	function postPostGroupCreate(accessToken,group_id,message)
+	{
+		//var postData = {'group_id': win.group_id, 'text': ta1.value};
+		url = 'https://www.mindsmesh.com/api/v1/posts?access_token=' + accessToken; 
+		xhr = createHttpClient('POST',url,{'group_id': group_id, 'text': message},'FILE');
+		return xhr;
+	}	
+	
+	function postPostCreate(accessToken,message)
 	{//var postData = {'topic_id': win.topic_id, 'text': ta1.value};
 		//var postData = {'group_id': win.group_id, 'text': ta1.value};
 		//var postData = {'text': ta1.value};
 		url = 'https://www.mindsmesh.com/api/v1/posts?access_token=' + accessToken; 
-		xhr = createHttpClient('POST',url,data,'FILE');
+		xhr = createHttpClient('POST',url,{'text': message},'FILE');
 		return xhr;
 	}
+	
+	
+	function postPostCreateWithFile(accessToken,message,filename,mimetype)
+	{//		postData = {'topic_id': topic_id, 'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+	//	postData = {'group_id': group_id, 'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+	//	postData = {'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+		url = 'https://www.mindsmesh.com/api/v1/posts?access_token=' + accessToken; 
+		xhr = createHttpClient('POST',url,{'text': message},'FILE');
+		return xhr;
+	}
+	
+		function postPostCreateTopicWithFile(accessToken,message,filename,mimetype,topic_id)
+	{//		postData = {'topic_id': topic_id, 'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+	//	postData = {'group_id': group_id, 'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+	//	postData = {'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+		url = 'https://www.mindsmesh.com/api/v1/posts?access_token=' + accessToken; 
+		xhr = createHttpClient('POST',url,{'text': message},'FILE');
+		return xhr;
+	}
+	
+	
+		function postPostCreateGroupWithFile(accessToken,message,filename,mimetype,group_id)
+	{//		postData = {'topic_id': topic_id, 'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+	//	postData = {'group_id': group_id, 'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+	//	postData = {'text': message, 'filename': filename, 'content_type': currentFile.mimeType};
+		url = 'https://www.mindsmesh.com/api/v1/posts?access_token=' + accessToken; 
+		xhr = createHttpClient('POST',url,{'text': message},'FILE');
+		return xhr;
+	}
+	
+	
+
+	
 	
 	function postEncodeVideo(accessToken,data)
 	{	//var filnam = env + '/post_attachments/' + post_id + '/post.mov';
@@ -187,6 +311,11 @@ function EduMeshAPI(){
 		xhr = createHttpClient('POST',url,data);
 		return xhr;
 	}
+	
+	
+	
+	
+	
 	
 	function postReplyCreate(accessToken,postId,data)
 	{	//var postData = {'reply': {'text' :ta1.value}};
@@ -209,6 +338,7 @@ function EduMeshAPI(){
 		return xhr;
 	}
 	
+	/*
 	function postLogin(FBaccessToken,data)
 	{//var postData = {'email': email.value, 'password': password.value};
 		//alert("postLogin");
@@ -221,6 +351,27 @@ function EduMeshAPI(){
 		xhr = createHttpClient('POST',url,data);
 		return xhr;
 	}
+	*/
+	
+	function postLogin(FBaccessToken,email,password)
+	{//var postData = {'email': email.value, 'password': password.value};
+		//alert("postLogin");
+		if (FBaccessToken == "")
+		{
+			url = 'https://www.mindsmesh.com/api/v1/session/login'; 
+		} else {
+			url = 'https://www.mindsmesh.com/api/v1/session/login?fb_access_token=' + FBaccessToken; 
+		}
+		xhr = createHttpClient('POST',url,{'email': email, 'password': password});
+		return xhr;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	function postCreateUser(data)
 	{//var postData = {'name': name.value, 'email': email.value, 'password': password.value, 'password_confirmation': passwordconf.value};
@@ -240,6 +391,8 @@ function EduMeshAPI(){
 		xhr = createHttpClient('POST',url);
 		return xhr;
 	}
+	
+	
 	function getPostsWithFamily(accessToken,before)
 	{
 		if(before)
@@ -251,6 +404,10 @@ function EduMeshAPI(){
 		xhr = createHttpClient('GET',url);
 		return xhr;
 	}
+	
+	
+	
+	
 	function getPostWithFamily(accessToken,postId)
 	{
 		url = 'https://www.mindsmesh.com/api/v1/posts/' + postId + '/with_family?access_token=' + accessToken;

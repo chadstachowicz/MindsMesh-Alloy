@@ -76,9 +76,11 @@ function EduMeshAPI() {
         xhr = createHttpClient("POST", url, data);
         return xhr;
     }
-    function postPostCreate(accessToken, data) {
+    function postPostCreate(accessToken, message) {
         url = "https://www.mindsmesh.com/api/v1/posts?access_token=" + accessToken;
-        xhr = createHttpClient("POST", url, data, "FILE");
+        xhr = createHttpClient("POST", url, {
+            text: message
+        }, "FILE");
         return xhr;
     }
     function postEncodeVideo(accessToken, data) {
@@ -101,9 +103,12 @@ function EduMeshAPI() {
         xhr = createHttpClient("POST", url, data);
         return xhr;
     }
-    function postLogin(FBaccessToken, data) {
+    function postLogin(FBaccessToken, email, password) {
         url = "" == FBaccessToken ? "https://www.mindsmesh.com/api/v1/session/login" : "https://www.mindsmesh.com/api/v1/session/login?fb_access_token=" + FBaccessToken;
-        xhr = createHttpClient("POST", url, data);
+        xhr = createHttpClient("POST", url, {
+            email: email,
+            password: password
+        });
         return xhr;
     }
     function postCreateUser(data) {
@@ -187,20 +192,20 @@ function EduMeshAPI() {
     require("UTF8").load();
     require("date").load();
     Titanium.App.Properties.getString("mmat");
+    this.postLogin = postLogin;
+    this.getPostsWithFamily = getPostsWithFamily;
+    this.postPostCreate = postPostCreate;
     this.getNotificationsGrouped = getNotificationsGrouped;
     this.postRegisterDevice = postRegisterDevice;
     this.postTopicCreate = postTopicCreate;
     this.postEntityJoin = postEntityJoin;
-    this.postPostCreate = postPostCreate;
     this.postEncodeVideo = postEncodeVideo;
     this.postReplyCreate = postReplyCreate;
     this.postTopicJoin = postTopicJoin;
     this.postTopicSearch = postTopicSearch;
-    this.postLogin = postLogin;
     this.postCreateUser = postCreateUser;
     this.postTopicLeave = postTopicLeave;
     this.postNotificationMarkAsRead = postNotificationMarkAsRead;
-    this.getPostsWithFamily = getPostsWithFamily;
     this.getPostWithFamily = getPostWithFamily;
     this.getNotification = getNotification;
     this.getUserWithChildren = getUserWithChildren;

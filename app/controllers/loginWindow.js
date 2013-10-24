@@ -36,12 +36,21 @@ function clickLogin(){
 
 function LoginUser(email, password){
 
-	var postData = {'email': email, 'password': password};
+	//var postData = {'email': email, 'password': password};
 
 
     //if (Ti.Platform.osname == 'iphone'){
     	//iphone needs no stringify 
-		xhr = postLogin("",postData);
+    	
+    	
+    	
+		//xhr = postLogin("",postData);
+		xhr = new EduMeshAPI().postLogin("",email,password);
+		
+		
+		
+		
+		
 	//}else{
 		//android needs stringify
 	//	xhr = postLogin("",JSON.stringify(postData));

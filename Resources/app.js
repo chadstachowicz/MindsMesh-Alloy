@@ -1,5 +1,7 @@
 var Alloy = require("alloy"), _ = Alloy._, Backbone = Alloy.Backbone;
 
+Ti.include("api/EduMeshAPI.js");
+
 Ti.include("api/api.js");
 
 Ti.include("api/utility.js");
