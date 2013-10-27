@@ -26,10 +26,8 @@ function EduMeshAPI() {
         xhr.retries = 0;
         if ("FILE" == header) xhr.setRequestHeader("Content-Type", "multipart/form-data"); else if ("NONE" != header) {
             xhr.setRequestHeader("Content-Type", "application/json");
-            if ("android" == Titanium.Platform.osname) {
-                var androidUserAgent = "Mozilla/5.0 (Linux; U; iPhone OS " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
-                xhr.setRequestHeader("User-Agent", androidUserAgent);
-            }
+            var androidUserAgent = "Mozilla/5.0 (Linux; U; android " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
+            xhr.setRequestHeader("User-Agent", androidUserAgent);
         }
         xhr.onerror = function(e) {
             errorHTTPClient(xhr, mode, url, data, e, L("Comms Error Message"));
@@ -44,10 +42,8 @@ function EduMeshAPI() {
         xhr.retries = 0;
         if ("FILE" == header) xhr.setRequestHeader("Content-Type", "multipart/form-data"); else if ("NONE" != header) {
             xhr.setRequestHeader("Content-Type", "application/json");
-            if ("android" == Titanium.Platform.osname) {
-                var androidUserAgent = "Mozilla/5.0 (Linux; U; iPhone OS " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
-                xhr.setRequestHeader("User-Agent", androidUserAgent);
-            }
+            var androidUserAgent = "Mozilla/5.0 (Linux; U; android " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
+            xhr.setRequestHeader("User-Agent", androidUserAgent);
         }
         xhr.onerror = function() {
             Titanium.API.info("*******************");
@@ -83,14 +79,20 @@ function EduMeshAPI() {
         }, "FILE");
         return xhr;
     }
-    function postEncodeVideo(accessToken, data) {
+    function postEncodeVideo(accessToken, filnam) {
         url = "https://www.mindsmesh.com/api/v1/posts/encode_video?access_token=" + accessToken;
-        xhr = createHttpClient("POST", url, data);
+        xhr = createHttpClient("POST", url, {
+            file: "http://s3.amazonaws.com/mindsmesh.com/" + filnam
+        });
         return xhr;
     }
-    function postReplyCreate(accessToken, postId, data) {
+    function postReplyCreate(accessToken, postId, message) {
         url = "https://www.mindsmesh.com/api/v1/posts/" + postId + "/replies?access_token=" + accessToken;
-        xhr = createHttpClient("POST", url, data);
+        xhr = createHttpClient("POST", url, {
+            reply: {
+                text: message
+            }
+        });
         return xhr;
     }
     function postTopicJoin(accessToken, topicId) {

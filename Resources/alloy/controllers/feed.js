@@ -13,7 +13,7 @@ function Controller() {
     }
     function textAreaClick() {
         Ti.API.info("textAreaClick");
-        $.commentTextArea.bottom = "android" == Ti.Platform.osname ? 10 : 220;
+        $.commentTextArea.bottom = 10;
     }
     function cancelBtnClicked() {
         Ti.API.info("cancel button clicked");
@@ -195,15 +195,9 @@ function Controller() {
         xhr.send();
     }
     function ShowDataByPlatform(postJSON) {
-        if ("iphone" == Ti.Platform.osname) {
-            createTableView(postJSON);
-            $.table.visible = true;
-            Ti.API.info("showing tableview, because of IOS");
-        } else {
-            createListView(postJSON);
-            $.list.visible = true;
-            Ti.API.info("showing listview, because of android");
-        }
+        createListView(postJSON);
+        $.list.visible = true;
+        Ti.API.info("showing listview, because of android");
     }
     function MakeCommentWithCallback(message, callback) {
         if (null != topic_id) var postData = {
@@ -227,22 +221,7 @@ function Controller() {
         Ti.API.info("SendPostImage");
         var filename = "post.png";
         var postData;
-        postData = null != topic_id ? {
-            topic_id: topic_id,
-            text: message,
-            filename: filename,
-            content_type: currentFile.mimeType
-        } : null != group_id ? {
-            group_id: group_id,
-            text: message,
-            filename: filename,
-            content_type: currentFile.mimeType
-        } : {
-            text: message,
-            filename: filename,
-            content_type: currentFile.mimeType
-        };
-        xhr = postPostCreate(Titanium.App.Properties.getString("mmat"), postData);
+        xhr = null != topic_id ? new EduMeshAPI.postPostCreateTopicWithFile(Titanium.App.Properties.getString("mmat"), topic_id, message, filename, currentFile.mimeType) : null != group_id ? new EduMeshAPI.postPostCreateGroupWithFile(Titanium.App.Properties.getString("mmat"), group_id, message, filename, currentFile.mimeType) : new EduMeshAPI.postPostCreateWithFile(Titanium.App.Properties.getString("mmat"), message, filename, currentFile.mimeType);
         $.pb.visible = true;
         $.pb.show();
         xhr.onload = function() {
@@ -260,22 +239,7 @@ function Controller() {
     function SendPostMovie(message, currentFile) {
         var filename = "post.mov";
         var postData;
-        postData = null != topic_id ? {
-            topic_id: topic_id,
-            text: message,
-            filename: filename,
-            content_type: currentFile.mimeType
-        } : null != win.group_id ? {
-            group_id: group_id,
-            text: message,
-            filename: filename,
-            content_type: currentFile.mimeType
-        } : {
-            text: message,
-            filename: filename,
-            content_type: currentFile.mimeType
-        };
-        xhr = postPostCreate(Titanium.App.Properties.getString("mmat"), postData);
+        xhr = null != topic_id ? new EduMeshAPI.postPostCreateTopicWithFile(Titanium.App.Properties.getString("mmat"), topic_id, message, filename, currentFile.mimeType) : null != group_id ? new EduMeshAPI.postPostCreateGroupWithFile(Titanium.App.Properties.getString("mmat"), group_id, message, filename, currentFile.mimeType) : new EduMeshAPI.postPostCreateWithFile(Titanium.App.Properties.getString("mmat"), message, filename, currentFile.mimeType);
         $.pb.visible = true;
         $.pb.show();
         xhr.onload = function() {
@@ -317,10 +281,7 @@ function Controller() {
         Ti.API.info("extention: " + GetExtention(filename));
         var ext = "" + GetExtention(filename);
         if ("mov" == ext) {
-            var postData = {
-                file: "http://s3.amazonaws.com/mindsmesh.com/" + serverFilename
-            };
-            xhr2 = postEncodeVideo(Titanium.App.Properties.getString("mmat"), postData);
+            xhr2 = new EduMeshAPI().postEncodeVideo(Titanium.App.Properties.getString("mmat"), serverFilename);
             xhr2.onload = function() {
                 $.pb.hide();
                 $.pb.visible = false;
@@ -540,7 +501,7 @@ function Controller() {
         __alloyId6.push(__alloyId8);
         var __alloyId5 = {
             properties: {
-                height: 46,
+                height: Ti.UI.SIZE,
                 name: "template1",
                 backgroundColor: "#46a346",
                 width: Ti.UI.FILL

@@ -63,10 +63,7 @@ function Controller() {
         Ti.API.info("extention: " + GetExtention(filename));
         var ext = "" + GetExtention(filename);
         if ("mov" == ext) {
-            var postData = {
-                file: "http://s3.amazonaws.com/mindsmesh.com/" + serverFilename
-            };
-            xhr2 = postEncodeVideo(Titanium.App.Properties.getString("mmat"), postData);
+            xhr2 = new EduMeshAPI().postEncodeVideo(Titanium.App.Properties.getString("mmat"), serverFilename);
             xhr2.onload = function() {
                 $.pb.hide();
             };

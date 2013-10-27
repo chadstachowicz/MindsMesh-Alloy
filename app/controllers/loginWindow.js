@@ -98,12 +98,13 @@ function LoginUser(email, password){
 		alert(response);
 	};
 	
-	
+	//'email': email.value, 'password': password.value
+	//var postData = {'email': email, 'password': password};
 	if (Ti.Platform.osname == 'android')
 	{
-		xhr.send(JSON.stringify(postData));
+		xhr.send(JSON.stringify({'email': email, 'password': password}));
 	}else{
-		xhr.send(postData);
+		xhr.send({'email': email, 'password': password});
 	}
 	
 

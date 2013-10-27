@@ -27,16 +27,10 @@ function Controller() {
     }
     function ExternalFileClick() {
         Ti.API.info("ExternalFileClick clicked");
-        if ("pdf" == filetype) if ("android" == Ti.Platform.osname) {
+        if ("pdf" == filetype) {
+            var view1;
             Ti.API.info("android, open external file");
             AndroidDownloadFile(attachmentURL);
-        } else {
-            var view1;
-            view1 = Alloy.createController("showfile", {
-                value: attachmentURL
-            });
-            Ti.API.info("IOS, use showfile");
-            view1.getView().open();
         } else {
             var view1;
             view1 = Alloy.createController("showimage", {
@@ -67,7 +61,7 @@ function Controller() {
     }
     function textAreaClick() {
         Ti.API.info("textAreaClick");
-        $.textField.bottom = "android" == Ti.Platform.osname ? 10 : 220;
+        $.textField.bottom = 10;
     }
     function shareBtnClicked() {
         Ti.API.info("share button clicked");
@@ -86,12 +80,7 @@ function Controller() {
     }
     function MakeComment() {
         if (1 > $.textField.value.length) alert("Your post must be at least 1 character"); else {
-            var postData = {
-                reply: {
-                    text: $.textField.value
-                }
-            };
-            xhr = postReplyCreate(Titanium.App.Properties.getString("mmat"), $.postidLabel.text, postData);
+            xhr = new EduMeshAPI().postReplyCreate(Titanium.App.Properties.getString("mmat"), $.postidLabel.text, $.textField.value);
             xhr.onload = function() {
                 var response = this.responseText;
                 alert(response);

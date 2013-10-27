@@ -126,8 +126,8 @@ function AWSPostSuccess(serverFilename,filename){
 
  	if(ext=="mov"){
 	 	//encode video
-		var postData = {'file': 'http://s3.amazonaws.com/mindsmesh.com/' + serverFilename};
-		xhr2 = postEncodeVideo(Titanium.App.Properties.getString('mmat'),postData);
+		//var postData = {'file': 'http://s3.amazonaws.com/mindsmesh.com/' + serverFilename};
+		xhr2 = new EduMeshAPI().postEncodeVideo(Titanium.App.Properties.getString('mmat'),serverFilename);
 		xhr2.onload = function()
 		{
 			$.pb.hide();	

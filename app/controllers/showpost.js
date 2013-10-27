@@ -252,8 +252,8 @@ function shareComment(commentText){
 	{
 		alert("Your post must be at least 1 character");
 	} else {
-		var postData = {'reply': {'text' :$.textField.value} };
-		xhr = postReplyCreate(Titanium.App.Properties.getString("mmat"),$.postidLabel.text,postData);
+		//var postData = {'reply': {'text' :$.textField.value} };
+		xhr = new EduMeshAPI().postReplyCreate(Titanium.App.Properties.getString("mmat"),$.postidLabel.text,$.textField.value);
 		xhr.onload = function(){
 			var response = this.responseText;
 			alert(response);

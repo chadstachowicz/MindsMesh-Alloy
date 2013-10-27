@@ -301,7 +301,7 @@ function EduMeshAPI(){
 	
 	
 
-	
+	/*
 	
 	function postEncodeVideo(accessToken,data)
 	{	//var filnam = env + '/post_attachments/' + post_id + '/post.mov';
@@ -311,16 +311,24 @@ function EduMeshAPI(){
 		xhr = createHttpClient('POST',url,data);
 		return xhr;
 	}
+	*/
+	
+	function postEncodeVideo(accessToken,filnam)
+	{	//var filnam = env + '/post_attachments/' + post_id + '/post.mov';
+		//var postData = {'file': 'http://s3.amazonaws.com/mindsmesh.com/' + filnam};
+		
+		url = 'https://www.mindsmesh.com/api/v1/posts/encode_video?access_token=' + accessToken; 
+		xhr = createHttpClient('POST',url,{'file': 'http://s3.amazonaws.com/mindsmesh.com/' + filnam});
+		return xhr;
+	}
 	
 	
 	
 	
-	
-	
-	function postReplyCreate(accessToken,postId,data)
+	function postReplyCreate(accessToken,postId,message)
 	{	//var postData = {'reply': {'text' :ta1.value}};
 		url = 'https://www.mindsmesh.com/api/v1/posts/' + postId + '/replies?access_token=' + accessToken; 
-		xhr = createHttpClient('POST',url,data);
+		xhr = createHttpClient('POST',url,{'reply': {'text': message } });
 		return xhr;
 	}
 	
