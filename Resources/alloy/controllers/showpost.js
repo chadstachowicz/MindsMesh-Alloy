@@ -27,10 +27,16 @@ function Controller() {
     }
     function ExternalFileClick() {
         Ti.API.info("ExternalFileClick clicked");
-        if ("pdf" == filetype) {
-            var view1;
+        if ("pdf" == filetype) if ("android" == Ti.Platform.osname) {
             Ti.API.info("android, open external file");
             AndroidDownloadFile(attachmentURL);
+        } else {
+            var view1;
+            view1 = Alloy.createController("showfile", {
+                value: attachmentURL
+            });
+            Ti.API.info("IOS, use showfile");
+            view1.getView().open();
         } else {
             var view1;
             view1 = Alloy.createController("showimage", {
@@ -61,7 +67,7 @@ function Controller() {
     }
     function textAreaClick() {
         Ti.API.info("textAreaClick");
-        $.textField.bottom = 10;
+        $.textField.bottom = "android" == Ti.Platform.osname ? 10 : 220;
     }
     function shareBtnClicked() {
         Ti.API.info("share button clicked");
@@ -174,20 +180,20 @@ function Controller() {
         id: "win"
     });
     $.__views.win && $.addTopLevelView($.__views.win);
-    $.__views.__alloyId60 = Ti.UI.createView({
+    $.__views.__alloyId66 = Ti.UI.createView({
         layout: "vertical",
         backgroundColor: "#99e099",
         width: Ti.UI.FILL,
-        id: "__alloyId60"
+        id: "__alloyId66"
     });
-    $.__views.win.add($.__views.__alloyId60);
-    $.__views.__alloyId61 = Ti.UI.createView({
+    $.__views.win.add($.__views.__alloyId66);
+    $.__views.__alloyId67 = Ti.UI.createView({
         backgroundColor: "#1c731c",
         height: Ti.UI.SIZE,
         width: Ti.UI.FILL,
-        id: "__alloyId61"
+        id: "__alloyId67"
     });
-    $.__views.__alloyId60.add($.__views.__alloyId61);
+    $.__views.__alloyId66.add($.__views.__alloyId67);
     $.__views.userImage = Ti.UI.createImageView({
         id: "userImage",
         left: "0",
@@ -195,7 +201,7 @@ function Controller() {
         width: "70",
         height: "70"
     });
-    $.__views.__alloyId61.add($.__views.userImage);
+    $.__views.__alloyId67.add($.__views.userImage);
     $.__views.nameLabel = Ti.UI.createLabel({
         color: "white",
         font: {
@@ -205,13 +211,13 @@ function Controller() {
         top: "0",
         id: "nameLabel"
     });
-    $.__views.__alloyId61.add($.__views.nameLabel);
+    $.__views.__alloyId67.add($.__views.nameLabel);
     $.__views.dateLabel = Ti.UI.createLabel({
         left: "75",
         top: "20",
         id: "dateLabel"
     });
-    $.__views.__alloyId61.add($.__views.dateLabel);
+    $.__views.__alloyId67.add($.__views.dateLabel);
     $.__views.commentLabel = Ti.UI.createLabel({
         color: "black",
         font: {
@@ -221,25 +227,25 @@ function Controller() {
         width: Ti.UI.FILL,
         backgroundColor: "white"
     });
-    $.__views.__alloyId60.add($.__views.commentLabel);
+    $.__views.__alloyId66.add($.__views.commentLabel);
     $.__views.mainAttachmentImage = Ti.UI.createImageView({
         id: "mainAttachmentImage"
     });
-    $.__views.__alloyId60.add($.__views.mainAttachmentImage);
+    $.__views.__alloyId66.add($.__views.mainAttachmentImage);
     MainImageClick ? $.__views.mainAttachmentImage.addEventListener("click", MainImageClick) : __defers["$.__views.mainAttachmentImage!click!MainImageClick"] = true;
-    $.__views.__alloyId62 = Ti.UI.createView({
+    $.__views.__alloyId68 = Ti.UI.createView({
         backgroundColor: "#eeeeee",
         height: Ti.UI.SIZE,
-        id: "__alloyId62"
+        id: "__alloyId68"
     });
-    $.__views.__alloyId60.add($.__views.__alloyId62);
-    ExternalFileClick ? $.__views.__alloyId62.addEventListener("click", ExternalFileClick) : __defers["$.__views.__alloyId62!click!ExternalFileClick"] = true;
+    $.__views.__alloyId66.add($.__views.__alloyId68);
+    ExternalFileClick ? $.__views.__alloyId68.addEventListener("click", ExternalFileClick) : __defers["$.__views.__alloyId68!click!ExternalFileClick"] = true;
     $.__views.extAttachmentImage = Ti.UI.createImageView({
         id: "extAttachmentImage",
         top: "0",
         left: "0"
     });
-    $.__views.__alloyId62.add($.__views.extAttachmentImage);
+    $.__views.__alloyId68.add($.__views.extAttachmentImage);
     $.__views.extAttachmentFileNameLabel = Ti.UI.createLabel({
         font: {
             fontSize: 10
@@ -248,34 +254,34 @@ function Controller() {
         top: "0",
         left: "30"
     });
-    $.__views.__alloyId62.add($.__views.extAttachmentFileNameLabel);
+    $.__views.__alloyId68.add($.__views.extAttachmentFileNameLabel);
     $.__views.replyTable = Ti.UI.createTableView({
         id: "replyTable",
         top: "0",
         visible: "false",
         backgroundColor: "#99e099"
     });
-    $.__views.__alloyId60.add($.__views.replyTable);
+    $.__views.__alloyId66.add($.__views.replyTable);
     handleClick ? $.__views.replyTable.addEventListener("click", handleClick) : __defers["$.__views.replyTable!click!handleClick"] = true;
     $.__views.attachmentCountLabel = Ti.UI.createLabel({
         id: "attachmentCountLabel",
         visible: "false"
     });
-    $.__views.__alloyId60.add($.__views.attachmentCountLabel);
+    $.__views.__alloyId66.add($.__views.attachmentCountLabel);
     $.__views.replyCountLabel = Ti.UI.createLabel({
         id: "replyCountLabel",
         visible: "false"
     });
-    $.__views.__alloyId60.add($.__views.replyCountLabel);
+    $.__views.__alloyId66.add($.__views.replyCountLabel);
     $.__views.attachmentExtLabel = Ti.UI.createLabel({
         id: "attachmentExtLabel",
         visible: "false"
     });
-    $.__views.__alloyId60.add($.__views.attachmentExtLabel);
+    $.__views.__alloyId66.add($.__views.attachmentExtLabel);
     $.__views.postidLabel = Ti.UI.createLabel({
         id: "postidLabel"
     });
-    $.__views.__alloyId60.add($.__views.postidLabel);
+    $.__views.__alloyId66.add($.__views.postidLabel);
     $.__views.textField = Ti.UI.createTextArea({
         font: {
             fontSize: 30
@@ -329,7 +335,7 @@ function Controller() {
     $.textField.visible = false;
     var loadView;
     __defers["$.__views.mainAttachmentImage!click!MainImageClick"] && $.__views.mainAttachmentImage.addEventListener("click", MainImageClick);
-    __defers["$.__views.__alloyId62!click!ExternalFileClick"] && $.__views.__alloyId62.addEventListener("click", ExternalFileClick);
+    __defers["$.__views.__alloyId68!click!ExternalFileClick"] && $.__views.__alloyId68.addEventListener("click", ExternalFileClick);
     __defers["$.__views.replyTable!click!handleClick"] && $.__views.replyTable.addEventListener("click", handleClick);
     __defers["$.__views.textField!click!alert"] && $.__views.textField.addEventListener("click", alert);
     __defers["$.__views.textField!focus!textAreaClick"] && $.__views.textField.addEventListener("focus", textAreaClick);

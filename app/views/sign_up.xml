@@ -1,0 +1,25 @@
+<Alloy>
+	<Window id="signupWindow" class="container" top="99%">
+		
+		
+       <View layout="vertical" id="mainView" class="mainView" backgroundColor="#ee7533">
+       	<ImageView id="image" class="imageView" top="8%" width="80dp" height="80dp" image="/images/MindsMesh-NewLogo.png"/>  
+       	<View layout="vertical" id="loginView" class="loginView" backgroundColor="white">
+       		<TextField class="txtLog" id="name" color="#000000" top="5dp" bottom="5dp" left="10dp" width="250dp" height="30dp" hintText="Full Name"/>
+       		<View class="txtLog" height="1dp" width='300dp' backgroundColor="#E5E4E2"></View>
+       		<TextField class="txtLog" id="email" color="#000000" top="5dp" bottom="5dp" left="10dp" width="250dp" height="30dp" hintText="Email Address" />
+       		<View class="txtLog" height="1dp" width='300dp' backgroundColor="#E5E4E2"></View>
+       		<TextField class="txtPass" id="password" color="#000000" top="5dp" bottom="5dp" left="10dp" width="250dp" height="30dp" hintText="Password" />
+       		<View class="txtLog" height="1dp" width='300dp' backgroundColor="#E5E4E2"></View>
+       		<TextField class="txtPass" id="confirm_password" color="#000000" top="5dp" bottom="5dp" left="10dp" width="250dp" height="30dp" hintText="Confirm Password" />
+       		</View>
+       		
+			<Button onClick="finSignup" class="loginBtn" backgroundColor='#f99965' top="5dp" bottom="17dp"><Label color="white">Finish Signup</Label><ActivityIndicator right="5%" id="activityIndicator"/></Button>
+
+        </View>
+        
+        
+
+		<Button onClick="closeWindow" class="buttoncls" bottom="5%"><Label class="lblcls" color="white">Back to Login</Label></Button>			
+	</Window>
+</Alloy>

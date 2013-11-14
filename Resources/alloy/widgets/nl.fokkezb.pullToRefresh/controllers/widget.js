@@ -1,7 +1,7 @@
 function WPATH(s) {
     var index = s.lastIndexOf("/");
     var path = -1 === index ? "nl.fokkezb.pullToRefresh/" + s : s.substring(0, index) + "/nl.fokkezb.pullToRefresh/" + s.substring(index + 1);
-    return true && 0 !== path.indexOf("/") ? "/" + path : path;
+    return path;
 }
 
 function Controller() {
@@ -11,8 +11,10 @@ function Controller() {
         $.view.ptrText.text = msg || options.msgUpdating;
         $.view.ptrArrow.hide();
         $.view.ptrIndicator.show();
-        __parentSymbol.animate({
-            top: 0
+        __parentSymbol.setContentInsets({
+            top: height
+        }, {
+            animated: true
         });
         return true;
     }
@@ -22,8 +24,10 @@ function Controller() {
         $.view.ptrArrow.transform = Ti.UI.create2DMatrix();
         $.view.ptrArrow.show();
         $.view.ptrText.text = options.msgPull;
-        __parentSymbol.animate({
-            top: -height
+        __parentSymbol.setContentInsets({
+            top: 0
+        }, {
+            animated: true
         });
         pulled = false;
         loading = false;
@@ -39,11 +43,32 @@ function Controller() {
         return true;
     }
     function scrollListener(e) {
-        offset = e.firstVisibleItem;
+        if (pulled) return;
+        offset = e.contentOffset.y;
+        if (pulling && !loading && offset > -height && 0 > offset) {
+            pulling = false;
+            var unrotate = Ti.UI.create2DMatrix();
+            $.view.ptrArrow.animate({
+                transform: unrotate,
+                duration: 180
+            });
+            $.view.ptrText.text = options.msgPull;
+        } else if (!pulling && !loading && -height > offset) {
+            pulling = true;
+            var rotate = Ti.UI.create2DMatrix().rotate(180);
+            $.view.ptrArrow.animate({
+                transform: rotate,
+                duration: 180
+            });
+            $.view.ptrText.text = options.msgRelease;
+        }
         return;
     }
-    function swipeListener(e) {
-        0 === offset && "down" === e.direction && refresh();
+    function dragEndListener() {
+        if (!pulled && pulling && !loading && -height > offset) {
+            pulling = false;
+            refresh();
+        }
         return;
     }
     function setOptions(_properties) {
@@ -52,6 +77,7 @@ function Controller() {
     }
     function attach() {
         if (attached) return false;
+        __parentSymbol.headerPullView = $.view.ptr;
         init();
         return true;
     }
@@ -63,16 +89,15 @@ function Controller() {
         pulled = false;
         loading = false;
         offset = 0;
-        __parentSymbol.top = -height;
-        __parentSymbol.addEventListener("swipe", swipeListener);
+        __parentSymbol.addEventListener("dragEnd", dragEndListener);
         $.view.ptrText.text = options.msgPull;
         return;
     }
     function dettach() {
         if (!attached) return false;
         __parentSymbol.removeEventListener("scroll", scrollListener);
-        __parentSymbol.removeEventListener("swipe", swipeListener);
-        hide();
+        __parentSymbol.removeEventListener("dragEnd", dragEndListener);
+        __parentSymbol.headerPullView = null;
         attached = false;
         return true;
     }
@@ -88,10 +113,10 @@ function Controller() {
     $.__views.view = Alloy.createWidget("nl.fokkezb.pullToRefresh", "view", {
         id: "view"
     });
-    __parentSymbol.headerView = $.__views.view.getViewEx({
+    __parentSymbol.headerPullView = $.__views.view.getViewEx({
         recurse: true
     });
-    $.__views.__alloyId0 && $.addTopLevelView($.__views.__alloyId0);
+    $.__views.widget && $.addTopLevelView($.__views.widget);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};

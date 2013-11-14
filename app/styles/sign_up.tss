@@ -37,8 +37,8 @@
 
 ".loginView" : {
 	width: '300dp',
-	height: '80dp',
-	top: '5%',
+	height: '160dp',
+	top: '4%',
 	borderRadius: 3,
 	keyb: true
 

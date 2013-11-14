@@ -1,34 +1,25 @@
 <Alloy>
 	<Window id="indexWindow" class="container">
 		
+		
+       <View layout="vertical" id="mainView" class="mainView" backgroundColor="#15B17A">  
+       	<ImageView id="image" class="imageView" top="18%" width="80dp" height="80dp" image="/images/MindsMesh-NewLogo.png"/>
+       	<Label class="lblTitle">MindsMesh</Label>
+       	<View layout="vertical" id="loginView" class="loginView" backgroundColor="white">
+       		<TextField class="txtLog" id="email" color="#000000" top="5dp" bottom="5dp" left="10dp" width="250dp" height="30dp" hintText="Email Address"/>
+       		<View class="txtLog" height="1dp" width='300dp' backgroundColor="#E5E4E2"></View>
+       		<TextField class="txtPass" id="password" color="#000000" top="5dp" bottom="5dp" left="10dp" width="250dp" height="30dp" hintText="Password" />
+       		</View>
+       		
+			<Button onClick="goLogin" class="loginBtn" backgroundColor='#15c58a' top="5dp" bottom="17dp"><Label color="white">Login</Label><ActivityIndicator right="5%" id="activityIndicator"/></Button>
+			<Label color="white">or</Label>
+			<Button onClick="goFacebookLogin" class="loginBtn" backgroundColor='#3b5998' top="17dp" ><Label color="white">Login using Facebook</Label></Button>
+			
 
-        
-     			  
-		<!-- 
-
-		<Button  onClick="goCompass" class="buttoncls">Compass</Button>	
-		<Button  onClick="goFeed" class="buttoncls">Feed</Button>	
-		<Button  onClick="goFeed2" class="buttoncls">Feed2</Button>		 	
-		<Button onClick="goSideView" class="buttoncls">SideView</Button>	        	
-		<Button onClick="goTableView" class="buttoncls">TableView</Button>   	    	
-		<Button  onClick="goExternalView" class="buttoncls">ExternalView</Button>	    	
-		<Button id="btnNext" onClick="goUploadTester"  bottom="90" right="0" width="Ti.UI.SIZE" height="Ti.UI.SIZE">upload</Button>	       	
-		   	
-		-->	       	
-			   		         
-        <ImageView id="image" class="imageView" top="0" width="Ti.UI.FILL" height="Ti.UI.SIZE" image="/images/Mindsmesh_logo_highres.png"/>
-        <Label class="welcomeMessage" top="150" color="black">Welcome to EDU Mesh</Label>
+        </View>
         
         
 
-        
-        
-           	     
-		<Button  onClick="goLogin" class="buttoncls" bottom="45" width="Ti.UI.FILL" height="Ti.UI.SIZE">Login</Button>
-		<Button onClick="goSettings" class="buttoncls" bottom="0" width="Ti.UI.FILL" height="Ti.UI.SIZE">Feed</Button>   	
-	
-        
-  
-        	
+		<Button onClick="goSignup" class="buttoncls" bottom="5%"><Label class="lblcls" color="white">Sign Up For MindsMesh</Label></Button>		
 	</Window>
 </Alloy>
