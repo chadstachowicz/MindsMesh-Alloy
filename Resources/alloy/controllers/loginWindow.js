@@ -32,13 +32,10 @@ function Controller() {
             var response = this.responseText;
             alert(response);
         };
-        "android" == Ti.Platform.osname ? xhr.send(JSON.stringify({
+        xhr.send(JSON.stringify({
             email: email,
             password: password
-        })) : xhr.send({
-            email: email,
-            password: password
-        });
+        }));
     }
     function openFeed() {
         var args = {
