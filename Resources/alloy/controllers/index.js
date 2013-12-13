@@ -46,7 +46,7 @@ function Controller() {
             alert("Login failed, please check credentials and try again.");
             $.activityIndicator.hide();
         };
-        "iphone" == Titanium.Platform.osname || "ipad" == Titanium.Platform.osname ? xhr.send(postData) : xhr.send(JSON.stringify(postData));
+        xhr.send(JSON.stringify(postData));
     }
     function openWindow(windowName, args) {
         var view1 = Alloy.createController(windowName, args);

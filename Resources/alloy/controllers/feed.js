@@ -13,7 +13,7 @@ function Controller() {
     }
     function textAreaClick() {
         Ti.API.info("textAreaClick");
-        $.commentTextArea.bottom = "android" == Ti.Platform.osname ? 10 : 220;
+        $.commentTextArea.bottom = 10;
     }
     function cancelBtnClicked() {
         Ti.API.info("cancel button clicked");
@@ -195,15 +195,9 @@ function Controller() {
         xhr.send();
     }
     function ShowDataByPlatform(postJSON) {
-        if ("iphone" == Ti.Platform.osname) {
-            createTableView(postJSON);
-            $.table.visible = true;
-            Ti.API.info("showing tableview, because of IOS");
-        } else {
-            createListView(postJSON);
-            $.list.visible = true;
-            Ti.API.info("showing listview, because of android");
-        }
+        createListView(postJSON);
+        $.list.visible = true;
+        Ti.API.info("showing listview, because of android");
     }
     function MakeCommentWithCallback(message, callback) {
         if (null != topic_id) var postData = {
@@ -507,7 +501,7 @@ function Controller() {
         __alloyId7.push(__alloyId9);
         var __alloyId6 = {
             properties: {
-                height: 46,
+                height: Ti.UI.SIZE,
                 name: "template1",
                 backgroundColor: "#46a346",
                 width: Ti.UI.FILL
