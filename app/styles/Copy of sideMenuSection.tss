@@ -1,0 +1,7 @@
+".lbl" : {
+	color: '#ffffff',
+	font : {fontSize:16},
+},
+".container" : {
+  
+}

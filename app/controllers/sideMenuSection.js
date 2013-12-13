@@ -1,0 +1,1 @@
+$.tableViewSection.headerTitle = "Classes";

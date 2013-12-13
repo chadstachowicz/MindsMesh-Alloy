@@ -1,0 +1,18 @@
+<Alloy>
+
+	<Window class="container" id="sideMenu" backgroundColor="#252525">
+		<TableView id="menuTableView" backgroundColor='#252525' separatorColor='#000' width='260dp' left="0dp" top="20dp">
+			<TableViewSection id="tableViewMenu" headerTitle="Menu">
+			</TableViewSection>
+			<TableViewSection id="tableViewClasses" headerTitle="Classes">
+			</TableViewSection>
+			<TableViewSection id="tableViewGroups" headerTitle="Groups">
+			</TableViewSection>
+			<TableViewSection id="tableViewSettings" headerTitle="Settings">
+				<TableViewRow id="SettingsRow" height="40dp">
+					<Label onClick="reloadMenu" id="lbl" color="#fff" left="45" textAlign="left">Logout</Label>
+				</TableViewRow>
+			</TableViewSection>
+		</TableView>
+	</Window>
+</Alloy>

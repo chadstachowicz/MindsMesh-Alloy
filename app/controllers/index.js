@@ -26,7 +26,7 @@
 			Titanium.App.Properties.setString("userid",user.id);
 			Titanium.App.Properties.setString("mmat", user.access_token);
 			Titanium.App.Properties.setString("photo_url", user.photo_url);
-			openWindow("feed");
+			goNavigation();
 			
 		};
 		xhr.send();
@@ -41,15 +41,12 @@ function doClick(e) {
 function goLogin(e){
 	$.activityIndicator.show();
 	LoginUser($.email.value.toString(), $.password.value.toString());
-	
-	$.email.blur();
-	$.password.blur();
 }
 
 function goFacebookLogin(e){
 	if (fb.loggedIn==true)
 	{
-		openWindow("feed");
+		openWindow("sideWindow");
 	} else{
 		fb.authorize();
 	}
@@ -58,12 +55,9 @@ function goFacebookLogin(e){
 function goSignup(e){
 	openWindow("sign_up");
 }
-function goFeed(e){
-	openWindow("feed");
-}
-
-function goFeed2(e){
-	openWindow("feed2");
+function goNavigation(){
+//	$.indexWindow.close();
+	openWindow("sideMenu");
 }
 
 function LoginUser(email, password){
@@ -98,8 +92,8 @@ function LoginUser(email, password){
 		Titanium.App.Properties.setString("mmat", user.access_token);
 		Titanium.App.Properties.setString("photo_url", user.photo_url);
 		$.activityIndicator.hide();	
-		openFeed();
-		
+		goNavigation();
+	
 
 
 	};
@@ -117,29 +111,7 @@ function LoginUser(email, password){
 
 }
 
-
-function openFeed(){
-	var args = {
-		data: "test data",
-		value: "other data"
-	};
-	
-	var feed = Alloy.createController("feed", args);
-	
-	feed.getView().open();
-	
-}
-
-function openWindow(windowName){
-	var args = {
-		data: "test data",
-		value: "other data"
-	};
-	
-	//$.indexWindow.close();
-	//$.indexWindow = null;
-	
-	
+function openWindow(windowName, args){
 
 	var view1 = Alloy.createController(windowName, args);
 	view1.getView().open();
@@ -149,11 +121,6 @@ function openWindow(windowName){
 	
 }
 
-
-
-
-
-//alert("index opened");
 
 $.indexWindow.addEventListener('click', function(e){
 	if (e.source.keyb != true)

@@ -1,4 +1,5 @@
 <Alloy>
+
     <Window id="feed" class="container" formFactor="handheld" width="Ti.UI.FILL">
     	
         <!--shows for iphone -->
@@ -82,6 +83,11 @@
            
     </Window>
 </Alloy>
+
+
+
+
+
 
 
 

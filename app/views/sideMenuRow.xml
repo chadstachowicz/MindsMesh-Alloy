@@ -1,0 +1,6 @@
+<Alloy>
+	<TableViewRow id="ClassesRow" height="40dp">
+		<Label id="lblMenu" color="#fff" left="45" textAlign="left"></Label>
+		<ImageView id="imgIcon" left="4dp" height="32dp" image="/images/emblem_library.png" width="32dp"></ImageView>
+	</TableViewRow>
+</Alloy>

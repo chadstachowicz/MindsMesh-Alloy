@@ -44,12 +44,12 @@ function Controller() {
         height: "550"
     });
     $.__views.win.add($.__views.image);
-    $.__views.__alloyId1 = Ti.UI.createLabel({
+    $.__views.__alloyId2 = Ti.UI.createLabel({
         text: "compass page",
         top: "0",
-        id: "__alloyId1"
+        id: "__alloyId2"
     });
-    $.__views.win.add($.__views.__alloyId1);
+    $.__views.win.add($.__views.__alloyId2);
     $.__views.headingTextField = Ti.UI.createTextField({
         font: {
             fontSize: 24,

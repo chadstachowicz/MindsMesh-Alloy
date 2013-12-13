@@ -1,0 +1,28 @@
+<Alloy>
+
+	<Window class="container" id="sideMenu" backgroundColor="#252525" zIndex="-5">
+		<TableView id="menuTableView" backgroundColor='#252525' separatorColor='#000' width='260dp' left="0dp" top="20dp">
+			<TableViewSection id="tableViewMenu" headerTitle="Menu">
+				<TableViewRow id="feedRow" height="40dp" onClick="goFeed">
+					<ImageView id="feedImg" left="4dp" height="32dp" width="32dp"></ImageView>
+					<Label id="feedLbl" color="#e2e7ed" left="45dp" textAlign="left">Campus Feed</Label>
+				</TableViewRow>
+			</TableViewSection>
+			<TableViewSection id="tableViewClasses" headerTitle="Classes">
+			</TableViewSection>
+			<TableViewSection id="tableViewGroups" headerTitle="Groups">
+			</TableViewSection>
+			<TableViewSection id="tableViewSettings" headerTitle="Settings">
+				<TableViewRow id="ReloadRow" height="40dp" onClick="reloadMenu">
+					<ImageView id="reloadImg" image="/images/gtk_refresh.png" left="4dp" height="32dp" width="32dp"></ImageView>
+					<Label id="lbl" color="#e2e7ed" left="45dp" textAlign="left">Reload Menu</Label>
+				</TableViewRow>
+				<TableViewRow id="LogoutRow" height="40dp" onClick="logout">
+					<ImageView id="logoutImg" image="/images/exit.png" left="4dp" height="32dp" width="32dp"></ImageView>
+					<Label id="lbl" color="#e2e7ed" left="45dp" textAlign="left">Logout</Label>
+				</TableViewRow>
+			</TableViewSection>
+		</TableView>
+	</Window>
+
+</Alloy>

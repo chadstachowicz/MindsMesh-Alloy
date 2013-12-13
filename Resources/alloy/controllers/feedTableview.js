@@ -59,12 +59,12 @@ function Controller() {
         id: "platformLabel"
     });
     $.__views.feedTableview.add($.__views.platformLabel);
-    $.__views.__alloyId38 = Ti.UI.createLabel({
+    $.__views.__alloyId39 = Ti.UI.createLabel({
         text: "tableview for ios",
         left: "50",
-        id: "__alloyId38"
+        id: "__alloyId39"
     });
-    $.__views.feedTableview.add($.__views.__alloyId38);
+    $.__views.feedTableview.add($.__views.__alloyId39);
     exports.destroy = function() {};
     _.extend($, $.__views);
     GetTableViewFeedPosts();

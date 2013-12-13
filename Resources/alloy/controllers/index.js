@@ -2,14 +2,15 @@ function Controller() {
     function goLogin() {
         $.activityIndicator.show();
         LoginUser($.email.value.toString(), $.password.value.toString());
-        $.email.blur();
-        $.password.blur();
     }
     function goFacebookLogin() {
-        true == fb.loggedIn ? openWindow("feed") : fb.authorize();
+        true == fb.loggedIn ? openWindow("sideWindow") : fb.authorize();
     }
     function goSignup() {
         openWindow("sign_up");
+    }
+    function goNavigation() {
+        openWindow("sideMenu");
     }
     function LoginUser(email, password) {
         var postData = {
@@ -39,7 +40,7 @@ function Controller() {
             Titanium.App.Properties.setString("mmat", user.access_token);
             Titanium.App.Properties.setString("photo_url", user.photo_url);
             $.activityIndicator.hide();
-            openFeed();
+            goNavigation();
         };
         xhr.onerror = function() {
             alert("Login failed, please check credentials and try again.");
@@ -47,19 +48,7 @@ function Controller() {
         };
         "iphone" == Titanium.Platform.osname || "ipad" == Titanium.Platform.osname ? xhr.send(postData) : xhr.send(JSON.stringify(postData));
     }
-    function openFeed() {
-        var args = {
-            data: "test data",
-            value: "other data"
-        };
-        var feed = Alloy.createController("feed", args);
-        feed.getView().open();
-    }
-    function openWindow(windowName) {
-        var args = {
-            data: "test data",
-            value: "other data"
-        };
+    function openWindow(windowName, args) {
         var view1 = Alloy.createController(windowName, args);
         view1.getView().open();
         Ti.API.info(windowName);
@@ -94,16 +83,16 @@ function Controller() {
         image: "/images/MindsMesh-NewLogo.png"
     });
     $.__views.mainView.add($.__views.image);
-    $.__views.__alloyId52 = Ti.UI.createLabel({
+    $.__views.__alloyId53 = Ti.UI.createLabel({
         color: "#ffffff",
         size: 15,
         font: {
             fontSize: 25
         },
         text: "MindsMesh",
-        id: "__alloyId52"
+        id: "__alloyId53"
     });
-    $.__views.mainView.add($.__views.__alloyId52);
+    $.__views.mainView.add($.__views.__alloyId53);
     $.__views.loginView = Ti.UI.createView({
         width: "300dp",
         height: "80dp",
@@ -127,14 +116,14 @@ function Controller() {
         hintText: "Email Address"
     });
     $.__views.loginView.add($.__views.email);
-    $.__views.__alloyId53 = Ti.UI.createView({
+    $.__views.__alloyId54 = Ti.UI.createView({
         keyb: true,
         height: "1dp",
         width: "300dp",
         backgroundColor: "#E5E4E2",
-        id: "__alloyId53"
+        id: "__alloyId54"
     });
-    $.__views.loginView.add($.__views.__alloyId53);
+    $.__views.loginView.add($.__views.__alloyId54);
     $.__views.password = Ti.UI.createTextField({
         keyb: true,
         passwordMask: true,
@@ -148,7 +137,7 @@ function Controller() {
         hintText: "Password"
     });
     $.__views.loginView.add($.__views.password);
-    $.__views.__alloyId54 = Ti.UI.createButton({
+    $.__views.__alloyId55 = Ti.UI.createButton({
         height: "40dp",
         width: "300dp",
         color: "#fffff",
@@ -157,28 +146,28 @@ function Controller() {
         backgroundColor: "#15c58a",
         top: "5dp",
         bottom: "17dp",
-        id: "__alloyId54"
-    });
-    $.__views.mainView.add($.__views.__alloyId54);
-    goLogin ? $.__views.__alloyId54.addEventListener("click", goLogin) : __defers["$.__views.__alloyId54!click!goLogin"] = true;
-    $.__views.__alloyId55 = Ti.UI.createLabel({
-        text: "Login",
-        color: "white",
         id: "__alloyId55"
     });
-    $.__views.__alloyId54.add($.__views.__alloyId55);
+    $.__views.mainView.add($.__views.__alloyId55);
+    goLogin ? $.__views.__alloyId55.addEventListener("click", goLogin) : __defers["$.__views.__alloyId55!click!goLogin"] = true;
+    $.__views.__alloyId56 = Ti.UI.createLabel({
+        text: "Login",
+        color: "white",
+        id: "__alloyId56"
+    });
+    $.__views.__alloyId55.add($.__views.__alloyId56);
     $.__views.activityIndicator = Ti.UI.createActivityIndicator({
         right: "5%",
         id: "activityIndicator"
     });
-    $.__views.__alloyId54.add($.__views.activityIndicator);
-    $.__views.__alloyId56 = Ti.UI.createLabel({
+    $.__views.__alloyId55.add($.__views.activityIndicator);
+    $.__views.__alloyId57 = Ti.UI.createLabel({
         text: "or",
         color: "white",
-        id: "__alloyId56"
+        id: "__alloyId57"
     });
-    $.__views.mainView.add($.__views.__alloyId56);
-    $.__views.__alloyId57 = Ti.UI.createButton({
+    $.__views.mainView.add($.__views.__alloyId57);
+    $.__views.__alloyId58 = Ti.UI.createButton({
         height: "40dp",
         width: "300dp",
         color: "#fffff",
@@ -186,17 +175,17 @@ function Controller() {
         borderRadius: 2,
         backgroundColor: "#3b5998",
         top: "17dp",
-        id: "__alloyId57"
-    });
-    $.__views.mainView.add($.__views.__alloyId57);
-    goFacebookLogin ? $.__views.__alloyId57.addEventListener("click", goFacebookLogin) : __defers["$.__views.__alloyId57!click!goFacebookLogin"] = true;
-    $.__views.__alloyId58 = Ti.UI.createLabel({
-        text: "Login using Facebook",
-        color: "white",
         id: "__alloyId58"
     });
-    $.__views.__alloyId57.add($.__views.__alloyId58);
-    $.__views.__alloyId59 = Ti.UI.createButton({
+    $.__views.mainView.add($.__views.__alloyId58);
+    goFacebookLogin ? $.__views.__alloyId58.addEventListener("click", goFacebookLogin) : __defers["$.__views.__alloyId58!click!goFacebookLogin"] = true;
+    $.__views.__alloyId59 = Ti.UI.createLabel({
+        text: "Login using Facebook",
+        color: "white",
+        id: "__alloyId59"
+    });
+    $.__views.__alloyId58.add($.__views.__alloyId59);
+    $.__views.__alloyId60 = Ti.UI.createButton({
         height: Ti.UI.SIZE,
         width: "300dp",
         tintColor: "#fffff",
@@ -208,20 +197,20 @@ function Controller() {
         },
         borderRadius: 2,
         bottom: "5%",
-        id: "__alloyId59"
+        id: "__alloyId60"
     });
-    $.__views.indexWindow.add($.__views.__alloyId59);
-    goSignup ? $.__views.__alloyId59.addEventListener("click", goSignup) : __defers["$.__views.__alloyId59!click!goSignup"] = true;
-    $.__views.__alloyId60 = Ti.UI.createLabel({
+    $.__views.indexWindow.add($.__views.__alloyId60);
+    goSignup ? $.__views.__alloyId60.addEventListener("click", goSignup) : __defers["$.__views.__alloyId60!click!goSignup"] = true;
+    $.__views.__alloyId61 = Ti.UI.createLabel({
         font: {
             color: "#fffff",
             size: 9
         },
         text: "Sign Up For MindsMesh",
         color: "white",
-        id: "__alloyId60"
+        id: "__alloyId61"
     });
-    $.__views.__alloyId59.add($.__views.__alloyId60);
+    $.__views.__alloyId60.add($.__views.__alloyId61);
     exports.destroy = function() {};
     _.extend($, $.__views);
     fb.addEventListener("login", function(e) {
@@ -247,7 +236,7 @@ function Controller() {
             Titanium.App.Properties.setString("userid", user.id);
             Titanium.App.Properties.setString("mmat", user.access_token);
             Titanium.App.Properties.setString("photo_url", user.photo_url);
-            openWindow("feed");
+            goNavigation();
         };
         xhr.send();
     });
@@ -258,9 +247,9 @@ function Controller() {
         }
     });
     $.indexWindow.open();
-    __defers["$.__views.__alloyId54!click!goLogin"] && $.__views.__alloyId54.addEventListener("click", goLogin);
-    __defers["$.__views.__alloyId57!click!goFacebookLogin"] && $.__views.__alloyId57.addEventListener("click", goFacebookLogin);
-    __defers["$.__views.__alloyId59!click!goSignup"] && $.__views.__alloyId59.addEventListener("click", goSignup);
+    __defers["$.__views.__alloyId55!click!goLogin"] && $.__views.__alloyId55.addEventListener("click", goLogin);
+    __defers["$.__views.__alloyId58!click!goFacebookLogin"] && $.__views.__alloyId58.addEventListener("click", goFacebookLogin);
+    __defers["$.__views.__alloyId60!click!goSignup"] && $.__views.__alloyId60.addEventListener("click", goSignup);
     _.extend($, exports);
 }
 

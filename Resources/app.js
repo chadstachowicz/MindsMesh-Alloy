@@ -6,6 +6,8 @@ Ti.include("api/api.js");
 
 Ti.include("api/utility.js");
 
+var Cloud = require("ti.cloud");
+
 var AWS = require("api/amazon").load();
 
 var fb = require("facebook");

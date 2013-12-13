@@ -330,17 +330,17 @@ function Controller() {
         $.__views.ptr.setParent($.__views.table);
         refreshTableView ? $.__views.ptr.on("release", refreshTableView) : __defers["$.__views.ptr!release!refreshTableView"] = true;
         tableViewHandleClick ? $.__views.table.addEventListener("click", tableViewHandleClick) : __defers["$.__views.table!click!tableViewHandleClick"] = true;
-        var __alloyId4 = {};
-        var __alloyId6 = [];
-        var __alloyId8 = {
+        var __alloyId5 = {};
+        var __alloyId7 = [];
+        var __alloyId9 = {
             type: "Ti.UI.View",
             childTemplates: function() {
-                var __alloyId9 = [];
-                var __alloyId11 = {
+                var __alloyId10 = [];
+                var __alloyId12 = {
                     type: "Ti.UI.View",
                     childTemplates: function() {
-                        var __alloyId12 = [];
-                        var __alloyId13 = {
+                        var __alloyId13 = [];
+                        var __alloyId14 = {
                             type: "Ti.UI.ImageView",
                             bindId: "pic",
                             properties: {
@@ -350,12 +350,12 @@ function Controller() {
                                 bindId: "pic"
                             }
                         };
-                        __alloyId12.push(__alloyId13);
-                        var __alloyId15 = {
+                        __alloyId13.push(__alloyId14);
+                        var __alloyId16 = {
                             type: "Ti.UI.View",
                             childTemplates: function() {
-                                var __alloyId16 = [];
-                                var __alloyId17 = {
+                                var __alloyId17 = [];
+                                var __alloyId18 = {
                                     type: "Ti.UI.Label",
                                     bindId: "nameLabel",
                                     properties: {
@@ -366,8 +366,8 @@ function Controller() {
                                         bindId: "nameLabel"
                                     }
                                 };
-                                __alloyId16.push(__alloyId17);
-                                var __alloyId18 = {
+                                __alloyId17.push(__alloyId18);
+                                var __alloyId19 = {
                                     type: "Ti.UI.Label",
                                     bindId: "dateLabel",
                                     properties: {
@@ -381,8 +381,8 @@ function Controller() {
                                         bindId: "dateLabel"
                                     }
                                 };
-                                __alloyId16.push(__alloyId18);
-                                return __alloyId16;
+                                __alloyId17.push(__alloyId19);
+                                return __alloyId17;
                             }(),
                             properties: {
                                 width: Ti.UI.FILL,
@@ -390,8 +390,8 @@ function Controller() {
                                 layout: "vertical"
                             }
                         };
-                        __alloyId12.push(__alloyId15);
-                        return __alloyId12;
+                        __alloyId13.push(__alloyId16);
+                        return __alloyId13;
                     }(),
                     properties: {
                         layout: "horizontal",
@@ -399,8 +399,8 @@ function Controller() {
                         backgroundColor: "#eeeeee"
                     }
                 };
-                __alloyId9.push(__alloyId11);
-                var __alloyId19 = {
+                __alloyId10.push(__alloyId12);
+                var __alloyId20 = {
                     type: "Ti.UI.Label",
                     bindId: "textLabel",
                     properties: {
@@ -416,20 +416,20 @@ function Controller() {
                         bindId: "textLabel"
                     }
                 };
-                __alloyId9.push(__alloyId19);
-                var __alloyId20 = {
+                __alloyId10.push(__alloyId20);
+                var __alloyId21 = {
                     type: "Ti.UI.ImageView",
                     bindId: "postAttachmentImage",
                     properties: {
                         bindId: "postAttachmentImage"
                     }
                 };
-                __alloyId9.push(__alloyId20);
-                var __alloyId22 = {
+                __alloyId10.push(__alloyId21);
+                var __alloyId23 = {
                     type: "Ti.UI.View",
                     childTemplates: function() {
-                        var __alloyId23 = [];
-                        var __alloyId24 = {
+                        var __alloyId24 = [];
+                        var __alloyId25 = {
                             type: "Ti.UI.ImageView",
                             bindId: "extAttachmentImage",
                             properties: {
@@ -438,16 +438,16 @@ function Controller() {
                                 bottom: "2"
                             }
                         };
-                        __alloyId23.push(__alloyId24);
-                        var __alloyId26 = {
+                        __alloyId24.push(__alloyId25);
+                        var __alloyId27 = {
                             type: "Ti.UI.ImageView",
                             properties: {
                                 image: "/images/comment_32.png",
                                 right: "5"
                             }
                         };
-                        __alloyId23.push(__alloyId26);
-                        var __alloyId27 = {
+                        __alloyId24.push(__alloyId27);
+                        var __alloyId28 = {
                             type: "Ti.UI.Label",
                             bindId: "commentCountLabel",
                             properties: {
@@ -457,16 +457,16 @@ function Controller() {
                                 bottom: "10"
                             }
                         };
-                        __alloyId23.push(__alloyId27);
-                        return __alloyId23;
+                        __alloyId24.push(__alloyId28);
+                        return __alloyId24;
                     }(),
                     properties: {
                         backgroundColor: "#eeeeee",
                         width: Ti.UI.FILL
                     }
                 };
-                __alloyId9.push(__alloyId22);
-                var __alloyId28 = {
+                __alloyId10.push(__alloyId23);
+                var __alloyId29 = {
                     type: "Ti.UI.Label",
                     bindId: "dataLabel",
                     properties: {
@@ -476,17 +476,17 @@ function Controller() {
                         height: "0"
                     }
                 };
-                __alloyId9.push(__alloyId28);
-                var __alloyId30 = {
+                __alloyId10.push(__alloyId29);
+                var __alloyId31 = {
                     type: "Ti.UI.View",
                     childTemplates: function() {
-                        var __alloyId31 = [];
-                        var __alloyId33 = {
+                        var __alloyId32 = [];
+                        var __alloyId34 = {
                             type: "Ti.UI.Label",
                             properties: {}
                         };
-                        __alloyId31.push(__alloyId33);
-                        return __alloyId31;
+                        __alloyId32.push(__alloyId34);
+                        return __alloyId32;
                     }(),
                     properties: {
                         backgroundColor: "#46a346",
@@ -494,8 +494,8 @@ function Controller() {
                         height: 15
                     }
                 };
-                __alloyId9.push(__alloyId30);
-                return __alloyId9;
+                __alloyId10.push(__alloyId31);
+                return __alloyId10;
             }(),
             properties: {
                 layout: "vertical",
@@ -504,8 +504,8 @@ function Controller() {
                 backgroundColor: "white"
             }
         };
-        __alloyId6.push(__alloyId8);
-        var __alloyId5 = {
+        __alloyId7.push(__alloyId9);
+        var __alloyId6 = {
             properties: {
                 height: 46,
                 name: "template1",
@@ -515,28 +515,28 @@ function Controller() {
             events: {
                 click: listViewItemClick
             },
-            childTemplates: __alloyId6
+            childTemplates: __alloyId7
         };
-        __alloyId4["template1"] = __alloyId5;
-        var __alloyId34 = [];
-        var __alloyId36 = [];
-        $.__views.__alloyId37 = {
+        __alloyId5["template1"] = __alloyId6;
+        var __alloyId35 = [];
+        var __alloyId37 = [];
+        $.__views.__alloyId38 = {
             template: "template1",
             properties: {
                 width: Ti.UI.FILL,
-                id: "__alloyId37"
+                id: "__alloyId38"
             }
         };
-        __alloyId36.push($.__views.__alloyId37);
+        __alloyId37.push($.__views.__alloyId38);
         $.__views.section = Ti.UI.createListSection({
             id: "section",
             width: Ti.UI.FILL
         });
-        __alloyId34.push($.__views.section);
-        $.__views.section.items = __alloyId36;
+        __alloyId35.push($.__views.section);
+        $.__views.section.items = __alloyId37;
         $.__views.list = Ti.UI.createListView({
-            sections: __alloyId34,
-            templates: __alloyId4,
+            sections: __alloyId35,
+            templates: __alloyId5,
             id: "list",
             backgroundColor: "#46a346",
             separatorColor: "transparent",
