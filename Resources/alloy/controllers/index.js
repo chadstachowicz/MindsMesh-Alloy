@@ -46,7 +46,7 @@ function Controller() {
             alert("Login failed, please check credentials and try again.");
             $.activityIndicator.hide();
         };
-        xhr.send(JSON.stringify(postData));
+        "iphone" == Titanium.Platform.osname || "ipad" == Titanium.Platform.osname ? xhr.send(postData) : xhr.send(JSON.stringify(postData));
     }
     function openWindow(windowName, args) {
         var view1 = Alloy.createController(windowName, args);
@@ -246,7 +246,7 @@ function Controller() {
             $.password.blur();
         }
     });
-    $.indexWindow.open();
+    "true" != Titanium.App.Properties.getString("logged_in") || fb.LoggedIn ? "false" == Titanium.App.Properties.getString("logged_in") && $.indexWindow.open() : goNavigation();
     __defers["$.__views.__alloyId55!click!goLogin"] && $.__views.__alloyId55.addEventListener("click", goLogin);
     __defers["$.__views.__alloyId58!click!goFacebookLogin"] && $.__views.__alloyId58.addEventListener("click", goFacebookLogin);
     __defers["$.__views.__alloyId60!click!goSignup"] && $.__views.__alloyId60.addEventListener("click", goSignup);

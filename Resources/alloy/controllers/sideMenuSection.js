@@ -12,7 +12,8 @@ function Controller() {
     $.__views.tableViewSection && $.addTopLevelView($.__views.tableViewSection);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    $.tableViewSection.headerTitle = "Classes";
+    var args = arguments[0] || {};
+    $.tableViewSection.headerTitle = args;
     _.extend($, exports);
 }
 

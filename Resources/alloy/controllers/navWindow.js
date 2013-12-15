@@ -6,15 +6,16 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
-    $.__views.__alloyId63 = Ti.UI.createWindow({
+    $.__views.__alloyId65 = Ti.UI.createWindow({
         backgroundColor: "#FFF",
         barColor: "#15B17A",
         navTintColor: "#ffffff",
         translucent: "false",
-        id: "__alloyId63"
+        id: "__alloyId65"
     });
     $.__views.navWindow = Ti.UI.iOS.createNavigationWindow({
-        window: $.__views.__alloyId63,
+        width: Titanium.Platform.displayCaps.platformWidth,
+        window: $.__views.__alloyId65,
         id: "navWindow"
     });
     $.__views.navWindow && $.addTopLevelView($.__views.navWindow);

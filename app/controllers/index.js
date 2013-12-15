@@ -91,7 +91,7 @@ function LoginUser(email, password){
 		Titanium.App.Properties.setString("userid",user.id);
 		Titanium.App.Properties.setString("mmat", user.access_token);
 		Titanium.App.Properties.setString("photo_url", user.photo_url);
-		$.activityIndicator.hide();	
+		$.activityIndicator.hide();
 		goNavigation();
 	
 
@@ -129,7 +129,11 @@ $.indexWindow.addEventListener('click', function(e){
 		$.password.blur();	
 	}
 });
-$.indexWindow.open();
+if (Titanium.App.Properties.getString("logged_in")=="true" && !fb.LoggedIn){
+	goNavigation();
+} else if (Titanium.App.Properties.getString("logged_in")=="false"){
+	$.indexWindow.open();
+}
 
 
 

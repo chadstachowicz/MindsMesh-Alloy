@@ -106,14 +106,14 @@ function Controller() {
         hintText: "Full Name"
     });
     $.__views.loginView.add($.__views.name);
-    $.__views.__alloyId72 = Ti.UI.createView({
+    $.__views.__alloyId89 = Ti.UI.createView({
         keyb: true,
         height: "1dp",
         width: "300dp",
         backgroundColor: "#E5E4E2",
-        id: "__alloyId72"
+        id: "__alloyId89"
     });
-    $.__views.loginView.add($.__views.__alloyId72);
+    $.__views.loginView.add($.__views.__alloyId89);
     $.__views.email = Ti.UI.createTextField({
         keyb: true,
         id: "email",
@@ -126,14 +126,14 @@ function Controller() {
         hintText: "Email Address"
     });
     $.__views.loginView.add($.__views.email);
-    $.__views.__alloyId73 = Ti.UI.createView({
+    $.__views.__alloyId90 = Ti.UI.createView({
         keyb: true,
         height: "1dp",
         width: "300dp",
         backgroundColor: "#E5E4E2",
-        id: "__alloyId73"
+        id: "__alloyId90"
     });
-    $.__views.loginView.add($.__views.__alloyId73);
+    $.__views.loginView.add($.__views.__alloyId90);
     $.__views.password = Ti.UI.createTextField({
         keyb: true,
         passwordMask: true,
@@ -147,14 +147,14 @@ function Controller() {
         hintText: "Password"
     });
     $.__views.loginView.add($.__views.password);
-    $.__views.__alloyId74 = Ti.UI.createView({
+    $.__views.__alloyId91 = Ti.UI.createView({
         keyb: true,
         height: "1dp",
         width: "300dp",
         backgroundColor: "#E5E4E2",
-        id: "__alloyId74"
+        id: "__alloyId91"
     });
-    $.__views.loginView.add($.__views.__alloyId74);
+    $.__views.loginView.add($.__views.__alloyId91);
     $.__views.confirm_password = Ti.UI.createTextField({
         keyb: true,
         passwordMask: true,
@@ -168,7 +168,7 @@ function Controller() {
         hintText: "Confirm Password"
     });
     $.__views.loginView.add($.__views.confirm_password);
-    $.__views.__alloyId75 = Ti.UI.createButton({
+    $.__views.__alloyId92 = Ti.UI.createButton({
         height: "40dp",
         width: "300dp",
         color: "#fffff",
@@ -177,22 +177,22 @@ function Controller() {
         backgroundColor: "#f99965",
         top: "5dp",
         bottom: "17dp",
-        id: "__alloyId75"
+        id: "__alloyId92"
     });
-    $.__views.mainView.add($.__views.__alloyId75);
-    finSignup ? $.__views.__alloyId75.addEventListener("click", finSignup) : __defers["$.__views.__alloyId75!click!finSignup"] = true;
-    $.__views.__alloyId76 = Ti.UI.createLabel({
+    $.__views.mainView.add($.__views.__alloyId92);
+    finSignup ? $.__views.__alloyId92.addEventListener("click", finSignup) : __defers["$.__views.__alloyId92!click!finSignup"] = true;
+    $.__views.__alloyId93 = Ti.UI.createLabel({
         text: "Finish Signup",
         color: "white",
-        id: "__alloyId76"
+        id: "__alloyId93"
     });
-    $.__views.__alloyId75.add($.__views.__alloyId76);
+    $.__views.__alloyId92.add($.__views.__alloyId93);
     $.__views.activityIndicator = Ti.UI.createActivityIndicator({
         right: "5%",
         id: "activityIndicator"
     });
-    $.__views.__alloyId75.add($.__views.activityIndicator);
-    $.__views.__alloyId77 = Ti.UI.createButton({
+    $.__views.__alloyId92.add($.__views.activityIndicator);
+    $.__views.__alloyId94 = Ti.UI.createButton({
         height: Ti.UI.SIZE,
         width: "300dp",
         tintColor: "#fffff",
@@ -204,20 +204,20 @@ function Controller() {
         },
         borderRadius: 2,
         bottom: "5%",
-        id: "__alloyId77"
+        id: "__alloyId94"
     });
-    $.__views.signupWindow.add($.__views.__alloyId77);
-    closeWindow ? $.__views.__alloyId77.addEventListener("click", closeWindow) : __defers["$.__views.__alloyId77!click!closeWindow"] = true;
-    $.__views.__alloyId78 = Ti.UI.createLabel({
+    $.__views.signupWindow.add($.__views.__alloyId94);
+    closeWindow ? $.__views.__alloyId94.addEventListener("click", closeWindow) : __defers["$.__views.__alloyId94!click!closeWindow"] = true;
+    $.__views.__alloyId95 = Ti.UI.createLabel({
         font: {
             color: "#fffff",
             size: 9
         },
         text: "Back to Login",
         color: "white",
-        id: "__alloyId78"
+        id: "__alloyId95"
     });
-    $.__views.__alloyId77.add($.__views.__alloyId78);
+    $.__views.__alloyId94.add($.__views.__alloyId95);
     exports.destroy = function() {};
     _.extend($, $.__views);
     fb.addEventListener("login", function(e) {
@@ -254,8 +254,8 @@ function Controller() {
         }
     });
     $.indexWindow.open();
-    __defers["$.__views.__alloyId75!click!finSignup"] && $.__views.__alloyId75.addEventListener("click", finSignup);
-    __defers["$.__views.__alloyId77!click!closeWindow"] && $.__views.__alloyId77.addEventListener("click", closeWindow);
+    __defers["$.__views.__alloyId92!click!finSignup"] && $.__views.__alloyId92.addEventListener("click", finSignup);
+    __defers["$.__views.__alloyId94!click!closeWindow"] && $.__views.__alloyId94.addEventListener("click", closeWindow);
     _.extend($, exports);
 }
 

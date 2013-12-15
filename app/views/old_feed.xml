@@ -1,4 +1,31 @@
 <Alloy>
-    		<Window id="old_feed" barColor='#15B17A' navTintColor="#ffffff" translucent="false">    
-    		</Window>
+   <Window id="old_feed" barColor='#15B17A' navTintColor="#ffffff" translucent="false">
+   	<LeftNavButton>
+   		<Button id="menuButton" image='/images/Paragraph-Justify.png' height="30dp" width="30dp" toggle="false"></Button>
+    </LeftNavButton>
+   	   <View id="photoView" zIndex="0" backgroundColor="black" opacity="1" height="100%" width="100%">
+   	   	<View backgroundColor="white" height="45dp" bottom="205dp" width="100%">
+   	   		<Button left="10">Cancel</Button>
+   	   		<Button right="10">Ready</Button>
+   	   	</View>
+    	<Picker id="photoOptions" bottom="0dp" height="150dp" selectionIndicator="true" useSpinner="true">
+            <PickerColumn  backgroundColor='#252525' id="CameraOptionsColumns">
+                <PickerRow title="Choose Existing Photo"/>
+                <PickerRow title="Take New Photo"/>
+            </PickerColumn>
+        </Picker> 
+      </View>
+      <View id="videoView" backgroundColor="black" opacity="1" height="100%" width="100%">
+   	   	<View backgroundColor="white" height="45dp" bottom="200" width="100%">
+   	   		<Button left="10">Cancel</Button>
+   	   		<Button right="10">Done</Button>
+   	   	</View>
+    	<Picker id="videoOptions" bottom="0dp" height="150dp" selectionIndicator="true" useSpinner="true">
+            <PickerColumn  backgroundColor='#252525' id="CameraOptionsColumns">
+                <PickerRow title="Choose Existing Video"/>
+                <PickerRow title="Take New Video"/>
+            </PickerColumn>
+        </Picker> 
+      </View>
+    </Window>
 </Alloy>

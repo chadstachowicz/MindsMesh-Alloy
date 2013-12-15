@@ -6,6 +6,7 @@
     <property name="acs-oauth-secret-development" type="string">fSP4bihoPeGeoxoMQjtmnQcNCA80D3nt</property>
     <property name="acs-oauth-key-development" type="string">Yn6jnoTkQqodX1rYb36u0wFRFJeqzvWK</property>
     <property name="acs-api-key-development" type="string">jtCj6PI5fpLLcVaGvGZ5ooeLYyi5lHCV</property>
+    <property name="production" type="string">false</property>
     <deployment-targets>
         <target device="tizen">false</target>
         <target device="mobileweb">false</target>

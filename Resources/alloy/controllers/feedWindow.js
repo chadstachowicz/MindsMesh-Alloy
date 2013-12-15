@@ -57,7 +57,7 @@ function Controller() {
         __alloyId44.push(__alloyId46);
         var __alloyId43 = {
             properties: {
-                height: Ti.UI.SIZE,
+                height: "56dp",
                 name: "template1"
             },
             childTemplates: __alloyId44

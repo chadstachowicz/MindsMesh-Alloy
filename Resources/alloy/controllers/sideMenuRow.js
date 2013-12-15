@@ -1,4 +1,41 @@
 function Controller() {
+    function goTopic() {
+        var feed = Alloy.createController("old_feed", {
+            topic_id: $.ClassesRow.topic_id,
+            moodle: $.ClassesRow.moodle
+        }).getView();
+        var navAnimate = Ti.UI.createAnimation({
+            left: 0,
+            duration: 75,
+            curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+        });
+        Alloy.CFG.navwindow.animate(navAnimate);
+        Alloy.CFG.navwindow.closeWindow(Ti.App.myCurrentWindow, {
+            animated: false
+        });
+        Alloy.CFG.navwindow.openWindow(feed, {
+            animated: false
+        });
+    }
+    function goGroup() {
+        var feed = Alloy.createController("old_feed", {
+            group_id: $.ClassesRow.group_id,
+            moodle: $.ClassesRow.moodle
+        }).getView();
+        feed.group_id = $.ClassesRow.group_id;
+        var navAnimate = Ti.UI.createAnimation({
+            left: 0,
+            duration: 75,
+            curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+        });
+        Alloy.CFG.navwindow.animate(navAnimate);
+        Alloy.CFG.navwindow.closeWindow(Ti.App.myCurrentWindow, {
+            animated: false
+        });
+        Alloy.CFG.navwindow.openWindow(feed, {
+            animated: false
+        });
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "sideMenuRow";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -29,13 +66,18 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     var args = arguments[0] || {};
-    alert(args);
     if (null != args.topic) {
         $.lblMenu.text = args.topic.number;
-        $.ClassesRow.onClick = "goTopic";
+        $.ClassesRow.topic_id = args.topic.id;
+        $.ClassesRow.addEventListener("click", function(e) {
+            goTopic(e);
+        });
     } else {
         $.lblMenu.text = args.group.name;
-        $.ClassesRow.onClick = "goGroup";
+        $.ClassesRow.group_id = args.group.id;
+        $.ClassesRow.addEventListener("click", function(e) {
+            goGroup(e);
+        });
     }
     _.extend($, exports);
 }

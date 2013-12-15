@@ -1,0 +1,10 @@
+<Alloy>
+   <Window id="moodle_account" barColor='#15B17A' navTintColor="#ffffff" translucent="false">
+   	<LeftNavButton>
+   		<Button id="menuButton" image='/images/Paragraph-Justify.png' height="30dp" width="30dp" toggle="false"></Button>
+    </LeftNavButton>
+    <RightNavButton>
+   		<Button id="finishButton" height="30dp" width="30dp">Verify</Button>
+    </RightNavButton>
+    </Window>
+</Alloy>

@@ -4,29 +4,13 @@ var menuEntity = [];
 var menuName = [];
 var groupName = [];
 
+	var navAnimate = Ti.UI.createAnimation({
+            left:0,
+            duration:75,
+            curve:Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+        });
 
-$.menuTableView.addEventListener('click', function(e)
-{
-	if (e.source.id == 1){
-     Titanium.App.fireEvent('nav-menu-button',{data:true, menu_id:1});
-   } else if (e.source.id == 2){
-     Titanium.App.fireEvent('nav-menu-button',{data:true, menu_id:2});
-   } else if (e.source.id == 4){
-     Titanium.App.fireEvent('nav-menu-button',{data:true, menu_id:4});
-   } else if (e.source.id == 5){
-     Titanium.App.fireEvent('nav-menu-button',{data:true, menu_id:5});
-   } else if (e.source.id == 6){
-     Titanium.App.fireEvent('nav-menu-button',{data:true, menu_id:6});
-   } else if (e.source.id == 7){
-     Titanium.App.fireEvent('nav-menu-button',{data:true, menu_id:7, class_id: e.source.extraData});
-   } else if (e.source.id == 8){
-     Titanium.App.fireEvent('nav-menu-button',{data:true, menu_id:8});
-   } else if (e.source.id == 9){
-     Titanium.App.fireEvent('nav-menu-button',{data:true, menu_id:9});
-   } else if (e.source.id == 10){
-     Titanium.App.fireEvent('nav-menu-button',{data:true, menu_id:10});
-   }
-});
+
 var menuTitles = [];
 function reloadMenu(){
 	$.menuTableView.data = [];
@@ -53,37 +37,13 @@ function reloadMenu(){
 }
 function goFeed(){
 	var feed = Alloy.createController("old_feed", "test").getView();
-//	Titanium.App.fireEvent('nav-menu-button');
-	var navAnimate = Ti.UI.createAnimation({
-            left:0,
-            duration:75,
-            curve:Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
-        });
 	Alloy.CFG.navwindow.animate(navAnimate);
 	Alloy.CFG.navwindow.closeWindow(Ti.App.myCurrentWindow,{animated:false});
 	Alloy.CFG.navwindow.openWindow(feed,{animated:false});
 };
-function goTopic(){
+function goTopic(e){
 	var feed = Alloy.createController("old_feed", "test").getView();
-	feed.topic_id = topic_id;
-//	Titanium.App.fireEvent('nav-menu-button');
-	var navAnimate = Ti.UI.createAnimation({
-            left:0,
-            duration:75,
-            curve:Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
-        });
-	Alloy.CFG.navwindow.animate(navAnimate);
-	Alloy.CFG.navwindow.closeWindow(Ti.App.myCurrentWindow,{animated:false});
-	Alloy.CFG.navwindow.openWindow(feed,{animated:false});
-};
-function goGroup(){
-	var feed = Alloy.createController("old_feed", "test").getView();
-//	Titanium.App.fireEvent('nav-menu-button');
-	var navAnimate = Ti.UI.createAnimation({
-            left:0,
-            duration:75,
-            curve:Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
-        });
+	feed.topic_id = $.ClassesRow.topic_id;
 	Alloy.CFG.navwindow.animate(navAnimate);
 	Alloy.CFG.navwindow.closeWindow(Ti.App.myCurrentWindow,{animated:false});
 	Alloy.CFG.navwindow.openWindow(feed,{animated:false});
@@ -97,7 +57,7 @@ function logout(){
                                 if (ev.index == 0) {
                                 Titanium.App.Properties.setString("logged_in", 'false');
                                 fb.logout();
-                          	 //	openWindow("index");
+                          	 	openWindow("index");
                           	    $.sideMenu.close();
                                 Alloy.CFG.navwindow.close();
                                 Titanium.App.fireEvent('main-win-close');
@@ -124,11 +84,6 @@ Titanium.App.addEventListener('nav-menu-button', function(e)
     var entity_id = menuEntity[entity_id];
     var class_number = menuName[topic_id];
     if(e.data == true){
-        var navAnimate = Ti.UI.createAnimation({
-            left:0,
-            duration:75,
-            curve:Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
-        });
         navAnimate.addEventListener('complete', function(e){
                  if(menu_id == 1)
                  {
@@ -234,6 +189,106 @@ Titanium.App.addEventListener('nav-menu-button', function(e)
        Titanium.App.fireEvent('nav-menu-button-toggle',{toggle:true});
     }
 });
+function moodleAccount(){
+	var moodle_account = Alloy.createController("moodle_account", "test").getView();
+	Alloy.CFG.navwindow.animate(navAnimate);
+	Alloy.CFG.navwindow.closeWindow(Ti.App.myCurrentWindow,{animated:false});
+	Alloy.CFG.navwindow.openWindow(moodle_account,{animated:false});
+}
+function pushNotifications(){
+	if(Titanium.Platform.osname == 'iphone' || Titanium.Platform.osname == 'ipad'){
+        Titanium.Network.registerForPushNotifications({
+                                    types: [
+                                Titanium.Network.NOTIFICATION_TYPE_BADGE,
+                                Titanium.Network.NOTIFICATION_TYPE_ALERT
+                                    ],
+    success:function(e)
+    {
+        var deviceToken = e.deviceToken;
+        Cloud.Users.login({
+            login: 'contact@mindsmesh.com',
+            password: 'password'
+        }, function (e) {
+            if (e.success) {
+        Cloud.PushNotifications.subscribe({
+                        channel: 'alert',
+                        type:'ios',
+                        device_token: deviceToken
+                        }, function (e) {
+                                if (e.success) {
+                                        var env = 'development';
+                                         if(Ti.App.Properties.getString('production')=='true'){
+                                                 env = 'production';
+                                         }
+                                var postData = {'token': deviceToken,
+                                                'model' : escape(Titanium.Platform.model),
+                                                'os': escape(Titanium.Platform.osname),
+                                                'name': escape(Titanium.Platform.model),
+                                                'environment': env};
+                                request = postRegisterDevice(Titanium.App.Properties.getString("mmat"),postData);
+                                request.onload = function()
+                                {
+                
+                                        };
+                                        request.send(postData);
+                                } else {
+                                        alert('Error:\\n' + ((e.error && e.message) || JSON.stringify(e)));
+                                }
+                        });
+            } else {
+              //  alert('Error:\\n' +((e.error && e.message) || JSON.stringify(e)));
+            }
+        });
+        Ti.API.info("Push notification device token is: "+deviceToken);
+        Ti.API.info("Push notification types: "+Titanium.Network.remoteNotificationTypes);
+        Ti.API.info("Push notification enabled: "+Titanium.Network.remoteNotificationsEnabled);
+        },
+                    error:function(e)
+                            {
+                           
+ 
+                            },
+                    callback:function(e)
+                            {
+                                    xhr = getNotification(Titanium.App.Properties.getString("mmat"),e.data.notification_id);
+                                        xhr.onload = function(){
+                                                var response = this.responseText;
+                                                user = JSON.parse(response);
+                                                if(user.target_type=="Topic"){
+                                                        var win1 = Titanium.UI.createWindow({
+                                                                backgroundColor:'#ecfaff',
+                                                                url:'source_both/feed.js',
+                                                                navTintColor: "#ffffff",
+                                                                backgroundColor:"#CDC9C9",
+                                                                statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
+                                                                   translucent: false,
+                                                            navGroup: navGroup,
+                                                            barColor: '#46a546',
+                                                        });
+                                                        win1.topic_id= user.target_id;
+                                                } else {
+                                                var win1 = Titanium.UI.createWindow({  
+                                                    title:'Single Post',
+                                                    url:'source_both/post.js',
+                                                    navTintColor: "#ffffff",
+                                                        statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
+                                                           translucent: false,
+                                                           backgroundColor:"#CDC9C9",
+                                                    barColor: '#46a546',
+                                                    navGroup: navGroup
+                                                });
+                                                win1.postid = user.target_id;
+                                                win1.fullname = user.user.name;
+                                                win1.photo_url = user.user.photo_url;
+                                                }
+                                                navGroup.openWindow(win1,{animated:false});
+                                        };
+                                        xhr.send();
+                            }                
+ 
+                });
+}
+}
 function openWindow(windowName,args){
 
 	var view1 = Alloy.createController(windowName,args).getView();
@@ -245,6 +300,7 @@ function openWindow(windowName,args){
 }
  $.sideMenu.addEventListener('open', function(e){
  	   reloadMenu();
+ 	   pushNotifications();
  	   var navw = Alloy.createController("navWindow", "test");
  	   navw.getView().open();
  	   Alloy.CFG.navwindow = navw.navWindow;

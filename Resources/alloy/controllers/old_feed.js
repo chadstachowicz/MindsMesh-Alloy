@@ -1,4 +1,11 @@
 function Controller() {
+    function goStatus() {
+        var feed = Alloy.createController("new_post", "test").getView();
+        null != args.topic_id ? feed.class_number : null != args.group_id && feed.group_name;
+        Alloy.CFG.navwindow.openWindow(feed, {
+            animated: false
+        });
+    }
     function reloadNotifications() {
         modalTableView.data = [];
         xhr = getNotificationsGrouped(Titanium.App.Properties.getString("mmat"));
@@ -158,7 +165,7 @@ function Controller() {
         tableView.data = row_data;
         lastRow = 0;
         lastRowId = 1;
-        xhr = null != win.topic_id ? getTopicPostsWithFamily(Titanium.App.Properties.getString("mmat"), win.topic_id) : null != win.group_id ? getGroupPostsWithFamily(Titanium.App.Properties.getString("mmat"), win.group_id) : getPostsWithFamily(Titanium.App.Properties.getString("mmat"));
+        xhr = null != args.topic_id ? getTopicPostsWithFamily(Titanium.App.Properties.getString("mmat"), args.topic_id) : null != args.group_id ? getGroupPostsWithFamily(Titanium.App.Properties.getString("mmat"), args.group_id) : getPostsWithFamily(Titanium.App.Properties.getString("mmat"));
         xhr.onload = function() {
             onLoad(this.responseText);
         };
@@ -185,7 +192,7 @@ function Controller() {
         tableView.deleteRow(lastRow, {
             animationStyle: Titanium.UI.iPhone.RowAnimationStyle.NONE
         });
-        xhr = null != win.topic_id ? getTopicPostsWithFamily(Titanium.App.Properties.getString("mmat"), win.topic_id, lastRowId) : null != win.group_id ? getGroupPostsWithFamily(Titanium.App.Properties.getString("mmat"), win.group_id, lastRowId) : getPostsWithFamily(Titanium.App.Properties.getString("mmat"), lastRowId);
+        xhr = null != args.topic_id ? getTopicPostsWithFamily(Titanium.App.Properties.getString("mmat"), args.topic_id, lastRowId) : null != args.group_id ? getGroupPostsWithFamily(Titanium.App.Properties.getString("mmat"), args.group_id, lastRowId) : getPostsWithFamily(Titanium.App.Properties.getString("mmat"), lastRowId);
         xhr.onload = function() {
             onLoad(this.responseText);
         };
@@ -258,7 +265,8 @@ function Controller() {
                     height: Ti.UI.SIZE,
                     font: {
                         fontSize: 12
-                    }
+                    },
+                    autoLink: Ti.UI.AUTODETECT_ALL
                 });
                 commentHolder[g] = Ti.UI.createView({
                     backgroundColor: "#fff",
@@ -339,6 +347,7 @@ function Controller() {
                     top: 5,
                     width: comWidth - 60,
                     height: Ti.UI.SIZE,
+                    autoLink: Ti.UI.AUTODETECT_ALL,
                     font: {
                         fontSize: 16
                     }
@@ -430,7 +439,7 @@ function Controller() {
                                 navTintColor: "#ffffff",
                                 statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                                 translucent: false,
-                                barColor: "#46a546",
+                                barColor: "#15B17A",
                                 title: "Video",
                                 orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ]
                             });
@@ -441,18 +450,18 @@ function Controller() {
                                 url: e.source.url,
                                 autoplay: false
                             });
-                            $.navGroup.openWindow(movieModal2, {
+                            Alloy.CFG.navwindow.openWindow(movieModal2, {
                                 animated: false
                             });
                             movieModal2.add(activeMovie);
                             activeMovie.addEventListener("fullscreen", function() {
-                                $.navGroup.close(movieModal2);
+                                Alloy.CFG.navwindow.close(movieModal2);
                             });
                         });
                         playButton.addEventListener("click", function(e) {
                             var movieModal2 = Ti.UI.createWindow({
                                 backgroundColor: "#00000000",
-                                barColor: "#46a546",
+                                barColor: "#15B17A",
                                 navTintColor: "#ffffff",
                                 statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                                 translucent: false,
@@ -466,12 +475,12 @@ function Controller() {
                                 url: e.source.url,
                                 autoplay: false
                             });
-                            $.navGroup.openWindow(movieModal2, {
+                            Alloy.CFG.navwindow.openWindow(movieModal2, {
                                 animated: false
                             });
                             movieModal2.add(activeMovie);
                             activeMovie.addEventListener("fullscreen", function() {
-                                $.navGroup.close(movieModal2);
+                                Alloy.CFG.navwindow.close(movieModal2);
                             });
                         });
                         commentHolder[g].add(movPict);
@@ -489,7 +498,7 @@ function Controller() {
                         imgPic.addEventListener("click", function(e) {
                             var picModal2 = Ti.UI.createWindow({
                                 backgroundColor: "black",
-                                barColor: "#46a546",
+                                barColor: "#15B17A",
                                 navTintColor: "#ffffff",
                                 statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                                 translucent: false,
@@ -499,7 +508,7 @@ function Controller() {
                             var imgPic2 = Titanium.UI.createImageView({
                                 image: e.source.url
                             });
-                            $.navGroup.openWindow(picModal2, {
+                            Alloy.CFG.navwindow.openWindow(picModal2, {
                                 animated: false
                             });
                             picModal2.add(imgPic2);
@@ -566,7 +575,7 @@ function Controller() {
                         movPict.addEventListener("click", function(e) {
                             var movieModal2 = Ti.UI.createWindow({
                                 backgroundColor: "#00000000",
-                                barColor: "#46a546",
+                                barColor: "#15B17A",
                                 title: "Video",
                                 orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ]
                             });
@@ -577,18 +586,18 @@ function Controller() {
                                 url: e.source.url,
                                 autoplay: false
                             });
-                            $.navGroup.openWindow(movieModal2, {
+                            Alloy.CFG.navwindow.openWindow(movieModal2, {
                                 animated: false
                             });
                             movieModal2.add(activeMovie);
                             activeMovie.addEventListener("fullscreen", function() {
-                                $.navGroup.close(movieModal2);
+                                Alloy.CFG.navwindow.close(movieModal2);
                             });
                         });
                         playButton.addEventListener("click", function(e) {
                             var movieModal2 = Ti.UI.createWindow({
                                 backgroundColor: "#00000000",
-                                barColor: "#46a546",
+                                barColor: "#15B17A",
                                 title: "Video",
                                 orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ]
                             });
@@ -599,12 +608,12 @@ function Controller() {
                                 url: e.source.url,
                                 autoplay: false
                             });
-                            $.navGroup.openWindow(movieModal2, {
+                            Alloy.CFG.navwindow.openWindow(movieModal2, {
                                 animated: false
                             });
                             movieModal2.add(activeMovie);
                             activeMovie.addEventListener("fullscreen", function() {
-                                $.navGroup.close(movieModal2);
+                                Alloy.CFG.navwindow.close(movieModal2);
                             });
                         });
                         commentHolder[g].add(movPict);
@@ -622,14 +631,14 @@ function Controller() {
                         imgPic.addEventListener("click", function(e) {
                             var picModal2 = Ti.UI.createWindow({
                                 backgroundColor: "black",
-                                barColor: "#46a546",
+                                barColor: "#15B17A",
                                 title: "Picture",
                                 orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ]
                             });
                             var imgPic2 = Titanium.UI.createImageView({
                                 image: e.source.url
                             });
-                            $.navGroup.openWindow(picModal2, {
+                            Alloy.CFG.navwindow.openWindow(picModal2, {
                                 animated: false
                             });
                             picModal2.add(imgPic2);
@@ -695,15 +704,15 @@ function Controller() {
         if (0 == totalFound.length) alert("No Moodle Course found for this discussion.  Make sure course Numbers between MindsMesh.com and Moodle match exactly, and that you are a part of the class on your schools Moodle."); else if (1 == totalFound.length) {
             var win1 = Titanium.UI.createWindow({
                 url: "moodle_class.js",
-                navGroup: $.navGroup,
+                navGroup: Alloy.CFG.navwindow,
                 navTintColor: "#ffffff",
                 statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                 translucent: false,
                 backgroundColor: "#ecfaff",
-                barColor: "#46a546"
+                barColor: "#15B17A"
             });
             win1.Moodurl = totalURL[0];
-            $.navGroup.openWindow(win1, {
+            Alloy.CFG.navwindow.openWindow(win1, {
                 animated: false
             });
         }
@@ -723,8 +732,120 @@ function Controller() {
         translucent: "false"
     });
     $.__views.old_feed && $.addTopLevelView($.__views.old_feed);
+    $.__views.menuButton = Ti.UI.createButton({
+        id: "menuButton",
+        image: "/images/Paragraph-Justify.png",
+        height: "30dp",
+        width: "30dp",
+        toggle: "false"
+    });
+    $.__views.old_feed.leftNavButton = $.__views.menuButton;
+    $.__views.photoView = Ti.UI.createView({
+        id: "photoView",
+        zIndex: "0",
+        backgroundColor: "black",
+        opacity: "1",
+        height: "100%",
+        width: "100%"
+    });
+    $.__views.old_feed.add($.__views.photoView);
+    $.__views.__alloyId68 = Ti.UI.createView({
+        backgroundColor: "white",
+        height: "45dp",
+        bottom: "205dp",
+        width: "100%",
+        id: "__alloyId68"
+    });
+    $.__views.photoView.add($.__views.__alloyId68);
+    $.__views.__alloyId69 = Ti.UI.createButton({
+        title: "Cancel",
+        left: "10",
+        id: "__alloyId69"
+    });
+    $.__views.__alloyId68.add($.__views.__alloyId69);
+    $.__views.__alloyId70 = Ti.UI.createButton({
+        title: "Ready",
+        right: "10",
+        id: "__alloyId70"
+    });
+    $.__views.__alloyId68.add($.__views.__alloyId70);
+    $.__views.photoOptions = Ti.UI.createPicker({
+        id: "photoOptions",
+        bottom: "0dp",
+        height: "150dp",
+        selectionIndicator: "true",
+        useSpinner: "true"
+    });
+    $.__views.photoView.add($.__views.photoOptions);
+    $.__views.CameraOptionsColumns = Ti.UI.createPickerColumn({
+        backgroundColor: "#252525",
+        id: "CameraOptionsColumns"
+    });
+    $.__views.photoOptions.add($.__views.CameraOptionsColumns);
+    $.__views.__alloyId72 = Ti.UI.createPickerRow({
+        title: "Choose Existing Photo",
+        id: "__alloyId72"
+    });
+    $.__views.CameraOptionsColumns.addRow($.__views.__alloyId72);
+    $.__views.__alloyId73 = Ti.UI.createPickerRow({
+        title: "Take New Photo",
+        id: "__alloyId73"
+    });
+    $.__views.CameraOptionsColumns.addRow($.__views.__alloyId73);
+    $.__views.videoView = Ti.UI.createView({
+        id: "videoView",
+        backgroundColor: "black",
+        opacity: "1",
+        height: "100%",
+        width: "100%"
+    });
+    $.__views.old_feed.add($.__views.videoView);
+    $.__views.__alloyId74 = Ti.UI.createView({
+        backgroundColor: "white",
+        height: "45dp",
+        bottom: "200",
+        width: "100%",
+        id: "__alloyId74"
+    });
+    $.__views.videoView.add($.__views.__alloyId74);
+    $.__views.__alloyId75 = Ti.UI.createButton({
+        title: "Cancel",
+        left: "10",
+        id: "__alloyId75"
+    });
+    $.__views.__alloyId74.add($.__views.__alloyId75);
+    $.__views.__alloyId76 = Ti.UI.createButton({
+        title: "Done",
+        right: "10",
+        id: "__alloyId76"
+    });
+    $.__views.__alloyId74.add($.__views.__alloyId76);
+    $.__views.videoOptions = Ti.UI.createPicker({
+        id: "videoOptions",
+        bottom: "0dp",
+        height: "150dp",
+        selectionIndicator: "true",
+        useSpinner: "true"
+    });
+    $.__views.videoView.add($.__views.videoOptions);
+    $.__views.CameraOptionsColumns = Ti.UI.createPickerColumn({
+        backgroundColor: "#252525",
+        id: "CameraOptionsColumns"
+    });
+    $.__views.videoOptions.add($.__views.CameraOptionsColumns);
+    $.__views.__alloyId78 = Ti.UI.createPickerRow({
+        title: "Choose Existing Video",
+        id: "__alloyId78"
+    });
+    $.__views.CameraOptionsColumns.addRow($.__views.__alloyId78);
+    $.__views.__alloyId79 = Ti.UI.createPickerRow({
+        title: "Take New Video",
+        id: "__alloyId79"
+    });
+    $.__views.CameraOptionsColumns.addRow($.__views.__alloyId79);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var args = arguments[0] || {};
     var row_data = [];
     var f;
     var currentFile = "";
@@ -840,22 +961,7 @@ function Controller() {
     view2.add(borderView);
     win.add(view2);
     penView1.addEventListener("click", function() {
-        if (null != win.topic_id) var title = win.class_number; else if (null != win.group_id) var title = win.group_name; else var title = "Status";
-        var win1 = Titanium.UI.createWindow({
-            title: title,
-            navGroup: $.navGroup,
-            url: "make_post.js",
-            topic_id: win.topic_id,
-            backgroundColor: "#ffffff",
-            navTintColor: "#ffffff",
-            statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-            translucent: false,
-            group_id: win.group_id,
-            barColor: "#46a546"
-        });
-        $.navGroup.openWindow(win1, {
-            animated: false
-        });
+        goStatus();
     });
     photoView1.addEventListener("click", function() {
         Titanium.Media.showCamera({
@@ -910,13 +1016,13 @@ function Controller() {
                 });
                 finishButton.addEventListener("click", function() {
                     "Enter a message!" == ta1.value && (ta1.value = "");
-                    if (null != win.topic_id) var postData = {
-                        topic_id: win.topic_id,
+                    if (null != args.topic_id) var postData = {
+                        topic_id: args.topic_id,
                         text: ta1.value,
                         filename: "post.png",
                         content_type: currentFile.mimeType
-                    }; else if (null != win.group_id) var postData = {
-                        group_id: win.group_id,
+                    }; else if (null != args.group_id) var postData = {
+                        group_id: args.group_id,
                         text: ta1.value,
                         filename: "post.png",
                         content_type: currentFile.mimeType
@@ -1023,7 +1129,7 @@ function Controller() {
                 view.add(seperatorPhone);
                 var picModal = Ti.UI.createWindow({
                     backgroundColor: "black",
-                    barColor: "#46a546",
+                    barColor: "#15B17A",
                     navTintColor: "#ffffff",
                     statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                     translucent: false,
@@ -1047,7 +1153,7 @@ function Controller() {
                     box: true
                 });
                 movPict.addEventListener("click", function() {
-                    $.navGroup.openWindow(picModal, {
+                    Alloy.CFG.navwindow.openWindow(picModal, {
                         animated: false
                     });
                     picModal.add(imgPic);
@@ -1161,13 +1267,13 @@ function Controller() {
                 });
                 finishButton.addEventListener("click", function() {
                     "Enter a message!" == ta1.value && (ta1.value = "");
-                    if (null != win.topic_id) var postData = {
-                        topic_id: win.topic_id,
+                    if (null != args.topic_id) var postData = {
+                        topic_id: args.topic_id,
                         text: ta1.value,
                         filename: "post.mov",
                         content_type: currentFile.mimeType
-                    }; else if (null != win.group_id) var postData = {
-                        group_id: win.group_id,
+                    }; else if (null != args.group_id) var postData = {
+                        group_id: args.group_id,
                         text: ta1.value,
                         filename: "post.mov",
                         content_type: currentFile.mimeType
@@ -1280,7 +1386,7 @@ function Controller() {
                 view.add(seperatorPhone);
                 var movieModal = Ti.UI.createWindow({
                     backgroundColor: "#00000000",
-                    barColor: "#46a546",
+                    barColor: "#15B17A",
                     title: "Video",
                     orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ]
                 });
@@ -1315,23 +1421,23 @@ function Controller() {
                     width: 32
                 });
                 movPict.addEventListener("click", function() {
-                    $.navGroup.openWindow(movieModal, {
+                    Alloy.CFG.navwindow.openWindow(movieModal, {
                         animated: false
                     });
                     movieModal.add(activeMovie);
                     shareWhoModal.hide();
                     activeMovie.addEventListener("fullscreen", function(e) {
-                        0 == e.entering && $.navGroup.close(movieModal);
+                        0 == e.entering && Alloy.CFG.navwindow.close(movieModal);
                     });
                 });
                 playButton.addEventListener("click", function() {
-                    $.navGroup.openWindow(movieModal, {
+                    Alloy.CFG.navwindow.openWindow(movieModal, {
                         animated: false
                     });
                     movieModal.add(activeMovie);
                     shareWhoModal.hide();
                     activeMovie.addEventListener("fullscreen", function(e) {
-                        0 == e.entering && $.navGroup.close(movieModal);
+                        0 == e.entering && Alloy.CFG.navwindow.close(movieModal);
                     });
                 });
                 view.add(movPict);
@@ -1355,8 +1461,8 @@ function Controller() {
             videoQuality: Titanium.Media.QUALITY_MEDIUM
         });
     });
-    if (null != win.topic_id) {
-        if (null != win.moodle) {
+    if (null != args.topic_id) {
+        if (null != args.moodle) {
             var btnBar = Ti.UI.createButtonBar({
                 labels: [ "Moodle" ]
             });
@@ -1368,16 +1474,16 @@ function Controller() {
                     var win1 = Titanium.UI.createWindow({
                         title: "Moodle Account",
                         url: "moodle_account.js",
-                        navGroup: $.navGroup,
-                        class_id: win.topic_id,
+                        navGroup: Alloy.CFG.navwindow,
+                        class_id: args.topic_id,
                         backgroundColor: "#ecfaff",
                         navTintColor: "#ffffff",
                         statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                         translucent: false,
                         layout: "absolute",
-                        barColor: "#46a546"
+                        barColor: "#15B17A"
                     });
-                    $.navGroup.openWindow(win1, {
+                    Alloy.CFG.navwindow.openWindow(win1, {
                         animated: false
                     });
                 } else {
@@ -1412,16 +1518,16 @@ function Controller() {
                             for (c = 0; courses.length > c; c++) if (courses[c].shortname == win.class_number) {
                                 var win1 = Titanium.UI.createWindow({
                                     url: "moodle_class.js",
-                                    navGroup: $.navGroup,
+                                    navGroup: Alloy.CFG.navwindow,
                                     backgroundColor: "#ecfaff",
                                     navTintColor: "#ffffff",
                                     statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                                     translucent: false,
-                                    barColor: "#46a546"
+                                    barColor: "#15B17A"
                                 });
                                 win1.class_id = courses[c].id;
                                 win1.entity_id = win.entity_id;
-                                $.navGroup.openWindow(win1, {
+                                Alloy.CFG.navwindow.openWindow(win1, {
                                     animated: false
                                 });
                             }
@@ -1554,19 +1660,19 @@ function Controller() {
             if ("Post" == e.source.type) {
                 var win1 = Titanium.UI.createWindow({
                     url: "post.js",
-                    navGroup: $.navGroup,
+                    navGroup: Alloy.CFG.navwindow,
                     navTintColor: "#ffffff",
                     statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                     translucent: false,
                     backgroundColor: "#CDC9C9",
-                    barColor: "#46a546",
+                    barColor: "#15B17A",
                     notModal: winModal
                 });
                 win1.postid = e.source.id;
                 win1.fullname = Titanium.App.Properties.getString("name");
                 win1.photo_url = Titanium.App.Properties.getString("photo_url");
                 winModal.hide();
-                $.navGroup.openWindow(win1, {
+                Alloy.CFG.navwindow.openWindow(win1, {
                     animated: false
                 });
             } else "Topic" == e.source.type && Titanium.App.fireEvent("nav-menu-button", {
@@ -1632,28 +1738,21 @@ function Controller() {
         layout: "vertical",
         showVerticalScrollIndicator: true
     });
-    var menuButton = Ti.UI.createButton({
-        image: "/images/Paragraph-Justify.png",
-        height: "30dp",
-        width: "30dp",
-        toggle: false
-    });
-    win.setLeftNavButton(menuButton);
-    menuButton.addEventListener("click", function(e) {
-        tableView.scrollable = false == menuButton.toggle ? false : true;
+    $.menuButton.addEventListener("click", function(e) {
+        tableView.scrollable = false == $.menuButton.toggle ? false : true;
         Titanium.App.fireEvent("nav-menu-button", {
             data: e.source.toggle
         });
     });
     Titanium.App.addEventListener("nav-menu-button-toggle", function(e) {
-        menuButton.toggle = e.toggle;
+        $.menuButton.toggle = e.toggle;
     });
     Titanium.App.addEventListener("main-win-close", function() {
         winModal.close();
-        $.navGroup.closeWindow(win);
+        Alloy.CFG.navwindow.closeWindow(win);
     });
     tableView.addEventListener("click", function(e) {
-        if (true == menuButton.toggle) {
+        if (true == $.menuButton.toggle) {
             Titanium.App.fireEvent("nav-menu-button", {
                 data: true
             });
@@ -1661,17 +1760,17 @@ function Controller() {
         } else if (true == e.source.box) ; else {
             var win1 = Titanium.UI.createWindow({
                 url: "post.js",
-                navGroup: $.navGroup,
+                navGroup: Alloy.CFG.navwindow,
                 navTintColor: "#ffffff",
                 statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                 translucent: false,
                 backgroundColor: "#CDC9C9",
-                barColor: "#46a546"
+                barColor: "#15B17A"
             });
             win1.postid = e.rowData.result;
             win1.fullname = e.rowData.fullname;
             win1.photo_url = e.rowData.photo_url;
-            $.navGroup.openWindow(win1, {
+            Alloy.CFG.navwindow.openWindow(win1, {
                 animated: false
             });
         }

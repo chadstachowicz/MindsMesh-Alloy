@@ -1,0 +1,7 @@
+<Alloy>
+    		<Window id="post" barColor='#15B17A' navTintColor="#ffffff" translucent="false">
+    			<RightNavButton>
+   					<Button id="postButton" height="30dp" width="30dp">Comment</Button>
+    			</RightNavButton>
+    		</Window>
+</Alloy>

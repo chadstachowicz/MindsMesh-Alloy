@@ -13,6 +13,10 @@
 			<TableViewSection id="tableViewGroups" headerTitle="Groups">
 			</TableViewSection>
 			<TableViewSection id="tableViewSettings" headerTitle="Settings">
+				<TableViewRow id="moodleRow" height="40dp" onClick="moodleAccount">
+					<ImageView id="reloadImg" image="/images/run.png" left="4dp" height="32dp" width="32dp"></ImageView>
+					<Label id="lbl" color="#e2e7ed" left="45dp" textAlign="left">Moodle Account</Label>
+				</TableViewRow>
 				<TableViewRow id="ReloadRow" height="40dp" onClick="reloadMenu">
 					<ImageView id="reloadImg" image="/images/gtk_refresh.png" left="4dp" height="32dp" width="32dp"></ImageView>
 					<Label id="lbl" color="#e2e7ed" left="45dp" textAlign="left">Reload Menu</Label>

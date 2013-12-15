@@ -21,11 +21,6 @@ function Controller() {
     }
     function goFeed() {
         var feed = Alloy.createController("old_feed", "test").getView();
-        var navAnimate = Ti.UI.createAnimation({
-            left: 0,
-            duration: 75,
-            curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
-        });
         Alloy.CFG.navwindow.animate(navAnimate);
         Alloy.CFG.navwindow.closeWindow(Ti.App.myCurrentWindow, {
             animated: false
@@ -43,12 +38,103 @@ function Controller() {
             if (0 == ev.index) {
                 Titanium.App.Properties.setString("logged_in", "false");
                 fb.logout();
+                openWindow("index");
                 $.sideMenu.close();
                 Alloy.CFG.navwindow.close();
                 Titanium.App.fireEvent("main-win-close");
             } else 1 == ev.index && dlg.hide();
         });
         dlg.show();
+    }
+    function moodleAccount() {
+        var moodle_account = Alloy.createController("moodle_account", "test").getView();
+        Alloy.CFG.navwindow.animate(navAnimate);
+        Alloy.CFG.navwindow.closeWindow(Ti.App.myCurrentWindow, {
+            animated: false
+        });
+        Alloy.CFG.navwindow.openWindow(moodle_account, {
+            animated: false
+        });
+    }
+    function pushNotifications() {
+        ("iphone" == Titanium.Platform.osname || "ipad" == Titanium.Platform.osname) && Titanium.Network.registerForPushNotifications({
+            types: [ Titanium.Network.NOTIFICATION_TYPE_BADGE, Titanium.Network.NOTIFICATION_TYPE_ALERT ],
+            success: function(e) {
+                var deviceToken = e.deviceToken;
+                Cloud.Users.login({
+                    login: "contact@mindsmesh.com",
+                    password: "password"
+                }, function(e) {
+                    e.success && Cloud.PushNotifications.subscribe({
+                        channel: "alert",
+                        type: "ios",
+                        device_token: deviceToken
+                    }, function(e) {
+                        if (e.success) {
+                            var env = "development";
+                            "true" == Ti.App.Properties.getString("production") && (env = "production");
+                            var postData = {
+                                token: deviceToken,
+                                model: escape(Titanium.Platform.model),
+                                os: escape(Titanium.Platform.osname),
+                                name: escape(Titanium.Platform.model),
+                                environment: env
+                            };
+                            request = postRegisterDevice(Titanium.App.Properties.getString("mmat"), postData);
+                            request.onload = function() {};
+                            request.send(postData);
+                        } else alert("Error:\\n" + (e.error && e.message || JSON.stringify(e)));
+                    });
+                });
+                Ti.API.info("Push notification device token is: " + deviceToken);
+                Ti.API.info("Push notification types: " + Titanium.Network.remoteNotificationTypes);
+                Ti.API.info("Push notification enabled: " + Titanium.Network.remoteNotificationsEnabled);
+            },
+            error: function() {},
+            callback: function(e) {
+                xhr = getNotification(Titanium.App.Properties.getString("mmat"), e.data.notification_id);
+                xhr.onload = function() {
+                    var response = this.responseText;
+                    user = JSON.parse(response);
+                    if ("Topic" == user.target_type) {
+                        var win1 = Titanium.UI.createWindow({
+                            backgroundColor: "#ecfaff",
+                            url: "source_both/feed.js",
+                            navTintColor: "#ffffff",
+                            backgroundColor: "#CDC9C9",
+                            statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
+                            translucent: false,
+                            navGroup: navGroup,
+                            barColor: "#46a546"
+                        });
+                        win1.topic_id = user.target_id;
+                    } else {
+                        var win1 = Titanium.UI.createWindow({
+                            title: "Single Post",
+                            url: "source_both/post.js",
+                            navTintColor: "#ffffff",
+                            statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
+                            translucent: false,
+                            backgroundColor: "#CDC9C9",
+                            barColor: "#46a546",
+                            navGroup: navGroup
+                        });
+                        win1.postid = user.target_id;
+                        win1.fullname = user.user.name;
+                        win1.photo_url = user.user.photo_url;
+                    }
+                    navGroup.openWindow(win1, {
+                        animated: false
+                    });
+                };
+                xhr.send();
+            }
+        });
+    }
+    function openWindow(windowName, args) {
+        var view1 = Alloy.createController(windowName, args).getView();
+        view1.open();
+        Ti.API.info(windowName);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "sideMenu";
@@ -68,8 +154,8 @@ function Controller() {
         id: "tableViewMenu",
         headerTitle: "Menu"
     });
-    var __alloyId71 = [];
-    __alloyId71.push($.__views.tableViewMenu);
+    var __alloyId88 = [];
+    __alloyId88.push($.__views.tableViewMenu);
     $.__views.feedRow = Ti.UI.createTableViewRow({
         id: "feedRow",
         height: "40dp"
@@ -95,17 +181,39 @@ function Controller() {
         id: "tableViewClasses",
         headerTitle: "Classes"
     });
-    __alloyId71.push($.__views.tableViewClasses);
+    __alloyId88.push($.__views.tableViewClasses);
     $.__views.tableViewGroups = Ti.UI.createTableViewSection({
         id: "tableViewGroups",
         headerTitle: "Groups"
     });
-    __alloyId71.push($.__views.tableViewGroups);
+    __alloyId88.push($.__views.tableViewGroups);
     $.__views.tableViewSettings = Ti.UI.createTableViewSection({
         id: "tableViewSettings",
         headerTitle: "Settings"
     });
-    __alloyId71.push($.__views.tableViewSettings);
+    __alloyId88.push($.__views.tableViewSettings);
+    $.__views.moodleRow = Ti.UI.createTableViewRow({
+        id: "moodleRow",
+        height: "40dp"
+    });
+    $.__views.tableViewSettings.add($.__views.moodleRow);
+    moodleAccount ? $.__views.moodleRow.addEventListener("click", moodleAccount) : __defers["$.__views.moodleRow!click!moodleAccount"] = true;
+    $.__views.reloadImg = Ti.UI.createImageView({
+        id: "reloadImg",
+        image: "/images/run.png",
+        left: "4dp",
+        height: "32dp",
+        width: "32dp"
+    });
+    $.__views.moodleRow.add($.__views.reloadImg);
+    $.__views.lbl = Ti.UI.createLabel({
+        text: "Moodle Account",
+        id: "lbl",
+        color: "#e2e7ed",
+        left: "45dp",
+        textAlign: "left"
+    });
+    $.__views.moodleRow.add($.__views.lbl);
     $.__views.ReloadRow = Ti.UI.createTableViewRow({
         id: "ReloadRow",
         height: "40dp"
@@ -151,7 +259,7 @@ function Controller() {
     });
     $.__views.LogoutRow.add($.__views.lbl);
     $.__views.menuTableView = Ti.UI.createTableView({
-        data: __alloyId71,
+        data: __alloyId88,
         id: "menuTableView",
         backgroundColor: "#252525",
         separatorColor: "#000",
@@ -167,36 +275,10 @@ function Controller() {
     var menuEntity = [];
     var menuName = [];
     var groupName = [];
-    $.menuTableView.addEventListener("click", function(e) {
-        1 == e.source.id ? Titanium.App.fireEvent("nav-menu-button", {
-            data: true,
-            menu_id: 1
-        }) : 2 == e.source.id ? Titanium.App.fireEvent("nav-menu-button", {
-            data: true,
-            menu_id: 2
-        }) : 4 == e.source.id ? Titanium.App.fireEvent("nav-menu-button", {
-            data: true,
-            menu_id: 4
-        }) : 5 == e.source.id ? Titanium.App.fireEvent("nav-menu-button", {
-            data: true,
-            menu_id: 5
-        }) : 6 == e.source.id ? Titanium.App.fireEvent("nav-menu-button", {
-            data: true,
-            menu_id: 6
-        }) : 7 == e.source.id ? Titanium.App.fireEvent("nav-menu-button", {
-            data: true,
-            menu_id: 7,
-            class_id: e.source.extraData
-        }) : 8 == e.source.id ? Titanium.App.fireEvent("nav-menu-button", {
-            data: true,
-            menu_id: 8
-        }) : 9 == e.source.id ? Titanium.App.fireEvent("nav-menu-button", {
-            data: true,
-            menu_id: 9
-        }) : 10 == e.source.id && Titanium.App.fireEvent("nav-menu-button", {
-            data: true,
-            menu_id: 10
-        });
+    var navAnimate = Ti.UI.createAnimation({
+        left: 0,
+        duration: 75,
+        curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
     });
     var menuTitles = [];
     Titanium.App.addEventListener("reloadMenu", function() {
@@ -213,11 +295,6 @@ function Controller() {
         var entity_id = menuEntity[entity_id];
         var class_number = menuName[topic_id];
         if (true == e.data) {
-            var navAnimate = Ti.UI.createAnimation({
-                left: 0,
-                duration: 75,
-                curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
-            });
             navAnimate.addEventListener("complete", function() {
                 if (1 == menu_id) ; else if (4 == menu_id) Titanium.UI.createWindow({
                     title: "Verify Email",
@@ -298,6 +375,7 @@ function Controller() {
     });
     $.sideMenu.addEventListener("open", function() {
         reloadMenu();
+        pushNotifications();
         var navw = Alloy.createController("navWindow", "test");
         navw.getView().open();
         Alloy.CFG.navwindow = navw.navWindow;
@@ -308,6 +386,7 @@ function Controller() {
         });
     });
     __defers["$.__views.feedRow!click!goFeed"] && $.__views.feedRow.addEventListener("click", goFeed);
+    __defers["$.__views.moodleRow!click!moodleAccount"] && $.__views.moodleRow.addEventListener("click", moodleAccount);
     __defers["$.__views.ReloadRow!click!reloadMenu"] && $.__views.ReloadRow.addEventListener("click", reloadMenu);
     __defers["$.__views.LogoutRow!click!logout"] && $.__views.LogoutRow.addEventListener("click", logout);
     _.extend($, exports);
