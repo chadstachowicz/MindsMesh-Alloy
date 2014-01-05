@@ -1,7 +1,7 @@
 <Alloy>
     		<Window id="new_post" barColor='#15B17A' navTintColor="#ffffff" translucent="false">
     			<RightNavButton>
-   					<Button id="postButton" height="30dp" width="30dp">Post</Button>
+   					<Button id="postButton" height="30dp" width="30dp" onClick="postStatus">Post</Button>
     			</RightNavButton>
     			<ImageView id="feedImg" top="0dp" left="0dp" height="50dp" width="50dp"></ImageView>
     			<TextArea class="textArea" id="postText"></TextArea>

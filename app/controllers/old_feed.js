@@ -6,6 +6,19 @@ var f;
 var currentFile = '';
 var win = $.old_feed;
 Ti.App.myCurrentWindow = win;
+Ti.App.addEventListener('reloadNotifications',function(e){
+	reloadNotifications();
+});
+var movieModal2 = Ti.UI.createWindow({
+                                  backgroundColor : '#00000000',
+                                  navTintColor: "#ffffff",
+                                  statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
+                                  translucent: false,
+                                  barColor: '#15B17A',
+                                  title: 'Video',
+                                  orientationModes:[Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT,Ti.UI.PORTRAIT,Ti.UI.UPSIDE_PORTRAIT]
+
+                                });
 var view2 = Ti.UI.createView(
 {
    transparent:'none',
@@ -114,14 +127,14 @@ view2.add(sepView2);
 view2.add(borderView);
 win.add(view2);
 function goStatus(){
-	var feed = Alloy.createController("new_post", "test").getView();
+	var feed = Alloy.createController("new_post", {group_id: args.group_id, topic_id: args.topic_id}).getView();
 	if(args.topic_id != null)
      {
-          var title = feed.class_number;
+          feed.title = args.class_number;
      } else if (args.group_id != null) {                
-          var title = feed.group_name;
+          feed.title = args.group_name;
      } else {                                        
-          var title = "Status";
+          feed.title = "Status";
      }
 	Alloy.CFG.navwindow.openWindow(feed,{animated:false});
 };
@@ -252,7 +265,7 @@ photoView1.addEventListener('click', function(e)
                                                                     s3fileName: filnam,
                                                                     timeout: (1000 * 60 * 4),
                                                                     onsendstream: function(e) {pb.value = e.progress;},
-                                                                           error: function(e) {alert(e)},
+                                                                           error: function(e) {alert(e);},
                                                                            success: function(e) 
                                                                            {
                                                                                    f.deleteFile();
@@ -297,7 +310,6 @@ photoView1.addEventListener('click', function(e)
                                         top: 10,
                                         left: 10,
                                         box:true,
-                                        height:40,
                                         width:40,
                                 });
 
@@ -525,7 +537,7 @@ vidView1.addEventListener('click', function(e)
                                                                 var env = 'development';
                                                                  if(Ti.App.Properties.getString('production')=='true')
                                                                  {
-                                                                         env = 'production'
+                                                                         env = 'production';
                                                                  }
                                                                  var filnam = env + '/post_attachments/' + post_id + '/post.mov';
 
@@ -591,7 +603,6 @@ vidView1.addEventListener('click', function(e)
                                         top: 10,
                                         left: 10,
                                         box:true,
-                                        height:40,
                                         width:40,
                                 });
 
@@ -611,9 +622,8 @@ vidView1.addEventListener('click', function(e)
                                 });
                                 var activeMovie = Ti.Media.createVideoPlayer({
                                     backgroundColor: '#000',
-                                    fullscreen: true,
                                     scalingMode: Titanium.Media.VIDEO_SCALING_ASPECT_FIT,
-                                    mediaControlMode: Titanium.Media.VIDEO_CONTROL_NONE,
+                                    mediaControlMode: Titanium.Media.VIDEO_CONTROL_DEFAULT,
                                     media: event.media,
                                     autoplay: false
                                 });
@@ -640,26 +650,11 @@ vidView1.addEventListener('click', function(e)
                                 {
                                         Alloy.CFG.navwindow.openWindow(movieModal,{animated:false});
                                         movieModal.add(activeMovie);
-                                        shareWhoModal.hide();
-                                        activeMovie.addEventListener('fullscreen', function(e)
-                                        {
-                                            if (e.entering == 0) 
-                                            {
-                                                       Alloy.CFG.navwindow.close(movieModal);
-                                            };
-                                        });
                                 });
                                 playButton.addEventListener('click', function(e)
                                 {
                                         Alloy.CFG.navwindow.openWindow(movieModal,{animated:false});
                                         movieModal.add(activeMovie);
-                                        shareWhoModal.hide();
-                                        activeMovie.addEventListener('fullscreen', function(e)
-                                        {
-                                            if (e.entering == 0) {
-                                                    Alloy.CFG.navwindow.close(movieModal);
-                                            };
-                                        }); 
                                 });
                                 view.add(movPict);
                                 view.add(playButton);
@@ -710,85 +705,34 @@ btnBar.addEventListener('click', function(e) {
             shareModal.open();
                 shareModal.visible = true;
   } else if (e.index == 0) {
-          if (Titanium.App.Properties.hasProperty('moodle-token-' + win.entity_id) == false)
+          if (Titanium.App.Properties.hasProperty('moodle-token-' + args.entity_id) == false)
           {
                   
-                  var win1 = Titanium.UI.createWindow({  
-            title:'Moodle Account',
-                    url:'moodle_account.js',
-                    navGroup: Alloy.CFG.navwindow,
-                    class_id: args.topic_id,
-                    backgroundColor:'#ecfaff',
-                    navTintColor: "#ffffff",
-                statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                   translucent: false,
-                    layout:'absolute',
-                    barColor: '#15B17A'
-           });
-           Alloy.CFG.navwindow.openWindow(win1,{animated:false});
+                  	var moodle_account = Alloy.createController("moodle_account", "test").getView();
+					Alloy.CFG.navwindow.openWindow(moodle_account,{animated:false});
           } else {
 
  
         loadView.add(loadIndicator);
         loadView.open();
         loadIndicator.show();
-        if (win.entity_id == 2)
-        {
-                var postData = {username: Titanium.App.Properties.getString('moodle-user-' + win.entity_id), password: Titanium.App.Properties.getString('moodle-pass-' + win.entity_id)};        
-                  xhr = postLoginToMoodle(win.moodle,postData);
-                xhr.onload = function(){
-                var response = this.responseText;
-                var regexSess = /Your\ssession\shas/i;
-                var regexSess2 = /your\slogin\ssession/i;
-                var regexLog = /Invalid\slogin/i;
-                if(response.match(regexSess2)) 
-                {
-                        xhr = postLoginToMoodle(win.moodle,postData);
-                        xhr.onload = function()
-                        {
-                                var response2 = this.responseText;
-                                redirectToMoodle(response2);
-                        };
-                        xhr.send(postData);
-                } else if(response.match(regexLog)) {
-                        alert('These are not valid credentials.  Please correct them.');
-                } else {
-                        redirectToMoodle(response);
-                }
-        };
-        xhr.send(postData);
-        } else {
-                xhr = getMoodle2EnrolledCourses(Titanium.App.Properties.getString("moodle_url_" + win.entity_id),Titanium.App.Properties.getString("moodle-token-" + win.entity_id),Titanium.App.Properties.getString("moodle-userid-" + win.entity_id));
+                xhr = getMoodle2EnrolledCourses(Titanium.App.Properties.getString("moodle_url_" + args.entity_id),Titanium.App.Properties.getString("moodle-token-" + args.entity_id),Titanium.App.Properties.getString("moodle-userid-" + args.entity_id));
                 xhr.onload = function()
                 {
                         var response = this.responseText;
                         var courses = JSON.parse(response);
                         for(c=0;c<courses.length;c++)
                         {
-                                if (courses[c].shortname == win.class_number)
+                                if (courses[c].shortname == args.class_number)
                                 {
-                                        var win1 = Titanium.UI.createWindow({  
-                                            url:'moodle_class.js',
-                                            navGroup: Alloy.CFG.navwindow,
-                                            backgroundColor:'#ecfaff',
-                                            navTintColor: "#ffffff",
-                                            statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                                               translucent: false,
-                                            barColor: '#15B17A'
-                                        });
-                                        win1.class_id = courses[c].id;
-                                        win1.entity_id = win.entity_id;
-                                        Alloy.CFG.navwindow.openWindow(win1,{animated:false});
+                                        var moodle_class = Alloy.createController("moodle_class", {class_id: courses[c].id, entity_id: args.entity_id}).getView();
+                            			Alloy.CFG.navwindow.openWindow(moodle_class,{animated:false});
                                 }
                         }
                         loadView.close();
                         //alert("No Moodle Course found for this discussion.  Make sure course Numbers between MindsMesh.com and Moodle match exactly, and that you are a part of the class on your schools Moodle.");
                 };
                 xhr.send();
-                
-                
-                
-        }
         }
   } 
 });
@@ -909,7 +853,7 @@ var view = Ti.UI.createView(
                                 top: 10,
                                 left: 10,
                                 box:true,
-                                height:40,
+
                                 width:40,
                         });
                          view.add(pict);
@@ -926,6 +870,11 @@ var winModal = Ti.UI.createWindow({
         backgroundColor : '#B0000000',
         visible: false
     });
+winModal.addEventListener('click', function(e){
+if(e.source.box != true){
+     winModal.hide();}
+});
+winModal.open();
                 var win_height = 380;
                    var win_width = Ti.Platform.displayCaps.platformWidth * .85;
  
@@ -949,26 +898,17 @@ var winModal = Ti.UI.createWindow({
                         xhr = postNotificationMarkAsRead(Titanium.App.Properties.getString("mmat"),e.source.notification_id);
                         xhr.onload = function(){
                         var response = this.responseText;
-
                         if(e.source.type == "Post")
                         {
-                                var win1 = Titanium.UI.createWindow({  
-                            url:'post.js',
-                            navGroup: Alloy.CFG.navwindow,
-                            navTintColor: "#ffffff",
-                                statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                                   translucent: false,
-                                   backgroundColor:"#CDC9C9",
-                            barColor: '#15B17A',
-                            notModal: winModal
-                        });
-                        win1.postid = e.source.id;
-                        win1.fullname = Titanium.App.Properties.getString("name");
-                        win1.photo_url = Titanium.App.Properties.getString("photo_url");
-                        winModal.hide();
-                        Alloy.CFG.navwindow.openWindow(win1,{animated:false});
+                        	var post = Alloy.createController("post", {postid: e.source.id,}).getView();
+                        	winModal.hide();
+                            Alloy.CFG.navwindow.openWindow(post,{animated:false});
                         } else if (e.source.type == "Topic"){
-                                Titanium.App.fireEvent('nav-menu-button',{data:true, menu_id:7, topic_id: e.source.id});
+                        	    winModal.hide();
+                                Titanium.App.fireEvent('goTopic',{topic_id: e.source.id});
+                        } else if (e.source.type == "Group"){
+                        	    winModal.hide();
+                                Titanium.App.fireEvent('goGroup',{group_id: e.source.id});
                         }
         };
         xhr.send();
@@ -1009,7 +949,7 @@ var winModal = Ti.UI.createWindow({
                                 top: 10,
                                 left: 10,
                                 box:true,
-                                height:40,
+
                                 width:40,
                         });
                          view.add(pict);
@@ -1067,23 +1007,11 @@ Titanium.App.addEventListener('main-win-close', function(e)
         winModal.close();
         Alloy.CFG.navwindow.closeWindow(win);
 });
-
-
-function reloadNotifications()
-{
-modalTableView.data = [];
-xhr = getNotificationsGrouped(Titanium.App.Properties.getString("mmat"));
-xhr.onload = function(){
-        var response = this.responseText;
-        user = JSON.parse(response);
-        if(user.unread.length > 0){
-                var notificationButton = Ti.UI.createButton({
-                    backgroundImage:'/images/bell-light.png',
-                    height:27,
-                    width:27,
-                });
-                var label = Ti.UI.createLabel({
-                    text: user.unread.length,
+var notificationButton = Ti.UI.createButton({
+    height:27,
+    width:27,
+});
+var numLabel = Ti.UI.createLabel({
                     textAlign: "center",
                     height: 'auto',
                     width: 11,
@@ -1095,18 +1023,35 @@ xhr.onload = function(){
                     color: "white",
                     borderRadius: 3,
                     top: 0,
-                    left: 15
+                    left: 15,
+                    visible: false
             });
-            notificationButton.add(label);
+notificationButton.add(numLabel);
+notificationButton.addEventListener('click', function(e){
+if (winModal.visible != true)
+	{
+		winModal.show();        
+        winModal.visible = true;
+   }
+});
+ win.setTitleControl(notificationButton);
+
+function reloadNotifications()
+{
+modalTableView.data = [];
+xhr = getNotificationsGrouped(Titanium.App.Properties.getString("mmat"));
+xhr.onload = function(){
+        var response = this.responseText;
+        setTimeout( user = JSON.parse(response),500);
+        if(user.unread.length > 0){
+        		notificationButton.backgroundImage = '/images/bell-light.png';
+                numLabel.text = user.unread.length;
+                numLabel.visible = true;
         } else {
-                var notificationButton = Ti.UI.createButton({
-                    backgroundImage:'/images/bell.png',
-                    height:25,
-                    width:25,
-                });
+             notificationButton.backgroundImage = '/images/bell.png';
+             numLabel.visible = false;      
         }
-        win.setTitleControl(notificationButton);
-        win.title = "Feed";
+        if( user.unread.length!=null){
                 for (var i = 0; i < user.unread.length; ++i) {
                         var classNumber = Titanium.UI.createLabel({
                             text:user.unread[i].actors_count + ' people ' + user.unread[i].action + ' to',
@@ -1160,6 +1105,7 @@ xhr.onload = function(){
              fbRow.add(flag);
          modalTableView.appendRow(fbRow);
           }
+         }
           for (var i = 0; i < user.read.length; ++i) {
                         var classNumber = Titanium.UI.createLabel({
                             text:user.read[i].actors_count + ' people ' + user.read[i].action + ' to',
@@ -1201,19 +1147,8 @@ xhr.onload = function(){
             fbRow.add(classTitle);
          modalTableView.appendRow(fbRow);
           }
-                         winModal.addEventListener('click', function(e){
-                                 if(e.source.box != true){
-                                 winModal.hide();}
-                         });
-                        notificationButton.addEventListener('click', function(e){
-                                if (winModal.visible == true)
-                                {
-                                        winModal.show();        
-                                } else {
-                                        winModal.open();
-                                }
-                                winModal.visible = true;
-                        });
+
+
                         
                         
 //                        
@@ -1234,19 +1169,13 @@ xhr.send();
                         } else if (e.source.box == true){
 
                         } else {
-                                var win1 = Titanium.UI.createWindow({  
-                            url:'post.js',
-                            navGroup: Alloy.CFG.navwindow,
-                                  navTintColor: "#ffffff",
-                                                        statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                                                           translucent: false,
-                                                           backgroundColor:"#CDC9C9",
-                                  barColor: '#15B17A'
-                                });
-                                win1.postid = e.rowData.result;
-                                win1.fullname = e.rowData.fullname;
-                                win1.photo_url = e.rowData.photo_url;
-                                Alloy.CFG.navwindow.openWindow(win1,{animated:false});
+                        	var post = Alloy.createController("post", {postid: e.rowData.result}).getView();
+                        	winModal.hide();
+                            Alloy.CFG.navwindow.openWindow(post,{animated:false});
+                               
+                   //             win1.postid = e.rowData.result;
+                     //           win1.fullname = e.rowData.fullname;
+                       //         win1.photo_url = e.rowData.photo_url;
                         }
                 
                 });
@@ -1340,7 +1269,7 @@ var loadingRow = Ti.UI.createTableViewRow({backgroundColor:'#e2e7ed'});
 loadingRow.add(statusLabel2);
 loadingRow.add(actInd2);
 var lastRowId = 1;
-var row = '';
+var row = "";
 var pulling = false;
 endReloading();
 function formatDate()
@@ -1510,12 +1439,12 @@ function likeButton(postid, labelid)
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onerror = function(e){
                 alert('HTTP ERR'+e.error);
-        }
+        };
         xhr.onload = function(){
                 var response = this.responseText;
                 likeres = JSON.parse(response);
                 brainlabel[labelid].text = likeres.likes_count;
-        }
+        };
         xhr.send();
 
 }
@@ -1553,9 +1482,9 @@ function timeDifference(current, previous) {
         return 'about ' + Math.round(elapsed/msPerYear ) + ' years ago';   
     }
 }
-Titanium.App.addEventListener('event_one', function(e)
+Titanium.App.addEventListener('reload_feed', function(e)
 {
-    win.passedData = e.data;
+    endReloading();
 });
 var commentHolder = [];
 var backHolder = [];
@@ -1569,7 +1498,7 @@ reloadNotifications();
 
 function onLoad(response){
         var d = new Date();
-        row = JSON.parse(response);
+        setTimeout(row = JSON.parse(response),500);
         if(reloading == true){
                 g = 0;
         }
@@ -1631,7 +1560,7 @@ if (Titanium.Platform.osname == "iphone"){
                 top:15,
                 height:Ti.UI.SIZE,
                 font:{fontSize:12},
-                autoLink:Ti.UI.AUTODETECT_ALL
+                autoLink:Ti.UI.AUTOLINK_ALL
             });
         commentHolder[g] = Ti.UI.createView({
                 backgroundColor: '#fff',
@@ -1714,7 +1643,7 @@ if (Titanium.Platform.osname == "iphone"){
                 top:5,
                 width:comWidth - 60,
                 height:Ti.UI.SIZE,
-                autoLink:Ti.UI.AUTODETECT_ALL,
+                autoLink:Ti.UI.AUTOLINK_ALL,
                 font:{fontSize:16}
             });
 
@@ -1759,7 +1688,6 @@ if (Titanium.Platform.osname == "iphone"){
                                 image: picUrl,
                                 top: 15,
                                 left: 15,
-                                height:50,
                                 width:50,
                         });
 
@@ -1806,57 +1734,22 @@ if (Titanium.Platform.osname == "iphone"){
                                         url: url,
                                         width: 32,
                                 });
-                                movPict.addEventListener('click', function(e){
-                                        var movieModal2 = Ti.UI.createWindow({
-                                 backgroundColor : '#00000000',
-                                 navTintColor: "#ffffff",
-                                    statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                                       translucent: false,
-                                barColor: '#15B17A',
-                                title: 'Video',
-                                orientationModes:[Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT,Ti.UI.PORTRAIT,Ti.UI.UPSIDE_PORTRAIT]
-
-                                });
                                 var activeMovie = Ti.Media.createVideoPlayer({
                                     backgroundColor: '#000',
                                     scalingMode: Titanium.Media.VIDEO_SCALING_ASPECT_FIT,
-                                    mediaControlMode: Titanium.Media.VIDEO_CONTROL_NONE,
-                                    url: e.source.url,
+                                    mediaControlMode: Titanium.Media.VIDEO_CONTROL_DEFAULT,
                                     autoplay: false
                                 });
+                                
+                                movPict.addEventListener('click', function(e){
+                                		activeMovie.url =  e.source.url;
                                         Alloy.CFG.navwindow.openWindow(movieModal2,{animated:false});
                                         movieModal2.add(activeMovie);
-                                        activeMovie.addEventListener('fullscreen', function(e){
-                                    
-                                                        Alloy.CFG.navwindow.close(movieModal2);
-                                    
-                                        });
                                 });
                                 playButton.addEventListener('click', function(e){
-                                var movieModal2 = Ti.UI.createWindow({
-                                 backgroundColor : '#00000000',
-                                barColor: '#15B17A',
-                                navTintColor: "#ffffff",
-                                    statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                                       translucent: false,
-                                title: 'Video',
-                                orientationModes:[Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT,Ti.UI.PORTRAIT,Ti.UI.UPSIDE_PORTRAIT]
-
-                                });
-                                                                        var activeMovie = Ti.Media.createVideoPlayer({
-                                    backgroundColor: '#000',
-                                    scalingMode: Titanium.Media.VIDEO_SCALING_ASPECT_FIT,
-                                    mediaControlMode: Titanium.Media.VIDEO_CONTROL_NONE,
-                                    url: e.source.url,
-                                    autoplay: false
-                                });
+                                		activeMovie.url =  e.source.url;
                                         Alloy.CFG.navwindow.openWindow(movieModal2,{animated:false});
                                         movieModal2.add(activeMovie);
-                                        activeMovie.addEventListener('fullscreen', function(e){
-                                            
-                                                    Alloy.CFG.navwindow.close(movieModal2);
-                                            
-                                        }); 
                                 });
                                 commentHolder[g].add(movPict);
                                 commentHolder[g].add(playButton);
@@ -1962,11 +1855,6 @@ if (Titanium.Platform.osname == "iphone"){
                                 });
                                         Alloy.CFG.navwindow.openWindow(movieModal2,{animated:false});
                                         movieModal2.add(activeMovie);
-                                        activeMovie.addEventListener('fullscreen', function(e){
-                                    
-                                                        Alloy.CFG.navwindow.close(movieModal2);
-                                    
-                                        });
                                 });
                                 playButton.addEventListener('click', function(e){
                                 var movieModal2 = Ti.UI.createWindow({
@@ -1985,11 +1873,6 @@ if (Titanium.Platform.osname == "iphone"){
                                 });
                                         Alloy.CFG.navwindow.openWindow(movieModal2,{animated:false});
                                         movieModal2.add(activeMovie);
-                                        activeMovie.addEventListener('fullscreen', function(e){
-                                    
-                                                    Alloy.CFG.navwindow.close(movieModal2);
-                                            
-                                        }); 
                                 });
                                 commentHolder[g].add(movPict);
                                 commentHolder[g].add(playButton);
@@ -2069,7 +1952,7 @@ if (Titanium.Platform.osname == "iphone"){
    
    function redirectToMoodle(response){
         var regex = /TreeNode\('([\w\d\s:-]+)'.+(http.+course\/view\.php\?id=\d+)/ig;
-        var totalFound = []
+        var totalFound = [];
         var totalURL = [];
         while((hits = regex.exec(response)) !== null) {
                 var regex2 = /([a-zA-Z]+)-([\d\w]+)/i;

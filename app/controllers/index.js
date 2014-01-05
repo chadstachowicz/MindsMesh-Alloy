@@ -1,4 +1,6 @@
-	fb.addEventListener('login', function(e) {
+	if (fblisten == 0){
+		fblisten = 1;
+		fb.addEventListener('login', function(e) {
 	    if (e.data != null ){
 		Titanium.App.Properties.setString("fbid",e.data["id"]);	
 		}
@@ -26,17 +28,25 @@
 			Titanium.App.Properties.setString("userid",user.id);
 			Titanium.App.Properties.setString("mmat", user.access_token);
 			Titanium.App.Properties.setString("photo_url", user.photo_url);
-			goNavigation();
+			if (Titanium.App.Properties.getString("num_entities") == 0){
+			
+			} else {
+				goNavigation();
+			}
 			
 		};
 		xhr.send();
 		
 	});
+	}
 
 function doClick(e) {
     alert($.headerLabel.text);
 }
-
+Titanium.App.addEventListener('goNavigation', function(e)
+{
+	goNavigation();
+});
 
 function goLogin(e){
 	$.activityIndicator.show();
@@ -86,13 +96,18 @@ function LoginUser(email, password){
 		}
 		Titanium.App.Properties.setString("logged_in", 'true');
 		Titanium.App.Properties.setString("name",user.name);
+		Titanium.App.Properties.setString("email",email);
 		Titanium.App.Properties.setString("num_entities",user.entity_users.length);
 		Titanium.App.Properties.setString("num_topics",user.topic_users.length);
 		Titanium.App.Properties.setString("userid",user.id);
 		Titanium.App.Properties.setString("mmat", user.access_token);
 		Titanium.App.Properties.setString("photo_url", user.photo_url);
 		$.activityIndicator.hide();
-		goNavigation();
+		if (Titanium.App.Properties.getString("num_entities") == 0){
+			    openWindow("finish_verification");
+			} else {
+				goNavigation();
+			}
 	
 
 
@@ -129,10 +144,18 @@ $.indexWindow.addEventListener('click', function(e){
 		$.password.blur();	
 	}
 });
-if (Titanium.App.Properties.getString("logged_in")=="true" && !fb.LoggedIn){
-	goNavigation();
-} else if (Titanium.App.Properties.getString("logged_in")=="false"){
-	$.indexWindow.open();
+if(Titanium.App.Properties.getString("logged_in") == 'true' && !fb.loggedIn)
+{
+		if (Titanium.App.Properties.getString("num_entities") == 0){
+				$.indexWindow.open();
+				openWindow("finish_verification");
+			} else {
+				goNavigation();
+			}
+} else if (fb.loggedIn){
+	
+} else {
+		$.indexWindow.open();
 }
 
 

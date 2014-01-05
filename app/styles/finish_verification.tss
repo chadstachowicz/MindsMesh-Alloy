@@ -1,0 +1,52 @@
+".buttoncls" : {
+	height: Ti.UI.SIZE,
+	width: '300dp',
+	tintColor: '#fffff',
+	shadowColor: '#aaa',
+	font : {color: '#fffff', size:9, fontWeight:'bold'},
+	borderRadius: 2,
+
+},
+
+".lblcls" : {
+	font : {color: '#fffff', size:9},
+},
+".lblTitle" : {
+	color: '#ffffff',
+	size: 15,
+	font : {fontSize:25},
+},
+
+".loginBtn" : {
+	height: '40dp',
+	width: '300dp',
+	color: '#fffff',
+	font : 'Arial',
+	borderRadius: 2,
+
+},
+".txtLog" :{
+	keyb: true
+	
+},
+".txtPass" :{
+	keyb: true,
+	passwordMask: true
+	
+},
+
+".loginView" : {
+	width: '300dp',
+	height: '160dp',
+	top: '4%',
+	borderRadius: 3,
+	keyb: true
+
+},
+
+".mainView" : {
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+	top: 0
+}
+

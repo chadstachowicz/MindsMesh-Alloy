@@ -1,0 +1,1 @@
+module.exports = [{"isApi":true,"priority":1000.0001,"key":"Window","style":{backgroundColor:"#FFF",}},{"isId":true,"priority":100000.002,"key":"win","style":{orientationModes:[Ti.UI.PORTRAIT,],}},{"isId":true,"priority":100000.0021,"key":"headingTextField","style":{font:{fontSize:24,color:"black",},}}];

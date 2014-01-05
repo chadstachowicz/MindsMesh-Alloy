@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <property name="acs-oauth-secret-production" type="string">fKuHoTpuxkpZxPtYCcrByAwVsdOni6Ki</property>
-    <property name="acs-oauth-key-production" type="string">idlPBxkfil9uDQDpzWLuQCtIsZhZCRe2</property>
-    <property name="acs-api-key-production" type="string">3U7neP2cYgwSUa36jQGjAkAkSARtDwpQ</property>
-    <property name="acs-oauth-secret-development" type="string">fSP4bihoPeGeoxoMQjtmnQcNCA80D3nt</property>
-    <property name="acs-oauth-key-development" type="string">Yn6jnoTkQqodX1rYb36u0wFRFJeqzvWK</property>
-    <property name="acs-api-key-development" type="string">jtCj6PI5fpLLcVaGvGZ5ooeLYyi5lHCV</property>
-    <property name="production" type="string">false</property>
+    <property name="acs-oauth-secret-production" type="string">8RTShjkh6yUbeYIq4qKzRlnaNWtaR5f5</property>
+    <property name="acs-oauth-key-production" type="string">sBR9tAy4hORqzrZ8tYfraPNXLP9pj25n</property>
+    <property name="acs-api-key-production" type="string">AeJdeTWgQfQnDKfeWnPdpKhFH6f0cCgP</property>
+    <property name="acs-oauth-secret-development" type="string">hNk3mv1z9HgoGGikpXpPrL75EkVS3Jzs</property>
+    <property name="acs-oauth-key-development" type="string">h2gp8L3J20sOMTz0L62a4m8G10m7JJAL</property>
+    <property name="acs-api-key-development" type="string">VqrInB7qyxetHfzNxIKIvzctf6Y3k2U1</property>
+    <property name="production" type="string">true</property>
     <deployment-targets>
         <target device="tizen">false</target>
         <target device="mobileweb">false</target>
@@ -15,14 +15,14 @@
         <target device="android">true</target>
         <target device="blackberry">false</target>
     </deployment-targets>
-    <sdk-version>3.1.3.GA</sdk-version>
-    <id>com.edumesh.mobile</id>
-    <name>EduMesh</name>
-    <version>1.0</version>
+    <sdk-version>3.2.0.GA</sdk-version>
+    <id>com.mindsmesh.mobile</id>
+    <name>MindsMesh</name>
+    <version>1.3.0</version>
     <publisher>Minds Mesh, Inc.</publisher>
-    <url>http://www.edumesh.com</url>
-    <description>not specified</description>
-    <copyright>2013 by Minds Mesh, Inc.</copyright>
+    <url>http://www.mindsmesh.com</url>
+    <description>Minds Mesh is an education social network which allows students to collaborate with their classmates through Facebook, mobile and tablet apps.</description>
+    <copyright>2013 Minds Mesh, Inc.</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>false</prerendered-icon>
@@ -61,7 +61,7 @@
         <module platform="android">ti.map</module>
     </modules>
     <plugins>
-        <plugin version="1.0">ti.alloy</plugin>
+        <plugin version="1.3">ti.alloy</plugin>
     </plugins>
     <property name="ti.deploytype">development</property>
 </ti:app>

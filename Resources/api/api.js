@@ -1,25 +1,16 @@
 function errorHTTPClient(request, mode, url, data, errObj) {
-    Titanium.API.info("*******************");
-    Titanium.API.info("in errorHTTPClient");
     if (4 == request.readyState && 3 > request.retries) {
         request.open(mode, url);
         request.setRequestHeader("Content-Type", "application/json");
         request.send(data);
-        Titanium.API.info("data: " + JSON.stringify(data));
         request.retries++;
     } else {
-        var desc = errObj.error.substring(errObj.error.indexOf("Description=") + 12, errObj.error.lastIndexOf("}"));
-        Titanium.API.info("*******************");
-        Titanium.API.info("errorHTTPClient: " + desc);
-        Titanium.API.info("full description: " + JSON.stringify(errObj));
-        Titanium.API.info(errObj);
+        errObj.error.substring(errObj.error.indexOf("Description=") + 12, errObj.error.lastIndexOf("}"));
+        alert("There is network connectivity issues, please confirm your connection.");
     }
 }
 
 function createHttpClient(mode, url, data, header) {
-    Titanium.API.info("*******************");
-    Titanium.API.info("in createHttpClient");
-    Titanium.API.info("data: " + JSON.stringify(data));
     var xhr = Titanium.Network.createHTTPClient({
         timeout: 3e3
     });
@@ -38,7 +29,7 @@ function createHttpClient(mode, url, data, header) {
     return xhr;
 }
 
-function createHttpClientNoError(mode, url, data, header) {
+function createHttpClientNoOpen(mode, url, data, header) {
     var xhr = Titanium.Network.createHTTPClient({
         timeout: 3e3
     });
@@ -50,11 +41,26 @@ function createHttpClientNoError(mode, url, data, header) {
             xhr.setRequestHeader("User-Agent", androidUserAgent);
         }
     }
-    xhr.onerror = function() {
-        Titanium.API.info("*******************");
-        Titanium.API.info("error in createHttpClientNoError");
+    xhr.onerror = function(e) {
+        errorHTTPClient(xhr, mode, url, data, e, L("Comms Error Message"));
     };
+    return xhr;
+}
+
+function createHttpClientNoError(mode, url, data, header) {
+    var xhr = Titanium.Network.createHTTPClient({
+        timeout: 3e3
+    });
+    xhr.retries = 0;
     xhr.open(mode, url);
+    if ("FILE" == header) xhr.setRequestHeader("Content-Type", "multipart/form-data"); else if ("NONE" != header) {
+        xhr.setRequestHeader("Content-Type", "application/json");
+        if ("android" == Titanium.Platform.osname) {
+            var androidUserAgent = "Mozilla/5.0 (Linux; U; iPhone OS " + Ti.Platform.version + "; " + Ti.Locale.currentLocale + "; " + Ti.Platform.model + " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1";
+            xhr.setRequestHeader("User-Agent", androidUserAgent);
+        }
+    }
+    xhr.onerror = function() {};
     return xhr;
 }
 
@@ -142,8 +148,8 @@ function getPostsWithFamily(accessToken, before) {
     return xhr;
 }
 
-function getPostWithFamily(accessToken, postId) {
-    url = "https://www.mindsmesh.com/api/v1/posts/" + postId + "/with_family?access_token=" + accessToken;
+function getPostWithChildren(accessToken, postId) {
+    url = "https://www.mindsmesh.com/api/v1/posts/" + postId + "/with_children?access_token=" + accessToken;
     xhr = createHttpClient("GET", url);
     return xhr;
 }
@@ -210,9 +216,3 @@ function getDataFromMoodle(url) {
     xhr = createHttpClient("GET", url, "", "NONE");
     return xhr;
 }
-
-var sha = require("sha-aws").load();
-
-var utf = require("UTF8").load();
-
-require("date").load();

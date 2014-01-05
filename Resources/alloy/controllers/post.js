@@ -7,7 +7,7 @@ function Controller() {
             user = JSON.parse(response);
             if (user.unread.length > 0) {
                 var notificationButton = Ti.UI.createButton({
-                    backgroundImage: "../images/bell-light.png",
+                    backgroundImage: "/images/bell-light.png",
                     height: 27,
                     width: 27
                 });
@@ -28,7 +28,7 @@ function Controller() {
                 });
                 notificationButton.add(label);
             } else var notificationButton = Ti.UI.createButton({
-                backgroundImage: "../images/bell.png",
+                backgroundImage: "/images/bell.png",
                 height: 25,
                 width: 25
             });
@@ -67,7 +67,7 @@ function Controller() {
                     top: 18
                 });
                 var flag = Titanium.UI.createImageView({
-                    image: "../images/flag_new_red.png",
+                    image: "/images/flag_new_red.png",
                     top: 7,
                     right: 12,
                     notification_id: user.unread[i].id,
@@ -144,6 +144,15 @@ function Controller() {
         };
         xhr.send();
     }
+    function goComment() {
+        var feed = Alloy.createController("new_post", {
+            postid: args.postid
+        }).getView();
+        feed.title = null != args.topic_id ? args.class_number : null != args.group_id ? args.group_name : "Comment";
+        Alloy.CFG.navwindow.openWindow(feed, {
+            animated: false
+        });
+    }
     function formatDate() {
         var d = new Date();
         var datestr = d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear();
@@ -157,15 +166,15 @@ function Controller() {
         var rd = [];
         tableView.data = rd;
         if (Titanium.Network.online) {
-            xhr = getPostWithChildren(Titanium.App.Properties.getString("mmat"), win.postid);
+            xhr = getPostWithChildren(Titanium.App.Properties.getString("mmat"), args.postid);
             xhr.onload = function() {
                 var d = new Date();
                 var response = this.responseText;
                 var post = JSON.parse(response);
-                var fullname = win.fullname;
-                var picUrl = win.photo_url;
+                var fullname = Titanium.App.Properties.getString("name");
+                var picUrl = Titanium.App.Properties.getString("photo_url");
                 var fbRow = Titanium.UI.createTableViewRow({
-                    backgroundColor: "#46a546",
+                    backgroundColor: "#15B17A",
                     height: Ti.UI.SIZE,
                     selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE,
                     layout: "vertical"
@@ -173,12 +182,12 @@ function Controller() {
                 if ("iphone" == Titanium.Platform.osname) {
                     var fbName = Titanium.UI.createLabel({
                         text: fullname,
-                        backgroundColor: "#ecfaff",
+                        backgroundColor: "#ffffff",
                         textAlign: "left",
                         left: 55,
                         height: "auto",
                         top: -41,
-                        color: "#46a546",
+                        color: "#000000",
                         font: {
                             fontWeight: "bold",
                             fontSize: 13
@@ -187,7 +196,7 @@ function Controller() {
                     var timetext = timeDifference(d, post.created_at);
                     var postTime = Titanium.UI.createLabel({
                         text: timetext,
-                        backgroundColor: "#ecfaff",
+                        backgroundColor: "#ffffff",
                         textAlign: "left",
                         left: 55,
                         top: 5,
@@ -199,7 +208,7 @@ function Controller() {
                     });
                     var comment = Titanium.UI.createLabel({
                         text: post.text,
-                        backgroundColor: "#ecfaff",
+                        backgroundColor: "#ffffff",
                         textAlign: "left",
                         width: Titanium.Platform.displayCaps.platformWidth - 30,
                         top: 15,
@@ -209,7 +218,7 @@ function Controller() {
                         }
                     });
                     var commentHolder = Ti.UI.createView({
-                        backgroundColor: "#ecfaff",
+                        backgroundColor: "#ffffff",
                         top: 6,
                         width: Titanium.Platform.displayCaps.platformWidth - 10,
                         height: Ti.UI.SIZE,
@@ -227,7 +236,7 @@ function Controller() {
                     commentHolder.add(postTime);
                     commentHolder.add(comment);
                     var commentSpacer = Ti.UI.createView({
-                        backgroundColor: "#ecfaff",
+                        backgroundColor: "#ffffff",
                         width: Titanium.Platform.displayCaps.platformWidth - 30,
                         height: 20
                     });
@@ -239,17 +248,19 @@ function Controller() {
                         if ("post.mov" == post.post_attachments[0].name) {
                             var movieModal = Ti.UI.createWindow({
                                 backgroundColor: "#00000000",
-                                barColor: "#46a546",
+                                barColor: "#15B17A",
+                                navTintColor: "#ffffff",
+                                translucent: false,
                                 title: "Video",
                                 orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ]
                             });
                             var activeMovie = Ti.Media.createVideoPlayer({
                                 backgroundColor: "#000",
-                                fullscreen: true,
                                 scalingMode: Titanium.Media.VIDEO_SCALING_ASPECT_FIT,
-                                mediaControlMode: Titanium.Media.VIDEO_CONTROL_NONE,
+                                mediaControlStyle: Titanium.Media.VIDEO_CONTROL_DEFAULT,
                                 url: post.post_attachments[0].url,
-                                autoplay: false
+                                autoplay: false,
+                                zIndex: 5
                             });
                             var url = post.post_attachments[0].url;
                             var pieces = url.substring(0, url.length - 8);
@@ -260,7 +271,7 @@ function Controller() {
                                 bottom: 15
                             });
                             var playButton = Titanium.UI.createImageView({
-                                image: "../images/LH2-Play-icon-2.png",
+                                image: "/images/LH2-Play-icon-2.png",
                                 top: -170,
                                 height: 32,
                                 zIndex: 1,
@@ -268,29 +279,23 @@ function Controller() {
                                 width: 32
                             });
                             movPict.addEventListener("click", function() {
-                                win.navGroup.openWindow(movieModal, {
+                                Alloy.CFG.navwindow.openWindow(movieModal, {
                                     animated: false
                                 });
                                 movieModal.add(activeMovie);
-                                activeMovie.addEventListener("fullscreen", function(e) {
-                                    0 == e.entering && win.navGroup.close(movieModal);
-                                });
                             });
                             playButton.addEventListener("click", function() {
-                                win.navGroup.openWindow(movieModal, {
+                                Alloy.CFG.navwindow.openWindow(movieModal, {
                                     animated: false
                                 });
                                 movieModal.add(activeMovie);
-                                activeMovie.addEventListener("fullscreen", function(e) {
-                                    0 == e.entering && win.navGroup.close(movieModal);
-                                });
                             });
                             commentHolder.add(movPict);
                             commentHolder.add(playButton);
                         } else if (post.post_attachments[0].name.match(myRegEx) || post.post_attachments[0].name.match(myRegEx2) || post.post_attachments[0].name.match(myRegEx3)) {
                             var picModal = Ti.UI.createWindow({
                                 backgroundColor: "black",
-                                barColor: "#46a546",
+                                barColor: "#15B17A",
                                 navTintColor: "#ffffff",
                                 statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                                 translucent: false,
@@ -305,7 +310,7 @@ function Controller() {
                                 bottom: 20
                             });
                             imgPic.addEventListener("click", function() {
-                                win.navGroup.openWindow(picModal, {
+                                Alloy.CFG.navwindow.openWindow(picModal, {
                                     animated: false
                                 });
                                 var imgPicMod = Titanium.UI.createImageView({
@@ -334,7 +339,7 @@ function Controller() {
                                 }
                             });
                             var paperclip = Titanium.UI.createImageView({
-                                image: "../images/paperclip_black_24.png",
+                                image: "/images/paperclip_black_24.png",
                                 top: 4,
                                 left: 0,
                                 height: 16,
@@ -367,9 +372,9 @@ function Controller() {
                                 modalTableViewFiles.addEventListener("click", function(e) {
                                     var win1 = Titanium.UI.createWindow({
                                         title: e.source.title,
-                                        backgroundColor: "#ecfaff",
+                                        backgroundColor: "#ffffff",
                                         layout: "absolute",
-                                        barColor: "#46a546",
+                                        barColor: "#15B17A",
                                         navTintColor: "#ffffff",
                                         statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                                         translucent: false
@@ -380,7 +385,7 @@ function Controller() {
                                     });
                                     win1.add(webview);
                                     winModalFiles.close();
-                                    win.navGroup.openWindow(win1, {
+                                    Alloy.CFG.navwindow.openWindow(win1, {
                                         animated: false
                                     });
                                 });
@@ -453,7 +458,7 @@ function Controller() {
                         var fullname = reply.user.name;
                         var picUrl = reply.user.photo_url;
                         var fbRow = Titanium.UI.createTableViewRow({
-                            backgroundColor: "#46a546",
+                            backgroundColor: "#15B17A",
                             height: Ti.UI.SIZE,
                             selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE,
                             layout: "vertical"
@@ -465,7 +470,7 @@ function Controller() {
                             left: 55,
                             height: "auto",
                             top: -41,
-                            color: "#46a546",
+                            color: "#000000",
                             font: {
                                 fontWeight: "bold",
                                 fontSize: 13
@@ -525,7 +530,7 @@ function Controller() {
                 } else {
                     var fbName = Titanium.UI.createLabel({
                         text: fullname,
-                        backgroundColor: "#ecfaff",
+                        backgroundColor: "#ffffff",
                         textAlign: "left",
                         left: 80,
                         height: "auto",
@@ -539,7 +544,7 @@ function Controller() {
                     var timetext = timeDifference(d, post.created_at);
                     var postTime = Titanium.UI.createLabel({
                         text: timetext,
-                        backgroundColor: "#ecfaff",
+                        backgroundColor: "#ffffff",
                         textAlign: "left",
                         left: 80,
                         top: 10,
@@ -555,7 +560,7 @@ function Controller() {
                     comWidth = w > h ? Titanium.Platform.displayCaps.platformHeight : Titanium.Platform.displayCaps.platformWidth;
                     var comment = Titanium.UI.createLabel({
                         text: post.text,
-                        backgroundColor: "#ecfaff",
+                        backgroundColor: "#ffffff",
                         textAlign: "left",
                         width: comWidth - 60,
                         left: 15,
@@ -566,7 +571,7 @@ function Controller() {
                         }
                     });
                     var commentHolder = Ti.UI.createView({
-                        backgroundColor: "#ecfaff",
+                        backgroundColor: "#ffffff",
                         top: 15,
                         width: comWidth - 30,
                         height: Ti.UI.SIZE,
@@ -584,7 +589,7 @@ function Controller() {
                     commentHolder.add(postTime);
                     commentHolder.add(comment);
                     var commentSpacer = Ti.UI.createView({
-                        backgroundColor: "#ecfaff",
+                        backgroundColor: "#ffffff",
                         width: comWidth - 30,
                         height: 20
                     });
@@ -596,7 +601,7 @@ function Controller() {
                         if ("post.mov" == post.post_attachments[0].name) {
                             var movieModal = Ti.UI.createWindow({
                                 backgroundColor: "#00000000",
-                                barColor: "#46a546",
+                                barColor: "#15B17A",
                                 navTintColor: "#ffffff",
                                 statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                                 translucent: false,
@@ -605,9 +610,8 @@ function Controller() {
                             });
                             var activeMovie = Ti.Media.createVideoPlayer({
                                 backgroundColor: "#000",
-                                fullscreen: true,
+                                mediaControlStyle: Titanium.Media.VIDEO_CONTROL_DEFAULT,
                                 scalingMode: Titanium.Media.VIDEO_SCALING_ASPECT_FIT,
-                                mediaControlMode: Titanium.Media.VIDEO_CONTROL_NONE,
                                 url: post.post_attachments[0].url,
                                 autoplay: false
                             });
@@ -620,7 +624,7 @@ function Controller() {
                                 bottom: 15
                             });
                             var playButton = Titanium.UI.createImageView({
-                                image: "../images/LH2-Play-icon-2.png",
+                                image: "/images/LH2-Play-icon-2.png",
                                 top: -170,
                                 height: 32,
                                 zIndex: 1,
@@ -628,29 +632,23 @@ function Controller() {
                                 width: 32
                             });
                             movPict.addEventListener("click", function() {
-                                win.navGroup.openWindow(movieModal, {
+                                Alloy.CFG.navwindow.openWindow(movieModal, {
                                     animated: false
                                 });
                                 movieModal.add(activeMovie);
-                                activeMovie.addEventListener("fullscreen", function(e) {
-                                    0 == e.entering && win.navGroup.close(movieModal);
-                                });
                             });
                             playButton.addEventListener("click", function() {
-                                win.navGroup.openWindow(movieModal, {
+                                Alloy.CFG.navwindow.openWindow(movieModal, {
                                     animated: false
                                 });
                                 movieModal.add(activeMovie);
-                                activeMovie.addEventListener("fullscreen", function(e) {
-                                    0 == e.entering && win.navGroup.close(movieModal);
-                                });
                             });
                             commentHolder.add(movPict);
                             commentHolder.add(playButton);
                         } else if (post.post_attachments[0].name.match(myRegEx) || post.post_attachments[0].name.match(myRegEx2) || post.post_attachments[0].name.match(myRegEx3)) {
                             var picModal = Ti.UI.createWindow({
                                 backgroundColor: "black",
-                                barColor: "#46a546",
+                                barColor: "#15B17A",
                                 navTintColor: "#ffffff",
                                 statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
                                 translucent: false,
@@ -665,7 +663,7 @@ function Controller() {
                                 bottom: 20
                             });
                             imgPic.addEventListener("click", function() {
-                                win.navGroup.openWindow(picModal, {
+                                Alloy.CFG.navwindow.openWindow(picModal, {
                                     animated: false
                                 });
                                 var imgPicMod = Titanium.UI.createImageView({
@@ -694,7 +692,7 @@ function Controller() {
                                 }
                             });
                             var paperclip = Titanium.UI.createImageView({
-                                image: "../images/paperclip_black_24.png",
+                                image: "/images/paperclip_black_24.png",
                                 top: 4,
                                 left: 0,
                                 height: 16,
@@ -727,9 +725,9 @@ function Controller() {
                                 modalTableViewFiles.addEventListener("click", function(e) {
                                     var win1 = Titanium.UI.createWindow({
                                         title: e.source.title,
-                                        backgroundColor: "#ecfaff",
+                                        backgroundColor: "#ffffff",
                                         layout: "absolute",
-                                        barColor: "#46a546"
+                                        barColor: "#15B17A"
                                     });
                                     win1.docurl = e.source.url;
                                     var webview = Titanium.UI.createWebView({
@@ -737,7 +735,7 @@ function Controller() {
                                     });
                                     win1.add(webview);
                                     winModalFiles.close();
-                                    win.navGroup.openWindow(win1, {
+                                    Alloy.CFG.navwindow.openWindow(win1, {
                                         animated: false
                                     });
                                 });
@@ -810,7 +808,7 @@ function Controller() {
                         var fullname = reply.user.name;
                         var picUrl = reply.user.photo_url;
                         var fbRow = Titanium.UI.createTableViewRow({
-                            backgroundColor: "#46a546",
+                            backgroundColor: "#15B17A",
                             height: Ti.UI.SIZE,
                             selectionStyle: Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE,
                             layout: "vertical"
@@ -915,6 +913,7 @@ function Controller() {
     arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
+    var __defers = {};
     $.__views.post = Ti.UI.createWindow({
         backgroundColor: "#FFF",
         id: "post",
@@ -929,13 +928,18 @@ function Controller() {
         height: "30dp",
         width: "30dp"
     });
+    goComment ? $.__views.postButton.addEventListener("click", goComment) : __defers["$.__views.postButton!click!goComment"] = true;
     $.__views.post.rightNavButton = $.__views.postButton;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var args = arguments[0] || {};
     var win = $.post;
     var winModal = Ti.UI.createWindow({
         backgroundColor: "#B0000000",
         visible: false
+    });
+    Titanium.App.addEventListener("reload_post", function() {
+        endReloading();
     });
     var win_height = 380;
     var win_width = .85 * Ti.Platform.displayCaps.platformWidth;
@@ -961,15 +965,15 @@ function Controller() {
             if ("Post" == e.source.type) {
                 var win1 = Titanium.UI.createWindow({
                     url: "post.js",
-                    backgroundColor: "#ecfaff",
-                    barColor: "#46a546",
+                    backgroundColor: "#ffffff",
+                    barColor: "#15B17A",
                     notModal: winModal
                 });
                 win1.postid = e.source.id;
                 win1.fullname = Titanium.App.Properties.getString("name");
                 win1.photo_url = Titanium.App.Properties.getString("photo_url");
                 winModal.hide();
-                win.navGroup.openWindow(win1, {
+                Alloy.CFG.navwindow.openWindow(win1, {
                     animated: false
                 });
             } else "Topic" == e.source.type && Titanium.App.fireEvent("nav-menu-button", {
@@ -1026,30 +1030,13 @@ function Controller() {
     view.add(modalTableView);
     winModal.add(view);
     var tableView = Titanium.UI.createTableView({
-        backgroundColor: "#46a546",
+        backgroundColor: "#15B17A",
         separatorStyle: "none"
     });
     win.add(tableView);
     Titanium.App.addEventListener("main-win-close", function() {
         winModal.close();
-        win.navGroup.close(win);
-    });
-    $.postButton.addEventListener("click", function() {
-        var win1 = Titanium.UI.createWindow({
-            title: "Answer",
-            url: "make_reply.js",
-            backgroundColor: "#ffffff",
-            navGroup: win.navGroup,
-            navTintColor: "#ffffff",
-            statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-            translucent: false,
-            barColor: "#46a546",
-            layout: "absolute"
-        });
-        win1.postid = win.postid;
-        win.navGroup.openWindow(win1, {
-            animated: false
-        });
+        Alloy.CFG.navwindow.close(win);
     });
     var border = Ti.UI.createView({
         backgroundColor: "#576c89",
@@ -1063,7 +1050,7 @@ function Controller() {
     });
     tableHeader.add(border);
     var arrow = Ti.UI.createView({
-        backgroundImage: "../images/whiteArrow.png",
+        backgroundImage: "/images/whiteArrow.png",
         width: 23,
         height: 60,
         bottom: 10,
@@ -1169,6 +1156,7 @@ function Controller() {
         });
         alertDialog.show();
     }
+    __defers["$.__views.postButton!click!goComment"] && $.__views.postButton.addEventListener("click", goComment);
     _.extend($, exports);
 }
 

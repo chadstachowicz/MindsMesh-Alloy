@@ -72,7 +72,10 @@ function Controller() {
                     }, function(e) {
                         if (e.success) {
                             var env = "development";
-                            "true" == Ti.App.Properties.getString("production") && (env = "production");
+                            if ("true" == Ti.App.Properties.getString("production")) {
+                                env = "production";
+                                alert("here4");
+                            }
                             var postData = {
                                 token: deviceToken,
                                 model: escape(Titanium.Platform.model),
@@ -270,11 +273,6 @@ function Controller() {
     $.__views.sideMenu.add($.__views.menuTableView);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var menuMoodle = [];
-    var menuMoodleSSO = [];
-    var menuEntity = [];
-    var menuName = [];
-    var groupName = [];
     var navAnimate = Ti.UI.createAnimation({
         left: 0,
         duration: 75,
@@ -284,80 +282,43 @@ function Controller() {
     Titanium.App.addEventListener("reloadMenu", function() {
         reloadMenu();
     });
+    Titanium.App.addEventListener("goTopic", function(e) {
+        var feed = Alloy.createController("old_feed", {
+            topic_id: e.topic_id
+        }).getView();
+        var navAnimate = Ti.UI.createAnimation({
+            left: 0,
+            duration: 75,
+            curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+        });
+        Alloy.CFG.navwindow.animate(navAnimate);
+        Alloy.CFG.navwindow.closeWindow(Ti.App.myCurrentWindow, {
+            animated: false
+        });
+        Alloy.CFG.navwindow.openWindow(feed, {
+            animated: false
+        });
+    });
+    Titanium.App.addEventListener("goGroup", function(e) {
+        var feed = Alloy.createController("old_feed", {
+            group_id: e.group_id
+        }).getView();
+        var navAnimate = Ti.UI.createAnimation({
+            left: 0,
+            duration: 75,
+            curve: Ti.UI.ANIMATION_CURVE_EASE_IN_OUT
+        });
+        Alloy.CFG.navwindow.animate(navAnimate);
+        Alloy.CFG.navwindow.closeWindow(Ti.App.myCurrentWindow, {
+            animated: false
+        });
+        Alloy.CFG.navwindow.openWindow(feed, {
+            animated: false
+        });
+    });
     Titanium.App.addEventListener("nav-menu-button", function(e) {
-        var menu_id = e.menu_id;
-        var topic_id = e.topic_id;
-        var entity_id = e.entity_id;
-        var group_id = e.group_id;
-        var group_name = groupName[group_id];
-        var moodle = menuMoodle[topic_id];
-        var moodle_sso = menuMoodleSSO[topic_id];
-        var entity_id = menuEntity[entity_id];
-        var class_number = menuName[topic_id];
         if (true == e.data) {
-            navAnimate.addEventListener("complete", function() {
-                if (1 == menu_id) ; else if (4 == menu_id) Titanium.UI.createWindow({
-                    title: "Verify Email",
-                    url: "source_both/join_school.js",
-                    translucent: false,
-                    barColor: "#46a546",
-                    backgroundColor: "#ecfaff"
-                }); else if (5 == menu_id) Titanium.UI.createWindow({
-                    title: "Moodle",
-                    url: "source_both/moodle_account.js",
-                    statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                    translucent: false,
-                    barColor: "#46a546",
-                    navTintColor: "#ffffff",
-                    statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                    translucent: false,
-                    backgroundColor: "#e2e7ed"
-                }); else if (7 == menu_id) {
-                    var win7 = Titanium.UI.createWindow({
-                        backgroundColor: "#CDC9C9",
-                        url: "source_both/feed.js",
-                        navTintColor: "#ffffff",
-                        statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                        translucent: false,
-                        barColor: "#46a546"
-                    });
-                    win7.topic_id = topic_id;
-                    win7.moodle = moodle;
-                    win7.moodle_sso = moodle_sso;
-                    win7.entity_id = entity_id;
-                    win7.class_number = class_number;
-                } else if (2 == menu_id) {
-                    var win7 = Titanium.UI.createWindow({
-                        backgroundColor: "#CDC9C9",
-                        url: "source_both/feed.js",
-                        navTintColor: "#ffffff",
-                        barColor: "#46a546",
-                        statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                        translucent: false
-                    });
-                    win7.group_id = group_id;
-                    win7.group_name = group_name;
-                } else 8 == menu_id ? Titanium.UI.createWindow({
-                    title: "Search Classes",
-                    url: "source_both/search_topics.js",
-                    backgroundColor: "#ecfaff",
-                    layout: "absolute",
-                    translucent: false,
-                    barColor: "#46a546",
-                    moving: false,
-                    axis: 0
-                }) : 10 == menu_id && Titanium.UI.createWindow({
-                    title: "Moodle Account",
-                    url: "source_both/moodle_account.js",
-                    barColor: "#46a546",
-                    navTintColor: "#ffffff",
-                    statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                    translucent: false,
-                    backgroundColor: "#e2e7ed",
-                    moving: false,
-                    axis: 0
-                });
-            });
+            navAnimate.addEventListener("complete", function() {});
             Alloy.CFG.navwindow.animate(navAnimate);
             Titanium.App.fireEvent("nav-menu-button-toggle", {
                 toggle: false

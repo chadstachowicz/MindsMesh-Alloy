@@ -1,0 +1,1 @@
+module.exports = [{"isApi":true,"priority":1000.0001,"key":"Window","style":{backgroundColor:"#FFF",}},{"isId":true,"priority":100000.0065,"key":"win","style":{backgroundColor:"#FFF",navBarHidden:"false",orientationModes:[Ti.UI.LANDSCAPE_LEFT,Ti.UI.LANDSCAPE_RIGHT,Ti.UI.PORTRAIT,],}}];

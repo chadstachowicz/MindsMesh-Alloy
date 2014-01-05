@@ -1,9 +1,58 @@
+var args = arguments[0]||{};
 $.feedImg.image = Titanium.App.Properties.getString("photo_url");
 var win = $.new_post;
 win.addEventListener('open',function(e)
 {
      $.postText.focus();
 });
+function postStatus(){
+	if(args.postid == null){
+                if($.postText.value.length >= 5)
+                {               
+                	if(args.topic_id != null)
+                                {
+                                        var postData = {'topic_id': args.topic_id, 'text': $.postText.value};
+                                } else if (args.group_id != null) {                
+                                        var postData = {'group_id': args.group_id, 'text': $.postText.value};
+                                } else {                                        
+                                        var postData = {'text': $.postText.value};
+                                }
+                                
+                                xhr = postPostCreate(Titanium.App.Properties.getString('mmat'),postData);
+                        xhr.onload = function(){
+                                var response = this.responseText;
+                                var test = JSON.parse(response);
+                                Titanium.App.fireEvent('reload_feed',{data:'posted'});
+                                Alloy.CFG.navwindow.closeWindow(win);
+
+                        };
+                        xhr.send(postData);
+                                
+                        
+                } else {
+                        alert("A reasonable post should have at least 5 chars.");
+                }
+          } else {
+          	if($.postText.value.length < 1)
+                {
+                        alert("Your post must be at least 1 character");
+                } else {
+                var postData = {'text' : $.postText.value};
+                xhr = postReplyCreate(Titanium.App.Properties.getString("mmat"),args.postid,postData);
+                xhr.onload = function(){
+                        var response = this.responseText;
+                        var test = JSON.parse(response);
+                        Titanium.App.fireEvent('reload_post',{data:'posted'});
+                        Alloy.CFG.navwindow.closeWindow(win);
+
+                };
+                xhr.send(postData);
+                
+        }
+          }
+                        
+                
+}
 // AWS UPLOADS
 function UploadToAWS(serverFilename,filename){
 //unploads file to AWS

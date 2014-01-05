@@ -1,7 +1,10 @@
 function Controller() {
     function goStatus() {
-        var feed = Alloy.createController("new_post", "test").getView();
-        null != args.topic_id ? feed.class_number : null != args.group_id && feed.group_name;
+        var feed = Alloy.createController("new_post", {
+            group_id: args.group_id,
+            topic_id: args.topic_id
+        }).getView();
+        feed.title = null != args.topic_id ? args.class_number : null != args.group_id ? args.group_name : "Status";
         Alloy.CFG.navwindow.openWindow(feed, {
             animated: false
         });
@@ -11,7 +14,7 @@ function Controller() {
         xhr = getNotificationsGrouped(Titanium.App.Properties.getString("mmat"));
         xhr.onload = function() {
             var response = this.responseText;
-            user = JSON.parse(response);
+            setTimeout(user = JSON.parse(response), 500);
             if (user.unread.length > 0) {
                 var notificationButton = Ti.UI.createButton({
                     backgroundImage: "/images/bell-light.png",
@@ -41,7 +44,7 @@ function Controller() {
             });
             win.setTitleControl(notificationButton);
             win.title = "Feed";
-            for (var i = 0; user.unread.length > i; ++i) {
+            if (null != user.unread.length) for (var i = 0; user.unread.length > i; ++i) {
                 var classNumber = Titanium.UI.createLabel({
                     text: user.unread[i].actors_count + " people " + user.unread[i].action + " to",
                     box: true,
@@ -210,7 +213,7 @@ function Controller() {
     }
     function onLoad(response) {
         var d = new Date();
-        row = JSON.parse(response);
+        setTimeout(row = JSON.parse(response), 500);
         true == reloading && (g = 0);
         0 == lastRow ? lastRow = row.length : lastRow += row.length;
         for (c = 0; row.length > c; c++) {
@@ -433,55 +436,25 @@ function Controller() {
                             url: url,
                             width: 32
                         });
+                        var activeMovie = Ti.Media.createVideoPlayer({
+                            backgroundColor: "#000",
+                            scalingMode: Titanium.Media.VIDEO_SCALING_ASPECT_FIT,
+                            mediaControlMode: Titanium.Media.VIDEO_CONTROL_DEFAULT,
+                            autoplay: false
+                        });
                         movPict.addEventListener("click", function(e) {
-                            var movieModal2 = Ti.UI.createWindow({
-                                backgroundColor: "#00000000",
-                                navTintColor: "#ffffff",
-                                statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                                translucent: false,
-                                barColor: "#15B17A",
-                                title: "Video",
-                                orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ]
-                            });
-                            var activeMovie = Ti.Media.createVideoPlayer({
-                                backgroundColor: "#000",
-                                scalingMode: Titanium.Media.VIDEO_SCALING_ASPECT_FIT,
-                                mediaControlMode: Titanium.Media.VIDEO_CONTROL_NONE,
-                                url: e.source.url,
-                                autoplay: false
-                            });
+                            activeMovie.url = e.source.url;
                             Alloy.CFG.navwindow.openWindow(movieModal2, {
                                 animated: false
                             });
                             movieModal2.add(activeMovie);
-                            activeMovie.addEventListener("fullscreen", function() {
-                                Alloy.CFG.navwindow.close(movieModal2);
-                            });
                         });
                         playButton.addEventListener("click", function(e) {
-                            var movieModal2 = Ti.UI.createWindow({
-                                backgroundColor: "#00000000",
-                                barColor: "#15B17A",
-                                navTintColor: "#ffffff",
-                                statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                                translucent: false,
-                                title: "Video",
-                                orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ]
-                            });
-                            var activeMovie = Ti.Media.createVideoPlayer({
-                                backgroundColor: "#000",
-                                scalingMode: Titanium.Media.VIDEO_SCALING_ASPECT_FIT,
-                                mediaControlMode: Titanium.Media.VIDEO_CONTROL_NONE,
-                                url: e.source.url,
-                                autoplay: false
-                            });
+                            activeMovie.url = e.source.url;
                             Alloy.CFG.navwindow.openWindow(movieModal2, {
                                 animated: false
                             });
                             movieModal2.add(activeMovie);
-                            activeMovie.addEventListener("fullscreen", function() {
-                                Alloy.CFG.navwindow.close(movieModal2);
-                            });
                         });
                         commentHolder[g].add(movPict);
                         commentHolder[g].add(playButton);
@@ -590,9 +563,6 @@ function Controller() {
                                 animated: false
                             });
                             movieModal2.add(activeMovie);
-                            activeMovie.addEventListener("fullscreen", function() {
-                                Alloy.CFG.navwindow.close(movieModal2);
-                            });
                         });
                         playButton.addEventListener("click", function(e) {
                             var movieModal2 = Ti.UI.createWindow({
@@ -612,9 +582,6 @@ function Controller() {
                                 animated: false
                             });
                             movieModal2.add(activeMovie);
-                            activeMovie.addEventListener("fullscreen", function() {
-                                Alloy.CFG.navwindow.close(movieModal2);
-                            });
                         });
                         commentHolder[g].add(movPict);
                         commentHolder[g].add(playButton);
@@ -687,35 +654,6 @@ function Controller() {
         });
         updating = false;
         reloading = false;
-    }
-    function redirectToMoodle(response) {
-        var regex = /TreeNode\('([\w\d\s:-]+)'.+(http.+course\/view\.php\?id=\d+)/gi;
-        var totalFound = [];
-        var totalURL = [];
-        while (null !== (hits = regex.exec(response))) {
-            var regex2 = /([a-zA-Z]+)-([\d\w]+)/i;
-            var found = regex2.exec(hits[1]);
-            if (null != found && found[1] + " " + found[2] == win.class_number) {
-                totalFound.push(found);
-                totalURL.push(hits[2]);
-            }
-        }
-        loadView.close();
-        if (0 == totalFound.length) alert("No Moodle Course found for this discussion.  Make sure course Numbers between MindsMesh.com and Moodle match exactly, and that you are a part of the class on your schools Moodle."); else if (1 == totalFound.length) {
-            var win1 = Titanium.UI.createWindow({
-                url: "moodle_class.js",
-                navGroup: Alloy.CFG.navwindow,
-                navTintColor: "#ffffff",
-                statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                translucent: false,
-                backgroundColor: "#ecfaff",
-                barColor: "#15B17A"
-            });
-            win1.Moodurl = totalURL[0];
-            Alloy.CFG.navwindow.openWindow(win1, {
-                animated: false
-            });
-        }
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "old_feed";
@@ -851,6 +789,15 @@ function Controller() {
     var currentFile = "";
     var win = $.old_feed;
     Ti.App.myCurrentWindow = win;
+    var movieModal2 = Ti.UI.createWindow({
+        backgroundColor: "#00000000",
+        navTintColor: "#ffffff",
+        statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
+        translucent: false,
+        barColor: "#15B17A",
+        title: "Video",
+        orientationModes: [ Ti.UI.LANDSCAPE_LEFT, Ti.UI.LANDSCAPE_RIGHT, Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT ]
+    });
     var view2 = Ti.UI.createView({
         transparent: "none",
         backgroundColor: "#F7F7F7",
@@ -1395,9 +1342,8 @@ function Controller() {
                 });
                 var activeMovie = Ti.Media.createVideoPlayer({
                     backgroundColor: "#000",
-                    fullscreen: true,
                     scalingMode: Titanium.Media.VIDEO_SCALING_ASPECT_FIT,
-                    mediaControlMode: Titanium.Media.VIDEO_CONTROL_NONE,
+                    mediaControlMode: Titanium.Media.VIDEO_CONTROL_DEFAULT,
                     media: event.media,
                     autoplay: false
                 });
@@ -1425,20 +1371,12 @@ function Controller() {
                         animated: false
                     });
                     movieModal.add(activeMovie);
-                    shareWhoModal.hide();
-                    activeMovie.addEventListener("fullscreen", function(e) {
-                        0 == e.entering && Alloy.CFG.navwindow.close(movieModal);
-                    });
                 });
                 playButton.addEventListener("click", function() {
                     Alloy.CFG.navwindow.openWindow(movieModal, {
                         animated: false
                     });
                     movieModal.add(activeMovie);
-                    shareWhoModal.hide();
-                    activeMovie.addEventListener("fullscreen", function(e) {
-                        0 == e.entering && Alloy.CFG.navwindow.close(movieModal);
-                    });
                 });
                 view.add(movPict);
                 view.add(playButton);
@@ -1470,71 +1408,31 @@ function Controller() {
                 if (1 == e.index) {
                     shareModal.open();
                     shareModal.visible = true;
-                } else if (0 == e.index) if (false == Titanium.App.Properties.hasProperty("moodle-token-" + win.entity_id)) {
-                    var win1 = Titanium.UI.createWindow({
-                        title: "Moodle Account",
-                        url: "moodle_account.js",
-                        navGroup: Alloy.CFG.navwindow,
-                        class_id: args.topic_id,
-                        backgroundColor: "#ecfaff",
-                        navTintColor: "#ffffff",
-                        statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                        translucent: false,
-                        layout: "absolute",
-                        barColor: "#15B17A"
-                    });
-                    Alloy.CFG.navwindow.openWindow(win1, {
+                } else if (0 == e.index) if (false == Titanium.App.Properties.hasProperty("moodle-token-" + args.entity_id)) {
+                    var moodle_account = Alloy.createController("moodle_account", "test").getView();
+                    Alloy.CFG.navwindow.openWindow(moodle_account, {
                         animated: false
                     });
                 } else {
                     loadView.add(loadIndicator);
                     loadView.open();
                     loadIndicator.show();
-                    if (2 == win.entity_id) {
-                        var postData = {
-                            username: Titanium.App.Properties.getString("moodle-user-" + win.entity_id),
-                            password: Titanium.App.Properties.getString("moodle-pass-" + win.entity_id)
-                        };
-                        xhr = postLoginToMoodle(win.moodle, postData);
-                        xhr.onload = function() {
-                            var response = this.responseText;
-                            var regexSess2 = /your\slogin\ssession/i;
-                            var regexLog = /Invalid\slogin/i;
-                            if (response.match(regexSess2)) {
-                                xhr = postLoginToMoodle(win.moodle, postData);
-                                xhr.onload = function() {
-                                    var response2 = this.responseText;
-                                    redirectToMoodle(response2);
-                                };
-                                xhr.send(postData);
-                            } else response.match(regexLog) ? alert("These are not valid credentials.  Please correct them.") : redirectToMoodle(response);
-                        };
-                        xhr.send(postData);
-                    } else {
-                        xhr = getMoodle2EnrolledCourses(Titanium.App.Properties.getString("moodle_url_" + win.entity_id), Titanium.App.Properties.getString("moodle-token-" + win.entity_id), Titanium.App.Properties.getString("moodle-userid-" + win.entity_id));
-                        xhr.onload = function() {
-                            var response = this.responseText;
-                            var courses = JSON.parse(response);
-                            for (c = 0; courses.length > c; c++) if (courses[c].shortname == win.class_number) {
-                                var win1 = Titanium.UI.createWindow({
-                                    url: "moodle_class.js",
-                                    navGroup: Alloy.CFG.navwindow,
-                                    backgroundColor: "#ecfaff",
-                                    navTintColor: "#ffffff",
-                                    statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                                    translucent: false,
-                                    barColor: "#15B17A"
-                                });
-                                win1.class_id = courses[c].id;
-                                win1.entity_id = win.entity_id;
-                                Alloy.CFG.navwindow.openWindow(win1, {
-                                    animated: false
-                                });
-                            }
-                            loadView.close();
-                        };
-                        xhr.send();
-                    }
+                    xhr = getMoodle2EnrolledCourses(Titanium.App.Properties.getString("moodle_url_" + args.entity_id), Titanium.App.Properties.getString("moodle-token-" + args.entity_id), Titanium.App.Properties.getString("moodle-userid-" + args.entity_id));
+                    xhr.onload = function() {
+                        var response = this.responseText;
+                        var courses = JSON.parse(response);
+                        for (c = 0; courses.length > c; c++) if (courses[c].shortname == args.class_number) {
+                            var moodle_class = Alloy.createController("moodle_class", {
+                                class_id: courses[c].id,
+                                entity_id: args.entity_id
+                            }).getView();
+                            Alloy.CFG.navwindow.openWindow(moodle_class, {
+                                animated: false
+                            });
+                        }
+                        loadView.close();
+                    };
+                    xhr.send();
                 }
             });
             win.setRightNavButton(btnBar);
@@ -1658,28 +1556,24 @@ function Controller() {
         xhr.onload = function() {
             this.responseText;
             if ("Post" == e.source.type) {
-                var win1 = Titanium.UI.createWindow({
-                    url: "post.js",
-                    navGroup: Alloy.CFG.navwindow,
-                    navTintColor: "#ffffff",
-                    statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                    translucent: false,
-                    backgroundColor: "#CDC9C9",
-                    barColor: "#15B17A",
-                    notModal: winModal
-                });
-                win1.postid = e.source.id;
-                win1.fullname = Titanium.App.Properties.getString("name");
-                win1.photo_url = Titanium.App.Properties.getString("photo_url");
-                winModal.hide();
-                Alloy.CFG.navwindow.openWindow(win1, {
+                var post = Alloy.createController("post", {
+                    postid: e.source.id
+                }).getView();
+                winModal.close();
+                Alloy.CFG.navwindow.openWindow(post, {
                     animated: false
                 });
-            } else "Topic" == e.source.type && Titanium.App.fireEvent("nav-menu-button", {
-                data: true,
-                menu_id: 7,
-                topic_id: e.source.id
-            });
+            } else if ("Topic" == e.source.type) {
+                winModal.close();
+                Titanium.App.fireEvent("goTopic", {
+                    topic_id: e.source.id
+                });
+            } else if ("Group" == e.source.type) {
+                winModal.close();
+                Titanium.App.fireEvent("goGroup", {
+                    group_id: e.source.id
+                });
+            }
         };
         xhr.send();
     });
@@ -1758,19 +1652,11 @@ function Controller() {
             });
             tableView.scrollable = true;
         } else if (true == e.source.box) ; else {
-            var win1 = Titanium.UI.createWindow({
-                url: "post.js",
-                navGroup: Alloy.CFG.navwindow,
-                navTintColor: "#ffffff",
-                statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
-                translucent: false,
-                backgroundColor: "#CDC9C9",
-                barColor: "#15B17A"
-            });
-            win1.postid = e.rowData.result;
-            win1.fullname = e.rowData.fullname;
-            win1.photo_url = e.rowData.photo_url;
-            Alloy.CFG.navwindow.openWindow(win1, {
+            var post = Alloy.createController("post", {
+                postid: e.rowData.result
+            }).getView();
+            winModal.hide();
+            Alloy.CFG.navwindow.openWindow(post, {
                 animated: false
             });
         }
@@ -1931,8 +1817,8 @@ function Controller() {
             reloadNotifications();
         }
     });
-    Titanium.App.addEventListener("event_one", function(e) {
-        win.passedData = e.data;
+    Titanium.App.addEventListener("reload_feed", function() {
+        endReloading();
     });
     var commentHolder = [];
     var backHolder = [];

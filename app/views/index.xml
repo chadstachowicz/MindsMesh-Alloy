@@ -3,7 +3,7 @@
 		
 		
        <View layout="vertical" id="mainView" class="mainView" backgroundColor="#15B17A">  
-       	<ImageView id="image" class="imageView" top="18%" width="80dp" height="80dp" image="/images/MindsMesh-NewLogo.png"/>
+       	<ImageView id="image" class="imageView" top="8%" width="80dp" height="80dp" image="/images/MindsMesh-NewLogo.png"/>
        	<Label class="lblTitle">MindsMesh</Label>
        	<View layout="vertical" id="loginView" class="loginView" backgroundColor="white">
        		<TextField class="txtLog" id="email" color="#000000" top="5dp" bottom="5dp" left="10dp" width="250dp" height="30dp" hintText="Email Address"/>

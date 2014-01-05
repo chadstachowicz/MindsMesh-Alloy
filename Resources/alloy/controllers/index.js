@@ -213,40 +213,43 @@ function Controller() {
     $.__views.__alloyId60.add($.__views.__alloyId61);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    fb.addEventListener("login", function(e) {
-        null != e.data && Titanium.App.Properties.setString("fbid", e.data["id"]);
-        xhr = postLogin(fb.accessToken);
-        xhr.onload = function() {
-            var response = this.responseText;
-            var user = JSON.parse(response);
-            for (i = 0; user.entity_users.length > i; i++) if (null != user.entity_users[i].entity.moodle_url) {
-                moodle_entity_string = "moodle_entity_" + user.entity_users[i].entity.id;
-                moodle_url_string = "moodle_url_" + user.entity_users[i].entity.id;
-                moodle_sso_string = "moodle_sso_" + user.entity_users[i].entity.id;
-                entity_user_string = "entity_user_" + user.entity_users[i].id;
-                Titanium.App.Properties.setString(moodle_entity_string, user.entity_users[i].entity.id);
-                Titanium.App.Properties.setString(moodle_url_string, user.entity_users[i].entity.moodle_url);
-                Titanium.App.Properties.setString(moodle_sso_string, user.entity_users[i].entity.moodle_sso);
-                Titanium.App.Properties.setString(entity_user_string, user.entity_users[i].id);
-            }
-            Titanium.App.Properties.setString("logged_in", "true");
-            Titanium.App.Properties.setString("name", user.name);
-            Titanium.App.Properties.setString("num_entities", user.entity_users.length);
-            Titanium.App.Properties.setString("num_topics", user.topic_users.length);
-            Titanium.App.Properties.setString("userid", user.id);
-            Titanium.App.Properties.setString("mmat", user.access_token);
-            Titanium.App.Properties.setString("photo_url", user.photo_url);
-            goNavigation();
-        };
-        xhr.send();
-    });
+    if (0 == fblisten) {
+        fblisten = 1;
+        fb.addEventListener("login", function(e) {
+            null != e.data && Titanium.App.Properties.setString("fbid", e.data["id"]);
+            xhr = postLogin(fb.accessToken);
+            xhr.onload = function() {
+                var response = this.responseText;
+                var user = JSON.parse(response);
+                for (i = 0; user.entity_users.length > i; i++) if (null != user.entity_users[i].entity.moodle_url) {
+                    moodle_entity_string = "moodle_entity_" + user.entity_users[i].entity.id;
+                    moodle_url_string = "moodle_url_" + user.entity_users[i].entity.id;
+                    moodle_sso_string = "moodle_sso_" + user.entity_users[i].entity.id;
+                    entity_user_string = "entity_user_" + user.entity_users[i].id;
+                    Titanium.App.Properties.setString(moodle_entity_string, user.entity_users[i].entity.id);
+                    Titanium.App.Properties.setString(moodle_url_string, user.entity_users[i].entity.moodle_url);
+                    Titanium.App.Properties.setString(moodle_sso_string, user.entity_users[i].entity.moodle_sso);
+                    Titanium.App.Properties.setString(entity_user_string, user.entity_users[i].id);
+                }
+                Titanium.App.Properties.setString("logged_in", "true");
+                Titanium.App.Properties.setString("name", user.name);
+                Titanium.App.Properties.setString("num_entities", user.entity_users.length);
+                Titanium.App.Properties.setString("num_topics", user.topic_users.length);
+                Titanium.App.Properties.setString("userid", user.id);
+                Titanium.App.Properties.setString("mmat", user.access_token);
+                Titanium.App.Properties.setString("photo_url", user.photo_url);
+                goNavigation();
+            };
+            xhr.send();
+        });
+    }
     $.indexWindow.addEventListener("click", function(e) {
         if (true != e.source.keyb) {
             $.email.blur();
             $.password.blur();
         }
     });
-    "true" != Titanium.App.Properties.getString("logged_in") || fb.LoggedIn ? "false" == Titanium.App.Properties.getString("logged_in") && $.indexWindow.open() : goNavigation();
+    "true" != Titanium.App.Properties.getString("logged_in") || fb.LoggedIn ? $.indexWindow.open() : goNavigation();
     __defers["$.__views.__alloyId55!click!goLogin"] && $.__views.__alloyId55.addEventListener("click", goLogin);
     __defers["$.__views.__alloyId58!click!goFacebookLogin"] && $.__views.__alloyId58.addEventListener("click", goFacebookLogin);
     __defers["$.__views.__alloyId60!click!goSignup"] && $.__views.__alloyId60.addEventListener("click", goSignup);

@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+provisioning_profiles/development/8588FBFE-2556-4D25-81DA-2BA9649C7E53/appid=com.mindsmesh.mobile
+provisioning_profiles/development/8588FBFE-2556-4D25-81DA-2BA9649C7E53/name=Minds Mesh Newest
+provisioning_profiles/development/8588FBFE-2556-4D25-81DA-2BA9649C7E53/uuid=8588FBFE-2556-4D25-81DA-2BA9649C7E53
+provisioning_profiles/development/BFA833E8-9C59-436B-B018-D9E6DD9BA129/appid=com.mindsmesh.mobile
+provisioning_profiles/development/BFA833E8-9C59-436B-B018-D9E6DD9BA129/name=Minds Mesh Newest
+provisioning_profiles/development/BFA833E8-9C59-436B-B018-D9E6DD9BA129/uuid=BFA833E8-9C59-436B-B018-D9E6DD9BA129
+provisioning_profiles/distribution/508956F8-25B1-4078-99E1-CE764E666CF0/appid=com.mindsmesh.mobile
+provisioning_profiles/distribution/508956F8-25B1-4078-99E1-CE764E666CF0/name=Minds Mesh Distro
+provisioning_profiles/distribution/508956F8-25B1-4078-99E1-CE764E666CF0/uuid=508956F8-25B1-4078-99E1-CE764E666CF0

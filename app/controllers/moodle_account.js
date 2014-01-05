@@ -386,7 +386,7 @@ Titanium.App.addEventListener('nav-menu-button-toggle', function(e)
 });
 Titanium.App.addEventListener('main-win-close', function(e)
 {
-        win.navGroup.closeWindow(win);
+        Alloy.CFG.navwindow.closeWindow(win);
 });
 
 var importWiz = Titanium.UI.createButton({
@@ -526,7 +526,7 @@ picker.addEventListener('change', function(e){
         } else {
                 ta3.value = "";
         }
-        if(Titanium.App.Properties.getString('moodle_sso_' + picker.getSelectedRow(0).entity_id))
+        if(Titanium.App.Properties.getString('moodle_sso_' + picker.getSelectedRow(0).entity_id)==true)
         {
                 label1.visible = false;
                 label2.visible = false;

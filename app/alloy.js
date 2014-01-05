@@ -11,12 +11,14 @@
 // Alloy.Globals.someGlobalFunction = function(){};
 
 
-Ti.include("api/EduMeshAPI.js");
+//Ti.include("api/EduMeshAPI.js");
 Ti.include("api/api.js");
 Ti.include("api/utility.js");
 var Cloud = require('ti.cloud');
+var isPaused = true;
 
 var AWS = require('api/amazon').load();
+
 
 
 
@@ -26,7 +28,13 @@ var AWS = require('api/amazon').load();
  fb.appid = "391884850858794";
  fb.permissions = ['email'];
  fb.forceDialogAuth = true;
- 
 
+var fblisten = 0;
 
-
+Titanium.App.addEventListener('resumed',function(e){
+	setTimeout(isPaused = false,1000);
+});
+Titanium.App.addEventListener('paused',function(e){
+	isPaused = true;
+});
+setTimeout(isPaused = false,3000);

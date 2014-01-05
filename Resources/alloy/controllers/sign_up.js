@@ -1,56 +1,59 @@
 function Controller() {
-    function finSignup(email, password) {
-        var postData = {
-            email: email,
-            password: password
-        };
-        xhr = postLogin("", postData);
-        xhr.onload = function() {
-            var response = this.responseText;
-            Ti.API.info(response);
-            var user = JSON.parse(response);
-            for (i = 0; user.entity_users.length > i; i++) if (null != user.entity_users[i].entity.moodle_url) {
-                moodle_entity_string = "moodle_entity_" + user.entity_users[i].entity.id;
-                moodle_url_string = "moodle_url_" + user.entity_users[i].entity.id;
-                moodle_sso_string = "moodle_sso_" + user.entity_users[i].entity.id;
-                entity_user_string = "entity_user_" + user.entity_users[i].id;
-                Titanium.App.Properties.setString(moodle_entity_string, user.entity_users[i].entity.id);
-                Titanium.App.Properties.setString(moodle_url_string, user.entity_users[i].entity.moodle_url);
-                Titanium.App.Properties.setString(moodle_sso_string, user.entity_users[i].entity.moodle_sso);
-                Titanium.App.Properties.setString(entity_user_string, user.entity_users[i].id);
-            }
-            Titanium.App.Properties.setString("logged_in", "true");
-            Titanium.App.Properties.setString("name", user.name);
-            Titanium.App.Properties.setString("num_entities", user.entity_users.length);
-            Titanium.App.Properties.setString("num_topics", user.topic_users.length);
-            Titanium.App.Properties.setString("userid", user.id);
-            Titanium.App.Properties.setString("mmat", user.access_token);
-            Titanium.App.Properties.setString("photo_url", user.photo_url);
-            $.activityIndicator.hide();
-            openFeed();
-        };
-        xhr.onerror = function() {
-            alert("Login failed, please check credentials and try again.");
-            $.activityIndicator.hide();
-        };
-        "iphone" == Titanium.Platform.osname || "ipad" == Titanium.Platform.osname ? xhr.send(postData) : xhr.send(JSON.stringify(postData));
+    function finSignup() {
+        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.edu$/;
+        if (false == reg.test($.email.value)) alert("This is not a valid educational email."); else if ($.password.value != $.confirm_password.value && null != $.password.value && "" != $.password.value) alert("Passwords don't match."); else if (4 > $.name.value.length) alert("Please enter your first and last name."); else {
+            var postData = {
+                name: $.name.value,
+                email: $.email.value,
+                password: $.password.value,
+                password_confirmation: $.confirm_password.value
+            };
+            xhr = postCreateUser(postData);
+            xhr.onload = function() {
+                var response = this.responseText;
+                var user = JSON.parse(response);
+                for (i = 0; user.entity_users.length > i; i++) if (null != user.entity_users[i].entity.moodle_url) {
+                    moodle_entity_string = "moodle_entity_" + user.entity_users[i].entity.id;
+                    moodle_url_string = "moodle_url_" + user.entity_users[i].entity.id;
+                    moodle_sso_string = "moodle_sso_" + user.entity_users[i].entity.id;
+                    entity_user_string = "entity_user_" + user.entity_users[i].id;
+                    Titanium.App.Properties.setString(moodle_entity_string, user.entity_users[i].entity.id);
+                    Titanium.App.Properties.setString(moodle_url_string, user.entity_users[i].entity.moodle_url);
+                    Titanium.App.Properties.setString(moodle_sso_string, user.entity_users[i].entity.moodle_sso);
+                    Titanium.App.Properties.setString(entity_user_string, user.entity_users[i].id);
+                }
+                Titanium.App.Properties.setString("logged_in", "true");
+                Titanium.App.Properties.setString("name", user.name);
+                Titanium.App.Properties.setString("num_entities", user.entity_users.length);
+                Titanium.App.Properties.setString("num_topics", user.topic_users.length);
+                Titanium.App.Properties.setString("userid", user.id);
+                Titanium.App.Properties.setString("mmat", user.access_token);
+                Titanium.App.Properties.setString("photo_url", user.photo_url);
+                Ti.UI.createWindow({
+                    width: Titanium.Platform.displayCaps.platformWidth,
+                    backgroundColor: "#e2e7ed"
+                });
+                var win4 = Titanium.UI.createWindow({
+                    url: "source_both/finish_verification.js",
+                    barColor: "#46a546",
+                    backgroundColor: "#ecfaff"
+                });
+                win4.open();
+            };
+            xhr.onerror = function() {
+                this.responseText;
+            };
+            xhr.send(postData);
+        }
     }
-    function openFeed() {
-        var args = {
-            data: "test data",
-            value: "other data"
-        };
-        var feed = Alloy.createController("feed", args);
-        feed.getView().open();
-    }
-    function openWindow(windowName) {
-        var args = {
-            data: "test data",
-            value: "other data"
-        };
-        var view1 = Alloy.createController(windowName, args);
-        view1.getView().open();
-        Ti.API.info(windowName);
+    function closeWindow() {
+        $.signupWindow.animate({
+            top: "100%",
+            duration: 300
+        });
+        setTimeout(function() {
+            $.signupWindow.close();
+        }, 300);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "sign_up";
@@ -220,40 +223,20 @@ function Controller() {
     $.__views.__alloyId94.add($.__views.__alloyId95);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    fb.addEventListener("login", function(e) {
-        null != e.data && Titanium.App.Properties.setString("fbid", e.data["id"]);
-        xhr = postLogin(fb.accessToken);
-        xhr.onload = function() {
-            var response = this.responseText;
-            var user = JSON.parse(response);
-            for (i = 0; user.entity_users.length > i; i++) if (null != user.entity_users[i].entity.moodle_url) {
-                moodle_entity_string = "moodle_entity_" + user.entity_users[i].entity.id;
-                moodle_url_string = "moodle_url_" + user.entity_users[i].entity.id;
-                moodle_sso_string = "moodle_sso_" + user.entity_users[i].entity.id;
-                entity_user_string = "entity_user_" + user.entity_users[i].id;
-                Titanium.App.Properties.setString(moodle_entity_string, user.entity_users[i].entity.id);
-                Titanium.App.Properties.setString(moodle_url_string, user.entity_users[i].entity.moodle_url);
-                Titanium.App.Properties.setString(moodle_sso_string, user.entity_users[i].entity.moodle_sso);
-                Titanium.App.Properties.setString(entity_user_string, user.entity_users[i].id);
-            }
-            Titanium.App.Properties.setString("logged_in", "true");
-            Titanium.App.Properties.setString("name", user.name);
-            Titanium.App.Properties.setString("num_entities", user.entity_users.length);
-            Titanium.App.Properties.setString("num_topics", user.topic_users.length);
-            Titanium.App.Properties.setString("userid", user.id);
-            Titanium.App.Properties.setString("mmat", user.access_token);
-            Titanium.App.Properties.setString("photo_url", user.photo_url);
-            openWindow("feed");
-        };
-        xhr.send();
+    $.signupWindow.addEventListener("open", function() {
+        $.signupWindow.animate({
+            top: 0,
+            duration: 300
+        });
     });
-    $.indexWindow.addEventListener("click", function(e) {
+    $.signupWindow.addEventListener("click", function(e) {
         if (true != e.source.keyb) {
+            $.name.blur();
             $.email.blur();
             $.password.blur();
+            $.confirm_password.blur();
         }
     });
-    $.indexWindow.open();
     __defers["$.__views.__alloyId92!click!finSignup"] && $.__views.__alloyId92.addEventListener("click", finSignup);
     __defers["$.__views.__alloyId94!click!closeWindow"] && $.__views.__alloyId94.addEventListener("click", closeWindow);
     _.extend($, exports);
